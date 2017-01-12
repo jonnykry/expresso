@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import ItemContainer from './components/ItemContainer';
 
 class App extends Component {
   render() {
@@ -11,6 +12,9 @@ class App extends Component {
         <p className="App-intro">
           Welcome to the Expresso web application!
         </p>
+          <div className="Item-example">
+              <ItemContainer />
+          </div>
       </div>
     );
   }
