@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router';
 import './App.css';
-import ItemContainer from './components/ItemContainer';
 
 class App extends Component {
   render() {
@@ -10,11 +10,8 @@ class App extends Component {
           <h1>Expresso</h1>
         </div>
         <p className="App-intro">
-          Welcome to the Expresso web application!
-        </p>
-          <div className="Item-example">
-              <ItemContainer />
-          </div>
+          Welcome to the Expresso web application!</p>
+          <Link to="/login">Login</Link>
       </div>
     );
   }

@@ -2,8 +2,8 @@ import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as itemActions from '../actions/itemActions';
-import ItemList from './ItemList';
-import ItemInput from './ItemInput';
+import ItemList from '../components/ItemList';
+import ItemInput from '../components/ItemInput';
 
 class ItemContainer extends Component {
     constructor(props) {
