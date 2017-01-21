@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
+import About from './components/About';
 import Login from './components/Login';
 import Logout from './components/Logout';
 import Register from './components/Register';
@@ -31,6 +32,7 @@ ReactDOM.render(
     <Provider store={store}>
         <Router history={browserHistory}>
             <Route path="/" component={App} />
+            <Route path="/About" component={About} />
             <Route path="/login" component={Login} />
             <Route path="/logout" component={Logout} />
             <Route path="/register" component={Register} />
