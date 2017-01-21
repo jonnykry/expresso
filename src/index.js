@@ -1,8 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
+import About from './components/About';
 import Login from './components/Login';
 import Logout from './components/Logout';
+import Register from './components/Register';
 import Dashboard from './components/Dashboard';
 import Bloodlines from './components/Bloodlines'
 
@@ -31,8 +33,10 @@ ReactDOM.render(
     <Provider store={store}>
         <Router history={browserHistory}>
             <Route path="/" component={App} />
+            <Route path="/About" component={About} />
             <Route path="/login" component={Login} />
             <Route path="/logout" component={Logout} />
+            <Route path="/register" component={Register} />
             <Route path="/dashboard" component={Dashboard} onEnter={requireAuth} />
             <Route path="/bloodlines" component={Bloodlines}/>
         </Router>
