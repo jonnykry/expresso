@@ -6,6 +6,7 @@ import Login from './components/Login';
 import Logout from './components/Logout';
 import Register from './components/Register';
 import Dashboard from './components/Dashboard';
+import Bloodlines from './components/Bloodlines'
 
 import { Provider } from 'react-redux';
 import { Router, Route, browserHistory } from 'react-router';
@@ -37,6 +38,7 @@ ReactDOM.render(
             <Route path="/logout" component={Logout} />
             <Route path="/register" component={Register} />
             <Route path="/dashboard" component={Dashboard} onEnter={requireAuth} />
+            <Route path="/bloodlines" component={Bloodlines}/>
         </Router>
     </Provider>,
     document.getElementById('root')

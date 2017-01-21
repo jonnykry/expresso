@@ -10,6 +10,7 @@ class Navigation extends Component {
                 <div className="flex-grow pa3 flex items-center">
                     <Link to="/" className="f6 link dib dim mr3 mr4-ns" title="Home">Home</Link>
                     <Link to="/about" className="f6 link dib dim mr3 mr4-ns" title="About">About</Link>
+                    <Link to="/bloodlines" className="f6 link dib dim mr3 mr4-ns" title="Bloodlines">Bloodlines</Link>
                     <Link to="/login" className="f6 link dib dim mr3 mr4-ns" title="Login">Login</Link>
                 </div>
             </nav>
