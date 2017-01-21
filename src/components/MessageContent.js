@@ -16,16 +16,16 @@ class MessageContent extends Component {
 				<div>
 					<h3 className="f6 ttu tracked pt2 bt">ID: {item.id}</h3>
 					<div className="cf bt">
-				  		<div>
-				    		<MessageContentProperty name={"Type"} value={item.contentType}/>
-				    		<MessageContentProperty name={"Status"} value={item.status}/>
-				    		<MessageContentProperty name={"Subject"} value={item.subject || 'None'}/>
-				    		<MessageContentProperty name={"Parameters"} value={item.parameters.map((param) => param)}/>
-				   		</div>
-				   		<div>
-				    		<MessageContentProperty name={"Text"} value={item.text}/>
-				  		</div>
-				  	</div>
+						<div>
+							<MessageContentProperty name={"Type"} value={item.contentType}/>
+							<MessageContentProperty name={"Status"} value={item.status}/>
+							<MessageContentProperty name={"Subject"} value={item.subject || 'None'}/>
+							<MessageContentProperty name={"Parameters"} value={item.parameters.map((param) => param)}/>
+						</div>
+						<div>
+							<MessageContentProperty name={"Text"} value={item.text}/>
+						</div>
+					</div>
 				</div>
 		)
 	}
