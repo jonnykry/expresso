@@ -15,16 +15,16 @@ class MessageContentContainer extends Component {
 
 	componentDidMount() {
 		const myInit = { method: 'GET',
-		               	 mode: 'cors'};
+						 mode: 'cors'};
 
-    	fetch("http://bloodlines.expresso.store/api/content", myInit)
-      	.then((res) => {
-      		return res.json();
-      	}).then((j) => {
-	        this.setState({contents: j.data});
-    	}).catch((err) => {
-    		console.log(err);
-      	});
+		fetch("http://bloodlines.expresso.store/api/content", myInit)
+		.then((res) => {
+			return res.json();
+		}).then((j) => {
+			this.setState({contents: j.data});
+		}).catch((err) => {
+			console.log(err);
+		});
 	}
 
 	render() {
@@ -35,11 +35,6 @@ class MessageContentContainer extends Component {
 			</div>
 		)
 	}
-}
-
-MessageContentContainer.propTypes = {
-	contents: PropTypes.array.isRequired,
-	actions: PropTypes.object.isRequired
 }
 
 export default MessageContentContainer
