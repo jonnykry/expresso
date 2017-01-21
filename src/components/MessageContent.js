@@ -13,19 +13,20 @@ class MessageContent extends Component {
 	render() {
 		const item = this.props.item;
 		return (
-			<div>
-				<div className="fl w-10 pa3"></div>
-				<div className="fl w-80 pa3 pa5-ns">
-				  <h3 className="f6 ttu tracked">ID: {item.id}</h3>
-				  <div className="cf">
-				    <MessageContentProperty name={"Type"} value={item.contentType}/>
-				    <MessageContentProperty name={"Status"} value={item.status}/>
-				    <MessageContentProperty name={"Subject"} value={item.subject || 'None'}/>
-				    <MessageContentProperty name={"Text"} value={item.text}/>
-				    <MessageContentProperty name={"Parameters"} value={item.parameters.map((param) => param)}/>
-				  </div>
+				<div>
+					<h3 className="f6 ttu tracked pt2 bt">ID: {item.id}</h3>
+					<div className="cf bt">
+				  		<div>
+				    		<MessageContentProperty name={"Type"} value={item.contentType}/>
+				    		<MessageContentProperty name={"Status"} value={item.status}/>
+				    		<MessageContentProperty name={"Subject"} value={item.subject || 'None'}/>
+				    		<MessageContentProperty name={"Parameters"} value={item.parameters.map((param) => param)}/>
+				   		</div>
+				   		<div>
+				    		<MessageContentProperty name={"Text"} value={item.text}/>
+				  		</div>
+				  	</div>
 				</div>
-			</div>
 		)
 	}
 }

@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
+import React, { PropTypes, Component } from 'react';
 //import { connect } from 'react-redux';
 //import { bindActionCreators } from 'redux';
-import MessageContentList from '../components/MessageContentList'
+import MessageContentList from '../components/MessageContentList';
+import MessageContentInput from '../components/MessageContentInput';
 
 class MessageContentContainer extends Component {
 	constructor(props) {
@@ -28,9 +29,17 @@ class MessageContentContainer extends Component {
 
 	render() {
 		return (
-			<MessageContentList contents={this.state.contents}/>
-			)
+			<div>
+				<MessageContentInput newContent={this.props.newContent} />
+				<MessageContentList contents={this.state.contents}/>
+			</div>
+		)
 	}
+}
+
+MessageContentContainer.propTypes = {
+	contents: PropTypes.array.isRequired,
+	actions: PropTypes.object.isRequired
 }
 
 export default MessageContentContainer

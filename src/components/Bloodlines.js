@@ -8,10 +8,7 @@ class Bloodlines extends Component {
         return (
         	<div>
         		<Navigation />
-	            <div className="bloodlines">
-	                Bloodlines Dashboard
-                    <MessageContentContainer />
-	            </div>
+                <MessageContentContainer />
             </div>
         );
     }
