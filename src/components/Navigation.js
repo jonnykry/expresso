@@ -12,6 +12,7 @@ class Navigation extends Component {
                     <Link to="/about" className="link dim gray f6 f5-ns dib mr3" title="About">About</Link>
                     <Link to="/dashboard" className="link dim gray f6 f5-ns dib mr3" title="Dashboard">Dashboard</Link>
                     <Link to="/login" className="link dim gray f6 f5-ns dib mr3" title="Login">Login</Link>
+                    <Link to="/bloodlines" className="link dim gray f6 f5-ns dib mr3" title="Bloodlines">Bloodlines</Link>
                 </div>
             </nav>
         );
