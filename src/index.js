@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import Login from './components/Login';
 import Logout from './components/Logout';
+import Register from './components/Register';
 import Dashboard from './components/Dashboard';
 
 import { Provider } from 'react-redux';
@@ -32,6 +33,7 @@ ReactDOM.render(
             <Route path="/" component={App} />
             <Route path="/login" component={Login} />
             <Route path="/logout" component={Logout} />
+            <Route path="/register" component={Register} />
             <Route path="/dashboard" component={Dashboard} onEnter={requireAuth} />
         </Router>
     </Provider>,
