@@ -6,15 +6,21 @@ import MessageContentProperty from './MessageContentProperty';
 class MessageContent extends Component {
 	constructor(props) {
 		super(props);
-
-		console.log(this.props);
 	}
 
+	handleDelete(event) {
+		event.preventDefault();
+
+		this.props.deleteContent(this.props.item.id);
+	}
 	render() {
 		const item = this.props.item;
 		return (
-				<div>
-					<h3 className="f6 ttu tracked pt2 bt">ID: {item.id}</h3>
+				<div className="bl br bt bb pa2 mb2">
+					<div className="f6 ttu tracked">
+						<div className="w-50 dib"><h3>ID: {item.id}</h3></div>
+						<div className="f6 fr link dim br1 ph3 pv2 mr2 dib white bg-red grow pointer" onClick={this.handleDelete.bind(this)}>Delete</div>
+					</div>
 					<div className="cf bt">
 						<div>
 							<MessageContentProperty name={"Type"} value={item.contentType}/>

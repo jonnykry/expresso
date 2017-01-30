@@ -17,25 +17,13 @@ class MessageContentInput extends Component {
 			parameters: this.refs.parameters.value.split(","),
 			type: this.refs.type.value
 		};
-		console.log(data);
 
-		fetch("http://bloodlines.expresso.store/api/content",{
-			method: "POST",
-			body: JSON.stringify(data)
-		}).then((res) => {
-			return res.json();
-		}).then((j) => {
-			if (!j.success) {
-				this.setState({
-					error: j.error
-				});
-			}
+		this.props.addContent(data);
 
-		}).catch((err) => {
-			this.setState({
-				error: err
-			});
-		});
+		this.refs.subject.value = "";
+		this.refs.text.value = "";
+		this.refs.parameters.value = "";
+		this.refs.type.value = "NOOP";
 	}
 
 
@@ -63,14 +51,6 @@ class MessageContentInput extends Component {
 						<div className="fr pa3 pa3-ns">
 							<input className="self-center b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib" type="submit" value="Submit"/>
 						</div>
-
-						{
-							this.state.error && (
-								<div className="bg-red w-100">
-									Bad Input
-								</div>
-							)
-						}
 					</div>
 				</form>
 			</div>
