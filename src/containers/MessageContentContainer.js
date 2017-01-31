@@ -1,8 +1,8 @@
 import React, { PropTypes, Component } from 'react';
 //import { connect } from 'react-redux';
 //import { bindActionCreators } from 'redux';
-import MessageContentList from '../components/MessageContentList';
-import MessageContentInput from '../components/MessageContentInput';
+import MessageContentList from '../components/dashboard/bloodlines/MessageContentList';
+import MessageContentInput from '../components/dashboard/bloodlines/MessageContentInput';
 
 class MessageContentContainer extends Component {
 	constructor(props) {

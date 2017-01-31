@@ -1,6 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import { Link } from 'react-router';
 import Navigation from './Navigation';
+
 import './Login.css';
 
 class Login extends Component {
