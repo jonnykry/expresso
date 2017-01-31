@@ -7,7 +7,7 @@ class Navigation extends Component {
     render() {
         return (
             <nav className="flex justify-between bb">
-                <Link to="/" className="link no-underline flex items-center pa3" title="Home">Expresso</Link>
+                    <Link to="/" className="link no-underline flex items-center pa3" title="Home">Expresso</Link>
                 <div className="flex-grow pa3 flex items-center">
                     <Link to="/" className="f6 link dib dim mr3 mr4-ns" title="Home">Home</Link>
                     <Link to="/about" className="f6 link dib dim mr3 mr4-ns" title="About">About</Link>
