@@ -8,6 +8,14 @@ class Login extends Component {
     constructor(props) {
         super(props);
 
+        // TODO: Encrypt
+        const passHash = this.refs.password.value;
+
+        const data = {
+            email: this.refs.email.value,
+            passHash: passHash,
+        };
+
         this.state = {
             error: false
         };
@@ -26,24 +34,26 @@ class Login extends Component {
             email, passHash
         };
 
-        // TODO:  Update with User URL
-        fetch('http://bloodlines.expresso.store/api/content', {
-            method: 'POST',
+        fetch("https://towncenter.expresso.store/api/user",{
+            method: "POST",
             body: JSON.stringify(data)
-        })
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function (result) {
-            // TODO: Authenticate and send to dashboard
-            alert(result);
-        })
-        .catch (function (error) {
-            console.log('Request failed', error);
-        });
+        }).then((res) => {
+            console.log('Res: ', res);
+            return res.json();
+        }).then((j) => {
+            if (!j.success) {
+                this.setState({
+                    error: j.error
+                });
+                return;
+            }
 
-        this.setState({
-            error: true
+            console.log('Success: ', j);
+        }).catch((err) => {
+            console.log('Error: ', err);
+            this.setState({
+                error: err.message
+            });
         });
     }
 

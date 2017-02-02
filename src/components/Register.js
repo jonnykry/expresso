@@ -13,7 +13,48 @@ class Register extends Component {
     handleSubmit(event) {
         event.preventDefault();
 
-        // TODO:  Receive input from ref and POST to User Sign-up endpoint
+        // TODO:  encrypt
+        const passHash = this.refs.password.value;
+
+        if (this.refs.password.value !== this.refs.confirmPassword.value) {
+            // TODO:  Error
+        } else {
+            const data = {
+                firstName: this.refs.firstName.value,
+                lastName: this.refs.lastName.value,
+                email: this.refs.email.value,
+                passHash: passHash,
+                phone: this.refs.phone.value,
+                addressLine1: this.refs.addressLineOne.value,
+                addressLine2: this.refs.addressLineTwo.value,
+                addressCity: this.refs.city.value,
+                addressState: this.refs.state.value,
+                addressZip: this.refs.zipCode.value,
+                addressCountry: this.refs.country.value,
+            };
+
+            fetch("https://towncenter.expresso.store/api/user",{
+                method: "POST",
+                body: JSON.stringify(data)
+            }).then((res) => {
+                console.log('Res: ', res);
+                return res.json();
+            }).then((j) => {
+                if (!j.success) {
+                    this.setState({
+                        error: j.error
+                    });
+                    return;
+                }
+
+                console.log('Success: ', j);
+            }).catch((err) => {
+                console.log('Error: ', err);
+                this.setState({
+                    error: err.message
+                });
+            });
+        }
 
         this.setState({
             error: true
@@ -42,7 +83,7 @@ class Register extends Component {
                         <label className={labelClass}>Password</label>
                         <input className={inputClass} type="password" ref="password" name="password" id="password" />
                         <label className={labelClass}>Confirm Password</label>
-                        <input className={inputClass} ref="confirmPassword" name="confirm-password" id="confirm-password" />
+                        <input className={inputClass} type="password" ref="confirmPassword" name="confirm-password" id="confirm-password" />
                         <div className={headerClass}>Shipping Info</div>
                         <label className={labelClass}>Phone</label>
                         <input className={inputClass} ref="phone" name="phone" id="phone" />
