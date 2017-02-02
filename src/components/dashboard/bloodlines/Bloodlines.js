@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import Navigation from './Navigation';
-import MessageContentContainer from '../containers/MessageContentContainer';
+import MessageContentContainer from './MessageContentContainer';
 
 
 class Bloodlines extends Component {
@@ -15,7 +14,9 @@ class Bloodlines extends Component {
     render() {
         return (
         	<div>
-        		<Navigation />
+				<div className="tc f1-l mt2 b">
+					Bloodlines
+				</div>
                 <MessageContentContainer url={this.state.url}/>
             </div>
         );
