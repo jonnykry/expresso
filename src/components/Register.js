@@ -13,7 +13,7 @@ class Register extends Component {
                 <Navigation isLogin={true} />
                 <article className="pa4 mw4 mw6-ns center black-80">
                     <div className="f2 tc">Register / Sign-up</div>
-                    <form onSubmit={this.props.handleSubmit.bind(this)} className="w-100">
+                    <form onSubmit={this.props.onHandleSubmit.bind(this)} className="w-100">
                         <div className={headerClass}>Basic Info</div>
                         <label className={labelClass}>First Name</label>
                         <input className={inputClass} ref="firstName" name="first-name" id="first-name" />

@@ -39,7 +39,7 @@ export function authenticateUser(userCreds) {
 
         return fetch(AUTHENTICATE_USER_URL, {
             method: 'POST',
-            body: JSON.stringify(data)
+            body: JSON.stringify(userCreds)
         }).then((response) => {
             response.json();
         }).then((json) => {

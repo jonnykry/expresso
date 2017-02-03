@@ -1,4 +1,5 @@
 import React, { PropTypes, Component } from 'react';
+import { connect } from 'react-redux';
 import { authenticateUser } from '../actions/userActions'
 
 import Login from './Login';
@@ -29,4 +30,5 @@ class LoginContainer extends Component {
     }
 }
 
-export default LoginContainer;
+export default connect()(LoginContainer);
+
