@@ -2,65 +2,6 @@ import React, { PropTypes, Component } from 'react';
 import Navigation from './Navigation';
 
 class Register extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            error: false
-        };
-    }
-
-    handleSubmit(event) {
-        event.preventDefault();
-
-        // TODO:  encrypt
-        const passHash = this.refs.password.value;
-
-        if (this.refs.password.value !== this.refs.confirmPassword.value) {
-            // TODO:  Error
-        } else {
-            const data = {
-                firstName: this.refs.firstName.value,
-                lastName: this.refs.lastName.value,
-                email: this.refs.email.value,
-                passHash: passHash,
-                phone: this.refs.phone.value,
-                addressLine1: this.refs.addressLineOne.value,
-                addressLine2: this.refs.addressLineTwo.value,
-                addressCity: this.refs.city.value,
-                addressState: this.refs.state.value,
-                addressZip: this.refs.zipCode.value,
-                addressCountry: this.refs.country.value,
-            };
-
-            fetch("https://towncenter.expresso.store/api/user",{
-                method: "POST",
-                body: JSON.stringify(data)
-            }).then((res) => {
-                console.log('Res: ', res);
-                return res.json();
-            }).then((j) => {
-                if (!j.success) {
-                    this.setState({
-                        error: j.error
-                    });
-                    return;
-                }
-
-                console.log('Success: ', j);
-            }).catch((err) => {
-                console.log('Error: ', err);
-                this.setState({
-                    error: err.message
-                });
-            });
-        }
-
-        this.setState({
-            error: true
-        });
-    }
-
     render() {
         const headerClass = "mt4 ph0 mh0 fw6";
         const labelClass = "mt3 db fw4 lh-copy f6";
@@ -72,7 +13,7 @@ class Register extends Component {
                 <Navigation isLogin={true} />
                 <article className="pa4 mw4 mw6-ns center black-80">
                     <div className="f2 tc">Register / Sign-up</div>
-                    <form onSubmit={this.handleSubmit.bind(this)} className="w-100">
+                    <form onSubmit={this.props.handleSubmit.bind(this)} className="w-100">
                         <div className={headerClass}>Basic Info</div>
                         <label className={labelClass}>First Name</label>
                         <input className={inputClass} ref="firstName" name="first-name" id="first-name" />
@@ -106,7 +47,7 @@ class Register extends Component {
                         <label className={labelClass}>Country</label>
                         <input className={inputClass} ref="country" name="country" id="country" />
                         <div className="mt4"><input className="w-25 b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6" type="submit" value="Submit" /></div>
-                        {this.state.error && (
+                        {this.props.error && (
                             <p>Bad login information</p>
                         )}
                     </form>
