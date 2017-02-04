@@ -4,15 +4,12 @@ import MessageContentProperty from './MessageContentProperty';
 //import { bindActionCreators } from 'redux';
 
 class MessageContent extends Component {
-	constructor(props) {
-		super(props);
-	}
-
 	handleDelete(event) {
 		event.preventDefault();
 
 		this.props.deleteContent(this.props.item.id);
 	}
+
 	render() {
 		const item = this.props.item;
 		return (

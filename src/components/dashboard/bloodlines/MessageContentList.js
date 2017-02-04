@@ -9,7 +9,7 @@ class MessageContentList extends Component {
 				{this.props.contents.map((content) =>
 					<MessageContent deleteContent={this.props.deleteContent} key={content.id} item={content} />
 				)}
-				{ (this.props.contents.length == 0) && (
+				{ (this.props.contents.length === 0) && (
 					<p>No Content</p>
 				)}
 			</div>
