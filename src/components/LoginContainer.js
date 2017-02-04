@@ -1,4 +1,4 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { authenticateUser } from '../actions/userActions'
 
@@ -7,6 +7,8 @@ import Login from './Login';
 class LoginContainer extends Component {
     handleSubmit(event) {
         event.preventDefault();
+
+        const { router, dispatch } = this.props;
 
         const email = this.refs.email.value;
         const password = this.refs.password.value;
@@ -18,7 +20,12 @@ class LoginContainer extends Component {
             email, passHash
         };
 
-        this.props.dispatch(authenticateUser(data))
+        dispatch(authenticateUser(data));
+
+        // TODO:  If user is logged in successfully, send to dashboard
+        // otherwise, error
+
+        router.replace('/dashboard');
     }
 
     render() {

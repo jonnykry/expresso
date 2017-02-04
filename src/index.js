@@ -35,7 +35,7 @@ ReactDOM.render(
     <Provider store={store}>
         <Router history={browserHistory}>
             <Route path="/" component={App} />
-            <Route path="/About" component={About} />
+            <Route path="/about" component={About} />
             <Route path="/login" component={LoginContainer} />
             <Route path="/logout" component={Logout} />
             <Route path="/register" component={RegisterContainer} />

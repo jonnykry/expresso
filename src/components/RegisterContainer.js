@@ -1,4 +1,4 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { createUser } from '../actions/userActions'
 
@@ -8,27 +8,38 @@ class RegisterContainer extends Component {
     handleSubmit(event) {
         event.preventDefault();
 
-        // TODO:  encrypt
-        const passHash = this.refs.password.value;
+        const { router, dispatch } = this.props;
+        const { password, confirmPassword,
+            firstName, lastName, email, phone,
+            addressLineOne, addressLineTwo,
+            city, state, zipCode, country } = this.refs;
 
-        if (this.refs.password.value !== this.refs.confirmPassword.value) {
+        // TODO:  encrypt
+        const passHash = password.value;
+
+        if (password.value !== confirmPassword.value) {
             // TODO:  Error
         } else {
             const data = {
-                firstName: this.refs.firstName.value,
-                lastName: this.refs.lastName.value,
-                email: this.refs.email.value,
+                firstName: firstName.value,
+                lastName: lastName.value,
+                email: email.value,
                 passHash: passHash,
-                phone: this.refs.phone.value,
-                addressLine1: this.refs.addressLineOne.value,
-                addressLine2: this.refs.addressLineTwo.value,
-                addressCity: this.refs.city.value,
-                addressState: this.refs.state.value,
-                addressZip: this.refs.zipCode.value,
-                addressCountry: this.refs.country.value,
+                phone: phone.value,
+                addressLine1: addressLineOne.value,
+                addressLine2: addressLineTwo.value,
+                addressCity: city.value,
+                addressState: state.value,
+                addressZip: zipCode.value,
+                addressCountry: country.value,
             };
 
-            this.props.dispatch(createUser(data));
+            dispatch(createUser(data));
+
+            // TODO:  If user is logged in successfully, send to dashboard
+            // otherwise, error
+
+            router.replace('/dashboard');
         }
     }
 
