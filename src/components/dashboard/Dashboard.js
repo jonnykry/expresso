@@ -32,9 +32,10 @@ class Dashboard extends Component {
     }
 
     render() {
-        const sidebar = <SidebarContent
+        let sidebar = <SidebarContent
             onRoastersClick={this.onRoastersClick.bind(this)}
-            onBloodlinesClick={this.onBloodlinesClick.bind(this)} />;
+            onBloodlinesClick={this.onBloodlinesClick.bind(this)}
+            itemToRender={this.state.itemToRender} />;
         let children = <div></div>;
 
         switch (this.state.itemToRender) {
