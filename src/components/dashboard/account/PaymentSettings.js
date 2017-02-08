@@ -37,14 +37,31 @@ class PaymentSettings extends Component {
     }
 
     render() {
+        const inputClass = 'input-reset ba pa2 mb2 db';
+        const labelClass = 'fw4 lh-copy f6 pr3 pt2 nowrap lh-solid';
+
         return (
-            <form onSubmit={this.handleSubmit}>
-                <input size="20" name="number" placeholder="CC NUMBER" onChange={this.handleChange} />
-                <input size="6" name="cvc" placeholder="CVC" onChange={this.handleChange} />
-                <input size="4" name="exp_month" placeholder="MO" onChange={this.handleChange} />
-                <input size="6" name="exp_year" placeholder="YEAR" onChange={this.handleChange} />
-                <button type="submit">Pay</button>
-            </form>
+            <main className="pa4 black-80">
+                <form className="measure center" onSubmit={this.handleSubmit}>
+                    <legend className="f4 fw6">Update Payment Details</legend>
+                    <div className="ba pa4 mt2 mb2">
+                        <div className="mt3 flex flex-row">
+                            <label className={labelClass}>Credit Card Number</label>
+                            <input className={inputClass + ' w-100'} name="number" onChange={this.handleChange} />
+                        </div>
+                        <div className="mt3 flex flex-row pl6">
+                            <label className={labelClass}>Expiry</label>
+                            <input className={inputClass + ' w-10'} placeholder="MM" name="exp_month" onChange={this.handleChange} />
+                            <input className={inputClass + ' ml1 w-10'} placeholder="YY" name="exp_year" onChange={this.handleChange} />
+                            <label className={labelClass + ' pl3'}>CVC</label>
+                            <input className={inputClass + ' w-20'}  name="cvc" onChange={this.handleChange} />
+                        </div>
+                    </div>
+                    <div className="mt3">
+                        <button className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6" type="submit">Update Info</button>
+                    </div>
+                </form>
+            </main>
         );
     }
 }
