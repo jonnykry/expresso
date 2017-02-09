@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
 
-import PaymentSettings from './PaymentSettings';
+import PaymentSettingsContainer from './PaymentSettingsContainer';
 
 class AccountSettings extends Component {
     render() {
-        console.log(Stripe);
         return (
             <div>
                 <div className="tc f1-l mt2 b">
                     Account Settings
                 </div>
-                <PaymentSettings />
+                <PaymentSettingsContainer {...this.props} />
             </div>
         );
     }
