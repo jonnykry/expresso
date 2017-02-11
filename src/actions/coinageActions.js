@@ -7,9 +7,10 @@ export const REQUEST_CREATE_CUSTOMER_PAYMENT_INFO = 'REQUEST_CREATE_CUSTOMER_PAY
 export const RECEIVE_CREATED_CUSTOMER_PAYMENT_INFO = 'RECEIVE_CREATED_CUSTOMER_PAYMENT_INFO';
 export const ERROR_CREATING_CUSTOMER_PAYMENT_INFO = 'ERROR_CREATING_CUSTOMER_PAYMENT_INFO';
 
-// TODO:  Get URLs from Garret
-const UPDATE_CUSTOMER_PAYMENT_INFO_URL = 'https://coinage.expresso.store/api/customer';
 const CREATE_CUSTOMER_PAYMENT_INFO_URL = 'https://coinage.expresso.store/api/customer';
+
+// TODO:  Update with User ID once finished
+const UPDATE_CUSTOMER_PAYMENT_INFO_URL = 'https://coinage.expresso.store/api/customer/1/source';
 
 function requestCreateCustomerPaymentInfo(data) {
     return {
@@ -37,18 +38,23 @@ export function createCustomerPaymentInfo(data) {
     return dispatch => {
         dispatch(requestCreateCustomerPaymentInfo(data));
 
-        // TODO:  Set our own key, this is a test key from docs
-        // TODO:  Find a single place for this to be set
         Stripe.setPublishableKey(process.env.REACT_APP_STRIPE_PUB_KEY);
 
         return Stripe.createToken(data, function (status, response) {
+
+            // TODO:  Update UserID once finished
+            const updatedData = {
+                userId: 1,
+                token: response.id
+            };
+
             return status === 200 ? fetch(CREATE_CUSTOMER_PAYMENT_INFO_URL, {
                 method: 'POST',
-                body: JSON.stringify(response.id)
+                body: JSON.stringify(updatedData)
             }).then((res) => {
                 res.json();
             }).then((json) => {
-                dispatch(receiveCreatedCustomerPaymentInfo(json))
+                dispatch(receiveCreatedCustomerPaymentInfo(json));
             }).catch((err) => {
                 dispatch(errorCreatingCustomerPaymentInfo(response, err));
             }) : dispatch(errorCreatingCustomerPaymentInfo(response, status));
