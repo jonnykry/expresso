@@ -39,7 +39,7 @@ export function createCustomerPaymentInfo(data) {
 
         // TODO:  Set our own key, this is a test key from docs
         // TODO:  Find a single place for this to be set
-        Stripe.setPublishableKey('');
+        Stripe.setPublishableKey(process.env.REACT_APP_STRIPE_PUB_KEY);
 
         return Stripe.createToken(data, function (status, response) {
             return status === 200 ? fetch(CREATE_CUSTOMER_PAYMENT_INFO_URL, {
