@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
 
 class SidebarSelector extends Component {
-	constructor(props) {
-		super(props);
-	}
-
 	hasChildren() {
 		const style = 'list pl0 ml0 center mb0 mt0 bt b--light-silver';
 		if (this.props.children && this.props.active) {

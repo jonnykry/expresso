@@ -3,6 +3,7 @@ import Sidebar from 'react-sidebar';
 
 import Bloodlines from './bloodlines/Bloodlines';
 import Roasters from './roasters/Roasters';
+import AccountSettings from './account/AccountSettings';
 import SidebarContent from './SidebarContent';
 
 class Dashboard extends Component {
@@ -31,10 +32,19 @@ class Dashboard extends Component {
         })
     }
 
+    onAccountSettingsClick(e) {
+        e.preventDefault();
+
+        this.setState({
+            itemToRender: 2
+        })
+    }
+
     render() {
         let sidebar = <SidebarContent
             onRoastersClick={this.onRoastersClick.bind(this)}
             onBloodlinesClick={this.onBloodlinesClick.bind(this)}
+            onAccountSettingsClick={this.onAccountSettingsClick.bind(this)}
             itemToRender={this.state.itemToRender} />;
         let children = <div></div>;
 
@@ -44,6 +54,9 @@ class Dashboard extends Component {
                 break;
             case 1:
                 children = <Bloodlines />;
+                break;
+            case 2:
+                children = <AccountSettings />;
                 break;
             default:
                 children = <Roasters />;
