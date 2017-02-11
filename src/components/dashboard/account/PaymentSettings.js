@@ -24,9 +24,7 @@ class PaymentSettings extends Component {
                         </div>
                     </div>
                     <div className="mt3">
-                        (Note: Temporary)
-                        <button onClick={this.props.setButtonOne} className={btnClass + ' ml1 mr2'} type="submit">Create Info</button>
-                        <button onClick={this.props.setButtonTwo} className={btnClass} type="submit">Update Info</button>
+                        <button className={btnClass} type="submit">Update Info</button>
                     </div>
                 </form>
             </main>
