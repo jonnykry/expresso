@@ -1,9 +1,10 @@
 import { combineReducers } from 'redux';
 import { authenticateUser, createUser } from './userReducer';
-import { createCustomerPaymentInfo } from './coinageReducer';
+import { createCustomerPaymentInfo, updateCustomerPaymentInfo } from './coinageReducer';
 
 const rootReducer = combineReducers({
     createCustomerPaymentInfo,
+    updateCustomerPaymentInfo,
     authenticateUser,
     createUser
 });
