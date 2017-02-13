@@ -10,7 +10,6 @@ class Register extends Component {
 
         return (
             <div>
-                <Navigation isLogin={true} />
                 <article className="pa4 mw4 mw6-ns center black-80">
                     <div className="f2 tc">Register / Sign-up</div>
                     <form onSubmit={this.props.onHandleSubmit.bind(this)} className="w-100">
