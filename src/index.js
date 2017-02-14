@@ -11,9 +11,10 @@ import Bloodlines from './components/dashboard/bloodlines/Bloodlines';
 import AccountSettings from './components/dashboard/account/AccountSettings';
 import Roasters from './components/dashboard/roasters/Roasters';
 import MessageContentContainer from './components/dashboard/bloodlines/MessageContentContainer';
+import TriggerContainer from './components/dashboard/bloodlines/TriggerContainer';
 
 import { Provider } from 'react-redux';
-import { Router, Route, IndexRoute, browserHistory } from 'react-router';
+import { Router, Route, IndexRedirect, IndexRoute, browserHistory } from 'react-router';
 import configureStore from './store/configureStore';
 
 import 'tachyons/css/tachyons.css';
@@ -47,9 +48,9 @@ ReactDOM.render(
                 <Route path="register" component={RegisterContainer} isLogin={true} />
                 <Route path="dashboard" component={Dashboard} onEnter={requireAuth}>
                     <Route path="bloodlines" component={Bloodlines}>
-                        <IndexRoute component={MessageContentContainer} />
+                        <IndexRedirect to="content" />
                         <Route path="content" component={MessageContentContainer}/>
-                        <Route path="trigger" component={null}/>
+                        <Route path="trigger" component={TriggerContainer}/>
                         <Route path="receipt" component={null}/>
                         <Route path="preference" component={null}/>
                     </Route>

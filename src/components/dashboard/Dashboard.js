@@ -14,7 +14,7 @@ class Dashboard extends Component {
                 <div className="cf dtc">
                     {sidebar}
                 </div>
-                <div className="h-inherit cf dtc w-80">
+                <div className="h-inherit cf dtc w-90">
                     {this.props.children}
                 </div>
             </div>
