@@ -61,33 +61,26 @@ class MessageContentContainer extends Component {
 		})
 	}
 
-	update() {
+	update(reset) {
 
 		const { dispatch } = this.props;
+		let offset = this.props.cursor;
+		if (reset) {
+			offset = 0;
+		}
 
+		dispatch(getAllContent(offset, 20)).then(this.nextPage.bind(this));
+	}
 
-		dispatch(getAllContent(0,20));
-		// fetch(this.props.url + "content", { method: 'GET'})
-		// .then((res) => {
-		// 	return res.json();
-		// }).then((j) => {
-		// 	if (!j.success) {
-		// 		this.setState({
-		// 			error: j.error
-		// 		});
-		// 		return;
-		// 	}
-
-		// 	this.setState({contents: j.data});
-		// }).catch((err) => {
-		// 	console.log(err);
-		// 	this.setState({
-		// 		error: err.message
-		// 	});
-		// });
+	nextPage() {
+		if (this.props.next && !this.props.fetchingContents) {
+			this.update();
+		}
 	}
 
 	render() {
+
+
 		return (
 			<div>
 				{
@@ -108,7 +101,10 @@ class MessageContentContainer extends Component {
 function mapStateToProps(state) {
 	return {
 		contents: state.getAllContent.contents,
-		fetchingContents: state.getAllContent.fetching
+		fetchingContents: state.getAllContent.fetching,
+		error: state.getAllContent.error,
+		cursor: state.getAllContent.cursor,
+		next: state.getAllContent.next
 	};
 }
 

@@ -17,25 +17,32 @@ import {
 } from '../actions/bloodlinesActions'
 
 export function getAllContent(state = {
-	isFetching: false,
+	fetching: false,
+	cursor: 0,
+	next: false,
 	contents: [],
 	error: null,
 }, action) {
 	switch (action.type) {
 	case GET_ALL_CONTENT:
 		return Object.assign({}, state, {
-			isFetching: true,
+			fetching: true,
+			next: false
 		});
 	case HANDLE_GET_ALL_CONTENT:
-		console.log(action.payload.data);
+		const contents = state.contents.concat(action.payload.data)
+		const cursor = contents.length
+
 		return Object.assign({}, state, {
-			isFetching: false,
-			contents: action.payload.data
+			fetching: false,
+			next: action.payload.data.length >= action.limit,
+			contents: contents,
+			cursor: cursor
 		});
 	case ERROR_GET_ALL_CONTENT:
 		return Object.assign({}, state, {
-			isFetching: false,
-			contents: null,
+			fetching: false,
+			next: false,
 			error: action.err.msg
 		});
 	default:

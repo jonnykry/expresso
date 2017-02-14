@@ -4,7 +4,6 @@ import BloodlinesSidebar from './BloodlinesSidebar';
 
 class SidebarContent extends Component {
     render() {
-        const btnClass = 'pointer f4 pa1 bold center';
         const bloodlines = <BloodlinesSidebar location={this.props.location} />;
 
 
@@ -20,7 +19,7 @@ class SidebarContent extends Component {
                         children={bloodlines} location={b} />
                     <SidebarSelector name="Account Settings" to={d+"settings"}
                         children={null} location={b} />
-                    <SidebarSelector name="Logout" to=""
+                    <SidebarSelector name="Logout"
                         children={null} location={b} to={"/logout"} />
                 </div>
             </div>

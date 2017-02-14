@@ -12,7 +12,6 @@ class Bloodlines extends Component {
 	}
 
     render() {
-    	console.log(this.props);
 		let child = null;
 		if (this.props.children) {
 			child = React.cloneElement(this.props.children, {

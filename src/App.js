@@ -7,8 +7,6 @@ import './App.css';
 
 class App extends Component {
     render() {
-    	console.log(this.props);
-    	console.log(this.state);
         return (
             <div className="h-inherit">
                 <Navigation isHome={this.props.isHome} isLogin={this.props.isLogin}/>

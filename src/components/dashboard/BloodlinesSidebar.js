@@ -2,16 +2,8 @@ import React, { Component } from 'react';
 import SidebarSelector from './SidebarSelector';
 
 class BloodlinesSidebar extends Component {
-	// constructor(props) {
-	// 	super(props);
-
-	// 	this.state = {
-	// 		selected: 0
-	// 	};
-	// }
 
 	render() {
-		const headClass = 'ph3 pv2 pointer';
 		const b = this.props.location;
 		const d = "/dashboard/bloodlines/";
 		return (

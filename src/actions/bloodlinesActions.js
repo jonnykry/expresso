@@ -26,10 +26,11 @@ function sendGetAllContent(offset, limit) {
 		limit,
 	};
 }
-function handleGetAllContent(payload) {
+function handleGetAllContent(payload, limit) {
 	return {
 		type: HANDLE_GET_ALL_CONTENT,
-		payload
+		payload,
+		limit
 	};
 }
 function errorGetAllContent(offset, limit, err) {
@@ -49,7 +50,7 @@ export function getAllContent(offset, limit) {
 		}).then((res) => {
 			return res.json();
 		}).then((json) => {
-			dispatch(handleGetAllContent(json))
+			dispatch(handleGetAllContent(json, limit))
 		}).catch((err) => {
 			dispatch(errorGetAllContent(offset, limit, err))
 		});
