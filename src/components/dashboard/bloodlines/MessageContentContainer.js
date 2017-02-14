@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
-//import { connect } from 'react-redux';
+import { connect } from 'react-redux';
 //import { bindActionCreators } from 'redux';
+import { getAllContent } from '../../../actions/bloodlinesActions'
 import MessageContentList from './MessageContentList';
 import MessageContentInput from './MessageContentInput';
 
 class MessageContentContainer extends Component {
-	constructor(props) {
-		super(props);
+	// constructor(props) {
+	// 	super(props);
 
-		this.state = {
-			contents: []
-		};
-	}
+	// 	this.state = {
+	// 		contents: []
+	// 	};
+	// }
 
 	componentDidMount() {
 		this.update();
@@ -62,42 +63,53 @@ class MessageContentContainer extends Component {
 
 	update() {
 
-		fetch(this.props.url + "content", { method: 'GET'})
-		.then((res) => {
-			return res.json();
-		}).then((j) => {
-			if (!j.success) {
-				this.setState({
-					error: j.error
-				});
-				return;
-			}
+		const { dispatch } = this.props;
 
-			this.setState({contents: j.data});
-		}).catch((err) => {
-			console.log(err);
-			this.setState({
-				error: err.message
-			});
-		});
+
+		dispatch(getAllContent(0,20));
+		// fetch(this.props.url + "content", { method: 'GET'})
+		// .then((res) => {
+		// 	return res.json();
+		// }).then((j) => {
+		// 	if (!j.success) {
+		// 		this.setState({
+		// 			error: j.error
+		// 		});
+		// 		return;
+		// 	}
+
+		// 	this.setState({contents: j.data});
+		// }).catch((err) => {
+		// 	console.log(err);
+		// 	this.setState({
+		// 		error: err.message
+		// 	});
+		// });
 	}
 
 	render() {
 		return (
 			<div>
 				{
-					this.state.error && (
+					this.props.error && (
 						<div className="bg-red w-100">
-							{this.state.error}
+							{this.props.error}
 						</div>
 					)
 				}
 				<MessageContentInput addContent={this.addContent.bind(this)} newContent={this.props.newContent} />
 
-				<MessageContentList deleteContent={this.deleteContent.bind(this)} contents={this.state.contents}/>
+				<MessageContentList deleteContent={this.deleteContent.bind(this)} {...this.props} />
 			</div>
 		)
 	}
 }
 
-export default MessageContentContainer
+function mapStateToProps(state) {
+	return {
+		contents: state.getAllContent.contents,
+		fetchingContents: state.getAllContent.fetching
+	};
+}
+
+export default connect(mapStateToProps)(MessageContentContainer);

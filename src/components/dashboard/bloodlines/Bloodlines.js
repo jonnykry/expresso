@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 
 class Bloodlines extends Component {
@@ -11,7 +12,7 @@ class Bloodlines extends Component {
 	}
 
     render() {
-
+    	console.log(this.props);
 		let child = null;
 		if (this.props.children) {
 			child = React.cloneElement(this.props.children, {
@@ -29,4 +30,4 @@ class Bloodlines extends Component {
     }
 }
 
-export default Bloodlines;
+export default connect()(Bloodlines);

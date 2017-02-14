@@ -33,7 +33,7 @@ export function createUser(userInfo) {
             method: 'POST',
             body: JSON.stringify(userInfo)
         }).then((response) => {
-            response.json();
+            return response.json();
         }).then((json) => {
             dispatch(receiveCreatedUser(json))
         }).catch((err) => {
