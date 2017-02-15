@@ -1,20 +1,30 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
+import { getAllTriggers, createTrigger, deleteTrigger } from '../../../actions/bloodlinesActions'
 
 class TriggerContainer extends Component {
-
-	constructor(props) {
-		super(props);
-
-		this.state = {
-			triggers: []
-		};
-	}
-
 	componentDidMount() {
 		this.update();
 	}
 
-	update() {
+	update(reset) {
+
+	}
+
+	nextPage() {
+
+	}
+
+	refresh() {
+
+	}
+
+	delete(key) {
+
+	}
+
+	create(data) {
 
 	}
 
@@ -28,4 +38,19 @@ class TriggerContainer extends Component {
 	}
 }
 
-export default TriggerContainer;
+function mapStateToProps(state) {
+	return {
+		getAll: {
+
+		},
+		create: {
+
+		},
+		delete: {
+
+		}
+
+	};
+}
+
+export default connect(mapStateToProps)(TriggerContainer);

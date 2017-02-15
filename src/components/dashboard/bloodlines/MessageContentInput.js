@@ -1,13 +1,7 @@
 import React, { Component } from 'react';
 
 class MessageContentInput extends Component {
-	constructor(props) {
-		super(props);
 
-		this.state = {
-			error: null
-		}
-	}
 	handleSubmit(event){
 		event.preventDefault();
 
@@ -19,7 +13,9 @@ class MessageContentInput extends Component {
 		};
 
 		this.props.addContent(data);
+	}
 
+	refresh() {
 		this.refs.subject.value = "";
 		this.refs.text.value = "";
 		this.refs.parameters.value = "";
@@ -30,6 +26,9 @@ class MessageContentInput extends Component {
 	render() {
 		const labelClass = "f6 b db mb2";
 		const inputClass = "input-reset ba b--black-20 pa2 mb2 db w-100";
+		if (!this.props.fetching && this.props.success) {
+			this.refresh();
+		}
 
 		return (
 			<div className="fl w-40">
@@ -53,6 +52,12 @@ class MessageContentInput extends Component {
 						</div>
 					</div>
 				</form>
+				{
+					this.props.error &&
+					(<div className="bg-red w-100">
+						{this.props.error}
+					</div>)
+				}
 			</div>
 		)
 	}

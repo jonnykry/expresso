@@ -1,79 +1,50 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-//import { bindActionCreators } from 'redux';
-import { getAllContent } from '../../../actions/bloodlinesActions'
+
+import { getAllContent, createContent, deleteContent } from '../../../actions/bloodlinesActions';
 import MessageContentList from './MessageContentList';
 import MessageContentInput from './MessageContentInput';
 
 class MessageContentContainer extends Component {
-	// constructor(props) {
-	// 	super(props);
-
-	// 	this.state = {
-	// 		contents: []
-	// 	};
-	// }
-
 	componentDidMount() {
 		this.update();
 	}
 
-	addContent(data) {
-		fetch(this.props.url + "content",{
-			method: "POST",
-			body: JSON.stringify(data)
-		}).then((res) => {
-			return res.json();
-		}).then((j) => {
-			if (!j.success) {
-				this.setState({
-					error: j.error
-				});
-				return;
-			}
-			this.update();
-		}).catch((err) => {
-			console.log(err);
-			this.setState({
-				error: err.message
-			});
-		});
+	create(data) {
+		const {dispatch} = this.props;
+
+		dispatch(createContent(data)).then(this.refresh.bind(this));
 	}
 
-	deleteContent(id) {
-		fetch(this.props.url + "content/"+ id, {method: 'DELETE'})
-		.then((res) => {
-			return res.json();
-		}).then((j) => {
-			if (!j.success) {
-				this.setState({
-					error: j.error
-				});
-				return;
-			}
-
+	refresh() {
+		if (this.props.create.success && !this.props.create.fetching) {
 			this.update();
-		}).catch((err) => {
-			console.log(err);
-			this.setState({
-				error: err.message
-			});
-		})
+			return;
+		}
+
+		if (this.props.delete.success && !this.props.delete.fetching) {
+			this.update(true);
+		}
+	}
+
+	delete(id) {
+		const {dispatch} = this.props;
+
+		dispatch(deleteContent(id)).then(this.refresh.bind(this));
 	}
 
 	update(reset) {
-
 		const { dispatch } = this.props;
-		let offset = this.props.cursor;
+		let offset = this.props.getAll.cursor;
 		if (reset) {
 			offset = 0;
 		}
 
-		dispatch(getAllContent(offset, 20)).then(this.nextPage.bind(this));
+		dispatch(getAllContent(offset, 20, reset)).then(this.nextPage.bind(this));
 	}
 
 	nextPage() {
-		if (this.props.next && !this.props.fetchingContents) {
+		if (this.props.getAll.next && !this.props.getAll.fetchingContents) {
 			this.update();
 		}
 	}
@@ -84,15 +55,14 @@ class MessageContentContainer extends Component {
 		return (
 			<div>
 				{
-					this.props.error && (
-						<div className="bg-red w-100">
-							{this.props.error}
-						</div>
-					)
+					this.props.error &&
+					(<div className="bg-red w-100">
+						{this.props.error}
+					</div>)
 				}
-				<MessageContentInput addContent={this.addContent.bind(this)} newContent={this.props.newContent} />
+				<MessageContentInput addContent={this.create.bind(this)} {...this.props.create} />
 
-				<MessageContentList deleteContent={this.deleteContent.bind(this)} {...this.props} />
+				<MessageContentList deleteContent={this.delete.bind(this)} {...this.props.getAll} />
 			</div>
 		)
 	}
@@ -100,11 +70,24 @@ class MessageContentContainer extends Component {
 
 function mapStateToProps(state) {
 	return {
-		contents: state.getAllContent.contents,
-		fetchingContents: state.getAllContent.fetching,
-		error: state.getAllContent.error,
-		cursor: state.getAllContent.cursor,
-		next: state.getAllContent.next
+		getAll: {
+			contents: state.getAllContent.contents,
+			ids: state.getAllContent.ids,
+			fetching: state.getAllContent.fetching,
+			error: state.getAllContent.error,
+			cursor: state.getAllContent.cursor,
+			next: state.getAllContent.next
+		},
+		create: {
+			fetching: state.createContent.fetching,
+			error: state.createContent.error,
+			success: state.createContent.success
+		},
+		delete: {
+			fetching: state.deleteContent.fetching,
+			error: state.deleteContent.error,
+			success: state.deleteContent.success
+		}
 	};
 }
 
