@@ -41,6 +41,8 @@ class Dashboard extends Component {
     }
 
     render() {
+        console.log(this.props);
+
         let sidebar = <SidebarContent
             onRoastersClick={this.onRoastersClick.bind(this)}
             onBloodlinesClick={this.onBloodlinesClick.bind(this)}

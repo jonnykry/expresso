@@ -102,7 +102,7 @@ class Register extends Component {
                         </select>
                         <div className="mt4"><input className="w-25 b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6" type="submit" value="Submit" required /></div>
                         {this.props.error && (
-                            <p>Bad login information</p>
+                            <p>Something didn't work out, please try again.</p>
                         )}
                     </form>
                 </article>

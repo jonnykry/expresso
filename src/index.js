@@ -17,10 +17,7 @@ import './index.css';
 const store = configureStore();
 
 function loggedIn() {
-    // TODO:  Fix auth.  This will soon be done by checking if there exists a valid user ID in appstate.
-    // There are a lot of unknowns here, as of now.
-
-    return true;
+    return store.getState().authenticateUser.userId !== '';
 }
 
 function requireAuth(nextState, replace) {
