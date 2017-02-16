@@ -23,8 +23,7 @@ import './index.css';
 const store = configureStore();
 
 function loggedIn() {
-    // return store.getState().authenticateUser.userId !== '';
-    return true;
+    return store.getState().authenticateUser.userId !== '';
 }
 
 function requireAuth(nextState, replace) {
