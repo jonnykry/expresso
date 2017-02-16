@@ -7,9 +7,8 @@ export const REQUEST_AUTHENTICATE_USER = 'REQUEST_AUTHENTICATE_USER';
 export const RECEIVE_AUTHENTICATED_USER = 'RECEIVE_AUTHENTICATED_USER';
 export const ERROR_AUTHENTICATING_USER = 'ERROR_AUTHENTICATING_USER';
 
-// TODO: Update these URLs when we know what they'll be.
 const CREATE_USER_URL = 'https://towncenter.expresso.store/api/user';
-const AUTHENTICATE_USER_URL = 'https://towncenter.expresso.store/api/user';
+const AUTHENTICATE_USER_URL = 'https://towncenter.expresso.store/api/user/login';
 
 function requestCreateUser(userInfo) {
     return {
@@ -35,7 +34,7 @@ export function createUser(userInfo) {
         }).then((response) => {
             return response.json();
         }).then((json) => {
-            dispatch(receiveCreatedUser(json))
+            dispatch(receiveCreatedUser(json.data))
         }).catch((err) => {
             dispatch(errorCreatingUser(userInfo, err));
         });
@@ -72,9 +71,9 @@ export function authenticateUser(userCreds) {
             method: 'POST',
             body: JSON.stringify(userCreds)
         }).then((response) => {
-            response.json();
+            return response.json();
         }).then((json) => {
-            dispatch(receiveAuthenticatedUser(json))
+            dispatch(receiveAuthenticatedUser(json.data))
         }).catch((err) => {
             dispatch(errorAuthenticatingUser(userCreds, err));
         });

@@ -5,6 +5,14 @@ import { createUser } from '../actions/userActions'
 import Register from './Register';
 
 class RegisterContainer extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            error: false
+        };
+    }
+
     handleSubmit(event) {
         event.preventDefault();
 
@@ -14,17 +22,16 @@ class RegisterContainer extends Component {
             addressLineOne, addressLineTwo,
             city, state, zipCode, country } = this.refs;
 
-        // TODO:  encrypt
-        const passHash = password.value;
-
         if (password.value !== confirmPassword.value) {
-            // TODO:  Error
+            this.setState({
+                error: true
+            });
         } else {
             const data = {
                 firstName: firstName.value,
                 lastName: lastName.value,
                 email: email.value,
-                passHash: passHash,
+                passHash: password.value,
                 phone: phone.value,
                 addressLine1: addressLineOne.value,
                 addressLine2: addressLineTwo.value,
@@ -36,9 +43,6 @@ class RegisterContainer extends Component {
 
             dispatch(createUser(data));
 
-            // TODO:  If user is logged in successfully, send to dashboard
-            // otherwise, error
-
             router.replace('/dashboard');
         }
     }
@@ -46,7 +50,7 @@ class RegisterContainer extends Component {
     render() {
         return (
             <div>
-                <Register onHandleSubmit={this.handleSubmit} error={false} {...this.props} />
+                <Register onHandleSubmit={this.handleSubmit} error={this.state.error} {...this.props} />
             </div>
         );
     }

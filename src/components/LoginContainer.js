@@ -13,19 +13,13 @@ class LoginContainer extends Component {
         const email = this.refs.email.value;
         const password = this.refs.password.value;
 
-        // TODO:  Salt/Hash before sending
-        const passHash = password;
-
         const data ={
-            email, passHash
+            email, password
         };
 
-        dispatch(authenticateUser(data));
-
-        // TODO:  If user is logged in successfully, send to dashboard
-        // otherwise, error
-
-        router.replace('/dashboard');
+        dispatch(authenticateUser(data)).then(() => {
+            router.replace('/dashboard');
+        });
     }
 
     render() {

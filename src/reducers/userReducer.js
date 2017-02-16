@@ -22,8 +22,8 @@ export function authenticateUser(state = {
         case RECEIVE_AUTHENTICATED_USER:
             return Object.assign({}, state, {
                 isFetching: false,
-                didAuthenticate: action.user.userId !== '',
-                userId: action.user.userId
+                didAuthenticate: action.id !== '',
+                userId: action.id
             });
         case ERROR_AUTHENTICATING_USER:
             return Object.assign({}, state, {
@@ -50,8 +50,8 @@ export function createUser(state = {
         case RECEIVE_CREATED_USER:
             return Object.assign({}, state, {
                 isFetching: false,
-                didCreate: action.user.userId !== '',
-                userId: action.user.userId
+                didCreate: action.id !== '',
+                userId: action.id
             });
         case ERROR_CREATING_USER:
             return Object.assign({}, state, {
