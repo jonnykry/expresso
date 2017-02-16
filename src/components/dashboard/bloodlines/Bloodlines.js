@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import MessageContentContainer from './MessageContentContainer';
+import { connect } from 'react-redux';
 
 
 class Bloodlines extends Component {
@@ -12,15 +12,21 @@ class Bloodlines extends Component {
 	}
 
     render() {
+		let child = null;
+		if (this.props.children) {
+			child = React.cloneElement(this.props.children, {
+				url: this.state.url
+			});
+		}
         return (
         	<div>
 				<div className="tc f1-l mt2 b">
 					Bloodlines
 				</div>
-                <MessageContentContainer url={this.state.url}/>
+				{child}
             </div>
         );
     }
 }
 
-export default Bloodlines;
+export default connect()(Bloodlines);

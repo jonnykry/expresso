@@ -1,76 +1,19 @@
 import React, { Component } from 'react';
-import Sidebar from 'react-sidebar';
 
-import Bloodlines from './bloodlines/Bloodlines';
-import Roasters from './roasters/Roasters';
-import AccountSettings from './account/AccountSettings';
 import SidebarContent from './SidebarContent';
 
 class Dashboard extends Component {
-
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            itemToRender: 0
-        };
-    }
-
-    onRoastersClick(e) {
-        e.preventDefault();
-
-        this.setState({
-            itemToRender: 0
-        })
-    }
-
-    onBloodlinesClick(e) {
-        e.preventDefault();
-
-        this.setState({
-            itemToRender: 1
-        })
-    }
-
-    onAccountSettingsClick(e) {
-        e.preventDefault();
-
-        this.setState({
-            itemToRender: 2
-        })
-    }
-
     render() {
-        console.log(this.props);
-
-        let sidebar = <SidebarContent
-            onRoastersClick={this.onRoastersClick.bind(this)}
-            onBloodlinesClick={this.onBloodlinesClick.bind(this)}
-            onAccountSettingsClick={this.onAccountSettingsClick.bind(this)}
-            itemToRender={this.state.itemToRender} />;
-        let children = <div></div>;
-
-        switch (this.state.itemToRender) {
-            case 0:
-                children = <Roasters />;
-                break;
-            case 1:
-                children = <Bloodlines />;
-                break;
-            case 2:
-                children = <AccountSettings />;
-                break;
-            default:
-                children = <Roasters />;
-        }
-
+        let sidebar = <SidebarContent location={this.props.location.pathname} />;
         return (
-            <Sidebar
-                sidebar={sidebar}
-                children={children}
-                docked={true}
-                shadow={true}>
-            </Sidebar>
+            <div className="h-inherit dt dt--fixed">
+                <div className="cf dtc">
+                    {sidebar}
+                </div>
+                <div className="h-inherit cf dtc w-90">
+                    {this.props.children}
+                </div>
+            </div>
         );
     }
 }

@@ -10,7 +10,7 @@ export const ERROR_CREATING_CUSTOMER_PAYMENT_INFO = 'ERROR_CREATING_CUSTOMER_PAY
 const CREATE_CUSTOMER_PAYMENT_INFO_URL = 'https://coinage.expresso.store/api/customer';
 
 // TODO:  Update with User ID once finished
-const UPDATE_CUSTOMER_PAYMENT_INFO_URL = 'https://coinage.expresso.store/api/customer/1/source';
+const UPDATE_CUSTOMER_PAYMENT_INFO_URL = 'https://coinage.expresso.store/api/customer/12c56531-f092-11e6-bc47-0242ac13000a/source';
 
 function requestCreateCustomerPaymentInfo(data) {
     return {
@@ -44,7 +44,7 @@ export function createCustomerPaymentInfo(data) {
 
             // TODO:  Update UserID once finished
             const updatedData = {
-                userId: 1,
+                userId: "12c56531-f092-11e6-bc47-0242ac13000a",
                 token: response.id
             };
 
