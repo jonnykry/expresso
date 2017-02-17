@@ -13,10 +13,10 @@ class SidebarContent extends Component {
         return (
             <div className="flex flex-column justify-between pa2 w-100">
                 <div className="flex flex-column h-inherit w-100">
-                    <SidebarSelector name="Browse Roasters" to={d+"roaster"}
-                        children={null} location={b} />
                     <SidebarSelector name="Bloodlines" to={d+"bloodlines"}
                         children={bloodlines} location={b} />
+                    <SidebarSelector name="Create Roaster Account" to={d+"roaster/register"}
+                                     children={null} location={b} />
                     <SidebarSelector name="Account Settings" to={d+"settings"}
                         children={null} location={b} />
                     <SidebarSelector name="Logout"
