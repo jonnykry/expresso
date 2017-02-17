@@ -273,7 +273,7 @@ function sendDeleteTrigger(id) {
 }
 function handleDeleteTrigger(payload) {
 	return {
-		type: handleDeleteTrigger,
+		type: HANDLE_DELETE_TRIGGER,
 		payload
 	};
 }
@@ -293,6 +293,7 @@ export function deleteTrigger(id) {
 		}).then((res) => {
 			return res.json();
 		}).then((json) => {
+			console.log(json);
 			if (json.error || !json.success) {
 				dispatch(errorDeleteTrigger(id, json.message))
 				return;

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import { getAllTriggers, deleteTrigger } from '../../../actions/bloodlinesActions';
 import TriggerList from './TriggerList';
+import SuccessMessage from './../../SuccessMessage';
 
 class TriggerContainer extends Component {
 	componentDidMount() {
@@ -26,11 +27,7 @@ class TriggerContainer extends Component {
 	}
 
 	refresh() {
-		if (this.props.create.success && !this.props.create.fetching) {
-			this.update();
-			return;
-		}
-
+		console.log(this.props.delete);
 		if (this.props.delete.success && !this.props.delete.fetching) {
 			this.update(true);
 		}
@@ -46,7 +43,8 @@ class TriggerContainer extends Component {
 
 		return (
 			<div>
-				<TriggerList {...this.props.getAll} />
+				<SuccessMessage success={this.props.delete.success} message={"Deleted Trigger."} />
+				<TriggerList delete={this.delete.bind(this)} {...this.props.getAll} />
 			</div>
 		);
 	}
@@ -62,7 +60,6 @@ function mapStateToProps(state) {
 			cursor: state.getAllTriggers.cursor,
 			next: state.getAllTriggers.next
 		},
-		create: state.createTrigger,
 		delete: state.deleteTrigger
 	};
 }

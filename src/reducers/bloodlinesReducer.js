@@ -199,6 +199,7 @@ export function deleteTrigger(state = {
 			fetching: true
 		});
 	case HANDLE_DELETE_TRIGGER:
+		console.log(action);
 		return Object.assign({}, state, {
 			fetching: false,
 			success: action.payload.success,
