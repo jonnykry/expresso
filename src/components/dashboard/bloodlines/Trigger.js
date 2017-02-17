@@ -25,7 +25,6 @@ class Trigger extends Component {
 	}
 
 	render() {
-		let values = null;
 		let detailsClass = "cf bt ma2";
 		if (!this.state.details) {
 			detailsClass += " dn";

@@ -13,10 +13,11 @@ class TriggerInput extends Component {
 		let values = {};
 		this.props.content.parameters.map((param) => {
 			if (this.refs[param].value === "") {
-				return;
+				return null;
 			}
 
 			values[param] = this.refs[param].value;
+			return null;
 		});
 
 		const data = {
@@ -36,7 +37,6 @@ class TriggerInput extends Component {
 	}
 
 	refresh() {
-		console.log(this.props);
 		if (this.props.fetching || !this.props.success) {
 			return;
 		}
@@ -44,6 +44,7 @@ class TriggerInput extends Component {
 		this.refs.key.value = "";
 		this.props.content.parameters.map((param) => {
 			this.refs[param].value = "";
+			return null;
 		});
 	}
 
