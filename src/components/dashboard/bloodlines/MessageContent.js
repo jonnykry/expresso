@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import MessageContentProperty from './MessageContentProperty';
-//import { connect } from 'react-redux';
-//import { bindActionCreators } from 'redux';
+import TriggerInput from './TriggerInput';
 
 class MessageContent extends Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
-			details: false
+			details: false,
+			showAddTrigger: false
 		};
 	}
 	handleDelete(event) {
@@ -24,8 +24,16 @@ class MessageContent extends Component {
 		this.setState({details: s});
 	}
 
+	toggleAddTrigger(e) {
+		e.preventDefault();
+
+		const s = !this.state.showAddTrigger;
+		this.setState({showAddTrigger: s})
+	}
+
 	render() {
 		const item = this.props.item;
+		const toggleClass = "cf pt1 pointer tracked";
 		let subject = item.subject;
 		let detailsClass = "cf bt ma2";
 		if (!this.state.details) {
@@ -50,6 +58,21 @@ class MessageContent extends Component {
 						</div>
 						<div>
 							<MessageContentProperty name={"Text"} value={item.text}/>
+						</div>
+						<div className="bt">
+							{
+								!this.state.showAddTrigger &&
+								(<div className={toggleClass} onClick={this.toggleAddTrigger.bind(this)}>[+] Trigger</div>)
+							}
+							{
+								this.state.showAddTrigger &&
+								(
+									<div>
+										<div className={toggleClass} onClick={this.toggleAddTrigger.bind(this)}>[-] Trigger</div>
+										<TriggerInput content={item} />
+									</div>
+								)
+							}
 						</div>
 					</div>
 				</div>

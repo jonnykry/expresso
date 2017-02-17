@@ -36,7 +36,7 @@ export function getAllContent(state = {
 	fetching: false,
 	cursor: 0,
 	next: false,
-	contents: {},
+	items: {},
 	ids: [],
 	error: null,
 }, action) {
@@ -47,12 +47,11 @@ export function getAllContent(state = {
 			next: false
 		});
 	case HANDLE_GET_ALL_CONTENT:
-		console.log(action);
 		if (action.reset) {
-			state.contents = {};
+			state.items = {};
 		}
-		const length = Object.keys(state.contents).length;
-		let _contents = state.contents;
+		const length = Object.keys(state.items).length;
+		let _contents = state.items;
 		for (let content of action.payload.data) {
 			_contents = {
 				..._contents,
@@ -68,15 +67,16 @@ export function getAllContent(state = {
 		return Object.assign({}, state, {
 			fetching: false,
 			next: hasNew && isFull,
-			contents: _contents,
+			items: _contents,
 			ids: keys,
-			cursor: cursor
+			cursor: cursor,
+			error:null
 		});
 	case ERROR_GET_ALL_CONTENT:
 		return Object.assign({}, state, {
 			fetching: false,
 			next: false,
-			error: action.err.msg
+			error: action.err
 		});
 	default:
 		return state;
@@ -96,13 +96,14 @@ export function createContent(state = {
 	case HANDLE_CREATE_CONTENT:
 		return Object.assign({}, state, {
 			fetching: false,
-			success: action.payload.success
+			success: action.payload.success,
+			error: null
 		});
 	case ERROR_CREATE_CONTENT:
 		return Object.assign({}, state, {
 			fetching: false,
 			success: false,
-			error: action.err.msg
+			error: action.err
 		});
 	default:
 		return state;
@@ -122,13 +123,14 @@ export function deleteContent(state = {
 	case HANDLE_DELETE_CONTENT:
 		return Object.assign({}, state, {
 			fetching: false,
-			success: action.payload.success
+			success: action.payload.success,
+			error: null
 		});
 	case ERROR_DELETE_CONTENT:
 		return Object.assign({}, state, {
 			fetching: false,
 			success: action.success,
-			error: action.err.msg
+			error: action.err
 		});
 	default:
 		return state;
@@ -139,7 +141,7 @@ export function getAllTriggers(state = {
 	fetching: false,
 	cursor: 0,
 	next: false,
-	triggers: {},
+	items: {},
 	ids: [],
 	error: null,
 }, action) {
@@ -151,10 +153,10 @@ export function getAllTriggers(state = {
 		});
 	case HANDLE_GET_ALL_TRIGGERS:
 		if (action.reset) {
-			state.triggers = {};
+			state.items = {};
 		}
-		const length = Object.keys(state.triggers).length;
-		let _triggers = state.triggers;
+		const length = Object.keys(state.items).length;
+		let _triggers = state.items;
 		for (let trigger of action.payload.data) {
 			_triggers = {
 				..._triggers,
@@ -170,15 +172,16 @@ export function getAllTriggers(state = {
 		return Object.assign({}, state, {
 			fetching: false,
 			next: hasNew && isFull,
-			triggers: _triggers,
+			items: _triggers,
 			ids: keys,
-			cursor: cursor
+			cursor: cursor,
+			error:null
 		});
 	case ERROR_GET_ALL_TRIGGERS:
 		return Object.assign({}, state, {
 			fetching: false,
 			next: false,
-			error: action.err.msg
+			error: action.err
 		});
 	default:
 		return state;
@@ -198,13 +201,14 @@ export function deleteTrigger(state = {
 	case HANDLE_DELETE_TRIGGER:
 		return Object.assign({}, state, {
 			fetching: false,
-			success: action.payload.success
+			success: action.payload.success,
+			error:null
 		});
 	case ERROR_DELETE_TRIGGER:
 		return Object.assign({}, state, {
 			fetching: false,
 			success: false,
-			error: action.err.msg
+			error: action.err
 		});
 	default:
 		return state;
@@ -224,13 +228,14 @@ export function createTrigger(state = {
 	case HANDLE_CREATE_TRIGGER:
 		return Object.assign({}, state, {
 			fetching: false,
-			success: action.payload.success
+			success: action.payload.success,
+			error: null
 		});
 	case ERROR_CREATE_TRIGGER:
 		return Object.assign({}, state, {
 			fetching: false,
 			success: false,
-			error: action.err.msg
+			error: action.err
 		});
 	default:
 		return state;
