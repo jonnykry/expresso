@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import { authenticateUser, createUser } from './userReducer';
+import { createRoaster } from './roasterReducer';
 import { createCustomerPaymentInfo, updateCustomerPaymentInfo } from './coinageReducer';
 import {
 	getAllContent, createContent, deleteContent,
@@ -16,7 +17,8 @@ const rootReducer = combineReducers({
     createTrigger,
     deleteTrigger,
     authenticateUser,
-    createUser
+    createUser,
+    createRoaster
 });
 
 export default rootReducer;
