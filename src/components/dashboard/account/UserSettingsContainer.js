@@ -1,55 +1,45 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-//import { updateUserInfo } from '../../../actions/userActions'
+import { updateUserInfo } from '../../../actions/userActions'
 
 import UserSettings from './UserSettings';
 
 class UserSettingsContainer extends Component {
     constructor(props) {
         super(props);
-
-        this.state = {
-            isButtonOne: true
-        };
-
-        this.onSetButtonOne = this.onSetButtonOne.bind(this);
-        this.onSetButtonTwo = this.onSetButtonTwo.bind(this);
-    }
-
-    onSetButtonOne(e) {
-        this.setState({
-            isButtonOne: true
-        });
-    }
-
-    onSetButtonTwo(e) {
-        this.setState({
-            isButtonOne: false
-        });
-    }
+	  }
 
     onHandleSubmit(e) {
         e.preventDefault();
 
-        const { isButtonOne, dispatch } = this.props;
-				const { first_name, last_name, phone, email, addres_line_1, address_line_2, address_city, address_state, address_zip, address_country, password, confirm_password } = this.refs;
-        const isCreate = isButtonOne;
-        /*const card = {
-            number: number.value,
-            cvc: cvc.value,
-            exp_month: exp_month.value,
-            exp_year: exp_year.value
-        };
+        const { dispatch } = this.props;
+				const { firstName, lastName, phone, email, addressLine1, addressLine2, city, state, zipCode, country, password, confirmPassword } = this.refs;
 
-        isCreate ? dispatch(createCustomerPaymentInfo(card))
-            : dispatch(updateCustomerPaymentInfo(card));*/
+        if(password.value != '' && password.value != confirmPassword.value) {
+          //TODO: Error
+        } else {
+          const userInfo = {
+          	firstName: firstName.value,
+  					lastName: lastName.value,
+  					phone: phone.value,
+  					email: email.value,
+  					addressLine1: addressLine1.value,
+  					addressLine2: addressLine2.value,
+  					addressCity: city.value,
+  					addressState: state.value,
+  					addressZip: zipCode.value,
+  					addressCountry: country.value,
+            passHash: password.value
+          };
+
+  				dispatch(updateUserInfo(userInfo))
+        }
     }
 
     render() {
         return (
             <div>
-                <UserSettings setButtonOne={this.onSetButtonOne}
-                                 setButtonTwo={this.onSetButtonTwo}
+                <UserSettings
                                  handleSubmit={this.onHandleSubmit}
                                  error={false} {...this.props} {...this.state} />
             </div>
