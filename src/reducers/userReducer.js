@@ -13,13 +13,15 @@ export function userReducer(state = {
     user: ''
 }, action) {
     switch (action.type) {
-        case RECEIVE_AUTHENTICATED_USER || RECEIVE_CREATED_USER:
+        case RECEIVE_AUTHENTICATED_USER:
+        case RECEIVE_CREATED_USER:
             return Object.assign({}, state, {
                 error: false,
                 success: action.payload.data.id !== '',
                 user: action.payload.data
             });
-        case ERROR_AUTHENTICATING_USER || ERROR_CREATING_USER:
+        case ERROR_AUTHENTICATING_USER:
+        case ERROR_CREATING_USER:
             return Object.assign({}, state, {
                 error: true,
                 user: ''
