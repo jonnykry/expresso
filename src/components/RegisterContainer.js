@@ -58,9 +58,9 @@ class RegisterContainer extends Component {
 
 function mapStateToProps(state) {
     return {
-        user: state.createUser.user,
-        error: state.createUser.error,
-        success: state.createUser.success
+        user: state.userReducer.user,
+        error: state.userReducer.error,
+        success: state.userReducer.success
     };
 }
 
