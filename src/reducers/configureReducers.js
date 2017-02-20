@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import { userReducer } from './userReducer';
-import { createCustomerPaymentInfo, updateCustomerPaymentInfo } from './coinageReducer';
+import { customerPaymentInfoReducer } from './coinageReducer';
 import {
 	getAllContent, createContent, deleteContent,
 	getAllTriggers, createTrigger, deleteTrigger
@@ -8,8 +8,7 @@ import {
 
 const rootReducer = combineReducers({
     userReducer,
-    createCustomerPaymentInfo,
-    updateCustomerPaymentInfo,
+    customerPaymentInfoReducer,
     getAllContent,
     createContent,
     deleteContent,
