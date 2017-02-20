@@ -11,21 +11,15 @@ class LoginContainer extends Component {
         const { router, dispatch } = this.props;
 
         const email = this.refs.email.value;
-        const password = this.refs.password.value;
-
-        // TODO:  Salt/Hash before sending
-        const passHash = password;
+        const passHash = this.refs.password.value;
 
         const data ={
             email, passHash
         };
 
-        dispatch(authenticateUser(data));
-
-        // TODO:  If user is logged in successfully, send to dashboard
-        // otherwise, error
-
-        router.replace('/dashboard');
+        dispatch(authenticateUser(data)).then(() => {
+            router.replace('/dashboard');
+        });
     }
 
     render() {
@@ -37,5 +31,13 @@ class LoginContainer extends Component {
     }
 }
 
-export default connect()(LoginContainer);
+function mapStateToProps(state) {
+    return {
+        user: state.userReducer.user,
+        isFetching: state.userReducer.isFetching,
+        didAuthenticate: state.userReducer.didAuthenticate
+    };
+}
+
+export default connect(mapStateToProps)(LoginContainer);
 
