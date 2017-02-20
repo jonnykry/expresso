@@ -5,6 +5,14 @@ import { createUser } from '../actions/userActions'
 import Register from './Register';
 
 class RegisterContainer extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            error: false
+        };
+    }
+
     handleSubmit(event) {
         event.preventDefault();
 
@@ -14,17 +22,16 @@ class RegisterContainer extends Component {
             addressLineOne, addressLineTwo,
             city, state, zipCode, country } = this.refs;
 
-        // TODO:  encrypt
-        const passHash = password.value;
-
         if (password.value !== confirmPassword.value) {
-            // TODO:  Error
+            this.setState({
+                error: true
+            });
         } else {
             const data = {
                 firstName: firstName.value,
                 lastName: lastName.value,
                 email: email.value,
-                passHash: passHash,
+                passHash: password.value,
                 phone: phone.value,
                 addressLine1: addressLineOne.value,
                 addressLine2: addressLineTwo.value,
@@ -34,23 +41,28 @@ class RegisterContainer extends Component {
                 addressCountry: country.value,
             };
 
-            dispatch(createUser(data));
-
-            // TODO:  If user is logged in successfully, send to dashboard
-            // otherwise, error
-
-            router.replace('/dashboard');
+            dispatch(createUser(data)).then(() => {
+                router.replace('/dashboard');
+            });
         }
     }
 
     render() {
         return (
             <div>
-                <Register onHandleSubmit={this.handleSubmit} error={false} {...this.props} />
+                <Register onHandleSubmit={this.handleSubmit} error={this.state.error} {...this.props} />
             </div>
         );
     }
 }
 
-export default connect()(RegisterContainer);
+function mapStateToProps(state) {
+    return {
+        user: state.userReducer.user,
+        error: state.userReducer.error,
+        success: state.userReducer.success
+    };
+}
+
+export default connect(mapStateToProps)(RegisterContainer);
 

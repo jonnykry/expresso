@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import SidebarContent from './SidebarContent';
 
 class Dashboard extends Component {
-
     render() {
         let sidebar = <SidebarContent location={this.props.location.pathname} />;
+
         return (
             <div className="h-inherit dt dt--fixed">
                 <div className="cf dtc">
@@ -19,4 +20,10 @@ class Dashboard extends Component {
     }
 }
 
-export default Dashboard;
+function mapStateToProps(state) {
+    return {
+        user: state.userReducer.user,
+    };
+}
+
+export default connect(mapStateToProps)(Dashboard);

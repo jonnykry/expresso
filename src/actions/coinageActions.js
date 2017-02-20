@@ -52,7 +52,7 @@ export function createCustomerPaymentInfo(data) {
                 method: 'POST',
                 body: JSON.stringify(updatedData)
             }).then((res) => {
-                res.json();
+                return res.json();
             }).then((json) => {
                 dispatch(receiveCreatedCustomerPaymentInfo(json));
             }).catch((err) => {
@@ -92,7 +92,7 @@ export function updateCustomerPaymentInfo(data) {
             method: 'POST',
             body: JSON.stringify(data)
         }).then((response) => {
-            response.json();
+            return response.json();
         }).then((json) => {
             dispatch(receiveUpdatedCustomerPaymentInfo(json))
         }).catch((err) => {

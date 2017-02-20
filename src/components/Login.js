@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 
+import ErrorMessage from './ErrorMessage';
+
 import './Login.css';
 
 class Login extends Component {
@@ -19,9 +21,7 @@ class Login extends Component {
                         <input className={inputClass} type="password" ref="password" name="password" id="password" />
                         <div className="mt4"><input className="w-25 b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6" type="submit" value="Log In" /></div>
                         <div className="mt3">Not a user?  <Link to="/register" className="f6 link dib dim mr3 mr4-ns" title="Register">Click here to sign up!</Link></div>
-                        {this.props.error && (
-                            <p>Bad login information</p>
-                        )}
+                        <ErrorMessage error={this.props.error} />
                     </form>
                 </article>
             </div>
