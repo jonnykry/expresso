@@ -22,8 +22,12 @@ import './index.css';
 
 const store = configureStore();
 
+console.log('State: ', store.getState());
+
 function loggedIn() {
-    return store.getState().authenticateUser.userId !== '';
+    const state = store.getState();
+
+    return state.userReducer.user !== '';
 }
 
 function requireAuth(nextState, replace) {
@@ -40,9 +44,9 @@ ReactDOM.render(
             <Route path="/" component={App} isHome={true}>
                 <IndexRoute component={Home}/>
                 <Route path="about" component={About} />
-                <Route path="login" component={LoginContainer} isLogin={true}/>
-                <Route path="logout" component={Logout} isLogin={true} />
-                <Route path="register" component={RegisterContainer} isLogin={true} />
+                <Route path="login" component={LoginContainer} />
+                <Route path="logout" component={Logout} />
+                <Route path="register" component={RegisterContainer} />
                 <Route path="dashboard" component={Dashboard} onEnter={requireAuth}>
                     <Route path="bloodlines" component={Bloodlines}>
                         <IndexRedirect to="content" />
@@ -57,7 +61,6 @@ ReactDOM.render(
                     <Route path="settings" component={AccountSettings}>
 
                     </Route>
-
                 </Route>
             </Route>
         </Router>

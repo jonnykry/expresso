@@ -11,10 +11,10 @@ class LoginContainer extends Component {
         const { router, dispatch } = this.props;
 
         const email = this.refs.email.value;
-        const password = this.refs.password.value;
+        const passHash = this.refs.password.value;
 
         const data ={
-            email, password
+            email, passHash
         };
 
         dispatch(authenticateUser(data)).then(() => {
@@ -31,5 +31,13 @@ class LoginContainer extends Component {
     }
 }
 
-export default connect()(LoginContainer);
+function mapStateToProps(state) {
+    return {
+        user: state.userReducer.user,
+        isFetching: state.userReducer.isFetching,
+        didAuthenticate: state.userReducer.didAuthenticate
+    };
+}
+
+export default connect(mapStateToProps)(LoginContainer);
 

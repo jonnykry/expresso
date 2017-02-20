@@ -6,8 +6,6 @@ class SidebarContent extends Component {
     render() {
         const bloodlines = <BloodlinesSidebar location={this.props.location} />;
 
-
-        // TODO:  Set Logout into the logout path
         const b = this.props.location;
         const d = "/dashboard/";
         return (

@@ -1,13 +1,35 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class Logout extends Component {
-    render() {
-        return (
-            <div>
-                You've been successfully logged out!
-            </div>
-        );
+import {
+    logout
+} from '../actions/userActions';
+
+import {
+    connect
+} from 'react-redux';
+
+import {
+    browserHistory
+} from 'react-router';
+
+class Logout extends React.Component {
+    componentWillMount () {
+        const { dispatch } = this.props;
+
+        // TODO:  Clear session once implemented
+        dispatch(logout());
+        browserHistory.push('/login');
+    }
+
+    render () {
+        return null;
     }
 }
 
-export default Logout;
+function mapStateToProps(state) {
+    return {
+        user: state.user
+    }
+}
+
+export default connect(mapStateToProps)(Logout);
