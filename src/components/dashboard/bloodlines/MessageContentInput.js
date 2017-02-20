@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 
+import ErrorMessage from '../../ErrorMessage';
+import SuccessMessage from '../../SuccessMessage';
+
 class MessageContentInput extends Component {
 
 	handleSubmit(event){
@@ -52,12 +55,8 @@ class MessageContentInput extends Component {
 						</div>
 					</div>
 				</form>
-				{
-					this.props.error &&
-					(<div className="bg-red w-100">
-						{this.props.error}
-					</div>)
-				}
+				<ErrorMessage error={this.props.error} />
+				<SuccessMessage success={this.props.success} message={"Successfully created Content"} />
 			</div>
 		)
 	}

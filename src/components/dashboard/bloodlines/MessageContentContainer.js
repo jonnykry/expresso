@@ -44,7 +44,7 @@ class MessageContentContainer extends Component {
 	}
 
 	nextPage() {
-		if (this.props.getAll.next && !this.props.getAll.fetchingContents) {
+		if (this.props.getAll.next && !this.props.getAll.fetching) {
 			this.update();
 		}
 	}
@@ -54,14 +54,7 @@ class MessageContentContainer extends Component {
 
 		return (
 			<div>
-				{
-					this.props.error &&
-					(<div className="bg-red w-100">
-						{this.props.error}
-					</div>)
-				}
 				<MessageContentInput addContent={this.create.bind(this)} {...this.props.create} />
-
 				<MessageContentList deleteContent={this.delete.bind(this)} {...this.props.getAll} />
 			</div>
 		)
@@ -71,7 +64,7 @@ class MessageContentContainer extends Component {
 function mapStateToProps(state) {
 	return {
 		getAll: {
-			contents: state.getAllContent.contents,
+			items: state.getAllContent.items,
 			ids: state.getAllContent.ids,
 			fetching: state.getAllContent.fetching,
 			error: state.getAllContent.error,

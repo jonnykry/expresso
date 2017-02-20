@@ -67,6 +67,11 @@ export function getAllContent(offset, limit, reset) {
 		}).then((res) => {
 			return res.json();
 		}).then((json) => {
+			if (json.error || !json.success) {
+				dispatch(errorGetAllContent(offset, limit, json.message))
+				return;
+			}
+
 			dispatch(handleGetAllContent(json, limit, reset))
 		}).catch((err) => {
 			dispatch(errorGetAllContent(offset, limit, err))
@@ -123,6 +128,11 @@ export function createContent(body) {
 		}).then((res) => {
 			return res.json();
 		}).then((json) => {
+			if (json.error || !json.success) {
+				dispatch(errorCreateContent(body, json.message))
+				return;
+			}
+
 			dispatch(handleCreateContent(json))
 		}).catch((err) => {
 			dispatch(errorCreateContent(body, err))
@@ -158,6 +168,11 @@ export function deleteContent(id) {
 		}).then((res) => {
 			return res.json();
 		}).then((json) => {
+			if (json.error || !json.success) {
+				dispatch(errorDeleteTrigger(id, json.message))
+				return;
+			}
+
 			dispatch(handleDeleteContent(json))
 		}).catch((err) => {
 			dispatch(errorDeleteContent(id, err))
@@ -197,6 +212,11 @@ export function getAllTriggers(offset, limit, reset) {
 		}).then((res) => {
 			return res.json();
 		}).then((json) => {
+			if (json.error || !json.success) {
+				dispatch(errorGetAllTriggers(offset, limit, json.message));
+				return;
+			}
+
 			dispatch(handleGetAllTriggers(json, limit, reset))
 		}).catch((err) => {
 			dispatch(errorGetAllTriggers(offset, limit, err))
@@ -218,7 +238,7 @@ function handleCreateTrigger(payload) {
 }
 function errorCreateTrigger(body, err) {
 	return {
-		type: ERROR_GET_ALL_TRIGGERS,
+		type: ERROR_CREATE_TRIGGER,
 		body,
 		err
 	};
@@ -233,6 +253,11 @@ export function createTrigger(body) {
 		}).then((res) => {
 			return res.json();
 		}).then((json) => {
+			if (json.error || !json.success) {
+				dispatch(errorCreateTrigger(body, json.message))
+				return;
+			}
+
 			dispatch(handleCreateTrigger(json))
 		}).catch((err) => {
 			dispatch(errorCreateTrigger(body, err))
@@ -248,7 +273,7 @@ function sendDeleteTrigger(id) {
 }
 function handleDeleteTrigger(payload) {
 	return {
-		type: handleDeleteTrigger,
+		type: HANDLE_DELETE_TRIGGER,
 		payload
 	};
 }
@@ -268,6 +293,12 @@ export function deleteTrigger(id) {
 		}).then((res) => {
 			return res.json();
 		}).then((json) => {
+			console.log(json);
+			if (json.error || !json.success) {
+				dispatch(errorDeleteTrigger(id, json.message))
+				return;
+			}
+
 			dispatch(handleDeleteTrigger(json))
 		}).catch((err) => {
 			dispatch(errorDeleteTrigger(id, err))
