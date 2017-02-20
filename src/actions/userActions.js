@@ -1,21 +1,23 @@
 
-export const REQUEST_CREATE_USER = 'REQUEST_CREATE_USER';
+export const LOGOUT = 'LOGOUT';
+
 export const RECEIVE_CREATED_USER = 'RECEIVE_CREATIED_USER';
 export const ERROR_CREATING_USER = 'ERROR_CREATING_USER';
 
-export const REQUEST_AUTHENTICATE_USER = 'REQUEST_AUTHENTICATE_USER';
 export const RECEIVE_AUTHENTICATED_USER = 'RECEIVE_AUTHENTICATED_USER';
 export const ERROR_AUTHENTICATING_USER = 'ERROR_AUTHENTICATING_USER';
 
 const CREATE_USER_URL = 'https://towncenter.expresso.store/api/user';
 const AUTHENTICATE_USER_URL = 'https://towncenter.expresso.store/api/user/login';
 
-function requestCreateUser(userInfo) {
-    return {
-        type: REQUEST_CREATE_USER,
-        userInfo
+export function logout() {
+    return dispatch => {
+        return dispatch({
+            type: LOGOUT
+        });
     }
 }
+
 
 function receiveCreatedUser(payload) {
     return {
@@ -26,25 +28,16 @@ function receiveCreatedUser(payload) {
 
 export function createUser(userInfo) {
     return dispatch => {
-        dispatch(requestCreateUser(userInfo));
-
         return fetch(CREATE_USER_URL, {
             method: 'POST',
             body: JSON.stringify(userInfo)
         }).then((response) => {
             return response.json();
         }).then((json) => {
-            dispatch(receiveCreatedUser(json.data))
+            dispatch(receiveCreatedUser(json))
         }).catch((err) => {
             dispatch(errorCreatingUser(userInfo, err));
         });
-    }
-}
-
-function requestAuthenticateUser(userCreds) {
-    return {
-        type: REQUEST_AUTHENTICATE_USER,
-        userCreds
     }
 }
 
@@ -65,15 +58,13 @@ function errorAuthenticatingUser(userCreds, err) {
 
 export function authenticateUser(userCreds) {
     return dispatch => {
-        dispatch(requestAuthenticateUser(userCreds));
-
         return fetch(AUTHENTICATE_USER_URL, {
             method: 'POST',
             body: JSON.stringify(userCreds)
         }).then((response) => {
             return response.json();
         }).then((json) => {
-            dispatch(receiveAuthenticatedUser(json.data))
+            dispatch(receiveAuthenticatedUser(json))
         }).catch((err) => {
             dispatch(errorAuthenticatingUser(userCreds, err));
         });

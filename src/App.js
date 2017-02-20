@@ -9,7 +9,7 @@ class App extends Component {
     render() {
         return (
             <div className="h-inherit">
-                <Navigation isHome={this.props.isHome} isLogin={this.props.isLogin}/>
+                <Navigation isHome={this.props.isHome} />
                 {this.props.children}
             </div>
         );

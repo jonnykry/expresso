@@ -41,9 +41,9 @@ class RegisterContainer extends Component {
                 addressCountry: country.value,
             };
 
-            dispatch(createUser(data));
-
-            router.replace('/dashboard');
+            dispatch(createUser(data)).then(() => {
+                router.replace('/dashboard');
+            });
         }
     }
 
@@ -56,5 +56,13 @@ class RegisterContainer extends Component {
     }
 }
 
-export default connect()(RegisterContainer);
+function mapStateToProps(state) {
+    return {
+        user: state.createUser.user,
+        error: state.createUser.error,
+        success: state.createUser.success
+    };
+}
+
+export default connect(mapStateToProps)(RegisterContainer);
 
