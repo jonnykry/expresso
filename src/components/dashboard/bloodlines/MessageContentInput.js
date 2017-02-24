@@ -12,7 +12,7 @@ class MessageContentInput extends Component {
 			subject: this.refs.subject.value,
 			text: this.refs.text.value,
 			parameters: this.refs.parameters.value.split(","),
-			type: this.refs.type.value
+			contentType: this.refs.type.value
 		};
 
 		this.props.addContent(data);

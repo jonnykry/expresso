@@ -64,6 +64,11 @@ export function authenticateUser(userCreds) {
         }).then((response) => {
             return response.json();
         }).then((json) => {
+            console.log(json);
+            if (!json.success) {
+                dispatch(errorAuthenticatingUser(userCreds, json.message))
+                return;
+            }
             dispatch(receiveAuthenticatedUser(json))
         }).catch((err) => {
             dispatch(errorAuthenticatingUser(userCreds, err));
