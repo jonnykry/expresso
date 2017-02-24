@@ -3,33 +3,14 @@ import {
 	HANDLE_GET_ALL_CONTENT,
 	ERROR_GET_ALL_CONTENT,
 
-	// GET_CONTENT,
-	//HANDLE_GET_CONTENT,
-	// ERROR_GET_CONTENT,
-
-	//CREATE_CONTENT,
-	HANDLE_CREATE_CONTENT,
-	ERROR_CREATE_CONTENT,
-
-	//DELETE_CONTENT,
-	HANDLE_DELETE_CONTENT,
-	ERROR_DELETE_CONTENT,
-
 	//GET_ALL_TRIGGERS,
 	HANDLE_GET_ALL_TRIGGERS,
 	ERROR_GET_ALL_TRIGGERS,
 
-	// GET_TRIGGER,
-	// HANDLE_GET_TRIGGER,
-	// ERROR_GET_TRIGGER,
-
-	//CREATE_TRIGGER,
-	HANDLE_CREATE_TRIGGER,
-	ERROR_CREATE_TRIGGER,
-
-	//DELETE_TRIGGER,
-	HANDLE_DELETE_TRIGGER,
-	ERROR_DELETE_TRIGGER
+	REQUEST,
+	HANDLE,
+	ERROR,
+	TIMEOUT
 } from '../actions/bloodlinesActions'
 
 export function getAllContent(state = {
@@ -78,46 +59,38 @@ export function getAllContent(state = {
 	}
 }
 
-export function createContent(state = {
+export function modify(state = {
 	fetching: false,
 	error: null,
 	success: false
 }, action) {
-	switch (action.type) {
-	case HANDLE_CREATE_CONTENT:
-		return Object.assign({}, state, {
-			fetching: false,
-			success: action.payload.success,
-			error: null
-		});
-	case ERROR_CREATE_CONTENT:
-		return Object.assign({}, state, {
-			fetching: false,
-			success: false,
-			error: action.err
-		});
-	default:
-		return state;
-	}
+	console.log(action);
+	return handleModifyAction(action, state);
 }
 
-export function deleteContent(state = {
-	fetching: false,
-	error: null,
-	success: false
-}, action) {
+function handleModifyAction(action, state) {
 	switch (action.type) {
-	case HANDLE_DELETE_CONTENT:
+	case REQUEST:
+		return Object.assign({}, state, {
+			fetching: true,
+		});
+	case HANDLE:
 		return Object.assign({}, state, {
 			fetching: false,
 			success: action.payload.success,
 			error: null
 		});
-	case ERROR_DELETE_CONTENT:
+	case ERROR:
 		return Object.assign({}, state, {
 			fetching: false,
 			success: action.success,
 			error: action.err
+		});
+	case TIMEOUT:
+		return Object.assign({}, state, {
+			fetching: false,
+			error: null,
+			success: false
 		});
 	default:
 		return state;
@@ -163,53 +136,6 @@ export function getAllTriggers(state = {
 		return Object.assign({}, state, {
 			fetching: false,
 			next: false,
-			error: action.err
-		});
-	default:
-		return state;
-	}
-}
-
-export function deleteTrigger(state = {
-	fetching: false,
-	error: null,
-	success: false
-}, action) {
-	switch (action.type) {
-	case HANDLE_DELETE_TRIGGER:
-		console.log(action);
-		return Object.assign({}, state, {
-			fetching: false,
-			success: action.payload.success,
-			error:null
-		});
-	case ERROR_DELETE_TRIGGER:
-		return Object.assign({}, state, {
-			fetching: false,
-			success: false,
-			error: action.err
-		});
-	default:
-		return state;
-	}
-}
-
-export function createTrigger(state = {
-	fetching: false,
-	error: null,
-	success: false
-}, action) {
-	switch (action.type) {
-	case HANDLE_CREATE_TRIGGER:
-		return Object.assign({}, state, {
-			fetching: false,
-			success: action.payload.success,
-			error: null
-		});
-	case ERROR_CREATE_TRIGGER:
-		return Object.assign({}, state, {
-			fetching: false,
-			success: false,
 			error: action.err
 		});
 	default:
