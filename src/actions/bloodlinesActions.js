@@ -35,13 +35,6 @@ const BLOODLINES_URL = "https://bloodlines.expresso.store/api";
 const CONTENT_URL = BLOODLINES_URL + "/content";
 const TRIGGER_URL = BLOODLINES_URL + "/trigger";
 
-function sendGetAllContent(offset, limit) {
-	return {
-		type: GET_ALL_CONTENT,
-		offset,
-		limit
-	};
-}
 function handleGetAllContent(payload, limit, reset) {
 	return {
 		type: HANDLE_GET_ALL_CONTENT,
@@ -60,8 +53,6 @@ function errorGetAllContent(offset, limit, err) {
 }
 export function getAllContent(offset, limit, reset) {
 	return dispatch => {
-		dispatch(sendGetAllContent(offset, limit));
-
 		return fetch(CONTENT_URL+"?offset="+offset+"&limit="+limit, {
 			method: "GET"
 		}).then((res) => {
@@ -79,12 +70,6 @@ export function getAllContent(offset, limit, reset) {
 	}
 }
 
-function sendGetContent(id) {
-	return {
-		type: GET_CONTENT,
-		id
-	};
-}
 function handleContent(payload) {
 	return {
 		type: HANDLE_GET_CONTENT,
@@ -99,12 +84,6 @@ function errorGetContent(id, err) {
 	};
 }
 
-function sendCreateContent(content) {
-	return {
-		type: CREATE_CONTENT,
-		content
-	};
-}
 function handleCreateContent(payload) {
 	return {
 		type: HANDLE_CREATE_CONTENT,
@@ -120,8 +99,6 @@ function errorCreateContent(content, err) {
 }
 export function createContent(body) {
 	return dispatch => {
-		dispatch(sendCreateContent(body));
-
 		return fetch(CONTENT_URL, {
 			method: "POST",
 			body: JSON.stringify(body)
@@ -140,12 +117,6 @@ export function createContent(body) {
 	}
 }
 
-function sendDeleteContent(id) {
-	return {
-		type: DELETE_CONTENT,
-		id
-	};
-}
 function handleDeleteContent(payload) {
 	return {
 		type: HANDLE_DELETE_CONTENT,
@@ -161,8 +132,6 @@ function errorDeleteContent(id, err) {
 }
 export function deleteContent(id) {
 	return dispatch => {
-		dispatch(sendDeleteContent(id));
-
 		return fetch(CONTENT_URL+"/"+id, {
 			method: "DELETE"
 		}).then((res) => {
@@ -180,13 +149,6 @@ export function deleteContent(id) {
 	}
 }
 
-function sendGetAllTriggers(offset, limit) {
-	return {
-		type: GET_ALL_TRIGGERS,
-		offset,
-		limit
-	};
-}
 function handleGetAllTriggers(payload, limit, reset) {
 	return {
 		type: HANDLE_GET_ALL_TRIGGERS,
@@ -205,8 +167,6 @@ function errorGetAllTriggers(offset, limit, err) {
 }
 export function getAllTriggers(offset, limit, reset) {
 	return dispatch => {
-		dispatch(sendGetAllTriggers(offset, limit));
-
 		return fetch(TRIGGER_URL+"?offset="+offset+"&limit="+limit, {
 			method: "GET"
 		}).then((res) => {
@@ -224,12 +184,6 @@ export function getAllTriggers(offset, limit, reset) {
 	}
 }
 
-function sendCreateTrigger(body) {
-	return {
-		type: CREATE_TRIGGER,
-		body
-	};
-}
 function handleCreateTrigger(payload) {
 	return {
 		type: HANDLE_CREATE_TRIGGER,
@@ -245,7 +199,6 @@ function errorCreateTrigger(body, err) {
 }
 export function createTrigger(body) {
 	return dispatch => {
-		dispatch(sendCreateTrigger(body));
 
 		return fetch(TRIGGER_URL, {
 			method: "POST",
@@ -265,12 +218,6 @@ export function createTrigger(body) {
 	}
 }
 
-function sendDeleteTrigger(id) {
-	return {
-		type: DELETE_TRIGGER,
-		id
-	};
-}
 function handleDeleteTrigger(payload) {
 	return {
 		type: HANDLE_DELETE_TRIGGER,
@@ -286,8 +233,6 @@ function errorDeleteTrigger(id, err) {
 }
 export function deleteTrigger(id) {
 	return dispatch => {
-		dispatch(errorDeleteTrigger(id));
-
 		return fetch(TRIGGER_URL+"/" + id, {
 			method: "DELETE"
 		}).then((res) => {

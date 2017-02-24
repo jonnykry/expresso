@@ -1,33 +1,33 @@
 import {
-	GET_ALL_CONTENT,
+	//GET_ALL_CONTENT,
 	HANDLE_GET_ALL_CONTENT,
 	ERROR_GET_ALL_CONTENT,
 
-	GET_CONTENT,
-	HANDLE_GET_CONTENT,
-	ERROR_GET_CONTENT,
+	// GET_CONTENT,
+	//HANDLE_GET_CONTENT,
+	// ERROR_GET_CONTENT,
 
-	CREATE_CONTENT,
+	//CREATE_CONTENT,
 	HANDLE_CREATE_CONTENT,
 	ERROR_CREATE_CONTENT,
 
-	DELETE_CONTENT,
+	//DELETE_CONTENT,
 	HANDLE_DELETE_CONTENT,
 	ERROR_DELETE_CONTENT,
 
-	GET_ALL_TRIGGERS,
+	//GET_ALL_TRIGGERS,
 	HANDLE_GET_ALL_TRIGGERS,
 	ERROR_GET_ALL_TRIGGERS,
 
-	GET_TRIGGER,
-	HANDLE_GET_TRIGGER,
-	ERROR_GET_TRIGGER,
+	// GET_TRIGGER,
+	// HANDLE_GET_TRIGGER,
+	// ERROR_GET_TRIGGER,
 
-	CREATE_TRIGGER,
+	//CREATE_TRIGGER,
 	HANDLE_CREATE_TRIGGER,
 	ERROR_CREATE_TRIGGER,
 
-	DELETE_TRIGGER,
+	//DELETE_TRIGGER,
 	HANDLE_DELETE_TRIGGER,
 	ERROR_DELETE_TRIGGER
 } from '../actions/bloodlinesActions'
@@ -41,11 +41,6 @@ export function getAllContent(state = {
 	error: null,
 }, action) {
 	switch (action.type) {
-	case GET_ALL_CONTENT:
-		return Object.assign({}, state, {
-			fetching: true,
-			next: false
-		});
 	case HANDLE_GET_ALL_CONTENT:
 		if (action.reset) {
 			state.items = {};
@@ -89,10 +84,6 @@ export function createContent(state = {
 	success: false
 }, action) {
 	switch (action.type) {
-	case CREATE_CONTENT:
-		return Object.assign({}, state, {
-			fetching: true
-		});
 	case HANDLE_CREATE_CONTENT:
 		return Object.assign({}, state, {
 			fetching: false,
@@ -116,10 +107,6 @@ export function deleteContent(state = {
 	success: false
 }, action) {
 	switch (action.type) {
-	case DELETE_CONTENT:
-		return Object.assign({}, state, {
-			fetching: true
-		});
 	case HANDLE_DELETE_CONTENT:
 		return Object.assign({}, state, {
 			fetching: false,
@@ -146,11 +133,6 @@ export function getAllTriggers(state = {
 	error: null,
 }, action) {
 	switch (action.type) {
-	case GET_ALL_TRIGGERS:
-		return Object.assign({}, state, {
-			fetching: true,
-			next: false
-		});
 	case HANDLE_GET_ALL_TRIGGERS:
 		if (action.reset) {
 			state.items = {};
@@ -194,10 +176,6 @@ export function deleteTrigger(state = {
 	success: false
 }, action) {
 	switch (action.type) {
-	case DELETE_TRIGGER:
-		return Object.assign({}, state, {
-			fetching: true
-		});
 	case HANDLE_DELETE_TRIGGER:
 		console.log(action);
 		return Object.assign({}, state, {
@@ -222,10 +200,6 @@ export function createTrigger(state = {
 	success: false
 }, action) {
 	switch (action.type) {
-	case CREATE_TRIGGER:
-		return Object.assign({}, state, {
-			fetching: true
-		});
 	case HANDLE_CREATE_TRIGGER:
 		return Object.assign({}, state, {
 			fetching: false,
