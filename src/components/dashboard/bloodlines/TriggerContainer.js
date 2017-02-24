@@ -27,8 +27,7 @@ class TriggerContainer extends Component {
 	}
 
 	refresh() {
-		console.log(this.props.delete);
-		if (this.props.delete.success && !this.props.delete.fetching) {
+		if (this.props.modify.success && !this.props.modify.fetching) {
 			this.update(true);
 		}
 	}
@@ -43,8 +42,8 @@ class TriggerContainer extends Component {
 
 		return (
 			<div>
-				<SuccessMessage success={this.props.delete.success} message={"Deleted Trigger."} />
-				<TriggerList delete={this.delete.bind(this)} {...this.props.getAll} />
+				<SuccessMessage success={this.props.modify.success} message={"Deleted Trigger."} />
+				<TriggerList delete={this.delete.bind(this)} {...this.props.getAll}/>
 			</div>
 		);
 	}
@@ -60,7 +59,7 @@ function mapStateToProps(state) {
 			cursor: state.getAllTriggers.cursor,
 			next: state.getAllTriggers.next
 		},
-		delete: state.deleteTrigger
+		modify: state.modify
 	};
 }
 

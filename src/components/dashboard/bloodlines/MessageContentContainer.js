@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { getAllContent, createContent, deleteContent } from '../../../actions/bloodlinesActions';
+import { getAllContent, createContent, deleteContent, createTrigger } from '../../../actions/bloodlinesActions';
 import MessageContentList from './MessageContentList';
 import MessageContentInput from './MessageContentInput';
+import ErrorMessage from '../../ErrorMessage';
+import SuccessMessage from '../../SuccessMessage';
 
 class MessageContentContainer extends Component {
 	componentDidMount() {
@@ -16,14 +18,16 @@ class MessageContentContainer extends Component {
 		dispatch(createContent(data)).then(this.refresh.bind(this));
 	}
 
-	refresh() {
-		if (this.props.create.success && !this.props.create.fetching) {
-			this.update();
-			return;
-		}
+	createTrigger(data) {
+		const {dispatch} = this.props;
 
-		if (this.props.delete.success && !this.props.delete.fetching) {
+		dispatch(createTrigger(data)).then();
+	}
+
+	refresh() {
+		if (this.props.modify.success && !this.props.modify.fetching) {
 			this.update(true);
+			return;
 		}
 	}
 
@@ -54,8 +58,10 @@ class MessageContentContainer extends Component {
 
 		return (
 			<div>
-				<MessageContentInput addContent={this.create.bind(this)} {...this.props.create} />
-				<MessageContentList deleteContent={this.delete.bind(this)} {...this.props.getAll} />
+				<ErrorMessage error={this.props.modify.error} />
+				<SuccessMessage success={this.props.modify.success} message={"Success"} />
+				<MessageContentInput addContent={this.create.bind(this)} {...this.props.modify} />
+				<MessageContentList createTrigger={this.createTrigger.bind(this)} deleteContent={this.delete.bind(this)} {...this.props.getAll} modify={this.props.modify}/>
 			</div>
 		)
 	}
@@ -71,15 +77,10 @@ function mapStateToProps(state) {
 			cursor: state.getAllContent.cursor,
 			next: state.getAllContent.next
 		},
-		create: {
-			fetching: state.createContent.fetching,
-			error: state.createContent.error,
-			success: state.createContent.success
-		},
-		delete: {
-			fetching: state.deleteContent.fetching,
-			error: state.deleteContent.error,
-			success: state.deleteContent.success
+		modify: {
+			fetching: state.modify.fetching,
+			error: state.modify.error,
+			success: state.modify.success
 		}
 	};
 }
