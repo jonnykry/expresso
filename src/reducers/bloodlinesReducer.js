@@ -1,11 +1,9 @@
 import {
-	//GET_ALL_CONTENT,
-	HANDLE_GET_ALL_CONTENT,
-	ERROR_GET_ALL_CONTENT,
+	HANDLE_PAGED,
+	ERROR_PAGED,
 
-	//GET_ALL_TRIGGERS,
-	HANDLE_GET_ALL_TRIGGERS,
-	ERROR_GET_ALL_TRIGGERS,
+	TRIGGERS,
+	CONTENTS,
 
 	REQUEST,
 	HANDLE,
@@ -13,7 +11,7 @@ import {
 	TIMEOUT
 } from '../actions/bloodlinesActions'
 
-export function getAllContent(state = {
+export function triggers(state = {
 	fetching: false,
 	cursor: 0,
 	next: false,
@@ -21,9 +19,30 @@ export function getAllContent(state = {
 	ids: [],
 	error: null,
 }, action) {
+	if (action.itemType !== TRIGGERS) {
+		return state;
+	}
+	return handlePagedAction(action, state);
+}
+
+export function contents(state = {
+	fetching: false,
+	cursor: 0,
+	next: false,
+	items: {},
+	ids: [],
+	error: null,
+}, action) {
+	if (action.itemType !== CONTENTS) {
+		return state;
+	}
+	return handlePagedAction(action, state);
+}
+
+function handlePagedAction(action, state) {
 	switch (action.type) {
-	case HANDLE_GET_ALL_CONTENT:
-		if (action.reset) {
+	case HANDLE_PAGED:
+		if (action.offset === 0) {
 			state.items = {};
 		}
 		const length = Object.keys(state.items).length;
@@ -48,7 +67,7 @@ export function getAllContent(state = {
 			cursor: cursor,
 			error:null
 		});
-	case ERROR_GET_ALL_CONTENT:
+	case ERROR_PAGED:
 		return Object.assign({}, state, {
 			fetching: false,
 			next: false,
@@ -64,7 +83,6 @@ export function modify(state = {
 	error: null,
 	success: false
 }, action) {
-	console.log(action);
 	return handleModifyAction(action, state);
 }
 
@@ -91,52 +109,6 @@ function handleModifyAction(action, state) {
 			fetching: false,
 			error: null,
 			success: false
-		});
-	default:
-		return state;
-	}
-}
-
-export function getAllTriggers(state = {
-	fetching: false,
-	cursor: 0,
-	next: false,
-	items: {},
-	ids: [],
-	error: null,
-}, action) {
-	switch (action.type) {
-	case HANDLE_GET_ALL_TRIGGERS:
-		if (action.reset) {
-			state.items = {};
-		}
-		const length = Object.keys(state.items).length;
-		let _triggers = state.items;
-		for (let trigger of action.payload.data) {
-			_triggers = {
-				..._triggers,
-				[trigger.id]: trigger
-			};
-		}
-
-		const keys = Object.keys(_triggers);
-		const cursor = keys.length;
-		const hasNew = length < cursor;
-		const isFull = cursor - length >= action.limit;
-
-		return Object.assign({}, state, {
-			fetching: false,
-			next: hasNew && isFull,
-			items: _triggers,
-			ids: keys,
-			cursor: cursor,
-			error:null
-		});
-	case ERROR_GET_ALL_TRIGGERS:
-		return Object.assign({}, state, {
-			fetching: false,
-			next: false,
-			error: action.err
 		});
 	default:
 		return state;

@@ -39,16 +39,16 @@ class MessageContentContainer extends Component {
 
 	update(reset) {
 		const { dispatch } = this.props;
-		let offset = this.props.getAll.cursor;
+		let offset = this.props.items.cursor;
 		if (reset) {
 			offset = 0;
 		}
 
-		dispatch(getAllContent(offset, 20, reset)).then(this.nextPage.bind(this));
+		dispatch(getAllContent(offset, 20)).then(this.nextPage.bind(this));
 	}
 
 	nextPage() {
-		if (this.props.getAll.next && !this.props.getAll.fetching) {
+		if (this.props.items.next && !this.props.items.fetching) {
 			this.update();
 		}
 	}
@@ -61,7 +61,7 @@ class MessageContentContainer extends Component {
 				<ErrorMessage error={this.props.modify.error} />
 				<SuccessMessage success={this.props.modify.success} message={"Success"} />
 				<MessageContentInput addContent={this.create.bind(this)} {...this.props.modify} />
-				<MessageContentList createTrigger={this.createTrigger.bind(this)} deleteContent={this.delete.bind(this)} {...this.props.getAll} modify={this.props.modify}/>
+				<MessageContentList createTrigger={this.createTrigger.bind(this)} deleteContent={this.delete.bind(this)} {...this.props.items} modify={this.props.modify}/>
 			</div>
 		)
 	}
@@ -69,19 +69,8 @@ class MessageContentContainer extends Component {
 
 function mapStateToProps(state) {
 	return {
-		getAll: {
-			items: state.getAllContent.items,
-			ids: state.getAllContent.ids,
-			fetching: state.getAllContent.fetching,
-			error: state.getAllContent.error,
-			cursor: state.getAllContent.cursor,
-			next: state.getAllContent.next
-		},
-		modify: {
-			fetching: state.modify.fetching,
-			error: state.modify.error,
-			success: state.modify.success
-		}
+		items: state.contents,
+		modify: state.modify
 	};
 }
 
