@@ -36,7 +36,7 @@ class RoasterRegisterContainer extends Component {
     render() {
         return (
             <div>
-                <RoasterRegister onHandleSubmit={this.handleSubmit} error={false} {...this.props} />
+                <RoasterRegister onHandleSubmit={this.handleSubmit} {...this.props} />
             </div>
         );
     }
@@ -44,7 +44,8 @@ class RoasterRegisterContainer extends Component {
 
 function mapStateToProps(state) {
     return {
-        user: state.userReducer.user
+        user: state.userReducer.user,
+        error: state.userReducer.error
     };
 }
 

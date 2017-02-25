@@ -27,9 +27,7 @@ const store = configureStore();
 console.log('State: ', store.getState());
 
 function loggedIn() {
-    const state = store.getState();
-
-    return state.userReducer.user !== '';
+    return store.getState().userReducer.user !== undefined;
 }
 
 function requireAuth(nextState, replace) {
