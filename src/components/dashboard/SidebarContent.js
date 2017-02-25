@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import SidebarSelector from './SidebarSelector';
 import BloodlinesSidebar from './BloodlinesSidebar';
+import RoasterSidebar from './RoasterSidebar';
 
 class SidebarContent extends Component {
     render() {
         const bloodlines = <BloodlinesSidebar location={this.props.location} />;
+        const roaster = <RoasterSidebar location={this.props.location} />;
 
         const b = this.props.location;
         const d = "/dashboard/";
@@ -13,8 +15,8 @@ class SidebarContent extends Component {
                 <div className="flex flex-column h-inherit w-100">
                     <SidebarSelector name="Bloodlines" to={d+"bloodlines"}
                         children={bloodlines} location={b} />
-                    <SidebarSelector name="Create Roaster Account" to={d+"roaster/register"}
-                                     children={null} location={b} />
+                    <SidebarSelector name="Roaster" to={d+"roaster"}
+                                     children={roaster} location={b} />
                     <SidebarSelector name="Account Settings" to={d+"settings"}
                         children={null} location={b} />
                     <SidebarSelector name="Logout"

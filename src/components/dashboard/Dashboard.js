@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 
 import SidebarContent from './SidebarContent';
 
@@ -24,11 +23,4 @@ class Dashboard extends Component {
     }
 }
 
-function mapStateToProps(state) {
-    return {
-        user: state.userReducer.user,
-        roaster: state.roasterReducer.roaster
-    };
-}
-
-export default connect(mapStateToProps)(Dashboard);
+export default Dashboard;

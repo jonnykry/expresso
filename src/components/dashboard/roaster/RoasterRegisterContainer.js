@@ -14,20 +14,23 @@ class RoasterRegisterContainer extends Component {
             city, state, zipCode, country } = this.refs;
 
         const data = {
-            name: firstName.value + ' ' + lastName.value,
-            email: email.value,
-            phone: phone.value,
-            addressLine1: addressLineOne.value,
-            addressLine2: addressLineTwo.value,
-            addressCity: city.value,
-            addressState: state.value,
-            addressZip: zipCode.value,
-            addressCountry: country.value,
+            userId: this.props.user.id,
+            roaster: {
+                name: firstName.value + ' ' + lastName.value,
+                email: email.value,
+                phone: phone.value,
+                addressLine1: addressLineOne.value,
+                addressLine2: addressLineTwo.value,
+                addressCity: city.value,
+                addressState: state.value,
+                addressZip: zipCode.value,
+                addressCountry: country.value
+            }
         };
 
         dispatch(createRoaster(data));
 
-        router.replace('dashboard/roaster/account');
+        router.replace('/dashboard/roaster/account');
     }
 
     render() {
@@ -39,4 +42,10 @@ class RoasterRegisterContainer extends Component {
     }
 }
 
-export default connect()(RoasterRegisterContainer);
+function mapStateToProps(state) {
+    return {
+        user: state.userReducer.user
+    };
+}
+
+export default connect(mapStateToProps)(RoasterRegisterContainer);
