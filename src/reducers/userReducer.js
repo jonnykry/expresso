@@ -1,11 +1,4 @@
-
-import {
-    RECEIVE_AUTHENTICATED_USER,
-    ERROR_AUTHENTICATING_USER,
-    RECEIVE_CREATED_USER,
-    ERROR_CREATING_USER,
-    LOGOUT
-} from '../actions/userActions'
+import ActionTypes from '../actions/actionTypes';
 
 export function userReducer(state = {
     error: false,
@@ -13,20 +6,20 @@ export function userReducer(state = {
     user: ''
 }, action) {
     switch (action.type) {
-        case RECEIVE_AUTHENTICATED_USER:
-        case RECEIVE_CREATED_USER:
+        case ActionTypes.RECEIVE_AUTHENTICATED_USER:
+        case ActionTypes.RECEIVE_CREATED_USER:
             return Object.assign({}, state, {
                 error: false,
                 success: action.payload.data.id !== '',
                 user: action.payload.data
             });
-        case ERROR_AUTHENTICATING_USER:
-        case ERROR_CREATING_USER:
+        case ActionTypes.ERROR_AUTHENTICATING_USER:
+        case ActionTypes.ERROR_CREATING_USER:
             return Object.assign({}, state, {
                 error: action.err,
                 user: ''
             });
-        case LOGOUT:
+        case ActionTypes.LOGOUT:
             return Object.assign({}, state, {
                 error: false,
                 success: true,
