@@ -24,5 +24,4 @@ class TriggerList extends Component {
 
 }
 
-
 export default TriggerList;

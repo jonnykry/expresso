@@ -12,23 +12,22 @@ class TriggerContainer extends Component {
 
 	update(reset) {
 		const { dispatch } = this.props;
-		let offset = this.props.getAll.cursor;
-		if (reset) {
+		let offset = this.props.items.cursor;
+		if (reset){
 			offset = 0;
 		}
 
-		dispatch(getAllTriggers(offset, 20, reset)).then(this.nextPage.bind(this));
+		dispatch(getAllTriggers(offset, 20)).then(this.nextPage.bind(this));
 	}
 
 	nextPage() {
-		if (this.props.getAll.next && !this.props.getAll.fcreateContentetching) {
+		if (this.props.items.next && !this.props.items.fetching) {
 			this.update();
 		}
 	}
 
 	refresh() {
-		console.log(this.props.delete);
-		if (this.props.delete.success && !this.props.delete.fetching) {
+		if (this.props.modify.success && !this.props.modify.fetching) {
 			this.update(true);
 		}
 	}
@@ -43,8 +42,8 @@ class TriggerContainer extends Component {
 
 		return (
 			<div>
-				<SuccessMessage success={this.props.delete.success} message={"Deleted Trigger."} />
-				<TriggerList delete={this.delete.bind(this)} {...this.props.getAll} />
+				<SuccessMessage success={this.props.modify.success} message={"Deleted Trigger."} />
+				<TriggerList delete={this.delete.bind(this)} {...this.props.items}/>
 			</div>
 		);
 	}
@@ -52,15 +51,8 @@ class TriggerContainer extends Component {
 
 function mapStateToProps(state) {
 	return {
-		getAll: {
-			items: state.getAllTriggers.items,
-			ids: state.getAllTriggers.ids,
-			fetching: state.getAllTriggers.fetching,
-			error: state.getAllTriggers.error,
-			cursor: state.getAllTriggers.cursor,
-			next: state.getAllTriggers.next
-		},
-		delete: state.deleteTrigger
+		items: state.triggers,
+		modify: state.modify
 	};
 }
 

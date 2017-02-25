@@ -23,7 +23,7 @@ export function userReducer(state = {
         case ERROR_AUTHENTICATING_USER:
         case ERROR_CREATING_USER:
             return Object.assign({}, state, {
-                error: true,
+                error: action.err,
                 user: ''
             });
         case LOGOUT:

@@ -1,20 +1,13 @@
 import { combineReducers } from 'redux';
 import { userReducer } from './userReducer';
 import { customerPaymentInfoReducer } from './coinageReducer';
-import {
-	getAllContent, createContent, deleteContent,
-	getAllTriggers, createTrigger, deleteTrigger
-} from './bloodlinesReducer';
+import { triggers, contents, modify } from './bloodlinesReducer';
 
 const rootReducer = combineReducers({
     userReducer,
     customerPaymentInfoReducer,
-    getAllContent,
-    createContent,
-    deleteContent,
-    getAllTriggers,
-    createTrigger,
-    deleteTrigger
+    triggers, contents,
+    modify,
 });
 
 export default rootReducer;

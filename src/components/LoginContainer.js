@@ -35,7 +35,8 @@ function mapStateToProps(state) {
     return {
         user: state.userReducer.user,
         isFetching: state.userReducer.isFetching,
-        didAuthenticate: state.userReducer.didAuthenticate
+        didAuthenticate: state.userReducer.didAuthenticate,
+        error: state.userReducer.error
     };
 }
 

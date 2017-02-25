@@ -1,307 +1,120 @@
+export const HANDLE_PAGED = "HANDLE_PAGED";
+export const ERROR_PAGED = "ERROR_PAGED";
+export const TRIGGERS = "TRIGGERS";
+export const CONTENTS = "CONTENTS";
 
-export const GET_ALL_CONTENT = "GET_ALL_CONTENT";
-export const HANDLE_GET_ALL_CONTENT = "HANDLE_GET_ALL_CONTENT";
-export const ERROR_GET_ALL_CONTENT = "ERROR_GET_ALL_CONTENT";
+export const REQUEST = "REQUEST";
+export const HANDLE = "HANDLE";
+export const ERROR = "ERROR";
+export const TIMEOUT = "TIMEOUT";
 
-export const GET_CONTENT = "GET_CONTENT";
-export const HANDLE_GET_CONTENT = "HANDLE_GET_CONTENT";
-export const ERROR_GET_CONTENT = "ERROR_GET_CONTENT";
-
-export const CREATE_CONTENT = "CREATE_CONTENT";
-export const HANDLE_CREATE_CONTENT = "HANDLE_CREATE_CONTENT";
-export const ERROR_CREATE_CONTENT = "ERROR_CREATE_CONTENT";
-
-export const DELETE_CONTENT = "DELETE_CONTENT";
-export const HANDLE_DELETE_CONTENT = "HANDLE_DELETE_CONTENT";
-export const ERROR_DELETE_CONTENT = "ERROR_DELETE_CONTENT";
-
-export const GET_ALL_TRIGGERS = "GET_ALL_TRIGGERS";
-export const HANDLE_GET_ALL_TRIGGERS = "HANDLE_GET_ALL_TRIGGERS";
-export const ERROR_GET_ALL_TRIGGERS = "ERROR_GET_ALL_TRIGGERS";
-
-export const GET_TRIGGER = "GET_TRIGGER";
-export const HANDLE_GET_TRIGGER = "HANDLE_GET_TRIGGER";
-export const ERROR_GET_TRIGGER = "ERROR_GET_TRIGGER";
-
-export const CREATE_TRIGGER = "CREATE_TRIGGER";
-export const HANDLE_CREATE_TRIGGER = "HANDLE_CREATE_TRIGGER";
-export const ERROR_CREATE_TRIGGER = "ERROR_CREATE_TRIGGER";
-
-export const DELETE_TRIGGER = "DELETE_TRIGGER";
-export const HANDLE_DELETE_TRIGGER = "HANDLE_DELETE_TRIGGER";
-export const ERROR_DELETE_TRIGGER = "ERROR_DELETE_TRIGGER";
+const TIMEOUT_MS = 5000;
 
 const BLOODLINES_URL = "https://bloodlines.expresso.store/api";
 const CONTENT_URL = BLOODLINES_URL + "/content";
 const TRIGGER_URL = BLOODLINES_URL + "/trigger";
 
-function sendGetAllContent(offset, limit) {
-	return {
-		type: GET_ALL_CONTENT,
-		offset,
-		limit
-	};
-}
-function handleGetAllContent(payload, limit, reset) {
-	return {
-		type: HANDLE_GET_ALL_CONTENT,
-		payload,
-		limit,
-		reset
-	};
-}
-function errorGetAllContent(offset, limit, err) {
-	return {
-		type: ERROR_GET_ALL_CONTENT,
-		offset,
-		limit,
-		err
-	};
-}
 export function getAllContent(offset, limit, reset) {
-	return dispatch => {
-		dispatch(sendGetAllContent(offset, limit));
-
-		return fetch(CONTENT_URL+"?offset="+offset+"&limit="+limit, {
-			method: "GET"
-		}).then((res) => {
-			return res.json();
-		}).then((json) => {
-			if (json.error || !json.success) {
-				dispatch(errorGetAllContent(offset, limit, json.message))
-				return;
-			}
-
-			dispatch(handleGetAllContent(json, limit, reset))
-		}).catch((err) => {
-			dispatch(errorGetAllContent(offset, limit, err))
-		});
-	}
+	return handlePagedRequest(CONTENTS, CONTENT_URL+"?offset="+offset+"&limit="+limit, "GET", offset, limit);
 }
 
-function sendGetContent(id) {
-	return {
-		type: GET_CONTENT,
-		id
-	};
-}
-function handleContent(payload) {
-	return {
-		type: HANDLE_GET_CONTENT,
-		payload
-	};
-}
-function errorGetContent(id, err) {
-	return {
-		type: ERROR_GET_CONTENT,
-		id,
-		err
-	};
+export function getAllTriggers(offset, limit, reset) {
+	return handlePagedRequest(TRIGGERS, TRIGGER_URL+"?offset="+offset+"&limit="+limit, "GET", offset, limit);
 }
 
-function sendCreateContent(content) {
-	return {
-		type: CREATE_CONTENT,
-		content
-	};
-}
-function handleCreateContent(payload) {
-	return {
-		type: HANDLE_CREATE_CONTENT,
-		payload
-	};
-}
-function errorCreateContent(content, err) {
-	return {
-		type: ERROR_CREATE_CONTENT,
-		content,
-		err
-	};
-}
 export function createContent(body) {
-	return dispatch => {
-		dispatch(sendCreateContent(body));
-
-		return fetch(CONTENT_URL, {
-			method: "POST",
-			body: JSON.stringify(body)
-		}).then((res) => {
-			return res.json();
-		}).then((json) => {
-			if (json.error || !json.success) {
-				dispatch(errorCreateContent(body, json.message))
-				return;
-			}
-
-			dispatch(handleCreateContent(json))
-		}).catch((err) => {
-			dispatch(errorCreateContent(body, err))
-		});
-	}
+	return handleRequest(CONTENT_URL, "POST", body);
 }
 
-function sendDeleteContent(id) {
-	return {
-		type: DELETE_CONTENT,
-		id
-	};
-}
-function handleDeleteContent(payload) {
-	return {
-		type: HANDLE_DELETE_CONTENT,
-		payload
-	};
-}
-function errorDeleteContent(id, err) {
-	return {
-		type: ERROR_DELETE_CONTENT,
-		id,
-		err
-	};
-}
 export function deleteContent(id) {
-	return dispatch => {
-		dispatch(sendDeleteContent(id));
+	return handleRequest(CONTENT_URL+"/"+id,"DELETE")
+}
 
-		return fetch(CONTENT_URL+"/"+id, {
-			method: "DELETE"
+export function createTrigger(body) {
+	return handleRequest(TRIGGER_URL, "POST", body);
+}
+
+export function deleteTrigger(id) {
+	return handleRequest(TRIGGER_URL+"/" + id, "DELETE");
+}
+
+function handlePagedRequest(item, url, type, offset, limit) {
+	return dispatch => {
+		return fetch(url, {
+			method: type
 		}).then((res) => {
 			return res.json();
 		}).then((json) => {
 			if (json.error || !json.success) {
-				dispatch(errorDeleteTrigger(id, json.message))
+				dispatch(errorPaged(item, offset, limit, json.message));
 				return;
 			}
 
-			dispatch(handleDeleteContent(json))
+			dispatch(handlePaged(item, json, offset, limit))
 		}).catch((err) => {
-			dispatch(errorDeleteContent(id, err))
+			dispatch(errorPaged(item, offset, limit, err))
 		});
 	}
 }
 
-function sendGetAllTriggers(offset, limit) {
+function handleRequest(url, type, body) {
+	let raw = "";
+	if (body) {
+		raw = JSON.stringify(body);
+	}
+	return dispatch => {
+		setTimeout(() => {
+			dispatch(timeout())
+		}, TIMEOUT_MS);
+		return fetch(url, {
+			method: type,
+			body: raw
+		}).then((res) => {
+			return res.json();
+		}).then((json) => {
+			if (json.error || !json.success) {
+				dispatch(error(body, json.message))
+				return;
+			}
+
+			dispatch(handle(json));
+		}).catch((err) => {
+			dispatch(error(body, err));
+		});
+	}
+}
+
+function handlePaged(itemType, payload, offset, limit) {
 	return {
-		type: GET_ALL_TRIGGERS,
+		type: HANDLE_PAGED,
+		itemType,
+		payload,
 		offset,
 		limit
 	};
 }
-function handleGetAllTriggers(payload, limit, reset) {
+function errorPaged(itemType, err) {
 	return {
-		type: HANDLE_GET_ALL_TRIGGERS,
-		payload,
-		limit,
-		reset
-	};
-}
-function errorGetAllTriggers(offset, limit, err) {
-	return {
-		type: ERROR_GET_ALL_TRIGGERS,
-		offset,
-		limit,
+		type: ERROR_PAGED,
+		itemType,
 		err
 	};
 }
-export function getAllTriggers(offset, limit, reset) {
-	return dispatch => {
-		dispatch(sendGetAllTriggers(offset, limit));
-
-		return fetch(TRIGGER_URL+"?offset="+offset+"&limit="+limit, {
-			method: "GET"
-		}).then((res) => {
-			return res.json();
-		}).then((json) => {
-			if (json.error || !json.success) {
-				dispatch(errorGetAllTriggers(offset, limit, json.message));
-				return;
-			}
-
-			dispatch(handleGetAllTriggers(json, limit, reset))
-		}).catch((err) => {
-			dispatch(errorGetAllTriggers(offset, limit, err))
-		});
-	}
-}
-
-function sendCreateTrigger(body) {
+function timeout() {
 	return {
-		type: CREATE_TRIGGER,
-		body
+		type: TIMEOUT
 	};
 }
-function handleCreateTrigger(payload) {
+function handle(payload) {
 	return {
-		type: HANDLE_CREATE_TRIGGER,
+		type: HANDLE,
 		payload
 	};
 }
-function errorCreateTrigger(body, err) {
+function error(id, err) {
 	return {
-		type: ERROR_CREATE_TRIGGER,
-		body,
-		err
-	};
-}
-export function createTrigger(body) {
-	return dispatch => {
-		dispatch(sendCreateTrigger(body));
-
-		return fetch(TRIGGER_URL, {
-			method: "POST",
-			body: JSON.stringify(body)
-		}).then((res) => {
-			return res.json();
-		}).then((json) => {
-			if (json.error || !json.success) {
-				dispatch(errorCreateTrigger(body, json.message))
-				return;
-			}
-
-			dispatch(handleCreateTrigger(json))
-		}).catch((err) => {
-			dispatch(errorCreateTrigger(body, err))
-		});
-	}
-}
-
-function sendDeleteTrigger(id) {
-	return {
-		type: DELETE_TRIGGER,
-		id
-	};
-}
-function handleDeleteTrigger(payload) {
-	return {
-		type: HANDLE_DELETE_TRIGGER,
-		payload
-	};
-}
-function errorDeleteTrigger(id, err) {
-	return {
-		type: ERROR_DELETE_TRIGGER,
+		type: ERROR,
 		id,
 		err
 	};
-}
-export function deleteTrigger(id) {
-	return dispatch => {
-		dispatch(errorDeleteTrigger(id));
-
-		return fetch(TRIGGER_URL+"/" + id, {
-			method: "DELETE"
-		}).then((res) => {
-			return res.json();
-		}).then((json) => {
-			console.log(json);
-			if (json.error || !json.success) {
-				dispatch(errorDeleteTrigger(id, json.message))
-				return;
-			}
-
-			dispatch(handleDeleteTrigger(json))
-		}).catch((err) => {
-			dispatch(errorDeleteTrigger(id, err))
-		});
-	}
 }

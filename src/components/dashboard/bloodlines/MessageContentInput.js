@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
 
-import ErrorMessage from '../../ErrorMessage';
-import SuccessMessage from '../../SuccessMessage';
-
 class MessageContentInput extends Component {
 
 	handleSubmit(event){
@@ -12,13 +9,17 @@ class MessageContentInput extends Component {
 			subject: this.refs.subject.value,
 			text: this.refs.text.value,
 			parameters: this.refs.parameters.value.split(","),
-			type: this.refs.type.value
+			contentType: this.refs.type.value
 		};
 
 		this.props.addContent(data);
 	}
 
 	refresh() {
+		if (!this.refs.subject) {
+			return;
+		}
+
 		this.refs.subject.value = "";
 		this.refs.text.value = "";
 		this.refs.parameters.value = "";
@@ -32,7 +33,6 @@ class MessageContentInput extends Component {
 		if (!this.props.fetching && this.props.success) {
 			this.refresh();
 		}
-
 		return (
 			<div className="fl w-40">
 				<form onSubmit={this.handleSubmit.bind(this)} className="pa4 black-80">
@@ -55,8 +55,6 @@ class MessageContentInput extends Component {
 						</div>
 					</div>
 				</form>
-				<ErrorMessage error={this.props.error} />
-				<SuccessMessage success={this.props.success} message={"Successfully created Content"} />
 			</div>
 		)
 	}
