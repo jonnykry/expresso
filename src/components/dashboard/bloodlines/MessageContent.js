@@ -69,7 +69,7 @@ class MessageContent extends Component {
 								(
 									<div>
 										<div className={toggleClass} onClick={this.toggleAddTrigger.bind(this)}>[-] Trigger</div>
-										<TriggerInput content={item} />
+										<TriggerInput create={this.props.createTrigger} content={item} {...this.props.modify}/>
 									</div>
 								)
 							}

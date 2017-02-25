@@ -1,9 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-
-import ErrorMessage from '../../ErrorMessage';
-import SuccessMessage from '../../SuccessMessage';
-import { createTrigger } from '../../../actions/bloodlinesActions';
 
 class TriggerInput extends Component {
 
@@ -25,20 +20,12 @@ class TriggerInput extends Component {
 			tkey: this.refs.key.value,
 			values: values
 		};
-		console.log(data);
-
-		this.create(data);
-	}
-
-	create(data) {
-		const {dispatch} = this.props;
-
-		dispatch(createTrigger(data)).then(this.refresh.bind(this));
+		this.props.create(data);
 	}
 
 	refresh() {
-		if (this.props.fetching || !this.props.success) {
-			return;
+		if (!this.refs.key){
+			return
 		}
 
 		this.refs.key.value = "";
@@ -77,8 +64,6 @@ class TriggerInput extends Component {
 						<div className="fr pa3 pa3-ns">
 							<input className="self-center b ph3 pv2 input-reset ba b--black bg-white grow pointer f6 dib" type="submit" value="Submit"/>
 						</div>
-						<ErrorMessage error={this.props.error} />
-						<SuccessMessage success={this.props.success} message={"Successfully created trigger"} />
 					</div>
 				</form>
 			</div>
@@ -86,8 +71,4 @@ class TriggerInput extends Component {
 	}
 }
 
-function mapStateToProps(state) {
-	return state.createTrigger;
-}
-
-export default connect(mapStateToProps)(TriggerInput);
+export default TriggerInput;
