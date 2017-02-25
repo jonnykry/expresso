@@ -1,32 +1,27 @@
+import ActionTypes from '../actions/actionTypes';
 
-import {
-    REQUEST_CREATE_ROASTER,
-    RECEIVE_CREATED_ROASTER,
-    ERROR_CREATING_ROASTER
-} from '../actions/roasterActions'
-
-export function createRoaster(state = {
+export function roasterReducer(state = {
     isFetching: false,
     didAuthenticate: false,
-    roasterId: ''
+    roaster: ''
 }, action) {
     switch (action.type) {
-        case REQUEST_CREATE_ROASTER:
+        case ActionTypes.REQUEST_CREATE_ROASTER:
             return Object.assign({}, state, {
                 isFetching: true,
                 didCreate: false
             });
-        case RECEIVE_CREATED_ROASTER:
+        case ActionTypes.RECEIVE_CREATED_ROASTER:
             return Object.assign({}, state, {
                 isFetching: false,
                 didCreate: action.id !== '',
-                roasterId: action.id
+                roaster: action
             });
-        case ERROR_CREATING_ROASTER:
+        case ActionTypes.ERROR_CREATING_ROASTER:
             return Object.assign({}, state, {
                 isFetching: false,
                 didCreate: false,
-                roasterId: ''
+                roaster: ''
             });
         default:
             return state
