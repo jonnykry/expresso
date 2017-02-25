@@ -3,7 +3,7 @@ import ActionTypes from '../actions/actionTypes';
 export function userReducer(state = {
     error: false,
     success: false,
-    user: ''
+    subscription: null
 }, action) {
     switch (action.type) {
         case ActionTypes.RECEIVE_AUTHENTICATED_USER:

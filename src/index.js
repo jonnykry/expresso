@@ -24,9 +24,7 @@ import './index.css';
 const store = configureStore();
 
 function loggedIn() {
-    const state = store.getState();
-
-    return state.userReducer.user !== '';
+    return store.getState().userReducer.user !== undefined;
 }
 
 function requireAuth(nextState, replace) {
