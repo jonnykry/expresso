@@ -3,8 +3,6 @@ import { Link } from 'react-router';
 
 import ErrorMessage from './ErrorMessage';
 
-import './Login.css';
-
 class Login extends Component {
     render() {
         const labelClass = "mt3 db fw4 lh-copy f6";

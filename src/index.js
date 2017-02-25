@@ -27,7 +27,8 @@ const store = configureStore();
 console.log('State: ', store.getState());
 
 function loggedIn() {
-    return store.getState().userReducer.user !== '';
+    // return store.getState().userReducer.user !== '';
+    return true;
 }
 
 function requireAuth(nextState, replace) {
@@ -38,6 +39,8 @@ function requireAuth(nextState, replace) {
     }
 }
 
+
+// TODO:  Index redirect for roaster is dependent on roaster account
 ReactDOM.render(
     <Provider store={store}>
         <Router history={browserHistory}>
@@ -56,6 +59,7 @@ ReactDOM.render(
                         <Route path="preference" component={null}/>
                     </Route>
                     <Route path="roaster">
+                        <IndexRedirect to="account" />
                         <Route path="account" component={RoasterAccount} />
                         <Route path="register" component={RoasterRegisterContainer} />
                     </Route>

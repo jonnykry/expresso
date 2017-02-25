@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 
-import './Navigation.css';
-
 class Navigation extends Component {
     render() {
+        const linkClass = 'link dib dim black mr3 pl3-ns';
+
         return (
-            <nav className="flex justify-between bb">
-                    <Link to="/" className="link no-underline flex items-center pa3" title="Home">Expresso</Link>
+            <nav className="flex justify-between bg-lightest-blue shadow-2">
+                    <Link to="/" className="f1-l link dim black flex items-center pa3" title="Home">Expresso</Link>
                 <div className="flex-grow pa3 flex items-center">
-                    <Link to="/" className="f6 link dib dim mr3 mr4-ns" title="Home">Home</Link>
-                    <Link to="/about" className="f6 link dib dim mr3 mr4-ns" title="About">About</Link>
-                    <Link to="/dashboard" className="f6 link dib dim mr3 mr4-ns" title="Dashboard">Dashboard</Link>
-                    <Link to="/login" className="f6 link dib dim mr3 mr4-ns" title="Login">Login</Link>
+                    <Link to="/" className={linkClass} title="Home">Home</Link>
+                    <Link to="/about" className={linkClass + ' bl'} title="About">About</Link>
+                    <Link to="/dashboard" className={linkClass + ' bl'} title="Dashboard">Dashboard</Link>
+                    <Link to="/login" className={linkClass + ' bl'} title="Login">Login</Link>
                 </div>
             </nav>
         );
