@@ -4,6 +4,7 @@ import {
 
 	TRIGGERS,
 	CONTENTS,
+	RECEIPTS,
 
 	REQUEST,
 	HANDLE,
@@ -11,32 +12,36 @@ import {
 	TIMEOUT
 } from '../actions/bloodlinesActions'
 
-export function triggers(state = {
-	fetching: false,
-	cursor: 0,
-	next: false,
-	items: {},
-	ids: [],
-	error: null,
-}, action) {
+export function triggers(state = getPagedState(), action) {
 	if (action.itemType !== TRIGGERS) {
 		return state;
 	}
 	return handlePagedAction(action, state);
 }
 
-export function contents(state = {
-	fetching: false,
-	cursor: 0,
-	next: false,
-	items: {},
-	ids: [],
-	error: null,
-}, action) {
+export function contents(state = getPagedState(), action) {
 	if (action.itemType !== CONTENTS) {
 		return state;
 	}
 	return handlePagedAction(action, state);
+}
+
+export function receipts(state = getPagedState(), action) {
+	if (action.itemType !== RECEIPTS) {
+		return state;
+	}
+	return handlePagedAction(action, state);
+}
+
+function getPagedState() {
+	return {
+		fetching: false,
+		cursor: 0,
+		next: false,
+		items: {},
+		ids: [],
+		error: null,
+	}
 }
 
 function handlePagedAction(action, state) {

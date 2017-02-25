@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux';
 import { userReducer } from './userReducer';
 import { customerPaymentInfoReducer } from './coinageReducer';
-import { triggers, contents, modify } from './bloodlinesReducer';
+import { triggers, contents, receipts, modify } from './bloodlinesReducer';
 
 const rootReducer = combineReducers({
     userReducer,
     customerPaymentInfoReducer,
-    triggers, contents,
+    triggers, contents, receipts,
     modify,
 });
 
