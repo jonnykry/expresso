@@ -1,11 +1,4 @@
-
-export const REQUEST_UPDATE_CUSTOMER_PAYMENT_INFO = 'REQUEST_UPDATE_CUSTOMER_PAYMENT_INFO';
-export const RECEIVE_UPDATED_CUSTOMER_PAYMENT_INFO = 'RECEIVE_UPDATED_CUSTOMER_PAYMENT_INFO';
-export const ERROR_UPDATING_CUSTOMER_PAYMENT_INFO = 'ERROR_UPDATING_CUSTOMER_PAYMENT_INFO';
-
-export const REQUEST_CREATE_CUSTOMER_PAYMENT_INFO = 'REQUEST_CREATE_CUSTOMER_PAYMENT_INFO';
-export const RECEIVE_CREATED_CUSTOMER_PAYMENT_INFO = 'RECEIVE_CREATED_CUSTOMER_PAYMENT_INFO';
-export const ERROR_CREATING_CUSTOMER_PAYMENT_INFO = 'ERROR_CREATING_CUSTOMER_PAYMENT_INFO';
+import ActionTypes from './actionTypes';
 
 const CREATE_CUSTOMER_PAYMENT_INFO_URL = 'https://coinage.expresso.store/api/customer';
 
@@ -14,21 +7,21 @@ const UPDATE_CUSTOMER_PAYMENT_INFO_URL = 'https://coinage.expresso.store/api/cus
 
 function requestCreateCustomerPaymentInfo(data) {
     return {
-        type: REQUEST_CREATE_CUSTOMER_PAYMENT_INFO,
+        type: ActionTypes.REQUEST_CREATE_CUSTOMER_PAYMENT_INFO,
         data
     }
 }
 
 function receiveCreatedCustomerPaymentInfo(payload) {
     return {
-        type: RECEIVE_CREATED_CUSTOMER_PAYMENT_INFO,
+        type: ActionTypes.RECEIVE_CREATED_CUSTOMER_PAYMENT_INFO,
         payload
     }
 }
 
 function errorCreatingCustomerPaymentInfo(data, err) {
     return {
-        type: ERROR_CREATING_CUSTOMER_PAYMENT_INFO,
+        type: ActionTypes.ERROR_CREATING_CUSTOMER_PAYMENT_INFO,
         data,
         err
     }
@@ -64,21 +57,21 @@ export function createCustomerPaymentInfo(data) {
 
 function requestUpdateCustomerPaymentInfo(data) {
     return {
-        type: REQUEST_UPDATE_CUSTOMER_PAYMENT_INFO,
+        type: ActionTypes.REQUEST_UPDATE_CUSTOMER_PAYMENT_INFO,
         data
     }
 }
 
 function receiveUpdatedCustomerPaymentInfo(payload) {
     return {
-        type: RECEIVE_UPDATED_CUSTOMER_PAYMENT_INFO,
+        type: ActionTypes.RECEIVE_UPDATED_CUSTOMER_PAYMENT_INFO,
         payload
     }
 }
 
 function errorUpdatingCustomerPaymentInfo(data, err) {
     return {
-        type: ERROR_UPDATING_CUSTOMER_PAYMENT_INFO,
+        type: ActionTypes.ERROR_UPDATING_CUSTOMER_PAYMENT_INFO,
         data,
         err
     }

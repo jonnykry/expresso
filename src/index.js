@@ -9,7 +9,8 @@ import Dashboard from './components/dashboard/Dashboard';
 import Home from './components/Home';
 import Bloodlines from './components/dashboard/bloodlines/Bloodlines';
 import AccountSettings from './components/dashboard/account/AccountSettings';
-import Roasters from './components/dashboard/roasters/Roasters';
+import RoasterAccount from './components/dashboard/roaster/RoasterAccount';
+import RoasterRegisterContainer from './components/dashboard/roaster/RoasterRegisterContainer';
 import MessageContentContainer from './components/dashboard/bloodlines/MessageContentContainer';
 import TriggerContainer from './components/dashboard/bloodlines/TriggerContainer';
 
@@ -21,8 +22,6 @@ import 'tachyons/css/tachyons.css';
 import './index.css';
 
 const store = configureStore();
-
-console.log('State: ', store.getState());
 
 function loggedIn() {
     const state = store.getState();
@@ -55,12 +54,11 @@ ReactDOM.render(
                         <Route path="receipt" component={null}/>
                         <Route path="preference" component={null}/>
                     </Route>
-                    <Route path="roaster" component={Roasters}>
-
+                    <Route path="roaster">
+                        <Route path="account" component={RoasterAccount} />
+                        <Route path="register" component={RoasterRegisterContainer} />
                     </Route>
-                    <Route path="settings" component={AccountSettings}>
-
-                    </Route>
+                    <Route path="settings" component={AccountSettings} />
                 </Route>
             </Route>
         </Router>
