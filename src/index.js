@@ -13,6 +13,7 @@ import RoasterAccount from './components/dashboard/roaster/RoasterAccount';
 import RoasterRegisterContainer from './components/dashboard/roaster/RoasterRegisterContainer';
 import MessageContentContainer from './components/dashboard/bloodlines/MessageContentContainer';
 import TriggerContainer from './components/dashboard/bloodlines/TriggerContainer';
+import ReceiptContainer from './components/dashboard/bloodlines/ReceiptContainer';
 
 import { Provider } from 'react-redux';
 import { Router, Route, IndexRedirect, IndexRoute, browserHistory } from 'react-router';
@@ -53,7 +54,7 @@ ReactDOM.render(
                         <IndexRedirect to="content" />
                         <Route path="content" component={MessageContentContainer}/>
                         <Route path="trigger" component={TriggerContainer}/>
-                        <Route path="receipt" component={null}/>
+                        <Route path="receipt" component={ReceiptContainer}/>
                         <Route path="preference" component={null}/>
                     </Route>
                     <Route path="roaster">
