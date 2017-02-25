@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import ErrorMessage from '../../ErrorMessage';
+
 class RoasterRegister extends Component {
     render() {
         const headerClass = "mt4 ph0 mh0 fw6";
@@ -95,9 +97,7 @@ class RoasterRegister extends Component {
                             <option value="United States">United States</option>
                         </select>
                         <div className="mt4"><input className="w-25 b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6" type="submit" value="Submit" required /></div>
-                        {this.props.error && (
-                            <p>Bad login information</p>
-                        )}
+                        <ErrorMessage error={this.props.error} />
                     </form>
                 </article>
             </div>
