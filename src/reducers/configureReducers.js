@@ -1,11 +1,12 @@
 import { combineReducers } from 'redux';
 
-import { createRoaster } from './roasterReducer';
+import { roasterReducer } from './roasterReducer';
 import { userReducer } from './userReducer';
 import { customerPaymentInfoReducer } from './coinageReducer';
 import { triggers, contents, modify } from './bloodlinesReducer';
 
 const rootReducer = combineReducers({
+    roasterReducer,
     userReducer,
     customerPaymentInfoReducer,
     triggers,

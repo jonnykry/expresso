@@ -1,20 +1,17 @@
-
-export const REQUEST_CREATE_ROASTER = 'REQUEST_CREATE_ROASTER';
-export const RECEIVE_CREATED_ROASTER = 'RECEIVE_CREATIED_ROASTER';
-export const ERROR_CREATING_ROASTER = 'ERROR_CREATING_ROASTER';
+import ActionTypes from './actionTypes';
 
 const CREATE_ROASTER_URL = 'https://towncenter.expresso.store/api/roaster';
 
 function requestCreateRoaster(roasterInfo) {
     return {
-        type: REQUEST_CREATE_ROASTER,
+        type: ActionTypes.REQUEST_CREATE_ROASTER,
         roasterInfo
     }
 }
 
 function receiveCreatedRoaster(payload) {
     return {
-        type: RECEIVE_CREATED_ROASTER,
+        type: ActionTypes.RECEIVE_CREATED_ROASTER,
         payload
     }
 }
@@ -38,7 +35,7 @@ export function createRoaster(roasterInfo) {
 
 function errorCreatingRoaster(roasterInfo, err) {
     return {
-        type: ERROR_CREATING_ROASTER,
+        type: ActionTypes.ERROR_CREATING_ROASTER,
         roasterInfo,
         err
     }

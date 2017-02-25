@@ -23,6 +23,7 @@ class Dashboard extends Component {
 function mapStateToProps(state) {
     return {
         user: state.userReducer.user,
+        roaster: state.roasterReducer.roaster
     };
 }
 
