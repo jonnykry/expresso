@@ -5,6 +5,7 @@ export default({
     ERROR_PAGED: 'ERROR_PAGED',
     TRIGGERS: 'TRIGGERS',
     CONTENTS: 'CONTENTS',
+    RECEIPTS: 'RECEIPTS',
     REQUEST: 'REQUEST',
     HANDLE: 'HANDLE',
     ERROR: 'ERROR',

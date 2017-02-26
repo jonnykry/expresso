@@ -54,8 +54,6 @@ class MessageContentContainer extends Component {
 	}
 
 	render() {
-
-
 		return (
 			<div>
 				<ErrorMessage error={this.props.modify.error} />
