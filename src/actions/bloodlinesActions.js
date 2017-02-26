@@ -44,8 +44,8 @@ export function deleteTrigger(id) {
 	return handleRequest(TRIGGER_URL+"/" + id, "DELETE");
 }
 
-export function activateTrigger(id, userId, body) {
-	return handleRequest(TRIGGER_URL+"/"+id+"activate", "POST", body);
+export function activateTrigger(id, body) {
+	return handleRequest(TRIGGER_URL+"/"+id+"/activate", "POST", body);
 }
 
 function getAllUrl(url, offset, limit) {

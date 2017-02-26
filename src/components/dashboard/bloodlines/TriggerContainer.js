@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { getAllTriggers, deleteTrigger } from '../../../actions/bloodlinesActions';
+import { getAllTriggers, deleteTrigger, activateTrigger } from '../../../actions/bloodlinesActions';
 import TriggerList from './TriggerList';
 import SuccessMessage from './../../SuccessMessage';
 
@@ -32,6 +32,16 @@ class TriggerContainer extends Component {
 		}
 	}
 
+	activate(key, userId, values) {
+		const { dispatch } = this.props;
+		const body = {
+			userId,
+			values
+		}
+
+		dispatch(activateTrigger(key, body));
+	}
+
 	delete(key) {
 		const { dispatch } = this.props;
 
@@ -42,8 +52,8 @@ class TriggerContainer extends Component {
 
 		return (
 			<div>
-				<SuccessMessage success={this.props.modify.success} message={"Deleted Trigger."} />
-				<TriggerList delete={this.delete.bind(this)} {...this.props.items}/>
+				<SuccessMessage success={this.props.modify.success} message={"Success"} />
+				<TriggerList delete={this.delete.bind(this)} activate={this.activate.bind(this)} {...this.props.items}/>
 			</div>
 		);
 	}
