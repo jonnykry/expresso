@@ -3,7 +3,7 @@ import { combineReducers } from 'redux';
 import { roasterReducer } from './roasterReducer';
 import { userReducer } from './userReducer';
 import { customerPaymentInfoReducer } from './coinageReducer';
-import { triggers, contents, modify } from './bloodlinesReducer';
+import { triggers, contents, receipts, modify } from './bloodlinesReducer';
 
 const rootReducer = combineReducers({
     roasterReducer,
@@ -11,6 +11,7 @@ const rootReducer = combineReducers({
     customerPaymentInfoReducer,
     triggers,
     contents,
+    receipts,
     modify,
 });
 
