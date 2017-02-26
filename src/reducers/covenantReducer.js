@@ -1,9 +1,14 @@
-import{
-	SUBSCRIPTIONS,
+import ActionTypes from '../actions/actionTypes';
+import {handlePagedAction, handleModifyAction} from './bloodlinesReducer'
 
-	REQUEST,
-	HANDLE,
-	ERROR,
-	TIMEOUT
-} from '../actions/bloodlines'
+export function subscription(state = {
+	error: false,
+	success: false,
+	subscription:'',
+}, action) {
+	if (action.type !== Actiontypes.Subscription) {
+		reuturn state;
+	}
+	return handlePagedAction(action, state);
+}
 

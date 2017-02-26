@@ -3,6 +3,11 @@ import { connect } from 'react-redux';
 //import actions
 
 class SubscriptionContainer extends Component() {
+	constructor(props) {
+		super(props);
+
+
+	}
 	/*Dispatch the action before rendering*/
 	componentDidMount(){
 
@@ -18,3 +23,5 @@ class SubscriptionContainer extends Component() {
 function mapStateToProps(state){
 
 }
+
+export default connect()(SubscriptionContainer);
