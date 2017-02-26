@@ -7,7 +7,7 @@ class MessageContentList extends Component {
 
 	render() {
 		return (
-			<div className="fl w-60 pa4 pa4-ns">
+			<div className="w-60 pa4 pa4-ns">
 				<ErrorMessage error={this.props.error} />
 				{this.props.items && this.props.ids.map((key) =>
 					<MessageContent deleteContent={this.props.deleteContent} createTrigger={this.props.createTrigger}

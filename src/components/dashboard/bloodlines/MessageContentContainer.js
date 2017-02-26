@@ -57,7 +57,7 @@ class MessageContentContainer extends Component {
 
 
 		return (
-			<div>
+			<div className="flex flex-row">
 				<ErrorMessage error={this.props.modify.error} />
 				<SuccessMessage success={this.props.modify.success} message={"Success"} />
 				<MessageContentInput addContent={this.create.bind(this)} {...this.props.modify} />

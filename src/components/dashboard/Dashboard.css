@@ -1,0 +1,11 @@
+body {
+    overflow: hidden;
+}
+
+.sidebar {
+    width: 270px;
+}
+
+.content {
+    margin-left: 270px;
+}
