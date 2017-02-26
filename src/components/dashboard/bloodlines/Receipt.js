@@ -26,6 +26,16 @@ class Receipt extends Component {
 		}
 
 		const keys = Object.keys(item.values);
+
+		const options = {
+		    weekday: "long", year: "numeric", month: "short",
+		    day: "numeric", hour: "2-digit", minute: "2-digit"
+		};
+		const createdAt = new Date(item.ts).toLocaleTimeString("en-US", options);
+		let finished = "Running";
+		if (item.sendState != "QUEUED") {
+			finished = new Date(item.finished).toLocaleTimeString("en-US", options);
+		}
 		return (
 				<div className="bl br bt bb mb2">
 					<div className="cf f6 ttu tracked ma2 v-mid pointer" onClick={this.toggleDetails.bind(this)}>
@@ -38,7 +48,8 @@ class Receipt extends Component {
 							<MessageContentProperty name={"To User"} value={item.userId}/>
 							<MessageContentProperty name={"Status"} value={item.sendState}/>
 							<MessageContentProperty name={"ContentId"} value={item.contentId}/>
-							<MessageContentProperty name={"Sent At"} value={item.createdAt}/>
+							<MessageContentProperty name={"Started"} value={createdAt}/>
+							<MessageContentProperty name={"Finished"} value={finished}/>
 						</div>
 						<div>
 							{keys.map((key) =>

@@ -7,7 +7,7 @@ import SuccessMessage from './../../SuccessMessage';
 
 class TriggerContainer extends Component {
 	componentDidMount() {
-		this.update();
+		this.update(true);
 	}
 
 	update(reset) {

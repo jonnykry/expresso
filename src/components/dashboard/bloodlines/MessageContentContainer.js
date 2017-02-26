@@ -9,7 +9,7 @@ import SuccessMessage from '../../SuccessMessage';
 
 class MessageContentContainer extends Component {
 	componentDidMount() {
-		this.update();
+		this.update(true);
 	}
 
 	create(data) {
