@@ -8,7 +8,7 @@ import SuccessMessage from '../../SuccessMessage';
 
 class ReceiptContainer extends Component {
 	componentDidMount() {
-		this.update();
+		this.update(true);
 	}
 
 	update(reset) {
