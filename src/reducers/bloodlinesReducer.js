@@ -1,33 +1,21 @@
-import {
-	HANDLE_PAGED,
-	ERROR_PAGED,
-
-	TRIGGERS,
-	CONTENTS,
-	RECEIPTS,
-
-	REQUEST,
-	HANDLE,
-	ERROR,
-	TIMEOUT
-} from '../actions/bloodlinesActions'
+import ActionTypes from '../actions/actionTypes';
 
 export function triggers(state = getPagedState(), action) {
-	if (action.itemType !== TRIGGERS) {
+	if (action.itemType !== ActionTypes.TRIGGERS) {
 		return state;
 	}
 	return handlePagedAction(action, state);
 }
 
 export function contents(state = getPagedState(), action) {
-	if (action.itemType !== CONTENTS) {
+	if (action.itemType !== ActionTypes.CONTENTS) {
 		return state;
 	}
 	return handlePagedAction(action, state);
 }
 
 export function receipts(state = getPagedState(), action) {
-	if (action.itemType !== RECEIPTS) {
+	if (action.itemType !== ActionTypes.RECEIPTS) {
 		return state;
 	}
 	return handlePagedAction(action, state);
@@ -46,7 +34,7 @@ function getPagedState() {
 
 function handlePagedAction(action, state) {
 	switch (action.type) {
-	case HANDLE_PAGED:
+	case ActionTypes.HANDLE_PAGED:
 		if (action.offset === 0) {
 			state.items = {};
 		}
@@ -72,7 +60,7 @@ function handlePagedAction(action, state) {
 			cursor: cursor,
 			error:null
 		});
-	case ERROR_PAGED:
+	case ActionTypes.ERROR_PAGED:
 		return Object.assign({}, state, {
 			fetching: false,
 			next: false,
@@ -93,23 +81,23 @@ export function modify(state = {
 
 function handleModifyAction(action, state) {
 	switch (action.type) {
-	case REQUEST:
+	case ActionTypes.REQUEST:
 		return Object.assign({}, state, {
 			fetching: true,
 		});
-	case HANDLE:
+	case ActionTypes.HANDLE:
 		return Object.assign({}, state, {
 			fetching: false,
 			success: action.payload.success,
 			error: null
 		});
-	case ERROR:
+	case ActionTypes.ERROR:
 		return Object.assign({}, state, {
 			fetching: false,
 			success: action.success,
 			error: action.err
 		});
-	case TIMEOUT:
+	case ActionTypes.TIMEOUT:
 		return Object.assign({}, state, {
 			fetching: false,
 			error: null,

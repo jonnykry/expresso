@@ -1,31 +1,21 @@
-export const HANDLE_PAGED = "HANDLE_PAGED";
-export const ERROR_PAGED = "ERROR_PAGED";
-export const TRIGGERS = "TRIGGERS";
-export const CONTENTS = "CONTENTS";
-export const RECEIPTS = "RECEIPTS";
-
-export const REQUEST = "REQUEST";
-export const HANDLE = "HANDLE";
-export const ERROR = "ERROR";
-export const TIMEOUT = "TIMEOUT";
+import ActionTypes from './actionTypes';
 
 const TIMEOUT_MS = 5000;
-
 const BLOODLINES_URL = "https://bloodlines.expresso.store/api";
 const CONTENT_URL = BLOODLINES_URL + "/content";
 const TRIGGER_URL = BLOODLINES_URL + "/trigger";
 const RECEIPT_URL = BLOODLINES_URL + "/receipt";
 
 export function getAllContent(offset, limit) {
-	return handlePagedRequest(CONTENTS, getAllUrl(CONTENT_URL,offset,limit), "GET", offset, limit);
+	return handlePagedRequest(ActionTypes.CONTENTS, getAllUrl(CONTENT_URL,offset,limit), "GET", offset, limit);
 }
 
 export function getAllTriggers(offset, limit) {
-	return handlePagedRequest(TRIGGERS, getAllUrl(TRIGGER_URL,offset,limit), "GET", offset, limit);
+	return handlePagedRequest(ActionTypes.TRIGGERS, getAllUrl(TRIGGER_URL,offset,limit), "GET", offset, limit);
 }
 
 export function getAllReceipts(offset, limit) {
-	return handlePagedRequest(RECEIPTS, getAllUrl(RECEIPT_URL,offset,limit), "GET", offset, limit);
+	return handlePagedRequest(ActionTypes.RECEIPTS, getAllUrl(RECEIPT_URL,offset,limit), "GET", offset, limit);
 }
 
 export function createContent(body) {
@@ -88,7 +78,7 @@ function handleRequest(url, type, body) {
 			return res.json();
 		}).then((json) => {
 			if (json.error || !json.success) {
-				dispatch(error(body, json.message))
+				dispatch(error(body, json.message));
 				return;
 			}
 
@@ -101,7 +91,7 @@ function handleRequest(url, type, body) {
 
 function handlePaged(itemType, payload, offset, limit) {
 	return {
-		type: HANDLE_PAGED,
+		type: ActionTypes.HANDLE_PAGED,
 		itemType,
 		payload,
 		offset,
@@ -110,25 +100,25 @@ function handlePaged(itemType, payload, offset, limit) {
 }
 function errorPaged(itemType, err) {
 	return {
-		type: ERROR_PAGED,
+		type: ActionTypes.ERROR_PAGED,
 		itemType,
 		err
 	};
 }
 function timeout() {
 	return {
-		type: TIMEOUT
+		type: ActionTypes.TIMEOUT
 	};
 }
 function handle(payload) {
 	return {
-		type: HANDLE,
+		type: ActionTypes.HANDLE,
 		payload
 	};
 }
 function error(id, err) {
 	return {
-		type: ERROR,
+		type: ActionTypes.ERROR,
 		id,
 		err
 	};
