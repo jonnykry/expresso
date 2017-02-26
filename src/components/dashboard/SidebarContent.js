@@ -11,7 +11,7 @@ class SidebarContent extends Component {
         const b = this.props.location;
         const d = "/dashboard/";
         return (
-            <div className="flex flex-column">
+            <div className="relative h-100 overflow-hidden">
                 <div>
                     <SidebarSelector name="Bloodlines" to={d+"bloodlines"}
                         children={bloodlines} location={b} />

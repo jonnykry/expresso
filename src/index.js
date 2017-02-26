@@ -51,6 +51,7 @@ ReactDOM.render(
                 <Route path="logout" component={Logout} />
                 <Route path="register" component={RegisterContainer} />
                 <Route path="dashboard" component={Dashboard} onEnter={requireAuth}>
+                    <IndexRedirect to="bloodlines" />
                     <Route path="bloodlines" component={Bloodlines}>
                         <IndexRedirect to="content" />
                         <Route path="content" component={MessageContentContainer}/>
