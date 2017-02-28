@@ -1,15 +1,19 @@
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 
 import {getAllContent, createContent, deleteContent, createTrigger} from '../../../actions/bloodlinesActions';
-import MessageContentList from './MessageContentList';
-import MessageContentInput from './MessageContentInput';
 import ErrorMessage from '../../ErrorMessage';
 import SuccessMessage from '../../SuccessMessage';
+import MessageContentList from './MessageContentList';
+import MessageContentInput from './MessageContentInput';
 
 class MessageContentContainer extends Component {
     componentDidMount() {
         this.update(true);
+
+        this.createBind = this.create.bind(this);
+        this.createTriggerBind = this.createTrigger.bind(this);
+        this.deleteBind = this.delete.bind(this);
     }
 
     create(data) {
@@ -55,15 +59,21 @@ class MessageContentContainer extends Component {
 
     render() {
         return (
-			                                                                                                            <div className="flex flex-row">
-				                                        <ErrorMessage error={this.props.modify.error}/>
-				                                        <SuccessMessage success={this.props.modify.success} message={'Success'}/>
-				                                        <MessageContentInput addContent={this.create.bind(this)} {...this.props.modify}/>
-				                                        <MessageContentList createTrigger={this.createTrigger.bind(this)} deleteContent={this.delete.bind(this)} {...this.props.items} modify={this.props.modify}/>
-			</div>
-		);
+            <div className="flex flex-row">
+                <ErrorMessage error={this.props.modify.error}/>
+                <SuccessMessage success={this.props.modify.success} message={'Success'}/>
+                <MessageContentInput addContent={this.createBind} {...this.props.modify}/>
+                <MessageContentList createTrigger={this.createTriggerBind} deleteContent={this.deleteBind} {...this.props.items} modify={this.props.modify}/>
+            </div>
+        );
     }
 }
+
+MessageContentContainer.propTypes = {
+    modify: PropTypes.object,
+    items: PropTypes.object,
+    dispatch: PropTypes.object
+};
 
 function mapStateToProps(state) {
     return {
