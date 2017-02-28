@@ -7,6 +7,7 @@ import Logout from './components/Logout';
 import RegisterContainer from './components/RegisterContainer';
 import Dashboard from './components/dashboard/Dashboard';
 import Home from './components/Home';
+import BrowseBeansContainer from './components/dashboard/browse/BrowseBeansContainer';
 import Bloodlines from './components/dashboard/bloodlines/Bloodlines';
 import AccountSettings from './components/dashboard/account/AccountSettings';
 import RoasterAccount from './components/dashboard/roaster/RoasterAccount';
@@ -24,8 +25,8 @@ import './index.css';
 const store = configureStore();
 
 function loggedIn() {
-    return store.getState().userReducer.user !== '';
-    // return true;
+    // return store.getState().userReducer.user !== '';
+    return true;
 }
 
 function requireAuth(nextState, replace) {
@@ -36,8 +37,6 @@ function requireAuth(nextState, replace) {
     }
 }
 
-
-// TODO:  Index redirect for roaster is dependent on roaster account
 ReactDOM.render(
     <Provider store={store}>
         <Router history={browserHistory}>
@@ -48,7 +47,8 @@ ReactDOM.render(
                 <Route path="logout" component={Logout} />
                 <Route path="register" component={RegisterContainer} />
                 <Route path="dashboard" component={Dashboard} onEnter={requireAuth}>
-                    <IndexRedirect to="bloodlines" />
+                    <IndexRedirect to="browse" />
+                    <Route path="browse" component={BrowseBeansContainer} />
                     <Route path="bloodlines" component={Bloodlines}>
                         <IndexRedirect to="content" />
                         <Route path="content" component={MessageContentContainer}/>
