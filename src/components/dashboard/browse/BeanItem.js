@@ -10,6 +10,7 @@ class BeanItem extends Component {
                 <div className="pl3 flex flex-column justify-between">
                     <div>
                         <div className="f1 b">{this.props.item['Name']}</div>
+                        <div className="i f5 gray pv2">{this.props.item['CoffeeType']}</div>
                         <div className="f2 pa1">${parseFloat(this.props.item['ConsumerPrice']).toFixed(2)} / mo</div>
                     </div>
                     <div className="pb2 fr">
