@@ -14,7 +14,7 @@ const rootReducer = combineReducers({
     triggers,
     contents,
     receipts,
-    modify,
+    modify
 });
 
 export default rootReducer;
