@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component, PropTypes} from 'react';
 import SidebarSelector from './SidebarSelector';
 import BloodlinesSidebar from './BloodlinesSidebar';
 import RoasterSidebar from './RoasterSidebar';
@@ -8,10 +8,10 @@ class SidebarContent extends Component {
     render() {
         const bloodlines = <BloodlinesSidebar location={this.props.location} />;
         const roaster = <RoasterSidebar location={this.props.location} />;
-        const covenant = <CovenantSidebar location={this.props.location} />;
+        const covenant = <CovenantSidebar location={this.props.location}/>;
 
         const b = this.props.location;
-        const d = "/dashboard/";
+        const d = '/dashboard/';
         return (
             <div className="relative h-100 overflow-hidden">
                 <div>
@@ -32,5 +32,9 @@ class SidebarContent extends Component {
         );
     }
 }
+
+SidebarContent.propTypes = {
+    location: PropTypes.string.isRequired
+};
 
 export default SidebarContent;

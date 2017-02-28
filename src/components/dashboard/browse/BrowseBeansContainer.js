@@ -13,7 +13,7 @@ class BrowseBeansContainer extends Component {
         const { dispatch } = this.props;
         let offset = this.props.cursor;
 
-        dispatch(getAllItems(offset, 5));
+        dispatch(getAllItems(offset, 10));
     }
 
     render() {
@@ -22,7 +22,7 @@ class BrowseBeansContainer extends Component {
                 <h1 className="tc f1-l mt2 b">
                     Browse Beans
                 </h1>
-                <BeanItemList items={this.props.items} />
+                <BeanItemList items={this.props.items} fetching={this.props.fetching} />
             </div>
         );
     }
@@ -31,7 +31,8 @@ class BrowseBeansContainer extends Component {
 function mapStateToProps(state) {
     return {
         items: state.warehouseReducer.items,
-        cursor: state.warehouseReducer.cursor
+        cursor: state.warehouseReducer.cursor,
+        fetching: state.warehouseReducer.fetching
     };
 }
 

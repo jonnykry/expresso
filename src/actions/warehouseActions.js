@@ -9,6 +9,8 @@ export function getAllItems(offset, limit) {
 
 function handlePagedRequest(item, url, type, offset, limit) {
     return dispatch => {
+        dispatch(request());
+
         return fetch(url, {
             method: type
         }).then((res) => {
@@ -41,5 +43,11 @@ function errorPaged(itemType, err) {
         type: ActionTypes.ERROR_PAGED,
         itemType,
         err
+    };
+}
+
+function request() {
+    return {
+        type: ActionTypes.WAREHOUSE_REQUEST
     };
 }

@@ -7,14 +7,23 @@ export function warehouseReducer(state = {
     items: [],
     error: null }, action) {
     switch (action.type) {
+        case ActionTypes.WAREHOUSE_REQUEST:
+            return Object.assign({}, state, {
+                fetching: true,
+            });
         case ActionTypes.HANDLE_WAREHOUSE_PAGED:
             if (action.offset === 0) {
-                state.items = {};
+                state.items = [];
             }
 
-            console.log('Payload: ', action);
+            const cursor = action.payload.data.length;
 
-            return state;
+            return Object.assign({}, state, {
+                fetching: false,
+                items: action.payload.data,
+                cursor: cursor,
+                error: null
+            });
         case ActionTypes.ERROR_PAGED:
             return Object.assign({}, state, {
                 fetching: false,
