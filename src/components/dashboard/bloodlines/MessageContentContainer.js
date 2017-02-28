@@ -1,86 +1,91 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, {Component, PropTypes} from 'react';
+import {connect} from 'react-redux';
 
-import { getAllContent, createContent, deleteContent, createTrigger } from '../../../actions/bloodlinesActions';
-import MessageContentList from './MessageContentList';
-import MessageContentInput from './MessageContentInput';
+import {getAllContent, createContent, deleteContent, createTrigger} from '../../../actions/bloodlinesActions';
 import ErrorMessage from '../../ErrorMessage';
 import SuccessMessage from '../../SuccessMessage';
+import MessageContentList from './MessageContentList';
+import MessageContentInput from './MessageContentInput';
 
 class MessageContentContainer extends Component {
-	componentDidMount() {
-		this.update(true);
-	}
+    constructor(props) {
+        super(props);
 
-	create(data) {
-		const {dispatch} = this.props;
+        this.createBind = this.create.bind(this);
+        this.createTriggerBind = this.createTrigger.bind(this);
+        this.deleteBind = this.delete.bind(this);
+    }
 
-		dispatch(createContent(data)).then(this.refresh.bind(this));
-	}
+    componentDidMount() {
+        this.update(true);
+    }
 
-	createTrigger(data) {
-		const {dispatch} = this.props;
+    create(data) {
+        const {dispatch} = this.props;
 
-		dispatch(createTrigger(data)).then();
-	}
+        dispatch(createContent(data)).then(this.refresh.bind(this));
+    }
 
-	refresh() {
-		if (this.props.modify.success && !this.props.modify.fetching) {
-			this.update(true);
-			return;
-		}
-	}
+    createTrigger(data) {
+        const {dispatch} = this.props;
 
-	delete(id) {
-		const {dispatch} = this.props;
+        dispatch(createTrigger(data)).then();
+    }
 
-		dispatch(deleteContent(id)).then(this.refresh.bind(this));
-	}
+    refresh() {
+        if (this.props.modify.success && !this.props.modify.fetching) {
+            this.update(true);
+            return;
+        }
+    }
 
-	update(reset) {
-		const { dispatch } = this.props;
-		let offset = this.props.getAll.cursor;
-		if (reset) {
-			offset = 0;
-		}
+    delete(id) {
+        const {dispatch} = this.props;
 
-		dispatch(getAllContent(offset, 20, reset)).then(this.nextPage.bind(this));
-	}
+        dispatch(deleteContent(id)).then(this.refresh.bind(this));
+    }
 
-	nextPage() {
-		if (this.props.getAll.next && !this.props.getAll.fetching) {
-			this.update();
-		}
-	}
+    update(reset) {
+        const {dispatch} = this.props;
+        let offset = this.props.items.cursor;
+        if (reset) {
+            offset = 0;
+        }
 
-	render() {
-		return (
-			<div className="flex flex-row">
-				<ErrorMessage error={this.props.modify.error} />
-				<SuccessMessage success={this.props.modify.success} message={"Success"} />
-				<MessageContentInput addContent={this.create.bind(this)} {...this.props.modify} />
-				<MessageContentList createTrigger={this.createTrigger.bind(this)} deleteContent={this.delete.bind(this)} {...this.props.getAll} modify={this.props.modify}/>
-			</div>
-		)
-	}
+        dispatch(getAllContent(offset, 20)).then(this.nextPage.bind(this));
+    }
+
+    nextPage() {
+        if (this.props.items.next && !this.props.items.fetching) {
+            this.update();
+        }
+    }
+
+    render() {
+        return (
+            <div>
+                <ErrorMessage error={this.props.modify.error}/>
+                <SuccessMessage success={this.props.modify.success} message={'Success'}/>
+                <div className="flex flex-row">
+                    <MessageContentInput addContent={this.createBind} {...this.props.modify}/>
+                    <MessageContentList createTrigger={this.createTriggerBind} deleteContent={this.deleteBind} {...this.props.items} modify={this.props.modify}/>
+                </div>
+            </div>
+        );
+    }
 }
 
+MessageContentContainer.propTypes = {
+    modify: PropTypes.object,
+    items: PropTypes.object,
+    dispatch: PropTypes.func
+};
+
 function mapStateToProps(state) {
-	return {
-		getAll: {
-			items: state.getAllContent.items,
-			ids: state.getAllContent.ids,
-			fetching: state.getAllContent.fetching,
-			error: state.getAllContent.error,
-			cursor: state.getAllContent.cursor,
-			next: state.getAllContent.next
-		},
-		modify: {
-			fetching: state.modify.fetching,
-			error: state.modify.error,
-			success: state.modify.success
-		}
-	};
+    return {
+        items: state.contents,
+        modify: state.modify
+    };
 }
 
 export default connect(mapStateToProps)(MessageContentContainer);
