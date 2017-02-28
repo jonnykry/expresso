@@ -18,7 +18,7 @@ class Loading extends Component {
 
 Loading.propTypes = {
     fetching: PropTypes.bool.isRequired,
-    length: PropTypes.number.isRequired
+    length: PropTypes.number
 };
 
 export default Loading;
