@@ -99,6 +99,9 @@
   },
   "xo": {
     "extends": "xo-react",
-    "space": 4
+    "space": 4,
+    "rules": {
+      "unicorn/filename-case": ["error", {"case": "camelCase"}]
+    }
   }
 }

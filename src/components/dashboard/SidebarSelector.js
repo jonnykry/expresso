@@ -53,7 +53,7 @@ SidebarSelector.propTypes = {
     name: PropTypes.string.isRequired,
     to: PropTypes.string.isRequired,
     location: PropTypes.string.isRequired,
-    subSelector: PropTypes.boolean,
+    subSelector: PropTypes.bool,
     children: PropTypes.object
 };
 

@@ -1,77 +1,86 @@
-import React, { Component } from 'react';
+import React, {Component, PropTypes} from 'react';
 import MessageContentProperty from './MessageContentProperty';
 
 class Trigger extends Component {
-	constructor(props) {
-		super(props);
+    constructor(props) {
+        super(props);
 
-		this.state = {
-			details: false
-		};
-	}
+        this.state = {
+            details: false
+        };
 
-	handleDelete(event) {
-		event.preventDefault();
-		this.setState({details: false});
+        this.handleDeleteBind = this.handleDelete.bind(this);
+        this.handleSendBind = this.handleSend.bind(this);
+        this.handleToggleBind = this.handleToggle.bind(this);
+    }
 
-		this.props.delete(this.props.item.tkey);
-	}
+    handleDelete(event) {
+        event.preventDefault();
+        this.setState({details: false});
 
-	handleSend(event) {
-		event.preventDefault();
+        this.props.delete(this.props.item.tkey);
+    }
 
-		console.log(this.refs);
-		if (!this.refs.userId) {
-			return;
-		}
+    handleSend(event) {
+        event.preventDefault();
 
-		const userId = this.refs.userId.value;
-		const values = {};
+        if (!this.userId.value) {
+            return;
+        }
 
-		this.props.activate(this.props.item.tkey, userId, values);
-	}
+        const userId = this.userId.value;
+        const values = {};
 
-	toggleDetails(e) {
-		e.preventDefault();
+        this.props.activate(this.props.item.tkey, userId, values);
+    }
 
-		const s = !this.state.details;
-		this.setState({details: s});
-	}
+    handleToggle(e) {
+        e.preventDefault();
 
-	render() {
-		const inputClass = "input-reset ba b--black-20 pa2 mb2 dib w-50";
-		const labelClass = "f5 b dib mb2 w-20";
-		let detailsClass = "cf bt ma2";
+        const s = !this.state.details;
+        this.setState({details: s});
+    }
 
-		if (!this.state.details) {
-			detailsClass += " dn";
-		}
+    render() {
+        const inputClass = 'input-reset ba b--black-20 pa2 mb2 dib w-50';
+        const labelClass = 'f5 b dib mb2 w-20';
+        let detailsClass = 'cf bt ma2';
 
-		const keys = Object.keys(this.props.item.values);
-		return (
-			<div className="ba mb2">
-				<div className="cf f6 ttu tracked ma2 v-mid pointer" onClick={this.toggleDetails.bind(this)}>
-					<div className="cf fl ph1 pv1 fw6">{this.props.item.tkey}</div>
-					<div className="cf fr link dim br1 ph1 pv1 dib white bg-red pointer" onClick={this.handleDelete.bind(this)}>Delete</div>
-				</div>
-				<div className={detailsClass}>
-					<MessageContentProperty name={"ContentId"} value={this.props.item.contentId} />
-					{keys.map((key) =>
-						<MessageContentProperty key={key} name={key} value={this.props.item.values[key]} />
-					)}
-				</div>
-				<div>
-					<form onSubmit={this.handleSend.bind(this)} className="ba black-80">
-						<div className="measure center">
-							<label className={labelClass}>UserId</label>
-							<input id="userId" ref="userId" className={inputClass} type="text"/>
-							<input className="self-center b ph3 ml2 pv2 input-reset ba b--black white bg-green grow pointer f6 dib" type="submit" value="Send"/>
-						</div>
-					</form>
-				</div>
-			</div>
-		)
-	}
+        if (!this.state.details) {
+            detailsClass += ' dn';
+        }
+
+        const keys = Object.keys(this.props.item.values);
+        return (
+            <div className="ba mb2">
+                <div className="cf f6 ttu tracked ma2 v-mid pointer" onClick={this.handleToggleBind}>
+                    <div className="cf fl ph1 pv1 fw6">{this.props.item.tkey}</div>
+                    <div className="cf fr link dim br1 ph1 pv1 dib white bg-red pointer" onClick={this.handleDeleteBind}>Delete</div>
+                </div>
+                <div className={detailsClass}>
+                    <MessageContentProperty name={'ContentId'} value={this.props.item.contentId}/>
+                    {keys.map(key =>
+                        <MessageContentProperty key={key} name={key} value={this.props.item.values[key]}/>
+                    )}
+                </div>
+                <div>
+                    <div className="ba black-80">
+                        <div className="measure center">
+                            <label className={labelClass}>UserId</label>
+                            <input id="userId" ref={i => this.userId = i} className={inputClass} type="text"/>
+                            <div className="self-center b ph3 ml2 pv2 input-reset ba b--black white bg-green grow pointer f6 dib" onClick={this.handleSendBind}>Send</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+    }
 }
+
+Trigger.propTypes = {
+    item: PropTypes.object.isRequired,
+    delete: PropTypes.func.isRequired,
+    activate: PropTypes.func.isRequired
+};
 
 export default Trigger;
