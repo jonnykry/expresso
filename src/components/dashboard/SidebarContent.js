@@ -13,6 +13,8 @@ class SidebarContent extends Component {
         return (
             <div className="relative h-100 overflow-hidden">
                 <div>
+                    <SidebarSelector name="Browse Beans" to={d+"browse"}
+                                     children={null} location={b} />
                     <SidebarSelector name="Bloodlines" to={d+"bloodlines"}
                         children={bloodlines} location={b} />
                     <SidebarSelector name="Roaster" to={d+"roaster"}
