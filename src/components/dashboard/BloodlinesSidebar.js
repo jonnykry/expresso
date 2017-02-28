@@ -7,10 +7,10 @@ class BloodlinesSidebar extends Component {
         const d = '/dashboard/bloodlines/';
         return (
             <div>
-                <SidebarSelector name="Content" to={d + 'content'} location={b}/>
-                <SidebarSelector name="Triggers" to={d + 'trigger'} location={b}/>
-                <SidebarSelector name="Receipts" to={d + 'receipt'} location={b}/>
-                <SidebarSelector name="Preferences" to={d + 'preference'} location={b}/>
+                <SidebarSelector subSelector name={'Content'} to={d + 'content'} location={b}/>
+                <SidebarSelector subSelector name={'Triggers'} to={d + 'trigger'} location={b}/>
+                <SidebarSelector subSelector name={'Receipts'} to={d + 'receipt'} location={b}/>
+                <SidebarSelector subSelector name={'Preferences'} to={d + 'preference'} location={b}/>
             </div>
         );
     }

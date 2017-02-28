@@ -33,7 +33,7 @@ class Receipt extends Component {
 		};
 		const createdAt = new Date(item.ts).toLocaleTimeString("en-US", options);
 		let finished = "Running";
-		if (item.sendState != "QUEUED") {
+		if (item.sendState !== "QUEUED") {
 			finished = new Date(item.finished).toLocaleTimeString("en-US", options);
 		}
 		return (
