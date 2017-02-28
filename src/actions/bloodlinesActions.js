@@ -1,17 +1,21 @@
 import ActionTypes from './actionTypes';
 
 const TIMEOUT_MS = 5000;
-
 const BLOODLINES_URL = "https://bloodlines.expresso.store/api";
 const CONTENT_URL = BLOODLINES_URL + "/content";
 const TRIGGER_URL = BLOODLINES_URL + "/trigger";
+const RECEIPT_URL = BLOODLINES_URL + "/receipt";
 
-export function getAllContent(offset, limit, reset) {
-	return handlePagedRequest(ActionTypes.CONTENTS, CONTENT_URL+"?offset="+offset+"&limit="+limit, "GET", offset, limit);
+export function getAllContent(offset, limit) {
+	return handlePagedRequest(ActionTypes.CONTENTS, getAllUrl(CONTENT_URL,offset,limit), "GET", offset, limit);
 }
 
-export function getAllTriggers(offset, limit, reset) {
-	return handlePagedRequest(ActionTypes.TRIGGERS, TRIGGER_URL+"?offset="+offset+"&limit="+limit, "GET", offset, limit);
+export function getAllTriggers(offset, limit) {
+	return handlePagedRequest(ActionTypes.TRIGGERS, getAllUrl(TRIGGER_URL,offset,limit), "GET", offset, limit);
+}
+
+export function getAllReceipts(offset, limit) {
+	return handlePagedRequest(ActionTypes.RECEIPTS, getAllUrl(RECEIPT_URL,offset,limit), "GET", offset, limit);
 }
 
 export function createContent(body) {
@@ -28,6 +32,15 @@ export function createTrigger(body) {
 
 export function deleteTrigger(id) {
 	return handleRequest(TRIGGER_URL+"/" + id, "DELETE");
+}
+
+export function activateTrigger(id, body) {
+	return handleRequest(TRIGGER_URL+"/"+id+"/activate", "POST", body);
+}
+
+function getAllUrl(url, offset, limit) {
+	return url+"?offset="+offset+"&limit="+limit;
+
 }
 
 function handlePagedRequest(item, url, type, offset, limit) {

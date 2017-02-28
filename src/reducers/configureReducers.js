@@ -4,7 +4,7 @@ import { warehouseReducer } from './warehouseReducer';
 import { roasterReducer } from './roasterReducer';
 import { userReducer } from './userReducer';
 import { customerPaymentInfoReducer } from './coinageReducer';
-import { triggers, contents, modify } from './bloodlinesReducer';
+import { triggers, contents, receipts, modify } from './bloodlinesReducer';
 
 const rootReducer = combineReducers({
     roasterReducer,
@@ -13,6 +13,7 @@ const rootReducer = combineReducers({
     warehouseReducer,
     triggers,
     contents,
+    receipts,
     modify,
 });
 
