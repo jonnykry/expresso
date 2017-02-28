@@ -8,7 +8,7 @@ class BeanItemList extends Component {
         return (
             <div className="w-60 pa4 pa4-ns">
                 <ErrorMessage error={this.props.error} />
-                {this.props.items.map((key) =>
+                {this.props.items && this.props.items.map((key) =>
                     <BeanItem item={this.props.items[key]} />
                 )}
                 {(!this.props.fetching && this.props.items.length === 0) && (

@@ -28,7 +28,7 @@ function handlePagedRequest(item, url, type, offset, limit) {
 
 function handlePaged(itemType, payload, offset, limit) {
     return {
-        type: ActionTypes.HANDLE_PAGED,
+        type: ActionTypes.HANDLE_WAREHOUSE_PAGED,
         itemType,
         payload,
         offset,
