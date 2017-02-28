@@ -7,7 +7,7 @@ export function warehouseReducer(state = {
     items: [],
     error: null }, action) {
     switch (action.type) {
-        case ActionTypes.HANDLE_PAGED:
+        case ActionTypes.HANDLE_WAREHOUSE_PAGED:
             if (action.offset === 0) {
                 state.items = {};
             }
