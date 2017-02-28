@@ -8,12 +8,16 @@ import MessageContentList from './MessageContentList';
 import MessageContentInput from './MessageContentInput';
 
 class MessageContentContainer extends Component {
-    componentDidMount() {
-        this.update(true);
+    constructor(props) {
+        super(props);
 
         this.createBind = this.create.bind(this);
         this.createTriggerBind = this.createTrigger.bind(this);
         this.deleteBind = this.delete.bind(this);
+    }
+
+    componentDidMount() {
+        this.update(true);
     }
 
     create(data) {
@@ -72,7 +76,7 @@ class MessageContentContainer extends Component {
 MessageContentContainer.propTypes = {
     modify: PropTypes.object,
     items: PropTypes.object,
-    dispatch: PropTypes.object
+    dispatch: PropTypes.func
 };
 
 function mapStateToProps(state) {

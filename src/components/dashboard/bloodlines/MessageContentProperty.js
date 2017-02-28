@@ -13,7 +13,7 @@ class MessageContentProperty extends Component {
 
 MessageContentProperty.propTypes = {
     name: PropTypes.string,
-    value: PropTypes.string
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.array])
 };
 
 export default MessageContentProperty;

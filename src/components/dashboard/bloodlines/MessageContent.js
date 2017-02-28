@@ -48,7 +48,7 @@ class MessageContent extends Component {
         }
         return (
             <div className="bl br bt bb mb2">
-                <div className="f6 ttu tracked ma2 v-mid pointer" onClick={this.handleDetails}>
+                <div className="f6 ttu tracked ma2 v-mid pointer" onClick={this.handleDetailsBind}>
                     <div className="ph1 pv1 fw6">{!this.state.details && subject}</div>
                     <div className="ph1 pv1">ID: {item.id}</div>
                     <div className="link dim br1 ph1 pv1 dib white bg-red pointer" onClick={this.handleDeleteBind}>Delete</div>
@@ -58,7 +58,7 @@ class MessageContent extends Component {
                         <MessageContentProperty name={'Type'} value={item.contentType}/>
                         <MessageContentProperty name={'Status'} value={item.status}/>
                         <MessageContentProperty name={'Subject'} value={item.subject || 'None'}/>
-                        <MessageContentProperty name={'Parameters'} value={item.parameters.map(param => param)}/>
+                        <MessageContentProperty name={'Parameters'} value={item.parameters.map(param => param + ', ')}/>
                     </div>
                     <div>
                         <MessageContentProperty name={'Text'} value={item.text}/>
@@ -88,7 +88,7 @@ MessageContent.propTypes = {
     createTrigger: PropTypes.func.isRequired,
     deleteContent: PropTypes.func.isRequired,
     modify: PropTypes.object,
-    item: PropTypes.item
+    item: PropTypes.object
 };
 
 export default MessageContent;
