@@ -63,11 +63,13 @@ class MessageContentContainer extends Component {
 
     render() {
         return (
-            <div className="flex flex-row">
+            <div>
                 <ErrorMessage error={this.props.modify.error}/>
                 <SuccessMessage success={this.props.modify.success} message={'Success'}/>
-                <MessageContentInput addContent={this.createBind} {...this.props.modify}/>
-                <MessageContentList createTrigger={this.createTriggerBind} deleteContent={this.deleteBind} {...this.props.items} modify={this.props.modify}/>
+                <div className="flex flex-row">
+                    <MessageContentInput addContent={this.createBind} {...this.props.modify}/>
+                    <MessageContentList createTrigger={this.createTriggerBind} deleteContent={this.deleteBind} {...this.props.items} modify={this.props.modify}/>
+                </div>
             </div>
         );
     }
