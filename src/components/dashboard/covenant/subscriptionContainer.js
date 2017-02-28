@@ -6,11 +6,14 @@ import{ getSubscriptionsByUser} from '../../../actions/covenantActions';
 class SubscriptionContainer extends Component() {
 	constructor(props) {
 		super(props);
-		dispatch(getSubscriptionsByUser(props.id, offset, 20)).then(this.nextPage.bind(this))
 	}
 	/*Dispatch the action before rendering*/
 	componentDidMount(){
+		this.update();
+	}
 
+	update(){
+		dispatch(getSubscriptionsByUser(props.id, offset, 20)).then(this.nextPage.bind(this))
 	}
 	render () {
 		return (
@@ -24,8 +27,8 @@ class SubscriptionContainer extends Component() {
 
 function mapStateToProps(state){
 	return{
-		items: state.subscriptions
-	}
+		items: state.subscriptionReducer.items
+	};
 }
 
 export default connect(mapStateToProps)(SubscriptionContainer);
