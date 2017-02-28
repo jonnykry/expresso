@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import BeanItem from './BeanItem';
 import ErrorMessage from './../../ErrorMessage';
+import Loading from './../../Loading';
 
 class BeanItemList extends Component {
     render() {
@@ -14,9 +15,7 @@ class BeanItemList extends Component {
                 {(!this.props.fetching && this.props.items.length === 0) && (
                     <p>No Content</p>
                 )}
-                {(this.props.fetching) && (
-                    <p>Loading...</p>
-                )}
+                <Loading fetching={this.props.fetching} length={this.props.items.length} />
             </div>
         )
     }
