@@ -20,9 +20,9 @@ class Bloodlines extends Component {
 		}
         return (
         	<div>
-				<div className="tc f1-l mt2 b">
+				<h1 className="tc f1-l mt2 b">
 					Bloodlines
-				</div>
+				</h1>
 				{child}
             </div>
         );

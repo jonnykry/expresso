@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 
+import { warehouseReducer } from './warehouseReducer';
 import { roasterReducer } from './roasterReducer';
 import { userReducer } from './userReducer';
 import { customerPaymentInfoReducer } from './coinageReducer';
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
     roasterReducer,
     userReducer,
     customerPaymentInfoReducer,
+    warehouseReducer,
     triggers,
     contents,
     receipts,

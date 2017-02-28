@@ -34,7 +34,7 @@ class MessageContentInput extends Component {
 			this.refresh();
 		}
 		return (
-			<div className="fl w-40">
+			<div className="w-40">
 				<form onSubmit={this.handleSubmit.bind(this)} className="pa4 black-80">
 					<div className="measure">
 						<label className={labelClass}>Subject</label>
@@ -46,11 +46,11 @@ class MessageContentInput extends Component {
 						<small id="parameters-desc" className="f6 black-60">Comma-separated list of parameters used in the text.</small>
 
 						<label className={labelClass}>Type</label>
-						<select className="fl ba b--black-20 pa2 mb2 db w-100" name="type" ref="type">
+						<select className="ba b--black-20 pa2 mb2 db w-100" name="type" ref="type">
 						  <option value="NOOP">No-op</option>
 						  <option value="EMAIL">Email</option>
 						</select>
-						<div className="fr pa3 pa3-ns">
+						<div className="pa3 pa3-ns">
 							<input className="self-center b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib" type="submit" value="Submit"/>
 						</div>
 					</div>
