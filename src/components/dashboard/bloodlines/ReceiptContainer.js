@@ -1,10 +1,10 @@
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 
 import {getAllReceipts} from '../../../actions/bloodlinesActions';
-import ReceiptList from './ReceiptList';
 import ErrorMessage from '../../ErrorMessage';
 import SuccessMessage from '../../SuccessMessage';
+import ReceiptList from './ReceiptList';
 
 class ReceiptContainer extends Component {
     componentDidMount() {
@@ -29,14 +29,20 @@ class ReceiptContainer extends Component {
 
     render() {
         return (
-			                                                                                                            <div>
-				                                        <ErrorMessage error={this.props.modify.error}/>
-				                                        <SuccessMessage success={this.props.modify.success} message={'Success'}/>
-				                                        <ReceiptList {...this.props.items}/>
-			</div>
-		);
+            <div>
+                <ErrorMessage error={this.props.modify.error}/>
+                <SuccessMessage success={this.props.modify.success} message={'Success'}/>
+                <ReceiptList {...this.props.items}/>
+            </div>
+        );
     }
 }
+
+ReceiptContainer.propTypes = {
+    dispatch: PropTypes.object,
+    items: PropTypes.object,
+    modify: PropTypes.object
+};
 
 function mapStateToProps(state) {
     return {

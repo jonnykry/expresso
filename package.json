@@ -102,6 +102,7 @@
     "space": 4,
     "rules": {
       "unicorn/filename-case": ["error", {"case": "camelCase"}]
-    }
+    },
+    "ignores": ["./scripts/*"]
   }
 }
