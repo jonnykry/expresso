@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 class UserSettings extends Component {
+	componentDidMount
 	render() {
 		const inputClass = 'input-reset ba pa2 mb2 db';
 		const labelClass = 'fw4 lh-copy f6 pr3 pt2 nowrap lh-solid'
@@ -15,17 +16,17 @@ class UserSettings extends Component {
 							<div className="ba pa4 mt2 mb2">
 									<div className="mt3 flex flex-row">
 										<label className={labelClass}>First Name</label>
-										<input className={inputClass + ' w-40'} ref="firstName" value={user.firstName} required />
+										<input className={inputClass + ' w-40'} ref="firstName" defaultValue={user.firstName} required />
 										<label className={labelClass + ' pl3'}>Last Name</label>
-										<input className={inputClass + ' w-40'} ref="lastName" value={user.lastName} required />
+										<input className={inputClass + ' w-40'} ref="lastName" defaultValue={user.lastName} required />
 									</div>
 									<div className="mt3 pt3 flex flex-row">
 										<label className={labelClass}>Phone Number</label>
-										<input className={inputClass + ' w-100'} ref="phone" placeholder="XXXXXXXXXX" value={user.phoneNumber} required />
+										<input className={inputClass + ' w-100'} ref="phone" placeholder="XXXXXXXXXX" defaultValue={user.phone} required />
 									</div>
 									<div className="mt3 flex flex-row">
 										<label className={labelClass}>Email</label>
-										<input className={inputClass + ' w-100'} ref="email" value={user.email} required />
+										<input className={inputClass + ' w-100'} ref="email" defaultValue={user.email} required />
 									</div>
 									<div className="mt3 pt3 flex flex-row">
 										<label className={labelClass}>Password</label>
@@ -37,19 +38,19 @@ class UserSettings extends Component {
 									</div>
 									<div className="mt3 pt3 flex flex-row">
 										<label className={labelClass}>Address Line 1</label>
-										<input className={inputClass + ' w-100'} ref="addressLine1" value={user.addressLine1} required />
+										<input className={inputClass + ' w-100'} ref="addressLine1" defaultValue={user.addressLine1} required />
 									</div>
 									<div className="mt3 flex flex-row">
 										<label className={labelClass}>Address Line 2 (Optional)</label>
-										<input className={inputClass + ' w-100'} ref="addressLine2" value={user.addressLine2} />
+										<input className={inputClass + ' w-100'} ref="addressLine2" defaultValue={user.addressLine2} />
 									</div>
 									<div className="mt3 flex flex-row">
 										<label className={labelClass}>City</label>
-										<input className={inputClass + ' w-100'} ref="city" value={user.city} required />
+										<input className={inputClass + ' w-100'} ref="city" defaultValue={user.addressCity} required />
 									</div>
 									<div className="mt3 flex flex-row">
 										<label className={labelClass}>State</label>
-										<select className={inputClass} ref="state" value={user.state} required>
+										<select className={inputClass} ref="state" defaultValue={user.addressState} required>
 												<option value="AL">Alabama</option>
 												<option value="AK">Alaska</option>
 												<option value="AZ">Arizona</option>
@@ -103,11 +104,11 @@ class UserSettings extends Component {
 												<option value="WY">Wyoming</option>
 										</select>
 										<label className={labelClass + ' pl3'}>Zip</label>
-										<input className={inputClass + ' w-20'} ref="zipCode" value={user.zipCode} required />
+										<input className={inputClass + ' w-20'} ref="zipCode" defaultValue={user.addressZip} required />
 									</div>
 									<div className="mt3 flex flex-row">
 										<label className={labelClass}>Country</label>
-										<select className={inputClass} ref="country" value={user.country} required>
+										<select className={inputClass} ref="country" defaultValue={user.addressCountry} required>
 											<option value="United States">United States</option>
 										</select>
 									</div>
