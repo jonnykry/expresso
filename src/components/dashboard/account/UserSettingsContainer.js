@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { updateUserInfo } from '../../../actions/userActions'
+import { updateUserInfo, getUserInformation } from '../../../actions/userActions'
 
 import UserSettings from './UserSettings';
 
 class UserSettingsContainer extends Component {
-    constructor(props) {
-        super(props);
-	  }
+    componentDidMount() {
+        const { dispatch } = this.props
+
+        dispatch(getUserInformation(this.props.loadUser.userId));
+    }
 
     onHandleSubmit(e) {
         e.preventDefault();
@@ -32,7 +34,7 @@ class UserSettingsContainer extends Component {
             passHash: password.value
           };
 
-  				dispatch(updateUserInfo(userInfo))
+  				dispatch(updateUserInfo(userInfo, this.props.loadUser.userId))
         }
     }
 
@@ -40,11 +42,24 @@ class UserSettingsContainer extends Component {
         return (
             <div>
                 <UserSettings
-                                 handleSubmit={this.onHandleSubmit}
-                                 error={false} {...this.props} {...this.state} />
+                  handleSubmit={this.onHandleSubmit}
+                  error={false}
+                  user={this.props.getUser} />
             </div>
         );
     }
 }
 
-export default connect()(UserSettingsContainer);
+function mapStateToProps(state) {
+  var userId = (state.authenticateUser.userId != '') ? state.authenticateUser.userId : state.createUser.userId;
+	return {
+		getUser: {
+      user: state.getUser.user
+    },
+    loadUser: {
+      userId: userId
+    }
+	};
+}
+
+export default connect(mapStateToProps)(UserSettingsContainer);

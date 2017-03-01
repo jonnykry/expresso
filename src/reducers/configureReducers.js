@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+<<<<<<< Updated upstream
 
 import { warehouseReducer } from './warehouseReducer';
 import { roasterReducer } from './roasterReducer';
