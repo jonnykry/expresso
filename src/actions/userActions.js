@@ -2,6 +2,7 @@ import ActionTypes from './actionTypes';
 
 const CREATE_USER_URL = 'https://towncenter.expresso.store/api/user';
 const AUTHENTICATE_USER_URL = 'https://towncenter.expresso.store/api/user/login';
+const UPDATE_USER_URL = 'https://towncenter.expresso.store/api/user/';
 
 export function logout() {
     return dispatch => {
@@ -69,10 +70,44 @@ export function authenticateUser(userCreds) {
     }
 }
 
-
 function errorCreatingUser(userInfo, err) {
     return {
         type: ActionTypes.ERROR_CREATING_USER,
+        userInfo,
+        err
+    }
+}
+
+export function updateUserInfo(userInfo, userId) {
+  return dispatch => {
+      return fetch(UPDATE_USER_URL, {
+          method: 'PUT',
+          body: JSON.stringify(userInfo)
+      }).then((response) => {
+          return response.json();
+      }).then((json) => {
+        if(!json.success) {
+          dispatch(errorAuthenticatingUser(userInfo, json.message));
+          return;
+        }
+
+        dispatch(receiveUpdatedUser(json))
+      }).catch((err) => {
+          dispatch(errorUpdatingUser(userInfo, err));
+      });
+  }
+}
+
+function receiveUpdatedUser(payload) {
+    return {
+        type: ActionTypes.RECEIVE_UPDATED_USER,
+        payload
+    }
+}
+
+function errorUpdatingUser(userInfo, err) {
+    return {
+        type: ActionTypes.ERROR_UPDATING_USER,
         userInfo,
         err
     }
