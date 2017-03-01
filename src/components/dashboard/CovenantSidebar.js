@@ -8,11 +8,11 @@ class CovenantSidebar extends Component {
 		const b = this.props.location;
 		const d = "/dashboard/subscription";	
 
-		const content = this.props.items === ''? //what is going on
-			<SidebarSelector subSelector={true} name="View all subscriptions" to={d + "subscriptions"} location={b} />;
+		const content = this.props.items === '';//what is going on
+			// <SidebarSelector subSelector={true} name="View all subscriptions" to={d + "subscriptions"} location={b} />;
 		return (
 			<div>
-				{content}
+				<SidebarSelector subSelector name ={'Subscription'} to={d+'subscription'} location={b}/>;
 			</div>
 		)
 	}
