@@ -1,6 +1,5 @@
 import {combineReducers} from 'redux';
 
-<<<<<<< HEAD
 import { warehouseReducer } from './warehouseReducer';
 import { roasterReducer } from './roasterReducer';
 import { userReducer } from './userReducer';
