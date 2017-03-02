@@ -54,14 +54,18 @@ export function authenticateUser(userCreds) {
             method: 'POST',
             body: JSON.stringify(userCreds)
         }).then(response => {
+            const token = response.headers.get('Auth');
+            if (token) {
+                localStorage.setItem('token', token);
+            }
+
             return response.json();
         }).then(json => {
             if (!json.success) {
                 dispatch(errorAuthenticatingUser(userCreds, json.message));
                 return;
             }
-            //localStorage.setItem('token', json.data.token);
-            localStorage.setItem('token', json.data.id);
+
             dispatch(receiveAuthenticatedUser(json));
         }).catch(err => {
             console.log(err);
