@@ -4,9 +4,9 @@ const TIMEOUT_MS = 5000;
 
 function handlePagedRequest(item, url, type, offset, limit) {
     return dispatch => {
-        return fetch(getAllUrl(url, offset, limit), {
+        return fetch(getAllUrl(url, offset, limit), auth({
             method: type
-        }).then(res => {
+        })).then(res => {
             return res.json();
         }).then(json => {
             if (json.error || !json.success) {
@@ -29,10 +29,10 @@ function handleRequest(url, type, body) {
         setTimeout(() => {
             dispatch(timeout());
         }, TIMEOUT_MS);
-        return fetch(url, {
+        return fetch(url, auth({
             method: type,
             body: raw
-        }).then(res => {
+        })).then(res => {
             return res.json();
         }).then(json => {
             if (json.error || !json.success) {
@@ -80,6 +80,14 @@ function error(id, err) {
         err
     };
 }
+function auth(options) {
+    const token = localStorage.getItem('token');
+    console.log(token);
+    options.headers = new Headers({
+        Auth: token
+    });
+    return options;
+}
 
 function getAllUrl(url, offset, limit) {
     return url + '?offset=' + offset + '&limit=' + limit;
@@ -92,5 +100,6 @@ export default({
     timeout,
     errorPaged,
     handle,
-    error
+    error,
+    auth
 });

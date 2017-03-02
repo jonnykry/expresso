@@ -1,9 +1,9 @@
 import ActionTypes from '../actions/actionTypes';
 
 export function userReducer(state = {
-    error: false,
+    error: null,
     success: false,
-    user: ''
+    user: null
 }, action) {
     switch (action.type) {
         case ActionTypes.RECEIVE_AUTHENTICATED_USER:
@@ -26,6 +26,6 @@ export function userReducer(state = {
                 user: ''
             });
         default:
-            return state
+            return state;
     }
 }
