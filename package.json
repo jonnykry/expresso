@@ -54,6 +54,7 @@
   "dependencies": {
     "react": "^15.4.1",
     "react-dom": "^15.4.1",
+    "react-modal": "^1.7.1",
     "react-redux": "^5.0.2",
     "react-router": "^3.0.1",
     "react-sidebar": "^2.2.1",
@@ -101,8 +102,15 @@
     "extends": "xo-react",
     "space": 4,
     "rules": {
-      "unicorn/filename-case": ["error", {"case": "camelCase"}]
+      "unicorn/filename-case": [
+        "error",
+        {
+          "case": "camelCase"
+        }
+      ]
     },
-    "ignores": ["./scripts/*"]
+    "ignores": [
+      "./scripts/*"
+    ]
   }
 }
