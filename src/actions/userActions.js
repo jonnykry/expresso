@@ -26,7 +26,7 @@ export function createUser(userInfo) {
         }).then(response => {
             return response.json();
         }).then(json => {
-            dispatch(receiveCreatedUser(json))
+            dispatch(receiveCreatedUser(json));
         }).catch(err => {
             dispatch(errorCreatingUser(userInfo, err));
         });
@@ -54,13 +54,13 @@ export function authenticateUser(userCreds) {
             method: 'POST',
             body: JSON.stringify(userCreds)
         }).then(response => {
-            const token = response.headers.get('Auth');
-            if (token) {
-                localStorage.setItem('token', token);
-            }
+            const token = response.headers.get('auth');
+            console.log(response, response.headers.keys(), token);
+            localStorage.setItem('token', token);
 
             return response.json();
         }).then(json => {
+            console.log(json);
             if (!json.success) {
                 dispatch(errorAuthenticatingUser(userCreds, json.message));
                 return;
@@ -68,7 +68,6 @@ export function authenticateUser(userCreds) {
 
             dispatch(receiveAuthenticatedUser(json));
         }).catch(err => {
-            console.log(err);
             dispatch(errorAuthenticatingUser(userCreds, err.message));
         });
     };
