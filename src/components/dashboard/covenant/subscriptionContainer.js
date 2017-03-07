@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 //import actions
 import{ getSubscriptionsByUser} from '../../../actions/covenantActions';
+import SubscriptionList from './SubscriptionList';
 
 class SubscriptionContainer extends Component() {
 	constructor(props) {

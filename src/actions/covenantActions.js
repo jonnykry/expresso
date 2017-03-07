@@ -1,5 +1,5 @@
 import ActionTypes from './actionTypes';
-import {handlePagedRequest, handleRequest} from './bloodlinesActions'
+import ActionUtil from './actionUtil';
 
 export const SUBSCRIPTIONS = "SUBSCRIPTIONS"
 
@@ -9,17 +9,17 @@ const ROASTER_SUBSCRIPTIONS_URL = COVENANT_URL + "/roaster/subscription/";
 const SUBSCRIPTION_URL = COVENANT_URL + "subscription/";
 
 export function createSubscription(body) {
-	return handleRequest(SUBSCRIPTION_URL, "POST", body);
+	return ActionUtil.handleRequest(SUBSCRIPTION_URL, "POST", body);
 }
 
 export function getSubscription(id) {
-	return handleRequest(SUBSCRIPTION_URL + id, "GET");
+	return ActionUtil.handleRequest(SUBSCRIPTION_URL + id, "GET");
 }
 
 export function getSubscriptionsByUser(id, offset, limit) {
-	return handlePageRequest(ActionTypes.REQUEST_SUBSCRIPTIONS_BY_USER, USER_SUBSCRIPTIONS_URL+ id+"?offset="+offset+"&limit="+limit, "GET", offset, limit);
+	return ActionUtil.handlePageRequest(ActionTypes.REQUEST_SUBSCRIPTIONS_BY_USER, USER_SUBSCRIPTIONS_URL+ id+"?offset="+offset+"&limit="+limit, "GET", offset, limit);
 }
 
 export function getSubscriptionsByRoaster(id, offset, limit) {
-	return handlePageRequest(ActionTypes.REQUEST_SUBSCRIPTIONS_BY_ROASTER, ROASTER_SUBSCRIPTIONS_URL+ id+"?offset="+offset+"&limit="+limit, "GET", offset, limit);
+	return ActionUtil.handlePageRequest(ActionTypes.REQUEST_SUBSCRIPTIONS_BY_ROASTER, ROASTER_SUBSCRIPTIONS_URL+ id+"?offset="+offset+"&limit="+limit, "GET", offset, limit);
 }

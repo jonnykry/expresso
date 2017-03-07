@@ -1,15 +1,12 @@
 import ActionTypes from '../actions/actionTypes';
-// import {getPagedState, handlePagedAction, handleModifyAction} from './bloodlinesReducer'
+import ReducerUtil from './reducerUtil';
 
-export function subscriptionReducer(state = getPagedState(), action) {
+export function subscriptionReducer(state = ReducerUtil.getPagedState(), action) {
 	switch (action.type) {
 		case ActionTypes.REQUEST_SUBSCRIPTION_BY_ROASTER:
-			if(action.offset === 0) {
-				state.items = {}
-			}
-			console.log('Payload: ', action);
-
-			return state;
+			return ReducerUtil.handlePagedAction(action, state);
+		case ActionTypes.REQUEST_SUBSCRIPTION_BY_USER:
+			return ReducerUtil.handlePagedAction(action, state);
 		case ActionTypes.ERROR_PAGED:
 			return Object.assign({}, state, {
 				fetching: false,
@@ -21,13 +18,3 @@ export function subscriptionReducer(state = getPagedState(), action) {
 	}
 }
 
-function getPagedState() {
-	return {
-		fetching: false,
-		cursor: 0,
-		next: false,
-		items: {},
-		ids: [],
-		error: null,
-	}
-}

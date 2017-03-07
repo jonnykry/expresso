@@ -12,7 +12,7 @@ class CovenantSidebar extends Component {
 			// <SidebarSelector subSelector={true} name="View all subscriptions" to={d + "subscriptions"} location={b} />;
 		return (
 			<div>
-				<SidebarSelector subSelector name ={'Subscription'} to={d+'subscription'} location={b}/>;
+				<SidebarSelector subSelector name={'Subscription'} to={d+'subscriptions'} location={b}/>;
 			</div>
 		)
 	}
