@@ -14,7 +14,7 @@ class Dashboard extends Component {
                     <div className="sidebar h-100 fixed shadow-4">
                         {sidebar}
                     </div>
-                    <div className="content h-100 min-h-100 relative overflow-y-auto pt4">
+                    <div className="content h-100 min-h-100 relative overflow-y-auto pt4 pb7">
                         {this.props.children}
                     </div>
                 </div>
