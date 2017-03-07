@@ -1,27 +1,22 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import SidebarSelector from './SidebarSelector';
-
-import { connect } from 'react-redux';
 
 class CovenantSidebar extends Component {
 	render() {
 		const b = this.props.location;
-		const d = "/dashboard/subscription";	
+		const d = "/dashboard/subscriptions";	
 
-		const content = this.props.items === '';//what is going on
-			// <SidebarSelector subSelector={true} name="View all subscriptions" to={d + "subscriptions"} location={b} />;
+		
 		return (
 			<div>
 				<SidebarSelector subSelector name={'Subscription'} to={d+'subscriptions'} location={b}/>;
 			</div>
-		)
+		);
 	}
 }
 
-function mapStateToProps(state){
-	return{
-		items: state.subscriptionReducer.items
-	};
+CovenantSidebar.propTypes= {
+	location: PropTypes.string.isRequired
 }
 
-export default connect(mapStateToProps)(CovenantSidebar);
+export default CovenantSidebar;
