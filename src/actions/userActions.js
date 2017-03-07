@@ -4,6 +4,7 @@ const CREATE_USER_URL = 'https://towncenter.expresso.store/api/user';
 const AUTHENTICATE_USER_URL = 'https://towncenter.expresso.store/api/user/login';
 
 export function logout() {
+    localStorage.setItem('token', null);
     return dispatch => {
         return dispatch({
             type: ActionTypes.LOGOUT
@@ -54,13 +55,11 @@ export function authenticateUser(userCreds) {
             method: 'POST',
             body: JSON.stringify(userCreds)
         }).then(response => {
-            const token = response.headers.get('auth');
-            console.log(response, response.headers.keys(), token);
+            const token = response.headers.get('X-Auth');
             localStorage.setItem('token', token);
 
             return response.json();
         }).then(json => {
-            console.log(json);
             if (!json.success) {
                 dispatch(errorAuthenticatingUser(userCreds, json.message));
                 return;

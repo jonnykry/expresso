@@ -82,9 +82,8 @@ function error(id, err) {
 }
 function auth(options) {
     const token = localStorage.getItem('token');
-    console.log(token);
     options.headers = new Headers({
-        Auth: token
+        'X-Auth': token
     });
     return options;
 }

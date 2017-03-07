@@ -17,7 +17,6 @@ class BrowseBeansContainer extends Component {
     }
 
     render() {
-        console.log(this.props.items);
         return (
             <div>
                 <h1 className="tc f1-l mt2 b">
