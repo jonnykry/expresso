@@ -49,8 +49,8 @@ class RegisterContainer extends Component {
 
     render() {
         return (
-            <div>
-                <article className="pa4 mw4 mw6-ns center black-80">
+            <div className="overflow-y-auto h-100">
+                <article className="pa4 pb7 mw4 mw6-ns center black-80">
                     <AccountInfo 
                         legend={'Register/Sign-Up'}
                         roaster={false}

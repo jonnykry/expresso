@@ -24,7 +24,7 @@ class AccountInfo extends Component {
 		const legendText = this.props.legend;
 
 		return (
-		    <form className="measure center w-100" onSubmit={this.handleClickBind}>
+		    <form className="measure center w-100 h-100" onSubmit={this.handleClickBind}>
 		    	<legend className="f4 fw6">{legendText}</legend>
 		    	<div className="ba pa4 mt2 mb2">
 		    		{!isRoaster &&
