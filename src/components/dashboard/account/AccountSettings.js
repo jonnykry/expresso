@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import PaymentSettingsContainer from './PaymentSettingsContainer';
+import UserSettingsContainer from './UserSettingsContainer';
 
 class AccountSettings extends Component {
     render() {
@@ -10,11 +11,10 @@ class AccountSettings extends Component {
                     Account Settings
                 </div>
                 <PaymentSettingsContainer {...this.props} />
+                <UserSettingsContainer {...this.props} />
             </div>
         );
     }
 }
 
 export default AccountSettings;
-
-
