@@ -6,17 +6,13 @@ export function userReducer(state = {
     user: null
 }, action) {
     switch (action.type) {
-        case ActionTypes.RECEIVE_AUTHENTICATED_USER:
-        case ActionTypes.RECEIVE_CREATED_USER:
-        case ActionTypes.RECEIVE_UPDATED_USER:
+        case ActionTypes.RECEIVE_USER:
             return Object.assign({}, state, {
                 error: null,
                 success: action.payload.data.id !== '',
                 user: action.payload.data
             });
-        case ActionTypes.ERROR_AUTHENTICATING_USER:
-        case ActionTypes.ERROR_CREATING_USER:
-        case ActionTypes.ERROR_UPDATING_USER:
+        case ActionTypes.ERROR_USER:
             return Object.assign({}, state, {
                 error: action.err,
                 user: ''
