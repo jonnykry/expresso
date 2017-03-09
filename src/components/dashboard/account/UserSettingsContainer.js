@@ -48,14 +48,14 @@ class UserSettingsContainer extends Component {
 
     render() {
         return (
-            <div>
+            <main className="pa4 black-80">
                 <AccountInfo
-                  legend={"Update User Account"}
+                  legend={'Update User Account'}
                   roaster={false}
                   handleSubmit={this.updateUserBind}
                   error={this.state.error}
                   user={this.props.user} />
-            </div>
+            </main>
         );
     }
 }

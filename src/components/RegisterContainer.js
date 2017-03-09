@@ -2,29 +2,29 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { createUser } from '../actions/userActions'
 
-import Register from './Register';
+import AccountInfo from './dashboard/account/AccountInfo';
 
 class RegisterContainer extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            error: false
+            error: null
         };
+
+        this.registerBind = this.handleSubmit.bind(this);
     }
 
-    handleSubmit(event) {
-        event.preventDefault();
-
+    handleSubmit(refs) {
         const { router, dispatch } = this.props;
         const { password, confirmPassword,
             firstName, lastName, email, phone,
-            addressLineOne, addressLineTwo,
-            city, state, zipCode, country } = this.refs;
+            addressLine1, addressLine2,
+            city, state, zipCode, country } = refs;
 
         if (password.value !== confirmPassword.value) {
             this.setState({
-                error: true
+                error: 'Passwords are not equal'
             });
         } else {
             const data = {
@@ -33,8 +33,8 @@ class RegisterContainer extends Component {
                 email: email.value,
                 passHash: password.value,
                 phone: phone.value,
-                addressLine1: addressLineOne.value,
-                addressLine2: addressLineTwo.value,
+                addressLine1: addressLine1.value,
+                addressLine2: addressLine2.value,
                 addressCity: city.value,
                 addressState: state.value,
                 addressZip: zipCode.value,
@@ -50,7 +50,14 @@ class RegisterContainer extends Component {
     render() {
         return (
             <div>
-                <Register onHandleSubmit={this.handleSubmit} error={this.state.error} {...this.props} />
+                <article className="pa4 mw4 mw6-ns center black-80">
+                    <AccountInfo 
+                        legend={'Register/Sign-Up'}
+                        roaster={false}
+                        handleSubmit={this.registerBind}
+                        error={this.state.error}
+                        user={null} />
+                </article>
             </div>
         );
     }
