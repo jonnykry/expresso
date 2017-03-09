@@ -5,7 +5,7 @@ import { roasterReducer } from './roasterReducer';
 import { userReducer } from './userReducer';
 import { customerPaymentInfoReducer } from './coinageReducer';
 import { triggers, contents, receipts } from './bloodlinesReducer';
-import { subscriptionReducer } from './covenantReducer';
+import { subscriptions } from './covenantReducer';
 
 import ReducerUtil from './reducerUtil';
 
@@ -17,7 +17,7 @@ const rootReducer = combineReducers({
     triggers,
     contents,
     receipts,
-    subscriptionReducer,
+    subscriptions,
     modify: ReducerUtil.modify
 });
 

@@ -61,8 +61,8 @@ ReactDOM.render(
                         <Route path="preference" component={null}/>
                     </Route>
                     <Route path="covenant" component={SubscriptionContainer}>
-                        // <IndexRedirect to="subscriptions"/>
-                        // <Route path="subscriptions" component={SubscriptionContainer}/>
+                        <IndexRedirect to="subscriptions"/>
+                        <Route path="subscriptions" component={SubscriptionContainer}/>
                     </Route>
                     <Route path="roaster">
                         <IndexRedirect to="account" />

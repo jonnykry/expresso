@@ -6,7 +6,6 @@ class CovenantSidebar extends Component {
 		const b = this.props.location;
 		const d = "/dashboard/covenant";	
 
-		
 		return (
 			<div>
 				<SidebarSelector subSelector name={'Subscriptions'} to={d+'/subscriptions'} location={b}/>;

@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import MessageContentProperty from '../bloodlines/MessageContentProperty';
 
 class Subscription extends Component {
 	constructor(props) {
@@ -32,23 +31,19 @@ class Subscription extends Component {
 
 	render () {
 		const item = this.props.item; 
-		const keys = Object.keys(item.values);
-
+		console.log(item);
 		return (
 			<div>
 				<div onClick={this.handleToggleDetails}>
 						<div>
-							<MessageContentProperty name={'User'} value={item.userId}/>
-							<MessageContentProperty name={'Status'} value={item.status}/>
-							<MessageContentProperty name={'SubscriptionId'} value={item.subscrptionId}/>
-							<MessageContentProperty name={'Created At'} value={item.createdAt}/>
-							<MessageContentProperty name={'ItemId'} value={item.itemId}/>
-							<MessageContentProperty name={'Frequency'} value={item.frequency}/>
+							<div>ID: {this.props.item.ID}</div>
+							<div>Item ID: {this.props.item.ItemID}</div>
+							<div>User ID: {this.props.item.UserID}</div>
+							<div>Status: {this.props.item.status}</div>
+							<div>Created At: {this.props.item.createdAt}</div>
+							<div>Frequency: {this.props.item.frequency}</div>
 						</div>
 						<div>
-							{keys.map(key =>
-								<MessageContentProperty key={key} name={key} value={item.values[key]}/>
-							)}
 						</div>
 				</div>
 			</div>		

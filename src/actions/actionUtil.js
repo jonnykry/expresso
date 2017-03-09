@@ -13,7 +13,7 @@ function handlePagedRequest(item, url, type, offset, limit) {
                 dispatch(errorPaged(item, json.message));
                 return;
             }
-
+            
             dispatch(handlePaged(item, json, offset, limit));
         }).catch(err => {
             dispatch(errorPaged(item, err.message));

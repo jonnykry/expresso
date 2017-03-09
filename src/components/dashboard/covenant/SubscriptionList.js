@@ -9,28 +9,22 @@ class SubscriptionList extends Component {
 		return (
 			<div>
 				<ErrorMessage error={this.props.error} />
-				{this.props.items && this.props.items.map(key =>
-					<Subscription 
-						key={key}
-						item={this.props.items[key]}
-						updateSubscription={this.props.updateSubscription}
-						deleteSubscription={this.props.deleteSubscription}
-					 	/>
+				{this.props.ids.map((key) =>
+					<Subscription item={this.props.items[key]} key={key} />
 					)}
 					<Loading fetching={this.props.fetching} length={this.props.items.length}/>
 				</div>
-		);	 
+		);
 	}	
 }
 
 //Create object hold hold props - does prop validation
-
 SubscriptionList.propTypes = {
-	ids: PropTypes.array,
+	ids: PropTypes.array.isRequired,
 	items: PropTypes.object,
 	fetching: PropTypes.bool,
 	error: PropTypes.string,
-	updateSubscription: PropTypes.func.isRequired,
+	changeSubscription: PropTypes.func.isRequired,
 	deleteSubscription: PropTypes.func.isRequired
 };
 

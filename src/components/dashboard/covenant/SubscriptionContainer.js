@@ -1,7 +1,7 @@
 import React, { Component, PropTypes} from 'react';
 import { connect } from 'react-redux';
 
-import{ getSubscriptionsByUser, updateSubscription, deleteSubscription } from '../../../actions/covenantActions';
+import { getAllSubscriptions, updateSubscription, deleteSubscription } from '../../../actions/covenantActions';
 import ErrorMessage from '../../ErrorMessage';
 import SuccessMessage from '../../SuccessMessage';
 import SubscriptionList from './SubscriptionList';
@@ -13,6 +13,7 @@ class SubscriptionContainer extends Component {
 		this.changeBind = this.change.bind(this);
 		this.deleteBind = this.delete.bind(this);
 	}
+
 	/*Dispatch the action before rendering*/
 	componentDidMount(){
 		this.update(true);
@@ -24,8 +25,7 @@ class SubscriptionContainer extends Component {
 		if(reset) {
 			offset = 0;
 		}
-
-		dispatch(getSubscriptionsByUser(this.props.id, offset, 20)).then(this.nextPage.bind(this))
+		dispatch(getAllSubscriptions(offset, 5)).then(this.nextPage.bind(this));
 	}
 
 	refresh() {
@@ -55,8 +55,10 @@ class SubscriptionContainer extends Component {
 	}
 
 	render () {
+		console.log(this.props);
 		return (
-			<div> 
+			<div>
+				<h1> Subscriptions </h1> 
 				<ErrorMessage error={this.props.modify.error}/>
 				<SuccessMessage success={this.props.modify.success} message={'Success'}/>
 				<div className="flex flex-row">
@@ -68,7 +70,7 @@ class SubscriptionContainer extends Component {
 }
 
 SubscriptionContainer.propTypes = {
-	dispatch: PropTypes.object,
+	dispatch: PropTypes.func,
 	items: PropTypes.object,
 	modify: PropTypes.object
 };
