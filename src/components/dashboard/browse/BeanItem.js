@@ -11,9 +11,9 @@ class BeanItem extends Component {
                 <img alt="Bean Description" src={this.props.item['PictureURL'] || 'https://i.imgur.com/uSUY2O8.jpg'} height="250" width="250" />
                 <div className="pl3 flex flex-column justify-between">
                     <div>
-                        <div className="f1 b">{this.props.item['Name']}</div>
-                        <div className="i f5 gray pv2">{this.props.item['CoffeeType']}</div>
-                        <div className="f2 pa1">${parseFloat(this.props.item['ConsumerPrice']).toFixed(2)} / mo</div>
+                        <div className="f1 b">{this.props.item.name}</div>
+                        <div className="i f5 gray pv2">{this.props.item.coffeeType}</div>
+                        <div className="f2 pa1">${parseFloat(this.props.item.consumerPrice).toFixed(2)} / mo</div>
                     </div>
                     <div className="pb2 flex flex-row">
                         <button onClick={() => this.props.onViewDetailsClick(this.props.item)} className={btnClass}>View Details</button>
