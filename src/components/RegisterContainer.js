@@ -49,7 +49,7 @@ class RegisterContainer extends Component {
 
     render() {
         return (
-            <div>
+            <div className="h-100">
                 <Register onHandleSubmit={this.handleSubmit} error={this.state.error} {...this.props} />
             </div>
         );

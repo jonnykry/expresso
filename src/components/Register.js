@@ -10,8 +10,8 @@ class Register extends Component {
         const thirdInputClass = "w-100 pa2 input-reset ba bg-transparent border-box";
 
         return (
-            <div>
-                <article className="pa4 mw4 mw6-ns center black-80">
+            <div className="h-100 overflow-auto">
+                <article className="pa4 mw4 mw6-ns center black-80 pb7">
                     <div className="f2 tc">Register / Sign-up</div>
                     <form onSubmit={this.props.onHandleSubmit.bind(this)} className="w-100">
                         <div className={headerClass}>Basic Info</div>

@@ -26,8 +26,7 @@ import './index.css';
 const store = configureStore();
 
 function loggedIn() {
-    return store.getState().userReducer.user !== '';
-    // return true;
+    return localStorage.getItem('token') !== null;
 }
 
 function requireAuth(nextState, replace) {
