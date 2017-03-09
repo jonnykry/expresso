@@ -1,16 +1,16 @@
 import ActionTypes from '../actions/actionTypes';
 
 export function userReducer(state = {
-    error: false,
+    error: null,
     success: false,
-    user: ''
+    user: null
 }, action) {
     switch (action.type) {
         case ActionTypes.RECEIVE_AUTHENTICATED_USER:
         case ActionTypes.RECEIVE_CREATED_USER:
         case ActionTypes.RECEIVE_UPDATED_USER:
             return Object.assign({}, state, {
-                error: false,
+                error: null,
                 success: action.payload.data.id !== '',
                 user: action.payload.data
             });
@@ -23,11 +23,11 @@ export function userReducer(state = {
             });
         case ActionTypes.LOGOUT:
             return Object.assign({}, state, {
-                error: false,
+                error: null,
                 success: true,
                 user: ''
             });
         default:
-            return state
+            return state;
     }
 }

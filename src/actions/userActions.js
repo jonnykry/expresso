@@ -5,19 +5,19 @@ const AUTHENTICATE_USER_URL = 'https://towncenter.expresso.store/api/user/login'
 const UPDATE_USER_URL = 'https://towncenter.expresso.store/api/user/';
 
 export function logout() {
+    localStorage.setItem('token', null);
     return dispatch => {
         return dispatch({
             type: ActionTypes.LOGOUT
         });
-    }
+    };
 }
-
 
 function receiveCreatedUser(payload) {
     return {
         type: ActionTypes.RECEIVE_CREATED_USER,
         payload
-    }
+    };
 }
 
 export function createUser(userInfo) {
@@ -25,21 +25,21 @@ export function createUser(userInfo) {
         return fetch(CREATE_USER_URL, {
             method: 'POST',
             body: JSON.stringify(userInfo)
-        }).then((response) => {
+        }).then(response => {
             return response.json();
-        }).then((json) => {
-            dispatch(receiveCreatedUser(json))
-        }).catch((err) => {
+        }).then(json => {
+            dispatch(receiveCreatedUser(json));
+        }).catch(err => {
             dispatch(errorCreatingUser(userInfo, err));
         });
-    }
+    };
 }
 
 function receiveAuthenticatedUser(payload) {
     return {
         type: ActionTypes.RECEIVE_AUTHENTICATED_USER,
         payload
-    }
+    };
 }
 
 function errorAuthenticatingUser(userCreds, err) {
@@ -47,7 +47,7 @@ function errorAuthenticatingUser(userCreds, err) {
         type: ActionTypes.ERROR_AUTHENTICATING_USER,
         userCreds,
         err
-    }
+    };
 }
 
 export function authenticateUser(userCreds) {
@@ -55,19 +55,22 @@ export function authenticateUser(userCreds) {
         return fetch(AUTHENTICATE_USER_URL, {
             method: 'POST',
             body: JSON.stringify(userCreds)
-        }).then((response) => {
+        }).then(response => {
+            const token = response.headers.get('X-Auth');
+            localStorage.setItem('token', token);
+
             return response.json();
-        }).then((json) => {
+        }).then(json => {
             if (!json.success) {
-                dispatch(errorAuthenticatingUser(userCreds, json.message))
+                dispatch(errorAuthenticatingUser(userCreds, json.message));
                 return;
             }
 
-            dispatch(receiveAuthenticatedUser(json))
-        }).catch((err) => {
-            dispatch(errorAuthenticatingUser(userCreds, err));
+            dispatch(receiveAuthenticatedUser(json));
+        }).catch(err => {
+            dispatch(errorAuthenticatingUser(userCreds, err.message));
         });
-    }
+    };
 }
 
 function errorCreatingUser(userInfo, err) {
@@ -75,7 +78,7 @@ function errorCreatingUser(userInfo, err) {
         type: ActionTypes.ERROR_CREATING_USER,
         userInfo,
         err
-    }
+    };
 }
 
 export function updateUserInfo(userInfo, userId) {

@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { getAllItems } from '../../../actions/warehouseActions';
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import {getAllItems} from '../../../actions/warehouseActions';
 
 import BeanItemList from './BeanItemList';
 
@@ -10,8 +10,8 @@ class BrowseBeansContainer extends Component {
     }
 
     update() {
-        const { dispatch } = this.props;
-        let offset = this.props.cursor;
+        const {dispatch} = this.props;
+        let offset = this.props.items.cursor;
 
         dispatch(getAllItems(offset, 10));
     }
@@ -22,7 +22,7 @@ class BrowseBeansContainer extends Component {
                 <h1 className="tc f1-l mt2 b">
                     Browse Beans
                 </h1>
-                <BeanItemList items={this.props.items} fetching={this.props.fetching} />
+                <BeanItemList {...this.props.items}/>
             </div>
         );
     }
@@ -30,9 +30,7 @@ class BrowseBeansContainer extends Component {
 
 function mapStateToProps(state) {
     return {
-        items: state.warehouseReducer.items,
-        cursor: state.warehouseReducer.cursor,
-        fetching: state.warehouseReducer.fetching
+        items: state.beans
     };
 }
 
