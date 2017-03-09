@@ -1,4 +1,5 @@
 import ActionTypes from './actionTypes';
+import ActionUtil from './actionUtil';
 
 const CREATE_USER_URL = 'https://towncenter.expresso.store/api/user';
 const AUTHENTICATE_USER_URL = 'https://towncenter.expresso.store/api/user/login';
@@ -13,13 +14,6 @@ export function logout() {
     };
 }
 
-function receiveCreatedUser(payload) {
-    return {
-        type: ActionTypes.RECEIVE_CREATED_USER,
-        payload
-    };
-}
-
 export function createUser(userInfo) {
     return dispatch => {
         return fetch(CREATE_USER_URL, {
@@ -28,25 +22,10 @@ export function createUser(userInfo) {
         }).then(response => {
             return response.json();
         }).then(json => {
-            dispatch(receiveCreatedUser(json));
+            dispatch(receiveUser(json));
         }).catch(err => {
-            dispatch(errorCreatingUser(userInfo, err));
+            dispatch(errorUser(userInfo, err));
         });
-    };
-}
-
-function receiveAuthenticatedUser(payload) {
-    return {
-        type: ActionTypes.RECEIVE_AUTHENTICATED_USER,
-        payload
-    };
-}
-
-function errorAuthenticatingUser(userCreds, err) {
-    return {
-        type: ActionTypes.ERROR_AUTHENTICATING_USER,
-        userCreds,
-        err
     };
 }
 
@@ -62,56 +41,48 @@ export function authenticateUser(userCreds) {
             return response.json();
         }).then(json => {
             if (!json.success) {
-                dispatch(errorAuthenticatingUser(userCreds, json.message));
+                dispatch(errorUser(userCreds, json.message));
                 return;
             }
 
-            dispatch(receiveAuthenticatedUser(json));
+            dispatch(receiveUser(json));
         }).catch(err => {
-            dispatch(errorAuthenticatingUser(userCreds, err.message));
+            dispatch(errorUser(userCreds, err.message));
         });
-    };
-}
-
-function errorCreatingUser(userInfo, err) {
-    return {
-        type: ActionTypes.ERROR_CREATING_USER,
-        userInfo,
-        err
     };
 }
 
 export function updateUserInfo(userInfo, userId) {
   return dispatch => {
-      return fetch(UPDATE_USER_URL, {
+      return fetch(UPDATE_USER_URL + userId, ActionUtil.auth({
           method: 'PUT',
           body: JSON.stringify(userInfo)
-      }).then((response) => {
+      })).then((response) => {
           return response.json();
       }).then((json) => {
         if(!json.success) {
-          dispatch(errorAuthenticatingUser(userInfo, json.message));
+          dispatch(errorUser(userInfo, json.message));
           return;
         }
 
-        dispatch(receiveUpdatedUser(json))
+        dispatch(receiveUser(json))
       }).catch((err) => {
-          dispatch(errorUpdatingUser(userInfo, err));
+          dispatch(errorUser(userInfo, err));
       });
-  }
+  };
 }
 
-function receiveUpdatedUser(payload) {
+function errorUser(userInfo, err) {
     return {
-        type: ActionTypes.RECEIVE_UPDATED_USER,
-        payload
-    }
-}
-
-function errorUpdatingUser(userInfo, err) {
-    return {
-        type: ActionTypes.ERROR_UPDATING_USER,
+        type: ActionTypes.ERROR_USER,
         userInfo,
         err
+    };
+}
+
+function receiveUser(payload) {
+    return {
+        type: ActionTypes.RECEIVE_USER,
+        payload
     }
 }
