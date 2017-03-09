@@ -8,7 +8,7 @@ import './App.css';
 class App extends Component {
     render() {
         return (
-            <div>
+            <div className="h-100">
                 <Navigation isHome={this.props.isHome} />
                 {this.props.children}
             </div>
