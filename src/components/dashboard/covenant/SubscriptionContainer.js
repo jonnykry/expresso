@@ -1,12 +1,18 @@
 import React, { Component, PropTypes} from 'react';
 import { connect } from 'react-redux';
 
-import{ getSubscriptionsByUser} from '../../../actions/covenantActions';
+import{ getSubscriptionsByUser, updateSubscription, deleteSubscription } from '../../../actions/covenantActions';
 import ErrorMessage from '../../ErrorMessage';
 import SuccessMessage from '../../SuccessMessage';
 import SubscriptionList from './SubscriptionList';
 
-class SubscriptionContainer extends Component() {
+class SubscriptionContainer extends Component {
+	constructor(props) {
+		super(props);
+
+		this.changeBind = this.change.bind(this);
+		this.deleteBind = this.delete.bind(this);
+	}
 	/*Dispatch the action before rendering*/
 	componentDidMount(){
 		this.update(true);
@@ -22,6 +28,26 @@ class SubscriptionContainer extends Component() {
 		dispatch(getSubscriptionsByUser(this.props.id, offset, 20)).then(this.nextPage.bind(this))
 	}
 
+	refresh() {
+		if(this.props.modify.success && !this.props.modify.fetching) {
+			this.update(true);
+			return;
+		}
+	}
+
+	change(id) {
+		const {dispatch} = this.props;
+
+		dispatch(updateSubscription(id)).then(this.refresh.bind(this));
+	}
+
+
+	delete(id) {
+		const {dispatch} = this.props;
+
+		dispatch(deleteSubscription(id)).then(this.refresh.bind(this));
+	}
+
 	nextPage() {
 		if(this.props.items.next && !this.props.items.fetching) {
 			this.update();
@@ -33,7 +59,9 @@ class SubscriptionContainer extends Component() {
 			<div> 
 				<ErrorMessage error={this.props.modify.error}/>
 				<SuccessMessage success={this.props.modify.success} message={'Success'}/>
-				<SubscriptionList {...this.props.items}/>
+				<div className="flex flex-row">
+					<SubscriptionList changeSubscription={this.changeBind} deleteSubscription={this.deleteBind} {...this.props.items} />
+				</div>
 			</div>
 			);
 	}

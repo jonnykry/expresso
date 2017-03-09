@@ -17,7 +17,7 @@ class SubscriptionList extends Component {
 						deleteSubscription={this.props.deleteSubscription}
 					 	/>
 					)}
-					<Loading feching={this.props.fetching} length={this.props.items.length}/>
+					<Loading fetching={this.props.fetching} length={this.props.items.length}/>
 				</div>
 		);	 
 	}	

@@ -4,12 +4,12 @@ import SidebarSelector from './SidebarSelector';
 class CovenantSidebar extends Component {
 	render() {
 		const b = this.props.location;
-		const d = "/dashboard/subscriptions";	
+		const d = "/dashboard/covenant";	
 
 		
 		return (
 			<div>
-				<SidebarSelector subSelector name={'Subscription'} to={d+'subscriptions'} location={b}/>;
+				<SidebarSelector subSelector name={'Subscriptions'} to={d+'/subscriptions'} location={b}/>;
 			</div>
 		);
 	}
