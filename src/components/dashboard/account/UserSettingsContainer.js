@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { updateUserInfo } from '../../../actions/userActions'
 
-import UserSettings from './UserSettings';
+import AccountInfo from './AccountInfo';
 
 class UserSettingsContainer extends Component {
     onHandleSubmit(e) {
@@ -35,8 +35,10 @@ class UserSettingsContainer extends Component {
     render() {
         return (
             <div>
-                <UserSettings
-                  handleSubmit={this.onHandleSubmit}
+                <AccountInfo
+                  legend={"Update User Account"}
+                  roaster={false}
+                  handleSubmit={this.updateUserBind}
                   error={false}
                   user={this.props.user} />
             </div>
