@@ -8,6 +8,10 @@ class UserSettingsContainer extends Component {
     constructor(props) {
         super(props);
 
+        this.state = {
+            error: null
+        };
+
         this.updateUserBind = this.onHandleSubmit.bind(this);
     }
 
@@ -16,24 +20,29 @@ class UserSettingsContainer extends Component {
 		const { firstName, lastName, phone, email, addressLine1, addressLine2, city, state, zipCode, country, password, confirmPassword } = refs;
 
         if(password.value !== '' && password.value !== confirmPassword.value) {
-          //TODO: Error
+            this.setState({
+                error: 'Passwords are not equal'
+            });
         } else {
-          const userInfo = {
-            id: this.props.user.id,
-          	firstName: firstName.value,
-  			lastName: lastName.value,
-  			phone: phone.value,
-  			email: email.value,
-  			addressLine1: addressLine1.value,
-  			addressLine2: addressLine2.value,
-  			addressCity: city.value,
-  			addressState: state.value,
-  			addressZip: zipCode.value,
-  			addressCountry: country.value,
-            passHash: password.value
-          };
+            this.setState({
+                error: null
+            });
+            const userInfo = {
+                id: this.props.user.id,
+          	    firstName: firstName.value,
+  			    lastName: lastName.value,
+  			    phone: phone.value,
+  			    email: email.value,
+  			    addressLine1: addressLine1.value,
+  			    addressLine2: addressLine2.value,
+  			    addressCity: city.value,
+  			    addressState: state.value,
+  			    addressZip: zipCode.value,
+  			    addressCountry: country.value,
+                passHash: password.value
+            };
 
-  		  dispatch(updateUserInfo(userInfo, this.props.user.id));
+  		    dispatch(updateUserInfo(userInfo, this.props.user.id));
         }
     }
 
@@ -44,7 +53,7 @@ class UserSettingsContainer extends Component {
                   legend={"Update User Account"}
                   roaster={false}
                   handleSubmit={this.updateUserBind}
-                  error={false}
+                  error={this.state.error}
                   user={this.props.user} />
             </div>
         );

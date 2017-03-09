@@ -142,6 +142,7 @@ class AccountInfo extends Component {
 							<div className="mt3">
 									<button className={btnClass + ' ml1 mr2'} type="submit">Submit</button>
 							</div>
+							<ErrorMessage error={this.props.error} />
 					</form>
 			</main>
 		);
