@@ -67,7 +67,7 @@ class TriggerContainer extends Component {
 
 TriggerContainer.propTypes = {
     modify: PropTypes.object,
-    dispatch: PropTypes.dispatch,
+    dispatch: PropTypes.func,
     items: PropTypes.object
 };
 
