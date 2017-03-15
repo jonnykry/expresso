@@ -15,6 +15,7 @@ import Bloodlines from './components/dashboard/bloodlines/Bloodlines';
 import AccountSettings from './components/dashboard/account/AccountSettings';
 import RoasterAccount from './components/dashboard/roaster/RoasterAccount';
 import RoasterRegisterContainer from './components/dashboard/roaster/RoasterRegisterContainer';
+import Subscribe from './components/dashboard/subscriptions/Subscribe';
 import MessageContentContainer from './components/dashboard/bloodlines/MessageContentContainer';
 import TriggerContainer from './components/dashboard/bloodlines/TriggerContainer';
 import ReceiptContainer from './components/dashboard/bloodlines/ReceiptContainer';
@@ -62,6 +63,9 @@ ReactDOM.render(
                     <IndexRedirect to="account"/>
                     <Route path="account" component={RoasterAccount}/>
                     <Route path="register" component={RoasterRegisterContainer}/>
+                </Route>
+                <Route path="subscriptions">
+                    <Route path="subscribe/:id" component={Subscribe}/>
                 </Route>
                 <Route path="settings" component={AccountSettings}/>
             </Route>

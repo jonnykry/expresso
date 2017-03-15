@@ -16,7 +16,7 @@ export function getAllItems(offset, limit) {
     return ActionUtil.handlePagedRequest(ActionTypes.WAREHOUSE_ITEMS, ITEMS_URL, 'GET', offset, limit);
 }
 
-export function getItemForDetails(id) {
+export function getItem(id) {
     return dispatch => {
         return fetch(ITEMS_URL + '/' + id, ActionUtil.auth({
             method: 'GET'

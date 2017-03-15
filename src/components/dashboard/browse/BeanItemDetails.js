@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router';
-import {getItemForDetails} from '../../../actions/warehouseActions';
+import {getItem} from '../../../actions/warehouseActions';
 
 class BeanItemDetails extends Component {
     componentDidMount() {
@@ -11,16 +11,16 @@ class BeanItemDetails extends Component {
     update() {
         const {dispatch, params} = this.props;
 
-        dispatch(getItemForDetails(params.id));
+        dispatch(getItem(params.id));
     }
 
-    render() {  
+    render() {
         const btnClass = 'pointer dim br1 ba bw1 ph4 pv2 black';
         let linkClass = 'no-underline black';
 
         return (
-            <div className="content h-100 min-h-100 relative overflow-y-auto pt4">
-                <h1> Details For {this.props.bean.name}: </h1>
+            <div className="pa4">
+                <h1 className="tc"> Details For {this.props.bean.name}</h1>
                 <img alt="Beans" src={this.props.bean.pictureURL || 'https://i.imgur.com/uSUY2O8.jpg'} height="250" width="250"/>
                 <div>Item ID: {this.props.bean.id}</div>
                 <div>Price: {this.props.bean.consumerPrice}</div>
@@ -37,7 +37,7 @@ class BeanItemDetails extends Component {
                             Go Back
                         </div>
                     </Link>
-                    <Link to={'/dashboard/subscribe/' + this.props.params.id} className={linkClass}>
+                    <Link to={'/dashboard/subscriptions/subscribe/' + this.props.params.id} className={linkClass}>
                         <div className={btnClass}>
                             Subscribe
                         </div>
