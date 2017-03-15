@@ -6,7 +6,6 @@ import Loading from './../../Loading';
 
 class BeanItemList extends Component {
     render() {
-        console.log(this.props);
         return (
             <div className="w-100 pa4-ns">
                 <ErrorMessage error={this.props.error} />

@@ -5,10 +5,10 @@ import './BeanItem.css';
 class BeanItem extends Component {
     render() {
         const btnClass = "pointer dim br1 ba bw1 ph4 pv2 black";
-
+        
         return (
             <div className="bean-item-card w-40 center ma1 mb3 pa4 ba flex">
-                <img alt="Bean Description" src={this.props.item['PictureURL'] || 'https://i.imgur.com/uSUY2O8.jpg'} height="250" width="250" />
+                <img alt="Bean Description" src={this.props.item['pictureURL'] || 'https://i.imgur.com/uSUY2O8.jpg'} height="250" width="250" />
                 <div className="pl3 flex flex-column justify-between">
                     <div>
                         <div className="f1 b">{this.props.item.name}</div>

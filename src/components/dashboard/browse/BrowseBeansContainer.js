@@ -29,7 +29,7 @@ class BrowseBeansContainer extends Component {
         const {dispatch} = this.props;
         let offset = this.props.beanReducer.cursor;
 
-        dispatch(getAllItems(offset, 10));
+        dispatch(getAllItems(offset, 20));
     }
 
     onViewDetailsClick(item) {
