@@ -1,7 +1,9 @@
 import React, {Component, PropTypes} from 'react';
+import {Link} from 'react-router';
 import SidebarSelector from './SidebarSelector';
 import BloodlinesSidebar from './BloodlinesSidebar';
 import RoasterSidebar from './RoasterSidebar';
+import TiUserOutline from 'react-icons/lib/ti/user-outline';
 
 class SidebarContent extends Component {
     render() {
@@ -11,7 +13,7 @@ class SidebarContent extends Component {
         const b = this.props.location;
         const d = '/dashboard/';
         return (
-            <div className="relative h-100 overflow-hidden">
+            <div className="relative h-100 overflow-hidden flex justify-between flex-column">
                 <div>
                     <SidebarSelector name="Browse Beans" to={d + 'browse'} location={b}/>
                     <SidebarSelector name="Bloodlines" to={d + 'bloodlines'} location={b}>
@@ -20,8 +22,11 @@ class SidebarContent extends Component {
                     <SidebarSelector name="Roaster" to={d + 'roaster'} location={b}>
                         {roaster}
                     </SidebarSelector>
-                    <SidebarSelector name="Account Settings" to={d + 'settings'} location={b}/>
-                    <SidebarSelector name="Logout" location={b} to={'/logout'}/>
+                </div>
+                <div className="flex h3 justify-between pa3 bt">
+                     <Link to={'/'} className="no-underline ph2"><div className="black b dim">Home</div></Link>
+                     <Link to={d + 'settings'} className="no-underline ph2"><div className="black b dim">Account <TiUserOutline className="black f4" /></div></Link>
+                     <Link to={'/logout'} className="no-underline ph2"><div className="black b dim">Logout</div></Link>               
                 </div>
             </div>
         );
