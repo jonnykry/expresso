@@ -31,17 +31,18 @@ class Subscription extends Component {
 
 	render () {
 		const item = this.props.item; 
-		console.log(item);
+		console.log(this.props);
 		return (
 			<div>
 				<div onClick={this.handleToggleDetails}>
 						<div>
-							<div>ID: {this.props.item.ID}</div>
-							<div>Item ID: {this.props.item.ItemID}</div>
-							<div>User ID: {this.props.item.UserID}</div>
-							<div>Status: {this.props.item.status}</div>
-							<div>Created At: {this.props.item.createdAt}</div>
-							<div>Frequency: {this.props.item.frequency}</div>
+							<div>ID: {item.ID}</div>
+							<div>Item ID: {item.ItemID}</div>
+							<div>Roaster ID: {item.RoasterID}</div>
+							<div>User ID: {item.UserID}</div>
+							<div>Status: {item.status}</div>
+							<div>Created At: {item.createdAt}</div>
+							<div>Frequency: {item.frequency}</div>
 						</div>
 						<div>
 						</div>

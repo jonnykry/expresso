@@ -15,11 +15,11 @@ export function getSubscription(id) {
 }
 
 export function getSubscriptionsByUser(id, offset, limit) {
-	return ActionUtil.handlePagedRequest(ActionTypes.COVENANT_SUBSCRIPTIONS, USER_SUBSCRIPTIONS_URL+ id, "GET", offset, limit);
+	return ActionUtil.handlePagedRequest(ActionTypes.COVENANT_SUBSCRIPTIONS, USER_SUBSCRIPTIONS_URL+ "/" + id, "GET", offset, limit);
 }
 
 export function getSubscriptionsByRoaster(id, offset, limit) {
-	return ActionUtil.handlePagedRequest(ActionTypes.COVENANT_SUBSCRIPTIONS, ROASTER_SUBSCRIPTIONS_URL + id, "GET", offset, limit);
+	return ActionUtil.handlePagedRequest(ActionTypes.COVENANT_SUBSCRIPTIONS, ROASTER_SUBSCRIPTIONS_URL + "/" + id, "GET", offset, limit);
 }
 
 export function getAllSubscriptions(offset, limit) {

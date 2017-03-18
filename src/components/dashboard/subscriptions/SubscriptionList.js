@@ -6,6 +6,7 @@ import Loading from'./../../Loading';
 
 class SubscriptionList extends Component {
 	render() {
+		console.log(this.props.items);
 		return (
 			<div>
 				<ErrorMessage error={this.props.error} />
@@ -18,7 +19,7 @@ class SubscriptionList extends Component {
 	}	
 }
 
-//Create object hold hold props - does prop validation
+//Prop validation
 SubscriptionList.propTypes = {
 	ids: PropTypes.array.isRequired,
 	items: PropTypes.object,
