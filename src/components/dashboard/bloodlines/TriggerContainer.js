@@ -2,7 +2,9 @@ import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 
 import {getAllTriggers, deleteTrigger, activateTrigger} from '../../../actions/bloodlinesActions';
+import ActionUtil from '../../../actions/actionUtil';
 import TriggerList from './TriggerList';
+import InfiniteList from '../InfiniteList';
 import SuccessMessage from './../../SuccessMessage';
 
 class TriggerContainer extends Component {
@@ -11,31 +13,12 @@ class TriggerContainer extends Component {
 
         this.activateBind = this.activate.bind(this);
         this.deleteBind = this.delete.bind(this);
-    }
-
-    componentDidMount() {
-        this.update(true);
-    }
-
-    update(reset) {
-        const {dispatch} = this.props;
-        let offset = this.props.items.cursor;
-        if (reset) {
-            offset = 0;
-        }
-
-        dispatch(getAllTriggers(offset, 20)).then(this.nextPage.bind(this));
-    }
-
-    nextPage() {
-        if (this.props.items.next && !this.props.items.fetching) {
-            this.update();
-        }
+        this.update = ActionUtil.wrapPagedAction(this.props.dispatch, getAllTriggers);
     }
 
     refresh() {
         if (this.props.modify.success && !this.props.modify.fetching) {
-            this.update(true);
+            this.update(0);
         }
     }
 
@@ -57,10 +40,10 @@ class TriggerContainer extends Component {
 
     render() {
         return (
-            <div>
+            <InfiniteList update={this.update} items={this.props.items}>
                 <SuccessMessage success={this.props.modify.success} message={'Success'}/>
                 <TriggerList delete={this.deleteBind} activate={this.activateBind} {...this.props.items}/>
-            </div>
+            </InfiniteList>
 		);
     }
 }

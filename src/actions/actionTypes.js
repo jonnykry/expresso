@@ -1,6 +1,7 @@
 
 export default({
     /* Bloodlines */
+    SEND_PAGED: 'SEND_PAGED',
     HANDLE_PAGED: 'HANDLE_PAGED',
     ERROR_PAGED: 'ERROR_PAGED',
     TRIGGERS: 'TRIGGERS',

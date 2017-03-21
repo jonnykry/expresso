@@ -2,8 +2,18 @@ import ActionTypes from './actionTypes';
 
 const TIMEOUT_MS = 5000;
 
+function wrapPagedAction(dispatch, action) {
+    return page => {
+        const limit = 2;
+
+        let offset = (page - 1) * limit;
+        dispatch(action(offset, limit));
+    };
+}
+
 function handlePagedRequest(item, url, type, offset, limit) {
     return dispatch => {
+        dispatch(sendPaged(item));
         return fetch(getAllUrl(url, offset, limit), auth({
             method: type
         })).then(res => {
@@ -62,6 +72,12 @@ function errorPaged(itemType, err) {
         err
     };
 }
+function sendPaged(itemType) {
+    return {
+        type: ActionTypes.SEND_PAGED,
+        itemType
+    };
+}
 function timeout() {
     return {
         type: ActionTypes.TIMEOUT
@@ -93,6 +109,7 @@ function getAllUrl(url, offset, limit) {
 }
 
 export default({
+    wrapPagedAction,
     handlePagedRequest,
     handlePaged,
     handleRequest,

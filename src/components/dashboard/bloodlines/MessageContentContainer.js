@@ -3,7 +3,9 @@ import {connect} from 'react-redux';
 
 import {getAllContent, createContent, deleteContent, createTrigger} from '../../../actions/bloodlinesActions';
 import ErrorMessage from '../../ErrorMessage';
+import InfiniteList from '../InfiniteList';
 import SuccessMessage from '../../SuccessMessage';
+import ActionUtil from '../../../actions/actionUtil';
 import MessageContentList from './MessageContentList';
 import MessageContentInput from './MessageContentInput';
 
@@ -14,10 +16,7 @@ class MessageContentContainer extends Component {
         this.createBind = this.create.bind(this);
         this.createTriggerBind = this.createTrigger.bind(this);
         this.deleteBind = this.delete.bind(this);
-    }
-
-    componentDidMount() {
-        this.update(true);
+        this.update = ActionUtil.wrapPagedAction(this.props.dispatch, getAllContent);
     }
 
     create(data) {
@@ -34,7 +33,7 @@ class MessageContentContainer extends Component {
 
     refresh() {
         if (this.props.modify.success && !this.props.modify.fetching) {
-            this.update(true);
+            this.update(0);
             return;
         }
     }
@@ -45,32 +44,16 @@ class MessageContentContainer extends Component {
         dispatch(deleteContent(id)).then(this.refresh.bind(this));
     }
 
-    update(reset) {
-        const {dispatch} = this.props;
-        let offset = this.props.items.cursor;
-        if (reset) {
-            offset = 0;
-        }
-
-        dispatch(getAllContent(offset, 20)).then(this.nextPage.bind(this));
-    }
-
-    nextPage() {
-        if (this.props.items.next && !this.props.items.fetching) {
-            this.update();
-        }
-    }
-
     render() {
         return (
-            <div>
+            <InfiniteList update={this.update} items={this.props.items}>
                 <ErrorMessage error={this.props.modify.error}/>
                 <SuccessMessage success={this.props.modify.success} message={'Success'}/>
                 <div className="flex flex-row">
                     <MessageContentInput addContent={this.createBind} {...this.props.modify}/>
                     <MessageContentList createTrigger={this.createTriggerBind} deleteContent={this.deleteBind} {...this.props.items} modify={this.props.modify}/>
                 </div>
-            </div>
+            </InfiniteList>
         );
     }
 }

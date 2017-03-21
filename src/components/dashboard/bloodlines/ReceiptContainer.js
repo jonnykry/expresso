@@ -2,44 +2,32 @@ import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 
 import {getAllReceipts} from '../../../actions/bloodlinesActions';
+import ActionUtil from '../../../actions/actionUtil';
 import ErrorMessage from '../../ErrorMessage';
 import SuccessMessage from '../../SuccessMessage';
+import InfiniteList from '../InfiniteList';
 import ReceiptList from './ReceiptList';
 
 class ReceiptContainer extends Component {
-    componentDidMount() {
-        this.update(true);
-    }
+    constructor(props) {
+        super(props);
 
-    update(reset) {
-        const {dispatch} = this.props;
-        let offset = this.props.items.cursor;
-        if (reset) {
-            offset = 0;
-        }
-
-        dispatch(getAllReceipts(offset, 20)).then(this.nextPage.bind(this));
-    }
-
-    nextPage() {
-        if (this.props.items.next && !this.props.items.fetching) {
-            this.update();
-        }
+        this.update = ActionUtil.wrapPagedAction(this.props.dispatch, getAllReceipts);
     }
 
     render() {
         return (
-            <div>
+            <InfiniteList items={this.props.items} update={this.update}>
                 <ErrorMessage error={this.props.modify.error}/>
                 <SuccessMessage success={this.props.modify.success} message={'Success'}/>
                 <ReceiptList {...this.props.items}/>
-            </div>
+            </InfiniteList>
         );
     }
 }
 
 ReceiptContainer.propTypes = {
-    dispatch: PropTypes.object,
+    dispatch: PropTypes.func,
     items: PropTypes.object,
     modify: PropTypes.object
 };
