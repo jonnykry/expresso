@@ -30,6 +30,7 @@ function handlePagedRequest(item, url, type, offset, limit) {
         });
     };
 }
+
 function handleRequest(url, type, body) {
     let raw = '';
     if (body) {
@@ -56,6 +57,7 @@ function handleRequest(url, type, body) {
         });
     };
 }
+
 function handlePaged(itemType, payload, offset, limit) {
     return {
         type: ActionTypes.HANDLE_PAGED,
@@ -65,6 +67,7 @@ function handlePaged(itemType, payload, offset, limit) {
         limit
     };
 }
+
 function errorPaged(itemType, err) {
     return {
         type: ActionTypes.ERROR_PAGED,
@@ -72,23 +75,27 @@ function errorPaged(itemType, err) {
         err
     };
 }
+
 function sendPaged(itemType) {
     return {
         type: ActionTypes.SEND_PAGED,
         itemType
     };
 }
+
 function timeout() {
     return {
         type: ActionTypes.TIMEOUT
     };
 }
+
 function handle(payload) {
     return {
         type: ActionTypes.HANDLE,
         payload
     };
 }
+
 function error(id, err) {
     return {
         type: ActionTypes.ERROR,
@@ -96,6 +103,7 @@ function error(id, err) {
         err
     };
 }
+
 function auth(options) {
     const token = localStorage.getItem('token');
     options.headers = new Headers({
