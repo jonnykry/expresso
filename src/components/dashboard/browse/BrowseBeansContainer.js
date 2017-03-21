@@ -30,8 +30,6 @@ class BrowseBeansContainer extends Component {
 
     render() {
         console.log('Beans: ', this.props.beans);
-        console.log('Cursor: ', this.props.beans.cursor);
-        console.log('Cursor: ', this.props.beans.next);
         
         return (
             <div>
