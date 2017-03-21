@@ -4,7 +4,7 @@ const TIMEOUT_MS = 5000;
 
 function wrapPagedAction(dispatch, action) {
     return page => {
-        const limit = 2;
+        const limit = 10;
 
         let offset = (page - 1) * limit;
         dispatch(action(offset, limit));
