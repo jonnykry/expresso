@@ -28,7 +28,6 @@ class ReceiptContainer extends Component {
     }
 
     render() {
-        console.log(this.props.items);
         return (
             <div>
                 <ErrorMessage error={this.props.modify.error}/>
