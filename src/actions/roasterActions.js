@@ -1,11 +1,11 @@
 import ActionTypes from './actionTypes';
 import ActionUtil from './actionUtil'
 
-const CREATE_ROASTER_URL = 'https://towncenter.expresso.store/api/roaster';
+const ROASTER_URL = 'https://towncenter.expresso.store/api/roaster';
 
 export function createRoaster(roasterInfo) {
     return dispatch => {
-        return fetch(CREATE_ROASTER_URL, ActionUtil.auth({
+        return fetch(ROASTER_URL, ActionUtil.auth({
             method: 'POST',
             body: JSON.stringify(roasterInfo)
         })).then((response) => {
@@ -16,6 +16,25 @@ export function createRoaster(roasterInfo) {
             dispatch(errorRoaster(roasterInfo, err));
         });
     }
+}
+
+export function getRoaster(id) {
+    return dispatch => {
+        return fetch(ROASTER_URL + '/' + id, ActionUtil.auth({
+            method: 'GET'
+        })).then(res => {
+            return res.json();
+        }).then(payload => {
+            if (payload.error || !payload.success) {
+                dispatch(ActionUtil.error('', payload.message));
+                return;
+            }
+
+            dispatch(receiveRoaster(payload));
+        }).catch(err => {
+            dispatch(ActionUtil.error('', err));
+        });
+    };
 }
 
 function receiveRoaster(payload) {

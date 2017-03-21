@@ -6,7 +6,7 @@ const AUTHENTICATE_USER_URL = 'https://towncenter.expresso.store/api/user/login'
 const UPDATE_USER_URL = 'https://towncenter.expresso.store/api/user/';
 
 export function logout() {
-    localStorage.setItem('token', null);
+    localStorage.removeItem('token');
     return dispatch => {
         return dispatch({
             type: ActionTypes.LOGOUT

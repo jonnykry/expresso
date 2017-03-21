@@ -20,7 +20,7 @@ class SidebarSelector extends Component {
 
     render() {
         let linkClass = 'no-underline black';
-        let btnClass = 'pointer f6 pa1 center w-100 link dim black pl3 pv3';
+        let btnClass = 'pointer f6 pa1 center w-100 link dim black b pl3 pv3';
 
         const active = this.props.location.includes(this.props.to);
         const dropdown = this.hasChildren(active);
@@ -31,7 +31,7 @@ class SidebarSelector extends Component {
         }
 
         if (active) {
-            btnClass += ' b';
+            btnClass += ' bg-black-05';
         }
 
         return (
