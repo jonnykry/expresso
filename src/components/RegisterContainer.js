@@ -49,10 +49,10 @@ class RegisterContainer extends Component {
 
     render() {
         return (
-            <div className="overflow-y-auto h-100">
-                <article className="pa4 pb7 mw4 mw6-ns center black-80">
+            <div className="overflow-y-auto h-100 bg-blue">
+                <article className="ph4 pv5 mw7 center black-80">
                     <AccountInfo 
-                        legend={'Register/Sign-Up'}
+                        legend={'Sign up to Create an Account'}
                         roaster={false}
                         handleSubmit={this.registerBind}
                         error={this.state.error}

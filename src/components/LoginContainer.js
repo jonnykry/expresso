@@ -24,7 +24,7 @@ class LoginContainer extends Component {
 
     render() {
         return (
-            <div>
+            <div className="h-100">
                 <Login onHandleSubmit={this.handleSubmit} {...this.props} />
             </div>
         );
