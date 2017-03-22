@@ -19,7 +19,7 @@ class AccountInfo extends Component {
 	render() {
 		const inputClass = 'input-reset ba b--silver pa3 mv2 db br3 mh3';
 		const formRowClass = "mt3 flex flex-row";
-		                  
+
 		const user = this.props.user;
 		const isRoaster = this.props.roaster;
 		const legendText = this.props.legend;
@@ -64,7 +64,7 @@ class AccountInfo extends Component {
 		    		</div>
 		    		<div className={formRowClass}>
 		    			<input className={inputClass + ' w-100'} ref="city" placeholder="City or Town" defaultValue={user == null ? "" : user.addressCity} required />
-						<input className={inputClass} ref="zipCode" defaultValue={user == null ? "" : user.addressZip} required />
+						<input className={inputClass} ref="zipCode" placeholder="Zip Code" defaultValue={user == null ? "" : user.addressZip} required />
 		    		</div>
 		    		<div className={formRowClass}>
 						<select className={inputClass + ' w-50 pointer'} ref="state" defaultValue={user == null ? "" : user.addressState} required>
