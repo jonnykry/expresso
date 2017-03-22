@@ -5,20 +5,18 @@ import ErrorMessage from './ErrorMessage';
 
 class Login extends Component {
     render() {
-        const labelClass = "mt3 db fw4 lh-copy f6";
-        const inputClass = "pa2 input-reset ba bg-transparent w-100 border-box";
+        const inputClass = "mt3 pa3 input-reset ba b--white w-100 border-box br3";
 
         return (
-            <div>
-                <article className="pa4 mw4 mw6-ns center black-80">
-                    <div className="f2 tc">Log In</div>
+            <div className="bg-blue h-100">
+                <article className="h-100 bg-blue pa4 mw4 mw6-ns center white">
+                    <Link to="/" className="pointer tc f1 b i pb4 white no-underline"><h1>Expresso</h1></Link>
+                    <div className="f2 tc">Log in</div>
                     <form onSubmit={this.props.onHandleSubmit.bind(this)} className="w-100">
-                        <label className={labelClass}>E-mail</label>
-                        <input className={inputClass} ref="email" name="e-mail" id="e-mail" />
-                        <label className={labelClass}>Password</label>
-                        <input className={inputClass} type="password" ref="password" name="password" id="password" />
-                        <div className="mt4"><input className="w-25 b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6" type="submit" value="Log In" /></div>
-                        <div className="mt3">Not a user?  <Link to="/register" className="f6 link dib dim mr3 mr4-ns" title="Register">Click here to sign up!</Link></div>
+                        <input className={inputClass} ref="email" placeholder="E-mail" name="e-mail" id="e-mail" />
+                        <input className={inputClass} type="password" ref="password" placeholder="Password" name="password" id="password" />
+                        <div className="mt3"><input className="w-100 pointer ba b--transparent white br3 bg-green pv3" type="submit" value="Log In" /></div>
+                        <div className="mt3 light-gray tc f7">Not a user?  Click Here to <Link to="/register" className="f6 link dib dim mr3 mr4-ns" title="Register">Sign up</Link></div>
                         <ErrorMessage error={this.props.error} />
                     </form>
                 </article>

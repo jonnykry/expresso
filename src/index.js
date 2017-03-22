@@ -44,10 +44,10 @@ ReactDOM.render(
             <Route path="/" component={App} isHome>
                 <IndexRoute component={Home}/>
                 <Route path="about" component={About}/>
-                <Route path="login" component={LoginContainer}/>
                 <Route path="logout" component={Logout}/>
-                <Route path="register" component={RegisterContainer}/>
             </Route>
+            <Route path="/register" component={RegisterContainer}/>
+            <Route path="/login" component={LoginContainer}/>
             <Route path="/dashboard" component={Dashboard} onEnter={requireAuth}>
                 <IndexRedirect to="browse"/>
                 <Route path="browse" component={BrowseBeansContainer}/>
