@@ -2,7 +2,6 @@ import React, {Component, PropTypes} from 'react';
 
 import MessageContent from './MessageContent';
 import ErrorMessage from './../../ErrorMessage';
-import Loading from './../../Loading';
 
 class MessageContentList extends Component {
 
@@ -18,7 +17,6 @@ class MessageContentList extends Component {
                         modify={this.props.modify}
                         />
                 )}
-                <Loading fetching={this.props.fetching} length={this.props.items.length}/>
             </div>
         );
     }
@@ -30,7 +28,6 @@ MessageContentList.propTypes = {
     deleteContent: PropTypes.func.isRequired,
     createTrigger: PropTypes.func.isRequired,
     modify: PropTypes.object,
-    fetching: PropTypes.bool,
     error: PropTypes.string
 };
 

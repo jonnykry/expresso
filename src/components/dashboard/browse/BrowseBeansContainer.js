@@ -1,55 +1,40 @@
-import React, {Component, PropTypes} from 'react';
+import React, {PropTypes, Component} from 'react';
 import {connect} from 'react-redux';
 import {getAllItems} from '../../../actions/warehouseActions';
+import ActionUtil from '../../../actions/actionUtil';
+import InfiniteList from '../InfiniteList';
 
 import BeanItemList from './BeanItemList';
 
 class BrowseBeansContainer extends Component {
-    componentDidMount() {
-        this.update(true);
-    }
+    constructor(props) {
+        super(props);
 
-    update(reset) {
-        const {dispatch} = this.props;
-
-        // TODO:  Fix to be like Garret's cus he's da man.
-        let offset = this.props.beans.cursor;
-        
-        if (reset) {
-            offset = 0;
-        }
-
-        dispatch(getAllItems(offset, 10)).then(this.nextPage.bind(this));;
-    }
-
-    nextPage() {
-        if (this.props.beans.next && !this.props.beans.fetching) {
-            this.update();
-        }
+        this.update = ActionUtil.wrapPagedAction(this.props.dispatch, getAllItems);
     }
 
     render() {
-        console.log('Beans: ', this.props.beans);
-        
         return (
-            <div>
-                <h1 className="tc f1-l mt2 b">
-                    Browse Beans
-                </h1>
-                <BeanItemList {...this.props.beans} />
+            <div className="content h-100 min-h-100 relative overflow-y-auto pt4">
+                <InfiniteList update={this.update} {...this.props.items} >
+                    <h1 className="tc f1-l mt2 b">
+                        Browse Beans
+                    </h1>
+                    <BeanItemList {...this.props.items}/>
+                </InfiniteList>
             </div>
         );
     }
 }
 
 BrowseBeansContainer.propTypes = {
-    beanReducer: PropTypes.object.isRequired
+    dispatch: PropTypes.func,
+    items: PropTypes.object
 };
 
 function mapStateToProps(state) {
     return {
-        user: state.userReducer.user,
-        beans: state.beans
+        items: state.beans
     };
 }
 
