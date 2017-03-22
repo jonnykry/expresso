@@ -36,10 +36,10 @@ class Subscription extends Component {
 			<div>
 				<div onClick={this.handleToggleDetails}>
 						<div>
-							<div>ID: {item.ID}</div>
-							<div>Item ID: {item.ItemID}</div>
-							<div>Roaster ID: {item.RoasterID}</div>
-							<div>User ID: {item.UserID}</div>
+							<div>ID: {item.id}</div>
+							<div>Item ID: {item.itemId}</div>
+							<div>Roaster ID: {item.roasterId}</div>
+							<div>User ID: {item.userID}</div>
 							<div>Status: {item.status}</div>
 							<div>Created At: {item.createdAt}</div>
 							<div>Frequency: {item.frequency}</div>
