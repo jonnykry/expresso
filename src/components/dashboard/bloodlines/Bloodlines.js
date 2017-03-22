@@ -8,7 +8,7 @@ class Bloodlines extends Component {
             child = React.cloneElement(this.props.children);
         }
         return (
-            <div className="content h-100 min-h-100 relative overflow-y-auto pt4 pb7">
+            <div className="content h-100 min-h-100 relative overflow-y-auto pt4">
                 <div className="tc f1-l mt2 b">
                     Bloodlines
                 </div>

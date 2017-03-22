@@ -40,7 +40,7 @@ class TriggerContainer extends Component {
 
     render() {
         return (
-            <InfiniteList update={this.update} items={this.props.items}>
+            <InfiniteList update={this.update} {...this.props.items}>
                 <SuccessMessage success={this.props.modify.success} message={'Success'}/>
                 <TriggerList delete={this.deleteBind} activate={this.activateBind} {...this.props.items}/>
             </InfiniteList>

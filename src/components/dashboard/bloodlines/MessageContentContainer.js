@@ -46,7 +46,7 @@ class MessageContentContainer extends Component {
 
     render() {
         return (
-            <InfiniteList update={this.update} items={this.props.items}>
+            <InfiniteList update={this.update} {...this.props.items}>
                 <ErrorMessage error={this.props.modify.error}/>
                 <SuccessMessage success={this.props.modify.success} message={'Success'}/>
                 <div className="flex flex-row">

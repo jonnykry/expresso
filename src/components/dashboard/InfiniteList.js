@@ -9,10 +9,10 @@ class InfiniteList extends Component {
             <InfiniteScroll
                 pageStart={0}
                 loadMore={this.props.update}
-                hasMore={this.props.items.next}
+                hasMore={this.props.next}
                 useWindow={false}
-                threshold={-256}
-                loader={<Loading fetching={this.props.items.fetching} length={this.props.items.length}/>}
+                threshold={0}
+                loader={<Loading fetching={this.props.fetching} length={this.props.length}/>}
                 >
                 {this.props.children}
             </InfiniteScroll>
@@ -21,7 +21,9 @@ class InfiniteList extends Component {
 }
 
 InfiniteList.propTypes = {
-    items: PropTypes.object,
+    next: PropTypes.bool,
+    length: PropTypes.number,
+    fetching: PropTypes.bool,
     update: PropTypes.func,
     children: PropTypes.array
 };
