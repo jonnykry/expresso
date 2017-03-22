@@ -4,7 +4,7 @@ function getPagedState() {
     return {
         fetching: false,
         cursor: 0,
-        next: false,
+        next: true,
         items: {},
         ids: [],
         error: null
@@ -13,6 +13,12 @@ function getPagedState() {
 
 function handlePagedAction(action, state) {
     switch (action.type) {
+        case ActionTypes.SEND_PAGED: {
+            return Object.assign({}, state, {
+                fetching: true,
+                next: false
+            });
+        }
         case ActionTypes.HANDLE_PAGED: {
             if (action.offset === 0) {
                 state.items = {};
