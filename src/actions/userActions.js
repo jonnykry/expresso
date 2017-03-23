@@ -7,6 +7,7 @@ const USER_URL = 'https://towncenter.expresso.store/api/user/';
 export function logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('userId');
+    localStorage.removeItem('roasterId');
     return dispatch => {
         return dispatch({
             type: ActionTypes.LOGOUT
@@ -23,6 +24,7 @@ export function createUser(userInfo) {
             return response.json();
         }).then(json => {
             localStorage.setItem('userId', json.data.id);
+            localStorage.removeItem('roasterId');
             dispatch(receiveUser(json));
         }).catch(err => {
             dispatch(errorUser(userInfo, err));
@@ -47,6 +49,7 @@ export function authenticateUser(userCreds) {
             }
 
             localStorage.setItem('userId', json.data.id);
+            localStorage.setItem('roasterId', json.data.roasterId);
             dispatch(receiveUser(json));
         }).catch(err => {
             dispatch(errorUser(userCreds, err.message));
@@ -66,6 +69,7 @@ export function getUserInfo(userId) {
                 return;
             }
 
+            localStorage.setItem('roasterId', json.data.roasterId);
             dispatch(receiveUser(json));
         }).catch((err) => {
             dispatch(errorUser(userId, err));
