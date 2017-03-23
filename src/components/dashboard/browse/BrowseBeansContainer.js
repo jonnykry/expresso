@@ -20,7 +20,7 @@ class BrowseBeansContainer extends Component {
                     <h1 className="tc f1-l mt2 b">
                         Browse Beans
                     </h1>
-                    <BeanItemList {...this.props.items}/>
+                    <BeanItemList {...this.props.items} error={this.props.error}/>
                 </InfiniteList>
             </div>
         );
@@ -29,12 +29,14 @@ class BrowseBeansContainer extends Component {
 
 BrowseBeansContainer.propTypes = {
     dispatch: PropTypes.func,
-    items: PropTypes.object
+    items: PropTypes.object,
+    error: PropTypes.string
 };
 
 function mapStateToProps(state) {
     return {
-        items: state.beans
+        items: state.beans,
+        error: state.errors[500]
     };
 }
 

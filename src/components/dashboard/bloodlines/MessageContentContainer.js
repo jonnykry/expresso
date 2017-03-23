@@ -2,7 +2,6 @@ import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 
 import {getAllContent, createContent, deleteContent, createTrigger} from '../../../actions/bloodlinesActions';
-import ErrorMessage from '../../ErrorMessage';
 import InfiniteList from '../InfiniteList';
 import SuccessMessage from '../../SuccessMessage';
 import ActionUtil from '../../../actions/actionUtil';
@@ -47,7 +46,6 @@ class MessageContentContainer extends Component {
     render() {
         return (
             <InfiniteList update={this.update} {...this.props.items}>
-                <ErrorMessage error={this.props.modify.error}/>
                 <SuccessMessage success={this.props.modify.success} message={'Success'}/>
                 <div className="flex flex-row">
                     <MessageContentInput addContent={this.createBind} {...this.props.modify}/>
@@ -61,7 +59,8 @@ class MessageContentContainer extends Component {
 MessageContentContainer.propTypes = {
     modify: PropTypes.object,
     items: PropTypes.object,
-    dispatch: PropTypes.func
+    dispatch: PropTypes.func,
+    error: PropTypes.string
 };
 
 function mapStateToProps(state) {

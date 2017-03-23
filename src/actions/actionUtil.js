@@ -26,15 +26,19 @@ function handlePagedRequest(item, url, type, offset, limit) {
         return fetch(getAllUrl(url, offset, limit), auth({
             method: type
         })).then(res => {
+            if (res.status === 401) {
+                dispatch(error(401, 'Forbidden'));
+            }
+
             return res.json();
         }).then(json => {
             if (json.error || !json.success) {
-                dispatch(errorPaged(item, json.message));
-                return;
-            }      
+                dispatch(error(500, json.message));
+                return {};
+            }
             dispatch(handlePaged(item, json, offset, limit));
         }).catch(err => {
-            dispatch(errorPaged(item, err.message));
+            dispatch(error(500, err.message));
         });
     };
 }
@@ -47,21 +51,26 @@ function handleRequest(url, type, body) {
     return dispatch => {
         setTimeout(() => {
             dispatch(timeout());
+            dispatch(error(500, null));
         }, TIMEOUT_MS);
         return fetch(url, auth({
             method: type,
             body: raw
         })).then(res => {
+            if (res.status === 401) {
+                dispatch(error(401, 'Forbidden'));
+            }
+
             return res.json();
         }).then(json => {
             if (json.error || !json.success) {
-                dispatch(error(body, json.message));
+                dispatch(error(500, json.message));
                 return;
             }
 
             dispatch(handle(json));
         }).catch(err => {
-            dispatch(error(body, err));
+            dispatch(error(500, err));
         });
     };
 }
@@ -73,14 +82,6 @@ function handlePaged(itemType, payload, offset, limit) {
         payload,
         offset,
         limit
-    };
-}
-
-function errorPaged(itemType, err) {
-    return {
-        type: ActionTypes.ERROR_PAGED,
-        itemType,
-        err
     };
 }
 
@@ -104,11 +105,11 @@ function handle(payload) {
     };
 }
 
-function error(id, err) {
+function error(code, message) {
     return {
         type: ActionTypes.ERROR,
-        id,
-        err
+        code,
+        message
     };
 }
 
@@ -131,7 +132,6 @@ export default({
     handlePaged,
     handleRequest,
     timeout,
-    errorPaged,
     handle,
     error,
     auth

@@ -1,27 +1,18 @@
-import React, { Component } from 'react';
-import {connect} from 'react-redux';
-
-import { getUserInfo } from '../../actions/userActions';
-import { getRoaster } from '../../actions/roasterActions';
+import React, {Component, PropTypes} from 'react';
 
 import SidebarContent from './SidebarContent';
+import ErrorMessage from './../ErrorMessage';
 
 import './Dashboard.css';
 
 class Dashboard extends Component {
-    componentDidMount() {
-        if(this.props.user === null) {
-            this.props.dispatch(getUserInfo(localStorage.getItem('userId')));
-        }
-        if(this.props.roaster === null) {
-            this.props.dispatch(getRoaster(localStorage.getItem('roasterId')));
-        }
-    }
 
     render() {
-        let sidebar = <SidebarContent location={this.props.location.pathname} />;
+        let sidebar = <SidebarContent location={this.props.location.pathname}/>;
+
         return (
             <div className="w-100 min-h-100 h-100 absolute dib">
+                <ErrorMessage error={this.props.error}/>
                 <div className="h-100 dashboard">
                     <div className="sidebar h-100 fixed shadow-4">
                         {sidebar}
@@ -35,11 +26,10 @@ class Dashboard extends Component {
     }
 }
 
-function mapStateToProps(state) {
-	return {
-        user: state.userReducer.user,
-        roaster: state.roaster.roaster
-	};
-}
+Dashboard.propTypes = {
+    error: PropTypes.string,
+    children: PropTypes.object,
+    location: PropTypes.object,
+};
 
-export default connect(mapStateToProps)(Dashboard);
+export default Dashboard;

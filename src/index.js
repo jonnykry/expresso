@@ -7,7 +7,7 @@ import About from './components/About';
 import LoginContainer from './components/LoginContainer';
 import Logout from './components/Logout';
 import RegisterContainer from './components/RegisterContainer';
-import Dashboard from './components/dashboard/Dashboard';
+import DashboardContainer from './components/dashboard/DashboardContainer';
 import Home from './components/Home';
 import BrowseBeansContainer from './components/dashboard/browse/BrowseBeansContainer';
 import BeanItemDetails from './components/dashboard/browse/BeanItemDetails';
@@ -50,7 +50,7 @@ ReactDOM.render(
             </Route>
             <Route path="/register" component={RegisterContainer}/>
             <Route path="/login" component={LoginContainer}/>
-            <Route path="/dashboard" component={Dashboard} onEnter={requireAuth}>
+            <Route path="/dashboard" component={DashboardContainer} onEnter={requireAuth}>
                 <IndexRedirect to="browse"/>
                 <Route path="browse" component={BrowseBeansContainer}/>
                 <Route path="browse/:id" component={BeanItemDetails}/>
