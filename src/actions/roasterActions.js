@@ -11,7 +11,23 @@ export function createRoaster(roasterInfo) {
         })).then((response) => {
             return response.json();
         }).then((json) => {
+            localStorage.setItem('roasterId', json.data.id);
             dispatch(receiveRoaster(json))
+        }).catch((err) => {
+            dispatch(errorRoaster(roasterInfo, err));
+        });
+    }
+}
+
+export function updateRoaster(roasterInfo, roasterId) {
+    return dispatch => {
+        return fetch(ROASTER_URL + '/' + roasterId, ActionUtil.auth({
+            method: 'PUT',
+            body: JSON.stringify(roasterInfo)
+        })).then((response) => {
+            return response.json();
+        }).then((json) => {
+            dispatch(receiveRoaster(json));
         }).catch((err) => {
             dispatch(errorRoaster(roasterInfo, err));
         });

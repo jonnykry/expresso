@@ -6,6 +6,7 @@ import ErrorMessage from './../ErrorMessage';
 import './Dashboard.css';
 
 class Dashboard extends Component {
+
     render() {
         let sidebar = <SidebarContent location={this.props.location.pathname}/>;
 
@@ -28,7 +29,7 @@ class Dashboard extends Component {
 Dashboard.propTypes = {
     error: PropTypes.string,
     children: PropTypes.object,
-    location: PropTypes.object
+    location: PropTypes.object,
 };
 
 export default Dashboard;

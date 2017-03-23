@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { updateUserInfo } from '../../../actions/userActions'
 
-import AccountInfo from './AccountInfo';
+import AccountInfo from '../../AccountInfo';
 
 class UserSettingsContainer extends Component {
     constructor(props) {
@@ -51,9 +51,9 @@ class UserSettingsContainer extends Component {
             <main className="pa4 black-80">
                 <AccountInfo
                   legend={'Update User Account'}
-                  roaster={false}
                   handleSubmit={this.updateUserBind}
-                  user={this.props.user} />
+                  user={this.props.user}
+                  submitText={'Update Information'} />
             </main>
         );
     }
