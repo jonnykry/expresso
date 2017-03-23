@@ -4,6 +4,7 @@ import {beans, bean} from './warehouseReducer';
 import {roaster} from './roasterReducer';
 import {userReducer} from './userReducer';
 import {triggers, contents, receipts} from './bloodlinesReducer';
+import { subscriptions } from './covenantReducer';
 import ReducerUtil from './reducerUtil';
 
 const rootReducer = combineReducers({
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
     triggers,
     contents,
     receipts,
+    subscriptions,
     modify: ReducerUtil.modify
 });
 

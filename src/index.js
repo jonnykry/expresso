@@ -19,6 +19,8 @@ import Subscribe from './components/dashboard/subscriptions/Subscribe';
 import MessageContentContainer from './components/dashboard/bloodlines/MessageContentContainer';
 import TriggerContainer from './components/dashboard/bloodlines/TriggerContainer';
 import ReceiptContainer from './components/dashboard/bloodlines/ReceiptContainer';
+import SubscriptionContainer from './components/dashboard/subscriptions/SubscriptionContainer';
+
 import configureStore from './store/configureStore';
 
 import 'tachyons/css/tachyons.css';
@@ -64,7 +66,11 @@ ReactDOM.render(
                     <Route path="account" component={RoasterAccount}/>
                     <Route path="register" component={RoasterRegisterContainer}/>
                 </Route>
+<<<<<<< HEAD
                 <Route path="subscriptions">
+=======
+                <Route path="subscriptions" component={SubscriptionContainer}>
+>>>>>>> 361687a6ddef9869524bbc1cf7d2d67f193369b0
                     <Route path="subscribe/:id" component={Subscribe}/>
                 </Route>
                 <Route path="settings" component={AccountSettings}/>
