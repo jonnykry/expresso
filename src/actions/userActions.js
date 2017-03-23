@@ -20,6 +20,9 @@ export function createUser(userInfo) {
             method: 'POST',
             body: JSON.stringify(userInfo)
         }).then(response => {
+            const token = response.headers.get('X-Auth');
+            localStorage.setItem('token', token);
+
             return response.json();
         }).then(json => {
             dispatch(receiveUser(json));
