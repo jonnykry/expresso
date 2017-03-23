@@ -51,6 +51,7 @@ function handleRequest(url, type, body) {
     return dispatch => {
         setTimeout(() => {
             dispatch(timeout());
+            dispatch(error(500, null));
         }, TIMEOUT_MS);
         return fetch(url, auth({
             method: type,
