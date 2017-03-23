@@ -11,6 +11,15 @@ function wrapPagedAction(dispatch, action) {
     };
 }
 
+function wrapPagedActionWithId(id, dispatch, action) {
+    return page => {
+        const limit = 10;
+
+        let offset = (page - 1) * limit;
+        dispatch(action(id, offset, limit));
+    };
+}
+
 function handlePagedRequest(item, url, type, offset, limit) {
     return dispatch => {
         dispatch(sendPaged(item));
@@ -22,8 +31,7 @@ function handlePagedRequest(item, url, type, offset, limit) {
             if (json.error || !json.success) {
                 dispatch(errorPaged(item, json.message));
                 return;
-            }
-
+            }      
             dispatch(handlePaged(item, json, offset, limit));
         }).catch(err => {
             dispatch(errorPaged(item, err.message));
@@ -118,6 +126,7 @@ function getAllUrl(url, offset, limit) {
 
 export default({
     wrapPagedAction,
+    wrapPagedActionWithId,
     handlePagedRequest,
     handlePaged,
     handleRequest,
