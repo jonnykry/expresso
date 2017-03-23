@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router';
 
-import ErrorMessage from '../../ErrorMessage';
-
 class AccountInfo extends Component {
 	constructor(props) {
 		super(props);
@@ -129,7 +127,6 @@ class AccountInfo extends Component {
 							{!isRoaster && <div className="tc pv2">Already have an account?  <Link to="/login" title="Login">Log In</Link>!</div>}
 					</div>
 		    	</div>
-		        <ErrorMessage error={this.props.error} />
 		    </form>
 		);
 	}
