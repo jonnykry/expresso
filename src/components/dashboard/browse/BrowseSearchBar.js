@@ -14,10 +14,14 @@ class BeanSearchBar extends Component {
         
         return (
             <div className="bean-item-card w-40 center ph1 flex flex-row">
-                <input type="search"
-                       placeholder="Search for a Bean" 
-                       className="pv1 ph3 input-reset ba w-100 border-box br2 b--light-silver"
-                       onChange={this.props.onSearchChange} />
+                <span className="w-100 ba border-box br2 b--light-silver">
+                    <input type="search"
+                        ref={(input) => { this.searchInput = input; }}
+                        placeholder="Search for a Bean" 
+                        className="pv1 ph3 input-reset bn w-90 h-100"
+                        onChange={this.props.onSearchChange} />
+                        <span onClick={this.props.onClear.bind(this)} className="pointer silver pl3">X</span>
+                </span>
                 <div className="pl2 w-50">
                     <Select options={options}
                             simpleValue

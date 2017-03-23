@@ -19,8 +19,8 @@ class BrowseBeansContainer extends Component {
         }
     }
 
-    search(term) {
-        console.log('Searching: ', term);
+    search(e) {
+        console.log('Searching: ', e.target.value);
     }
 
     filter(val) {
@@ -32,11 +32,16 @@ class BrowseBeansContainer extends Component {
         });
     }
 
+    clear() {
+        this.searchInput.value = '';
+        this.searchInput.focus = true;
+    }
+
     render() {
         return (
             <div className="content h-100 min-h-100 relative overflow-y-auto">
                 <h1 className="tc f1 mt2 b">Browse Beans</h1>
-                <BrowseSearchBar selected={this.state.selected} onSearchChange={this.search} onFilterChange={this.filter} />
+                <BrowseSearchBar selected={this.state.selected} onSearchChange={this.search} onFilterChange={this.filter} onClear={this.clear} />
                 <InfiniteList update={this.update} {...this.props.items} >
                     <BeanItemList {...this.props.items}/>
                 </InfiniteList>
