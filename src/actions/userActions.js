@@ -1,12 +1,12 @@
 import ActionTypes from './actionTypes';
 import ActionUtil from './actionUtil';
 
-const CREATE_USER_URL = 'https://towncenter.expresso.store/api/user';
 const AUTHENTICATE_USER_URL = 'https://towncenter.expresso.store/api/user/login';
-const UPDATE_USER_URL = 'https://towncenter.expresso.store/api/user/';
+const USER_URL = 'https://towncenter.expresso.store/api/user/';
 
 export function logout() {
     localStorage.removeItem('token');
+    localStorage.removeItem('userId');
     return dispatch => {
         return dispatch({
             type: ActionTypes.LOGOUT
@@ -16,12 +16,13 @@ export function logout() {
 
 export function createUser(userInfo) {
     return dispatch => {
-        return fetch(CREATE_USER_URL, {
+        return fetch(USER_URL, {
             method: 'POST',
             body: JSON.stringify(userInfo)
         }).then(response => {
             return response.json();
         }).then(json => {
+            localStorage.setItem('userId', json.data.id);
             dispatch(receiveUser(json));
         }).catch(err => {
             dispatch(errorUser(userInfo, err));
@@ -45,6 +46,7 @@ export function authenticateUser(userCreds) {
                 return;
             }
 
+            localStorage.setItem('userId', json.data.id);
             dispatch(receiveUser(json));
         }).catch(err => {
             dispatch(errorUser(userCreds, err.message));
@@ -52,9 +54,28 @@ export function authenticateUser(userCreds) {
     };
 }
 
+export function getUserInfo(userId) {
+    return dispatch => {
+        return fetch(USER_URL + userId, ActionUtil.auth({
+            method: 'GET'
+        })).then((response) => {
+            return response.json();
+        }).then((json) => {
+            if(!json.success) {
+                dispatch(errorUser(userId, json.message));
+                return;
+            }
+
+            dispatch(receiveUser(json));
+        }).catch((err) => {
+            dispatch(errorUser(userId, err));
+        })
+    }
+}
+
 export function updateUserInfo(userInfo, userId) {
   return dispatch => {
-      return fetch(UPDATE_USER_URL + userId, ActionUtil.auth({
+      return fetch(USER_URL + userId, ActionUtil.auth({
           method: 'PUT',
           body: JSON.stringify(userInfo)
       })).then((response) => {
