@@ -66,11 +66,7 @@ ReactDOM.render(
                     <Route path="account" component={RoasterAccount}/>
                     <Route path="register" component={RoasterRegisterContainer}/>
                 </Route>
-<<<<<<< HEAD
-                <Route path="subscriptions">
-=======
                 <Route path="subscriptions" component={SubscriptionContainer}>
->>>>>>> 361687a6ddef9869524bbc1cf7d2d67f193369b0
                     <Route path="subscribe/:id" component={Subscribe}/>
                 </Route>
                 <Route path="settings" component={AccountSettings}/>
