@@ -51,10 +51,10 @@ class UserSettingsContainer extends Component {
             <main className="pa4 black-80">
                 <AccountInfo
                   legend={'Update User Account'}
-                  roaster={false}
                   handleSubmit={this.updateUserBind}
                   error={this.state.error}
-                  user={this.props.user} />
+                  user={this.props.user}
+                  submitText={'Update Information'} />
             </main>
         );
     }

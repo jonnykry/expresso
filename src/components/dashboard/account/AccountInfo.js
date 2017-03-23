@@ -23,6 +23,8 @@ class AccountInfo extends Component {
 		const user = this.props.user;
 		const isRoaster = this.props.roaster;
 		const legendText = this.props.legend;
+		const submitText = this.props.submitText;
+		const showLogin = this.props.showLogin;
 
 		return (
 		    <form className="mw7 center w-100 h-100" onSubmit={this.handleClickBind}>
@@ -37,7 +39,7 @@ class AccountInfo extends Component {
 		    		}
 		    		{isRoaster &&
 		    			<div className={formRowClass}>
-		    				<input className={inputClass + ' w-100'} ref="name" placeholder="##########" defaultValue={user == null ? "" : user.name} required />
+		    				<input className={inputClass + ' w-100'} ref="name" placeholder="Name" defaultValue={user == null ? "" : user.name} required />
 		    			</div>
 		    		}
 		    		<div className={formRowClass}>
@@ -125,8 +127,8 @@ class AccountInfo extends Component {
 						</select>
 		    		</div>
 					<div className="mt3">
-							<button className="f4 w-100 link pointer dim br1 ba bw1 pv3 mb2 white bg-green" type="submit">Sign Up</button>
-							{!isRoaster && <div className="tc pv2">Already have an account?  <Link to="/login" title="Login">Log In</Link>!</div>}
+							<button className="f4 w-100 link pointer dim br1 ba bw1 pv3 mb2 white bg-green" type="submit">{submitText}</button>
+							{showLogin && <div className="tc pv2">Already have an account?  <Link to="/login" title="Login">Log In</Link>!</div>}
 					</div>
 		    	</div>
 		        <ErrorMessage error={this.props.error} />

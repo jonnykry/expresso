@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { createRoaster } from '../../../actions/roasterActions'
+import { createRoaster } from '../../../actions/roasterActions';
 
 import AccountInfo from '../account/AccountInfo';
 
@@ -38,14 +38,13 @@ class RoasterRegisterContainer extends Component {
 
     render() {
         return (
-            <div>
+            <div className="h-100 overflow-y-auto">
                 <main className="pa4 black-80">
                     <AccountInfo
                         roaster={true}
-                        user={null}
                         handleSubmit={this.registerBind}
-                        error={null}
-                        legend={'Register Roaster Account'} />
+                        legend={'Register Roaster Account'}
+                        submitText={'Register Roaster'} />
                 </main>
             </div>
         );
