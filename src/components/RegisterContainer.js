@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { createUser } from '../actions/userActions'
 
-import AccountInfo from './dashboard/account/AccountInfo';
+import AccountInfo from './AccountInfo';
 
 class RegisterContainer extends Component {
     constructor(props) {

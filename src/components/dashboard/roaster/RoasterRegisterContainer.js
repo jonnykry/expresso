@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { createRoaster } from '../../../actions/roasterActions';
 
-import AccountInfo from '../account/AccountInfo';
+import AccountInfo from '../../AccountInfo';
 
 class RoasterRegisterContainer extends Component {
     constructor(props) {

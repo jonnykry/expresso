@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { updateUserInfo } from '../../../actions/userActions'
 
-import AccountInfo from './AccountInfo';
+import AccountInfo from '../../AccountInfo';
 
 class UserSettingsContainer extends Component {
     constructor(props) {

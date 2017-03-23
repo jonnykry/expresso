@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router';
 
-import ErrorMessage from '../../ErrorMessage';
+import ErrorMessage from './ErrorMessage';
 
 class AccountInfo extends Component {
 	constructor(props) {
