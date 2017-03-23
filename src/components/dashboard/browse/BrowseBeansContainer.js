@@ -1,32 +1,36 @@
-import React, {Component} from 'react';
+import React, {PropTypes, Component} from 'react';
 import {connect} from 'react-redux';
 import {getAllItems} from '../../../actions/warehouseActions';
+import ActionUtil from '../../../actions/actionUtil';
+import InfiniteList from '../InfiniteList';
 
 import BeanItemList from './BeanItemList';
 
 class BrowseBeansContainer extends Component {
-    componentDidMount() {
-        this.update();
-    }
+    constructor(props) {
+        super(props);
 
-    update() {
-        const {dispatch} = this.props;
-        let offset = this.props.items.cursor;
-
-        dispatch(getAllItems(offset, 10));
+        this.update = ActionUtil.wrapPagedAction(this.props.dispatch, getAllItems);
     }
 
     render() {
         return (
-            <div>
-                <h1 className="tc f1-l mt2 b">
-                    Browse Beans
-                </h1>
-                <BeanItemList {...this.props.items}/>
+            <div className="content h-100 min-h-100 relative overflow-y-auto pt4">
+                <InfiniteList update={this.update} {...this.props.items} >
+                    <h1 className="tc f1-l mt2 b">
+                        Browse Beans
+                    </h1>
+                    <BeanItemList {...this.props.items}/>
+                </InfiniteList>
             </div>
         );
     }
 }
+
+BrowseBeansContainer.propTypes = {
+    dispatch: PropTypes.func,
+    items: PropTypes.object
+};
 
 function mapStateToProps(state) {
     return {

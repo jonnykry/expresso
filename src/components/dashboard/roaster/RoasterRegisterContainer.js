@@ -2,25 +2,28 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { createRoaster } from '../../../actions/roasterActions'
 
-import RoasterRegister from './RoasterRegister';
+import AccountInfo from '../account/AccountInfo';
 
 class RoasterRegisterContainer extends Component {
-    handleSubmit(event) {
-        event.preventDefault();
+    constructor(props) {
+        super(props);
 
+        this.registerBind = this.handleSubmit.bind(this);
+    }
+    handleSubmit(refs) {
         const { router, dispatch } = this.props;
-        const { firstName, lastName, email, phone,
-            addressLineOne, addressLineTwo,
-            city, state, zipCode, country } = this.refs;
+        const { name, email, phone,
+            addressLine1, addressLine2,
+            city, state, zipCode, country } = refs;
 
         const data = {
             userId: this.props.user.id,
             roaster: {
-                name: firstName.value + ' ' + lastName.value,
+                name: name.value,
                 email: email.value,
                 phone: phone.value,
-                addressLine1: addressLineOne.value,
-                addressLine2: addressLineTwo.value,
+                addressLine1: addressLine1.value,
+                addressLine2: addressLine2.value,
                 addressCity: city.value,
                 addressState: state.value,
                 addressZip: zipCode.value,
@@ -36,7 +39,14 @@ class RoasterRegisterContainer extends Component {
     render() {
         return (
             <div>
-                <RoasterRegister onHandleSubmit={this.handleSubmit} {...this.props} />
+                <main className="pa4 black-80">
+                    <AccountInfo
+                        roaster={true}
+                        user={null}
+                        handleSubmit={this.registerBind}
+                        error={null}
+                        legend={'Register Roaster Account'} />
+                </main>
             </div>
         );
     }

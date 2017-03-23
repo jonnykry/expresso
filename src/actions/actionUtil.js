@@ -2,8 +2,27 @@ import ActionTypes from './actionTypes';
 
 const TIMEOUT_MS = 5000;
 
+function wrapPagedAction(dispatch, action) {
+    return page => {
+        const limit = 10;
+  
+        let offset = (page - 1) * limit;
+        dispatch(action(offset, limit));
+    };
+}
+
+function wrapPagedActionWithId(id, dispatch, action) {
+    return page => {
+        const limit = 10;
+
+        let offset = (page - 1) * limit;
+        dispatch(action(id, offset, limit));
+    };
+}
+
 function handlePagedRequest(item, url, type, offset, limit) {
     return dispatch => {
+        dispatch(sendPaged(item));
         return fetch(getAllUrl(url, offset, limit), auth({
             method: type
         })).then(res => {
@@ -20,6 +39,7 @@ function handlePagedRequest(item, url, type, offset, limit) {
         });
     };
 }
+
 function handleRequest(url, type, body) {
     let raw = '';
     if (body) {
@@ -46,6 +66,7 @@ function handleRequest(url, type, body) {
         });
     };
 }
+
 function handlePaged(itemType, payload, offset, limit) {
     return {
         type: ActionTypes.HANDLE_PAGED,
@@ -55,6 +76,7 @@ function handlePaged(itemType, payload, offset, limit) {
         limit
     };
 }
+
 function errorPaged(itemType, err) {
     return {
         type: ActionTypes.ERROR_PAGED,
@@ -62,17 +84,27 @@ function errorPaged(itemType, err) {
         err
     };
 }
+
+function sendPaged(itemType) {
+    return {
+        type: ActionTypes.SEND_PAGED,
+        itemType
+    };
+}
+
 function timeout() {
     return {
         type: ActionTypes.TIMEOUT
     };
 }
+
 function handle(payload) {
     return {
         type: ActionTypes.HANDLE,
         payload
     };
 }
+
 function error(id, err) {
     return {
         type: ActionTypes.ERROR,
@@ -80,6 +112,7 @@ function error(id, err) {
         err
     };
 }
+
 function auth(options) {
     const token = localStorage.getItem('token');
     options.headers = new Headers({
@@ -93,6 +126,8 @@ function getAllUrl(url, offset, limit) {
 }
 
 export default({
+    wrapPagedAction,
+    wrapPagedActionWithId,
     handlePagedRequest,
     handlePaged,
     handleRequest,

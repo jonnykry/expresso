@@ -41,6 +41,18 @@ class TriggerInput extends Component {
         });
     }
 
+    _param(param) {
+        return (i => {
+            this.params[param] = i;
+        });
+    }
+
+    _key() {
+        return (i => {
+            this.key = i;
+        });
+    }
+
     render() {
         const labelClass = 'f5 b dib mb2 w-20';
         const inputClass = 'input-reset ba b--black-20 pa2 mb2 dib w-80';
@@ -55,14 +67,14 @@ class TriggerInput extends Component {
                     <div className="measure center">
                         <label className="f10 b db mv2 bb">Add a trigger for this content</label>
                         <label className={labelClass}>key</label>
-                        <input id="subject" ref={i => this.key = i} className={inputClass} type="text"/>
+                        <input id="subject" ref={this._key()} className={inputClass} type="text"/>
                         <label className="f6 b db mt2 mb2 bb">Default Values</label>
                         {
                             this.props.content.parameters.map(param =>
                                 (
                                     <div key={param}>
                                         <label className={labelClass}>{param}</label>
-                                        <input id="subject" placeholder="(optional)" ref={i => this.params[param] = i} className={inputClass} type="text"/>
+                                        <input id="subject" placeholder="(optional)" ref={this._param(param)}className={inputClass} type="text"/>
                                     </div>
                                 )
                             )

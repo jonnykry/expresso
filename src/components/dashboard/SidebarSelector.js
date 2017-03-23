@@ -12,33 +12,33 @@ class SidebarSelector extends Component {
 
     hasChildren(active) {
         if (active) {
-            return (<div className="b--black">{ this.props.children }</div>);
+            return (<div className="b--white">{ this.props.children }</div>);
         }
 
         return (<div/>);
     }
 
     render() {
-        let linkClass = 'no-underline black';
-        let btnClass = 'pointer f6 pa1 center w-100 link dim black pl3 pv3';
+        let linkClass = 'no-underline white';
+        let btnClass = 'pointer f5 pa1 center w-100 link dim white b pl3 pv3';
 
         const active = this.props.location.includes(this.props.to);
         const dropdown = this.hasChildren(active);
 
         if (this.props.subSelector) {
-            btnClass += ' pl4';
-            linkClass += ' black';
+            btnClass += ' pl5';
+            linkClass += ' white';
         }
 
         if (active) {
-            btnClass += ' b';
+            btnClass += ' bg-black-10';
         }
 
         return (
             <div>
                 <Link className={linkClass} to={this.props.to}>
                     <div className={btnClass}>
-                        {this.props.name}
+                        {this.props.icon} {this.props.name}
                     </div>
 
                 </Link>

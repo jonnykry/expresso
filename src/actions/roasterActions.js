@@ -1,41 +1,52 @@
 import ActionTypes from './actionTypes';
+import ActionUtil from './actionUtil'
 
-const CREATE_ROASTER_URL = 'https://towncenter.expresso.store/api/roaster';
-
-function requestCreateRoaster(roasterInfo) {
-    return {
-        type: ActionTypes.REQUEST_CREATE_ROASTER,
-        roasterInfo
-    }
-}
-
-function receiveCreatedRoaster(payload) {
-    return {
-        type: ActionTypes.RECEIVE_CREATED_ROASTER,
-        payload
-    }
-}
+const ROASTER_URL = 'https://towncenter.expresso.store/api/roaster';
 
 export function createRoaster(roasterInfo) {
     return dispatch => {
-        dispatch(requestCreateRoaster(roasterInfo));
-
-        return fetch(CREATE_ROASTER_URL, {
+        return fetch(ROASTER_URL, ActionUtil.auth({
             method: 'POST',
             body: JSON.stringify(roasterInfo)
-        }).then((response) => {
+        })).then((response) => {
             return response.json();
         }).then((json) => {
-            dispatch(receiveCreatedRoaster(json))
+            dispatch(receiveRoaster(json))
         }).catch((err) => {
-            dispatch(errorCreatingRoaster(roasterInfo, err));
+            dispatch(errorRoaster(roasterInfo, err));
         });
     }
 }
 
-function errorCreatingRoaster(roasterInfo, err) {
+export function getRoaster(id) {
+    return dispatch => {
+        return fetch(ROASTER_URL + '/' + id, ActionUtil.auth({
+            method: 'GET'
+        })).then(res => {
+            return res.json();
+        }).then(payload => {
+            if (payload.error || !payload.success) {
+                dispatch(ActionUtil.error('', payload.message));
+                return;
+            }
+
+            dispatch(receiveRoaster(payload));
+        }).catch(err => {
+            dispatch(ActionUtil.error('', err));
+        });
+    };
+}
+
+function receiveRoaster(payload) {
     return {
-        type: ActionTypes.ERROR_CREATING_ROASTER,
+        type: ActionTypes.RECEIVE_ROASTER,
+        payload
+    }
+}
+
+function errorRoaster(roasterInfo, err) {
+    return {
+        type: ActionTypes.ERROR_ROASTER,
         roasterInfo,
         err
     }

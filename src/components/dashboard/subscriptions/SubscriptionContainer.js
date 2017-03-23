@@ -1,7 +1,9 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 
-import {getAllSubscriptions, updateSubscription, deleteSubscription } from '../../../actions/covenantActions';
+import {getSubscriptionsByUser, updateSubscription, deleteSubscription } from '../../../actions/covenantActions';
+import InfiniteList from '../InfiniteList';
+import ActionUtil from '../../../actions/actionUtil';
 import ErrorMessage from '../../ErrorMessage';
 import SuccessMessage from '../../SuccessMessage';
 import SubscriptionList from './SubscriptionList';
@@ -9,30 +11,10 @@ import SubscriptionList from './SubscriptionList';
 class SubscriptionContainer extends Component {
 	constructor(props) {
 		super(props);
-
 		this.changeBind = this.change.bind(this);
 		this.deleteBind = this.delete.bind(this);
-	}
-
-	/*Dispatch the action before rendering*/
-	componentDidMount(){
-		this.update(true);
-	}
-
-	update(reset){
-		const {dispatch} = this.props;
-		let offset = this.props.items.cursor;
-		if(reset) {
-			offset = 0;
-		}
-		dispatch(getAllSubscriptions(offset, 10)).then(this.nextPage.bind(this));
-	}
-
-	nextPage() {
-		if(this.props.items.next && !this.props.items.fetching) {
-			this.update();
-		}
-	}
+		this.update = ActionUtil.wrapPagedActionWithId(this.props.user.id,this.props.dispatch, getSubscriptionsByUser);
+	} 
 
 	refresh() {
 		if(this.props.modify.success && !this.props.modify.fetching) {
@@ -55,15 +37,17 @@ class SubscriptionContainer extends Component {
 	}
 
 	render () {
-		console.log(this.props.items);
+		console.log(this.props);
 		return (
-			<div>
-				<h1> Subscriptions </h1> 
-				<ErrorMessage error={this.props.modify.error}/>
-				<SuccessMessage success={this.props.modify.success} message={'Success'}/>
-				<div className="flex flex-row">
+			<div className="content h-100 min-h-100 relative overflow-y-auto pt4">
+				<InfiniteList update={this.update} {...this.props.items}>
+					<ErrorMessage error={this.props.modify.error}/>
+					<SuccessMessage success={this.props.modify.success} message={'Success'}/>
+					<h1 className="tc f1-l mt2 b">
+						Subscriptions
+					</h1>
 					<SubscriptionList changeSubscription={this.changeBind} deleteSubscription={this.deleteBind} {...this.props.items} />
-				</div>
+				</InfiniteList>
 			</div>
 			);
 	}
@@ -72,14 +56,16 @@ class SubscriptionContainer extends Component {
 SubscriptionContainer.propTypes = {
 	dispatch: PropTypes.func,
 	items: PropTypes.object,
-	modify: PropTypes.object
+	modify: PropTypes.object,
+	user: PropTypes.object
 };
 
 
 function mapStateToProps(state){
 	return{
 		items: state.subscriptions,
-		modify: state.modify
+		modify: state.modify,
+		user: state.userReducer.user
 	};
 }
 

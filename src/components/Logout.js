@@ -18,7 +18,7 @@ class Logout extends React.Component {
 
         // TODO:  Clear session once implemented
         dispatch(logout());
-        browserHistory.push('/login');
+        browserHistory.push('/');
     }
 
     render () {

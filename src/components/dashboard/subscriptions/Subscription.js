@@ -31,21 +31,24 @@ class Subscription extends Component {
 
 	render () {
 		const item = this.props.item; 
-		console.log(this.props);
+		const btnClass = 'pointer dim br1 ba bw1 tc ph2 pv2 black';
 		return (
-			<div>
+			<div className="bl br bt bb mb2 pr0-m">
 				<div onClick={this.handleToggleDetails}>
 						<div>
 							<div>ID: {item.id}</div>
 							<div>Item ID: {item.itemId}</div>
 							<div>Roaster ID: {item.roasterId}</div>
-							<div>User ID: {item.userID}</div>
+							<div>User ID: {item.userId}</div>
 							<div>Status: {item.status}</div>
 							<div>Created At: {item.createdAt}</div>
 							<div>Frequency: {item.frequency}</div>
 						</div>
-						<div>
-						</div>
+					<div className="pb2 flex flex-row">
+						<div className={btnClass} onClick={this.handleDeleteBind}>
+							DELETE
+						</div>	
+					</div>
 				</div>
 			</div>		
 		);
@@ -53,6 +56,8 @@ class Subscription extends Component {
 }
 
 Subscription.PropTypes = {
+	deleteContent: PropTypes.func.isRequired,
+	updateContent: PropTypes.func.isRequired,
 	item: PropTypes.object.isRequired
 };
 

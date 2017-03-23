@@ -1,27 +1,22 @@
 import ActionTypes from '../actions/actionTypes';
 
-export function roasterReducer(state = {
+export function roaster(state = {
     isFetching: false,
     didAuthenticate: false,
-    roaster: ''
+    roaster: {}
 }, action) {
     switch (action.type) {
-        case ActionTypes.REQUEST_CREATE_ROASTER:
-            return Object.assign({}, state, {
-                isFetching: true,
-                didCreate: false
-            });
-        case ActionTypes.RECEIVE_CREATED_ROASTER:
+        case ActionTypes.RECEIVE_ROASTER:
             return Object.assign({}, state, {
                 isFetching: false,
-                didCreate: action.id !== '',
-                roaster: action
+                didCreate: action.payload.data.id !== '',
+                roaster: action.payload.data
             });
-        case ActionTypes.ERROR_CREATING_ROASTER:
+        case ActionTypes.ERROR_ROASTER:
             return Object.assign({}, state, {
                 isFetching: false,
                 didCreate: false,
-                roaster: ''
+                roaster: {}
             });
         default:
             return state

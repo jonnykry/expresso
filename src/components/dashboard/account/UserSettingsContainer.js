@@ -2,51 +2,67 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { updateUserInfo } from '../../../actions/userActions'
 
-import UserSettings from './UserSettings';
+import AccountInfo from './AccountInfo';
 
 class UserSettingsContainer extends Component {
-    onHandleSubmit(e) {
-        e.preventDefault();
+    constructor(props) {
+        super(props);
 
+        this.state = {
+            error: null
+        };
+
+        this.updateUserBind = this.onHandleSubmit.bind(this);
+    }
+
+    onHandleSubmit(refs) {
         const { dispatch } = this.props;
-				const { firstName, lastName, phone, email, addressLine1, addressLine2, city, state, zipCode, country, password, confirmPassword } = this.refs;
+		const { firstName, lastName, phone, email, addressLine1, addressLine2, city, state, zipCode, country, password, confirmPassword } = refs;
 
         if(password.value !== '' && password.value !== confirmPassword.value) {
-          //TODO: Error
+            this.setState({
+                error: 'Passwords are not equal'
+            });
         } else {
-          const userInfo = {
-          	firstName: firstName.value,
-  					lastName: lastName.value,
-  					phone: phone.value,
-  					email: email.value,
-  					addressLine1: addressLine1.value,
-  					addressLine2: addressLine2.value,
-  					addressCity: city.value,
-  					addressState: state.value,
-  					addressZip: zipCode.value,
-  					addressCountry: country.value,
-            passHash: password.value
-          };
+            this.setState({
+                error: null
+            });
+            const userInfo = {
+                id: this.props.user.id,
+          	    firstName: firstName.value,
+  			    lastName: lastName.value,
+  			    phone: phone.value,
+  			    email: email.value,
+  			    addressLine1: addressLine1.value,
+  			    addressLine2: addressLine2.value,
+  			    addressCity: city.value,
+  			    addressState: state.value,
+  			    addressZip: zipCode.value,
+  			    addressCountry: country.value,
+                passHash: password.value
+            };
 
-  			  dispatch(updateUserInfo(userInfo, this.props.user.id));
+  		    dispatch(updateUserInfo(userInfo, this.props.user.id));
         }
     }
 
     render() {
         return (
-            <div>
-                <UserSettings
-                  handleSubmit={this.onHandleSubmit}
-                  error={false}
+            <main className="pa4 black-80">
+                <AccountInfo
+                  legend={'Update User Account'}
+                  roaster={false}
+                  handleSubmit={this.updateUserBind}
+                  error={this.state.error}
                   user={this.props.user} />
-            </div>
+            </main>
         );
     }
 }
 
 function mapStateToProps(state) {
 	return {
-    user: state.userReducer.user,
+        user: state.userReducer.user,
 	};
 }
 

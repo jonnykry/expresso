@@ -1,95 +1,21 @@
-import ActionTypes from './actionTypes';
+import ActionUtil from './actionUtil';
 
-const CREATE_CUSTOMER_PAYMENT_INFO_URL = 'https://coinage.expresso.store/api/customer';
+const COINAGE_URL = 'https://coinage.expresso.store/api/customer';
 
-// TODO:  Update with User ID once finished
-const UPDATE_CUSTOMER_PAYMENT_INFO_URL = 'https://coinage.expresso.store/api/customer/12c56531-f092-11e6-bc47-0242ac13000a/source';
-
-function requestCreateCustomerPaymentInfo(data) {
-    return {
-        type: ActionTypes.REQUEST_CREATE_CUSTOMER_PAYMENT_INFO,
-        data
-    }
-}
-
-function receiveCreatedCustomerPaymentInfo(payload) {
-    return {
-        type: ActionTypes.RECEIVE_CREATED_CUSTOMER_PAYMENT_INFO,
-        payload
-    }
-}
-
-function errorCreatingCustomerPaymentInfo(data, err) {
-    return {
-        type: ActionTypes.ERROR_CREATING_CUSTOMER_PAYMENT_INFO,
-        data,
-        err
-    }
-}
-
-export function createCustomerPaymentInfo(data) {
+export function modifyPaymentInfo(data) {
     return dispatch => {
-        dispatch(requestCreateCustomerPaymentInfo(data));
-
+        console.log(data);
         Stripe.setPublishableKey(process.env.REACT_APP_STRIPE_PUB_KEY);
 
         return Stripe.createToken(data, function (status, response) {
+            data.token = response.id;
 
-            // TODO:  Update UserID once finished
-            const updatedData = {
-                userId: "12c56531-f092-11e6-bc47-0242ac13000a",
-                token: response.id
-            };
+            if (status !== 200) {
+                dispatch(ActionUtil.error(response, status));
+            }
 
-            return status === 200 ? fetch(CREATE_CUSTOMER_PAYMENT_INFO_URL, {
-                method: 'POST',
-                body: JSON.stringify(updatedData)
-            }).then((res) => {
-                return res.json();
-            }).then((json) => {
-                dispatch(receiveCreatedCustomerPaymentInfo(json));
-            }).catch((err) => {
-                dispatch(errorCreatingCustomerPaymentInfo(response, err));
-            }) : dispatch(errorCreatingCustomerPaymentInfo(response, status));
+            const url = COINAGE_URL + '/' + data.UserID;
+            return ActionUtil.handleRequest(url, 'POST', data);
         });
-    }
-}
-
-function requestUpdateCustomerPaymentInfo(data) {
-    return {
-        type: ActionTypes.REQUEST_UPDATE_CUSTOMER_PAYMENT_INFO,
-        data
-    }
-}
-
-function receiveUpdatedCustomerPaymentInfo(payload) {
-    return {
-        type: ActionTypes.RECEIVE_UPDATED_CUSTOMER_PAYMENT_INFO,
-        payload
-    }
-}
-
-function errorUpdatingCustomerPaymentInfo(data, err) {
-    return {
-        type: ActionTypes.ERROR_UPDATING_CUSTOMER_PAYMENT_INFO,
-        data,
-        err
-    }
-}
-
-export function updateCustomerPaymentInfo(data) {
-    return dispatch => {
-        dispatch(requestUpdateCustomerPaymentInfo(data));
-
-        return fetch(UPDATE_CUSTOMER_PAYMENT_INFO_URL, {
-            method: 'POST',
-            body: JSON.stringify(data)
-        }).then((response) => {
-            return response.json();
-        }).then((json) => {
-            dispatch(receiveUpdatedCustomerPaymentInfo(json))
-        }).catch((err) => {
-            dispatch(errorUpdatingCustomerPaymentInfo(data, err));
-        });
-    }
+    };
 }
