@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { createUser } from '../actions/userActions'
 
-import AccountInfo from './dashboard/account/AccountInfo';
+import AccountInfo from './AccountInfo';
 
 class RegisterContainer extends Component {
     constructor(props) {
@@ -53,10 +53,10 @@ class RegisterContainer extends Component {
                 <article className="ph4 pv5 mw7 center black-80">
                     <AccountInfo 
                         legend={'Sign up to Create an Account'}
-                        roaster={false}
                         handleSubmit={this.registerBind}
                         error={this.state.error}
-                        user={null} />
+                        showLogin={true} 
+                        submitText={'Create Account'} />
                 </article>
             </div>
         );
