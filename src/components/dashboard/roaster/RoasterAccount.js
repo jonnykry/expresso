@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { updateRoaster } from '../../../actions/roasterActions';
+import { updateRoaster, getRoaster } from '../../../actions/roasterActions';
 
 import AccountInfo from '../../AccountInfo';
 
