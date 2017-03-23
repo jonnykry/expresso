@@ -31,8 +31,7 @@ function handlePagedRequest(item, url, type, offset, limit) {
             if (json.error || !json.success) {
                 dispatch(errorPaged(item, json.message));
                 return;
-            }
-            
+            }      
             dispatch(handlePaged(item, json, offset, limit));
         }).catch(err => {
             dispatch(errorPaged(item, err.message));
