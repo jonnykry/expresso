@@ -1,13 +1,12 @@
 import ActionTypes from './actionTypes';
 import ActionUtil from './actionUtil';
+import {getRoaster} from './roasterActions';
 
-const AUTHENTICATE_USER_URL = 'https://towncenter.expresso.store/api/user/login';
-const USER_URL = 'https://towncenter.expresso.store/api/user/';
+const AUTHENTICATE_USER_URL = 'https://towncenter.expresso.store/api/auth/login';
+const USER_URL = 'https://towncenter.expresso.store/api/user';
 
 export function logout() {
     localStorage.removeItem('token');
-    localStorage.removeItem('userId');
-    localStorage.removeItem('roasterId');
     return dispatch => {
         return dispatch({
             type: ActionTypes.LOGOUT
@@ -26,11 +25,17 @@ export function createUser(userInfo) {
 
             return response.json();
         }).then(json => {
-            localStorage.setItem('userId', json.data.id);
-            localStorage.removeItem('roasterId');
+            if (!json.success) {
+                localStorage.removeItem('token');
+                dispatch(ActionUtil.error(500, json.message));
+                return;
+            }
+
+            dispatch(getUserInfo());
             dispatch(receiveUser(json));
         }).catch(err => {
-            dispatch(errorUser(userInfo, err));
+            localStorage.removeItem('token');
+            dispatch(ActionUtil.error(500, err));
         });
     };
 }
@@ -47,64 +52,59 @@ export function authenticateUser(userCreds) {
             return response.json();
         }).then(json => {
             if (!json.success) {
-                dispatch(errorUser(userCreds, json.message));
+                localStorage.removeItem('token');
+                dispatch(ActionUtil.error(500, json.message));
                 return;
             }
 
-            localStorage.setItem('userId', json.data.id);
-            localStorage.setItem('roasterId', json.data.roasterId);
+            dispatch(getUserInfo());
             dispatch(receiveUser(json));
         }).catch(err => {
-            dispatch(errorUser(userCreds, err.message));
+            localStorage.removeItem('token');
+            dispatch(ActionUtil.error(500, err));
         });
     };
 }
 
-export function getUserInfo(userId) {
+export function getUserInfo() {
     return dispatch => {
-        return fetch(USER_URL + userId, ActionUtil.auth({
+        return fetch(USER_URL, ActionUtil.auth({
             method: 'GET'
-        })).then((response) => {
+        })).then(response => {
             return response.json();
-        }).then((json) => {
-            if(!json.success) {
-                dispatch(errorUser(userId, json.message));
+        }).then(json => {
+            if (!json.success) {
+                dispatch(ActionUtil.error(500, json.message));
                 return;
             }
 
-            localStorage.setItem('roasterId', json.data.roasterId);
+            if (json.data.roasterId) {
+                dispatch(getRoaster(json.data.roasterId));
+            }
             dispatch(receiveUser(json));
-        }).catch((err) => {
-            dispatch(errorUser(userId, err));
-        })
-    }
+        }).catch(err => {
+            dispatch(ActionUtil.error(500, err));
+        });
+    };
 }
 
 export function updateUserInfo(userInfo, userId) {
-  return dispatch => {
-      return fetch(USER_URL + userId, ActionUtil.auth({
-          method: 'PUT',
-          body: JSON.stringify(userInfo)
-      })).then((response) => {
-          return response.json();
-      }).then((json) => {
-        if(!json.success) {
-          dispatch(errorUser(userInfo, json.message));
-          return;
-        }
+    return dispatch => {
+        return fetch(USER_URL + userId, ActionUtil.auth({
+            method: 'PUT',
+            body: JSON.stringify(userInfo)
+        })).then(response => {
+            return response.json();
+        }).then(json => {
+            if (!json.success) {
+                dispatch(ActionUtil.error(500, json.message));
+                return;
+            }
 
-        dispatch(receiveUser(json))
-      }).catch((err) => {
-          dispatch(errorUser(userInfo, err));
-      });
-  };
-}
-
-function errorUser(userInfo, err) {
-    return {
-        type: ActionTypes.ERROR_USER,
-        userInfo,
-        err
+            dispatch(receiveUser(json));
+        }).catch(err => {
+            dispatch(ActionUtil.error(500, err));
+        });
     };
 }
 
@@ -112,5 +112,5 @@ function receiveUser(payload) {
     return {
         type: ActionTypes.RECEIVE_USER,
         payload
-    }
+    };
 }
