@@ -33,7 +33,6 @@ function handlePagedRequest(item, url, type, offset, limit) {
             return res.json();
         }).then(json => {
             if (!json.success) {
-                console.log(json);
                 dispatch(error(500, json.message));
                 return {};
             }
