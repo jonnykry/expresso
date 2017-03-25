@@ -26,7 +26,6 @@ function errors(state = {}, action) {
         case ActionTypes.ERROR: {
             let obj = {};
             obj[action.code] = action.message;
-            console.log(obj);
             return Object.assign({}, state, obj);
         }
         default: {
