@@ -16,9 +16,6 @@ class SubscriptionContainer extends Component {
 	}
 
 	update(page) {
-		if (!this.props.user) {
-			return;
-		}
 		if (!this.loadMore) {
 			this.loadMore = ActionUtil.wrapPagedActionWithId(this.props.user.id, this.props.dispatch, getSubscriptionsByUser);
 		}
@@ -50,7 +47,7 @@ class SubscriptionContainer extends Component {
 		console.log(this.props);
 		return (
 			<div className="content h-100 min-h-100 relative overflow-y-auto pt4">
-				<InfiniteList ready={this.props.user.id} update={this.updateBind} {...this.props.items}>
+				<InfiniteList ready={this.props.user.id !== undefined} update={this.updateBind} {...this.props.items}>
 					<SuccessMessage success={this.props.modify.success} message={'Success'}/>
 					<h1 className="tc f1-l mt2 b">
 						Subscriptions
