@@ -45,7 +45,7 @@ class MessageContentContainer extends Component {
 
     render() {
         return (
-            <InfiniteList update={this.update} {...this.props.items}>
+            <InfiniteList ready update={this.update} {...this.props.items}>
                 <SuccessMessage success={this.props.modify.success} message={'Success'}/>
                 <div className="flex flex-row">
                     <MessageContentInput addContent={this.createBind} {...this.props.modify}/>

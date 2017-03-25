@@ -1,10 +1,9 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 
-import {getSubscriptionsByUser, updateSubscription, deleteSubscription } from '../../../actions/covenantActions';
+import {getSubscriptionsByUser, updateSubscription, deleteSubscription} from '../../../actions/covenantActions';
 import InfiniteList from '../InfiniteList';
 import ActionUtil from '../../../actions/actionUtil';
-import ErrorMessage from '../../ErrorMessage';
 import SuccessMessage from '../../SuccessMessage';
 import SubscriptionList from './SubscriptionList';
 
@@ -13,8 +12,16 @@ class SubscriptionContainer extends Component {
 		super(props);
 		this.changeBind = this.change.bind(this);
 		this.deleteBind = this.delete.bind(this);
-		this.update = ActionUtil.wrapPagedActionWithId(this.props.user.id,this.props.dispatch, getSubscriptionsByUser);
-	} 
+		this.updateBind = this.update.bind(this);
+	}
+
+	update(page) {
+		if (!this.loadMore) {
+			this.loadMore = ActionUtil.wrapPagedActionWithId(this.props.user.id, this.props.dispatch, getSubscriptionsByUser);
+		}
+
+		this.loadMore(page);
+	}
 
 	refresh() {
 		if(this.props.modify.success && !this.props.modify.fetching) {
@@ -40,8 +47,7 @@ class SubscriptionContainer extends Component {
 		console.log(this.props);
 		return (
 			<div className="content h-100 min-h-100 relative overflow-y-auto pt4">
-				<InfiniteList update={this.update} {...this.props.items}>
-					<ErrorMessage error={this.props.modify.error}/>
+				<InfiniteList ready={this.props.user.id !== undefined} update={this.updateBind} {...this.props.items}>
 					<SuccessMessage success={this.props.modify.success} message={'Success'}/>
 					<h1 className="tc f1-l mt2 b">
 						Subscriptions

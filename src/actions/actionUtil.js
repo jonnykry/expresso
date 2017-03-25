@@ -32,7 +32,7 @@ function handlePagedRequest(item, url, type, offset, limit) {
 
             return res.json();
         }).then(json => {
-            if (json.error || !json.success) {
+            if (!json.success) {
                 dispatch(error(500, json.message));
                 return {};
             }
@@ -70,7 +70,7 @@ function handleRequest(url, type, body) {
 
             dispatch(handle(json));
         }).catch(err => {
-            dispatch(error(500, err));
+            dispatch(error(500, err.message));
         });
     };
 }

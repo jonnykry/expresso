@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { updateRoaster, getRoaster } from '../../../actions/roasterActions';
+import React, {Component, PropTypes} from 'react';
+import {connect} from 'react-redux';
+import {updateRoaster} from '../../../actions/roasterActions';
 
 import AccountInfo from '../../AccountInfo';
 
@@ -12,8 +12,8 @@ class RoasterAccount extends Component {
     }
 
     handleSubmit(refs) {
-        const { dispatch } = this.props;
-        const { name, email, phone, addressLine1, addressLine2, city, state, zipCode, country } = refs;
+        const {dispatch} = this.props;
+        const {name, email, phone, addressLine1, addressLine2, city, state, zipCode, country} = refs;
 
         const data = {
             name: name.value,
@@ -35,16 +35,22 @@ class RoasterAccount extends Component {
             <div className="h-100 min-h- overflow-y-auto">
                 <main className="h-100 min-h-100 pa4 black-80">
                     <AccountInfo
-                        roaster={true}
+                        roaster
                         user={this.props.roaster}
                         handleSubmit={this.updateBind}
                         legend={'Roaster Account'}
-                        submitText={'Update Information'} />
+                        submitText={'Update Information'}
+                        />
                 </main>
             </div>
         );
     }
 }
+
+RoasterAccount.propTypes = {
+    roaster: PropTypes.object,
+    dispatch: PropTypes.func
+};
 
 function mapStateToProps(state) {
     return {

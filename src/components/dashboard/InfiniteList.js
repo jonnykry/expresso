@@ -9,6 +9,7 @@ class InfiniteList extends Component {
             <InfiniteScroll
                 pageStart={0}
                 loadMore={this.props.update}
+                initialLoad={this.props.ready}
                 hasMore={this.props.next}
                 useWindow={false}
                 threshold={0}
