@@ -17,7 +17,7 @@ class ReceiptContainer extends Component {
 
     render() {
         return (
-            <InfiniteList {...this.props.items} update={this.update}>
+            <InfiniteList ready {...this.props.items} update={this.update}>
                 <ErrorMessage error={this.props.modify.error}/>
                 <SuccessMessage success={this.props.modify.success} message={'Success'}/>
                 <ReceiptList {...this.props.items}/>

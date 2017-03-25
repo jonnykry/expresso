@@ -33,7 +33,8 @@ DashboardContainer.propTypes = {
     children: PropTypes.object,
     location: PropTypes.object,
     user: PropTypes.object,
-    roaster: PropTypes.object
+    roaster: PropTypes.object,
+    dispatch: PropTypes.func
 };
 
 function mapStateToProps(state) {

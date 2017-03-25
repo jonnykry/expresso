@@ -35,7 +35,7 @@ export function createUser(userInfo) {
             dispatch(receiveUser(json));
         }).catch(err => {
             localStorage.removeItem('token');
-            dispatch(ActionUtil.error(500, err));
+            dispatch(ActionUtil.error(500, err.message));
         });
     };
 }
@@ -61,7 +61,7 @@ export function authenticateUser(userCreds) {
             dispatch(receiveUser(json));
         }).catch(err => {
             localStorage.removeItem('token');
-            dispatch(ActionUtil.error(500, err));
+            dispatch(ActionUtil.error(500, err.message));
         });
     };
 }
@@ -83,7 +83,7 @@ export function getUserInfo() {
             }
             dispatch(receiveUser(json));
         }).catch(err => {
-            dispatch(ActionUtil.error(500, err));
+            dispatch(ActionUtil.error(500, err.message));
         });
     };
 }
@@ -103,7 +103,7 @@ export function updateUserInfo(userInfo, userId) {
 
             dispatch(receiveUser(json));
         }).catch(err => {
-            dispatch(ActionUtil.error(500, err));
+            dispatch(ActionUtil.error(500, err.message));
         });
     };
 }

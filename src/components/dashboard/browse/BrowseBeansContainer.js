@@ -16,7 +16,7 @@ class BrowseBeansContainer extends Component {
     render() {
         return (
             <div className="content h-100 min-h-100 relative overflow-y-auto pt4">
-                <InfiniteList update={this.update} {...this.props.items} >
+                <InfiniteList ready update={this.update} {...this.props.items} >
                     <h1 className="tc f1-l mt2 b">
                         Browse Beans
                     </h1>

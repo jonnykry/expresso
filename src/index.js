@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
 import {Router, Route, IndexRedirect, IndexRoute, browserHistory} from 'react-router';
 import App from './App';
+import {getUserInfo} from './actions/userActions';
 import About from './components/About';
 import LoginContainer from './components/LoginContainer';
 import Logout from './components/Logout';
@@ -37,7 +38,9 @@ function requireAuth(nextState, replace) {
         replace({
             pathname: '/login'
         });
+        return;
     }
+    store.dispatch(getUserInfo());
 }
 
 ReactDOM.render(

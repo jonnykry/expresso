@@ -3,7 +3,7 @@ import ActionTypes from '../actions/actionTypes';
 export function userReducer(state = {
     error: null,
     success: false,
-    user: null
+    user: {}
 }, action) {
     switch (action.type) {
         case ActionTypes.RECEIVE_USER:
@@ -14,14 +14,15 @@ export function userReducer(state = {
             });
         case ActionTypes.ERROR_USER:
             return Object.assign({}, state, {
+                success: false,
                 error: action.err,
-                user: ''
+                user: {}
             });
         case ActionTypes.LOGOUT:
             return Object.assign({}, state, {
                 error: null,
                 success: true,
-                user: ''
+                user: {}
             });
         default:
             return state;
