@@ -39,7 +39,6 @@ function handlePagedRequest(item, url, type, offset, limit) {
             }
             dispatch(handlePaged(item, json, offset, limit));
         }).catch(err => {
-            console.log(err);
             dispatch(error(500, err.message));
         });
     };
