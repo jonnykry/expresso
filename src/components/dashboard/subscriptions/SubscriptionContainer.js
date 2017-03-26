@@ -21,7 +21,6 @@ class SubscriptionContainer extends Component {
 	}
 
 	update(page) {
-		console.log("here");
 		if (!this.loadMore) {
 			this.loadMore = ActionUtil.wrapPagedActionWithId(this.props.user.id, this.props.dispatch, getSubscriptionsByUser);
 		}

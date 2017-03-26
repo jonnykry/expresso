@@ -113,6 +113,12 @@ function error(code, message) {
     };
 }
 
+function resolveError() {
+    return {
+        type: ActionTypes.ERROR_RESOLVE
+    };
+}
+
 function auth(options) {
     const token = localStorage.getItem('token');
     options.headers = new Headers({
@@ -134,5 +140,6 @@ export default({
     timeout,
     handle,
     error,
+    resolveError,
     auth
 });

@@ -9,6 +9,7 @@ export default({
     REQUEST: 'REQUEST',
     HANDLE: 'HANDLE',
     ERROR: 'ERROR',
+    ERROR_RESOLVE: 'ERROR_RESOLVE',
     TIMEOUT: 'TIMEOUT',
 
     /* Coinage */
@@ -29,7 +30,7 @@ export default({
     RECEIVE_USER: 'RECEIVE_USER',
     ERROR_USER: 'ERROR_USER',
 
-    /*Covenant*/
+    /* Covenant */
     COVENANT_SUBSCRIPTIONS: 'COVENANT_SUBSCRIPTIONS',
 
     /* Warehouse */

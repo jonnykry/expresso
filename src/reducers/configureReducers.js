@@ -28,6 +28,9 @@ function errors(state = {}, action) {
             obj[action.code] = action.message;
             return Object.assign({}, state, obj);
         }
+        case ActionTypes.ERROR_RESOLVE: {
+            return Object.assign({}, {}, {});
+        }
         default: {
             return state;
         }

@@ -1,18 +1,22 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 
+import ActionUtil from './../../actions/actionUtil';
 import Dashboard from './Dashboard';
 
 class DashboardContainer extends Component {
 
     componentWillReceiveProps() {
+        console.log(this.props.errors);
         if (this.props.errors[401]) {
+            this.props.dispatch(ActionUtil.resolveError());
             this.props.router.replace('/login');
             return;
         }
     }
 
     render() {
+
         return (
             <Dashboard
                 user={this.props.user}
