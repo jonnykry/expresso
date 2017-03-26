@@ -7,7 +7,6 @@ import Dashboard from './Dashboard';
 class DashboardContainer extends Component {
 
     componentWillReceiveProps() {
-        console.log(this.props.errors);
         if (this.props.errors[401]) {
             this.props.dispatch(ActionUtil.resolveError());
             this.props.router.replace('/login');
