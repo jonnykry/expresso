@@ -20,6 +20,11 @@ export function createUser(userInfo) {
             method: 'POST',
             body: JSON.stringify(userInfo)
         }).then(response => {
+            if (res.status === 401) {
+                dispatch(ActionUtil.error(401, 'Forbidden'));
+            }
+
+
             const token = response.headers.get('X-Auth');
             localStorage.setItem('token', token);
 
@@ -46,6 +51,10 @@ export function authenticateUser(userCreds) {
             method: 'POST',
             body: JSON.stringify(userCreds)
         }).then(response => {
+            if (res.status === 401) {
+                dispatch(ActionUtil.error(401, 'Forbidden'));
+            }
+
             const token = response.headers.get('X-Auth');
             localStorage.setItem('token', token);
 
@@ -71,6 +80,10 @@ export function getUserInfo() {
         return fetch(USER_URL, ActionUtil.auth({
             method: 'GET'
         })).then(response => {
+            if (res.status === 401) {
+                dispatch(ActionUtil.error(401, 'Forbidden'));
+            }
+
             return response.json();
         }).then(json => {
             if (!json.success) {
