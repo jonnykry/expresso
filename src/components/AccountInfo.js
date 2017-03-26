@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router';
+import {connect} from 'react-redux';
 
 class AccountInfo extends Component {
 	constructor(props) {
@@ -134,4 +135,11 @@ class AccountInfo extends Component {
 	}
 }
 
-export default AccountInfo;
+function mapStateToProps(state) {
+	return {
+		user: state.userReducer.user,
+		roaster: state.roaster.roaster
+	};
+}
+
+export default connect(mapStateToProps)(AccountInfo);
