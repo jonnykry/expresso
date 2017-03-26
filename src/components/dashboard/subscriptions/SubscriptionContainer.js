@@ -2,6 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 
 import {getSubscriptionsByUser, updateSubscription, deleteSubscription} from '../../../actions/covenantActions';
+import {getUserInfo} from '../../../actions/userActions';
 import InfiniteList from '../InfiniteList';
 import ActionUtil from '../../../actions/actionUtil';
 import SuccessMessage from '../../SuccessMessage';
@@ -15,7 +16,12 @@ class SubscriptionContainer extends Component {
 		this.updateBind = this.update.bind(this);
 	}
 
+	componentDidMount() {
+		this.props.dispatch(getUserInfo());
+	}
+
 	update(page) {
+		console.log("here");
 		if (!this.loadMore) {
 			this.loadMore = ActionUtil.wrapPagedActionWithId(this.props.user.id, this.props.dispatch, getSubscriptionsByUser);
 		}
