@@ -1,6 +1,8 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
+
 import {updateRoaster} from '../../../actions/roasterActions';
+import {getUserInfo} from '../../../actions/userActions';
 
 import AccountInfo from '../../AccountInfo';
 
@@ -9,6 +11,10 @@ class RoasterAccount extends Component {
         super(props);
 
         this.updateBind = this.handleSubmit.bind(this);
+    }
+
+    componenetDidMount() {
+        this.props.dispatch(getUserInfo());
     }
 
     handleSubmit(refs) {
