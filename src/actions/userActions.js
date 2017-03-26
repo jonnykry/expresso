@@ -20,7 +20,7 @@ export function createUser(userInfo) {
             method: 'POST',
             body: JSON.stringify(userInfo)
         }).then(response => {
-            if (res.status === 401) {
+            if (response.status === 401) {
                 dispatch(ActionUtil.error(401, 'Forbidden'));
             }
 
@@ -51,7 +51,7 @@ export function authenticateUser(userCreds) {
             method: 'POST',
             body: JSON.stringify(userCreds)
         }).then(response => {
-            if (res.status === 401) {
+            if (response.status === 401) {
                 dispatch(ActionUtil.error(401, 'Forbidden'));
             }
 
@@ -80,7 +80,7 @@ export function getUserInfo() {
         return fetch(USER_URL, ActionUtil.auth({
             method: 'GET'
         })).then(response => {
-            if (res.status === 401) {
+            if (response.status === 401) {
                 dispatch(ActionUtil.error(401, 'Forbidden'));
             }
 
