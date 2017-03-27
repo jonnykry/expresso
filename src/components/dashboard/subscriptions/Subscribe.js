@@ -17,7 +17,7 @@ class Subscribe extends Component {
     render() {
         const btnClass = 'pointer dim br1 ba bw1 ph4 pv2 black';
         let linkClass = 'no-underline black';
-
+        console.log(this.props);
         // TODO:  Set up subscribe page and a subscribe / go back button.
         return (
             <div className="pa4">
@@ -29,6 +29,7 @@ class Subscribe extends Component {
                         </div>
                     </Link>
                 </div>
+                TEST
             </div>
         );
     }
@@ -38,14 +39,16 @@ Subscribe.propTypes = {
     params: PropTypes.object.isRequired,
     bean: PropTypes.object,
     fetching:  PropTypes.bool,
-    error: PropTypes.string
+    error: PropTypes.string,
+    user: PropTypes.object
 };
 
 function mapStateToProps(state) {
     return {
         bean: state.bean.item,
         fetching: state.bean.fetching,
-        error: state.bean.error
+        error: state.bean.error,
+        user: state.userReducer.user
     };
 }
 
