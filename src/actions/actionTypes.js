@@ -3,13 +3,13 @@ export default({
     /* Bloodlines */
     SEND_PAGED: 'SEND_PAGED',
     HANDLE_PAGED: 'HANDLE_PAGED',
-    ERROR_PAGED: 'ERROR_PAGED',
     TRIGGERS: 'TRIGGERS',
     CONTENTS: 'CONTENTS',
     RECEIPTS: 'RECEIPTS',
     REQUEST: 'REQUEST',
     HANDLE: 'HANDLE',
     ERROR: 'ERROR',
+    ERROR_RESOLVE: 'ERROR_RESOLVE',
     TIMEOUT: 'TIMEOUT',
 
     /* Coinage */
@@ -30,7 +30,7 @@ export default({
     RECEIVE_USER: 'RECEIVE_USER',
     ERROR_USER: 'ERROR_USER',
 
-    /*Covenant*/
+    /* Covenant */
     COVENANT_SUBSCRIPTIONS: 'COVENANT_SUBSCRIPTIONS',
 
     /* Warehouse */

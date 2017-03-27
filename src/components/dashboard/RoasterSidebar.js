@@ -10,7 +10,7 @@ class RoasterSidebar extends Component {
 
         // TODO:  This is where we need to do something different for roaster accounts
         // and cookie storage
-        const content = this.props.user.roasterId === '' ?
+        const content = localStorage.getItem('roasterId') === '' ?
             <SidebarSelector subSelector={true} name="Register a Roaster Account" to={d + "register"} location={b} />
             : <SidebarSelector subSelector={true} name="Roaster Account" to={d + "account"} location={b} />;
 
