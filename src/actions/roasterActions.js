@@ -1,5 +1,5 @@
 import ActionTypes from './actionTypes';
-import ActionUtil from './actionUtil'
+import ActionUtil from './actionUtil';
 
 const ROASTER_URL = 'https://towncenter.expresso.store/api/roaster';
 
@@ -8,14 +8,39 @@ export function createRoaster(roasterInfo) {
         return fetch(ROASTER_URL, ActionUtil.auth({
             method: 'POST',
             body: JSON.stringify(roasterInfo)
-        })).then((response) => {
+        })).then(response => {
             return response.json();
-        }).then((json) => {
-            dispatch(receiveRoaster(json))
-        }).catch((err) => {
-            dispatch(errorRoaster(roasterInfo, err));
+        }).then(json => {
+            if (!json.success) {
+                dispatch(ActionUtil.error(500, json.message));
+                return;
+            }
+
+            dispatch(receiveRoaster(json));
+        }).catch(err => {
+            dispatch(ActionUtil.error(500, err));
         });
-    }
+    };
+}
+
+export function updateRoaster(roasterInfo, roasterId) {
+    return dispatch => {
+        return fetch(ROASTER_URL + '/' + roasterId, ActionUtil.auth({
+            method: 'PUT',
+            body: JSON.stringify(roasterInfo)
+        })).then(response => {
+            return response.json();
+        }).then(json => {
+            if (!json.success) {
+                dispatch(ActionUtil.error(500, json.message));
+                return;
+            }
+
+            dispatch(receiveRoaster(json));
+        }).catch(err => {
+            dispatch(ActionUtil.error(500, err));
+        });
+    };
 }
 
 export function getRoaster(id) {
@@ -24,15 +49,15 @@ export function getRoaster(id) {
             method: 'GET'
         })).then(res => {
             return res.json();
-        }).then(payload => {
-            if (payload.error || !payload.success) {
-                dispatch(ActionUtil.error('', payload.message));
+        }).then(json => {
+            if (!json.success) {
+                dispatch(ActionUtil.error(500, json.message));
                 return;
             }
 
-            dispatch(receiveRoaster(payload));
+            dispatch(receiveRoaster(json));
         }).catch(err => {
-            dispatch(ActionUtil.error('', err));
+            dispatch(ActionUtil.error(500, err));
         });
     };
 }
@@ -41,14 +66,5 @@ function receiveRoaster(payload) {
     return {
         type: ActionTypes.RECEIVE_ROASTER,
         payload
-    }
+    };
 }
-
-function errorRoaster(roasterInfo, err) {
-    return {
-        type: ActionTypes.ERROR_ROASTER,
-        roasterInfo,
-        err
-    }
-}
-

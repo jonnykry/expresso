@@ -6,8 +6,7 @@ function getPagedState() {
         cursor: 0,
         next: true,
         items: {},
-        ids: [],
-        error: null
+        ids: []
     };
 }
 
@@ -42,15 +41,7 @@ function handlePagedAction(action, state) {
                 next: hasNew && isFull,
                 items: _contents,
                 ids: keys,
-                cursor: cursor,
-                error: null
-            });
-        }
-        case ActionTypes.ERROR_PAGED: {
-            return Object.assign({}, state, {
-                fetching: false,
-                next: false,
-                error: action.err
+                cursor: cursor
             });
         }
         default: {
@@ -61,7 +52,6 @@ function handlePagedAction(action, state) {
 
 function modify(state = {
     fetching: false,
-    error: null,
     success: false
 }, action) {
     return handleModifyAction(action, state);
@@ -77,21 +67,12 @@ function handleModifyAction(action, state) {
         case ActionTypes.HANDLE: {
             return Object.assign({}, state, {
                 fetching: false,
-                success: action.payload.success,
-                error: null
-            });
-        }
-        case ActionTypes.ERROR: {
-            return Object.assign({}, state, {
-                fetching: false,
-                success: action.success,
-                error: action.err
+                success: action.payload.success
             });
         }
         case ActionTypes.TIMEOUT: {
             return Object.assign({}, state, {
                 fetching: false,
-                error: null,
                 success: false
             });
         }

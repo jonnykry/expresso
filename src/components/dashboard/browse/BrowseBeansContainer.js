@@ -52,12 +52,14 @@ class BrowseBeansContainer extends Component {
 
 BrowseBeansContainer.propTypes = {
     dispatch: PropTypes.func,
-    items: PropTypes.object
+    items: PropTypes.object,
+    error: PropTypes.string
 };
 
 function mapStateToProps(state) {
     return {
-        items: state.beans
+        items: state.beans,
+        error: state.errors[500]
     };
 }
 
