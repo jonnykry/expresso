@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 
+import Title from './Title';
+
 class Navigation extends Component {
     render() {
         const linkClass = 'link dib dim white mr4 b';
@@ -15,8 +17,8 @@ class Navigation extends Component {
 
         return (
             <nav className="flex justify-between bg-blue shadow-2">
-                    <Link to="/" className="link flex items-center pv4 ph3" title="Home">
-                        <object type="image/svg+xml" data="/title_white.svg" className="w-70"></object>
+                    <Link to="/" className="link flex items-center" title="Home">
+                        <Title color="white"/>
                     </Link>
                 <div className="flex-grow pa3 pv4 flex items-center">
                     <Link to="/" className={linkClass} title="Home">Home</Link>
