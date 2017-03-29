@@ -3,6 +3,8 @@ import {Link} from 'react-router';
 import {connect} from 'react-redux';
 import FileSelector from './FileSelector';
 
+import Title from './Title';
+
 class AccountInfo extends Component {
 	constructor(props) {
 		super(props);
@@ -47,7 +49,7 @@ class AccountInfo extends Component {
 		return (
 		    <form className="mw7 center w-100 h-100" onSubmit={this.handleClickBind}>
 		    	<div className="ba br3 b--light-silver bs1 ph5 pb5 mt2 mb2 bg-white">
-			    	{!isRoaster && <Link to="/" className="tc f1 b i pb4 black no-underline"><h1>Expresso</h1></Link>}
+			    	{!isRoaster && <Link to="/" className="tc f1 b i pb4 black no-underline"><Title color="black"/></Link>}
 			    	<legend className="center f2 pb4 blue fw1">{legendText}</legend>
 		    		{!isRoaster &&
 		    			<div className={formRowClass}>
