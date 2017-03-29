@@ -1,12 +1,18 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router';
 import {connect} from 'react-redux';
+import FileSelector from './FileSelector';
 
 class AccountInfo extends Component {
 	constructor(props) {
 		super(props);
 
+        this.state = {
+            profileImage: null
+        };
+
 		this.handleClickBind = this.handleClick.bind(this);
+        this.profileImageSelectedBind = this.profileImageSelected.bind(this);
 	}
 
 	handleClick(e) {
@@ -14,6 +20,19 @@ class AccountInfo extends Component {
 
 		this.props.handleSubmit(this.refs);
 	}
+
+    profileImageSelected(filename) {
+        var fileReader = new FileReader();
+
+        var _this = this;
+        fileReader.onload = function(e) {
+            _this.setState({
+                profileImage: e.target.result
+            });
+        }
+
+        fileReader.readAsDataURL(filename);
+    }
 
 	render() {
 		const inputClass = 'input-reset ba b--silver pa3 mv2 db br3 mh3';
@@ -125,6 +144,14 @@ class AccountInfo extends Component {
 							<option value="United States">United States</option>
 						</select>
 		    		</div>
+                    <div className="mt3">
+                        <FileSelector 
+                            buttonText="Upload Profile Picture"
+                            fileSelected={this.profileImageSelectedBind} />
+                    </div>
+                    <div className="mt3">
+                        <img  className="w-100" height="auto" alt="" src={this.state.profileImage} />
+                    </div>
 					<div className="mt3">
 							<button className="f4 w-100 link pointer dim br1 ba bw1 pv3 mb2 white bg-green" type="submit">{submitText}</button>
 							{showLogin && <div className="tc pv2">Already have an account?  <Link to="/login" title="Login">Log In</Link>!</div>}
