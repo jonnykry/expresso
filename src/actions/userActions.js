@@ -2,8 +2,10 @@ import ActionTypes from './actionTypes';
 import ActionUtil from './actionUtil';
 import {getRoaster} from './roasterActions';
 
-const AUTHENTICATE_USER_URL = 'https://towncenter.expresso.store/api/auth/login';
-const USER_URL = 'https://towncenter.expresso.store/api/user';
+const BASE_URL = 'https://towncenter.expresso.store/api/';
+const AUTHENTICATE_USER_URL = BASE_URL + 'auth/login';
+const USER_URL = BASE_URL + 'user';
+const RESET_URL = BASE_URL + 'reset';
 
 export function logout() {
     localStorage.removeItem('token');
@@ -119,6 +121,14 @@ export function updateUserInfo(userInfo, userId) {
             dispatch(ActionUtil.error(500, err.message));
         });
     };
+}
+
+export function requestToken(email) {
+    return ActionUtil.handleRequest(RESET_URL + '?email=' + email, 'POST', {});
+}
+
+export function resetPassword(token, passHash) {
+    return ActionUtil.handleRequest(RESET_URL + '/' + token, 'POST', {passHash});
 }
 
 function receiveUser(payload) {
