@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { authenticateUser } from '../actions/userActions'
+import { authenticateUser } from '../actions/userActions';
 
 import Login from './Login';
 
