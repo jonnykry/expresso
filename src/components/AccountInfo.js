@@ -148,7 +148,7 @@ class AccountInfo extends Component {
 		    		</div>
                     <div className="mt3">
                         <FileSelector 
-                            buttonText="Upload Profile Picture"
+                            buttonText="Upload Profile Picture (Optional)"
                             fileSelected={this.profileImageSelectedBind} />
                     </div>
                     <div className="mt3">
