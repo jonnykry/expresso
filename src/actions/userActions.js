@@ -26,7 +26,6 @@ export function createUser(userInfo) {
                 dispatch(ActionUtil.error(401, 'Forbidden'));
             }
 
-
             const token = response.headers.get('X-Auth');
             localStorage.setItem('token', token);
 
