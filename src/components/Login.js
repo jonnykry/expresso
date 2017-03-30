@@ -18,6 +18,7 @@ class Login extends Component {
                         <input className={inputClass} type="password" ref="password" placeholder="Password" name="password" id="password" />
                         <div className="mt3"><input className="w-100 pointer ba b--transparent white br3 bg-green pv3" type="submit" value="Log In" /></div>
                         <div className="mt3 light-gray tc f7">Not a user?  Click Here to <Link to="/register" className="f6 link dib dim mr3 mr4-ns" title="Register">Sign up</Link></div>
+                        <div className="mt3 light-gray tc f7"><Link to="/reset" className="f6 link dib dim mr3 mr4-ns" title="Register">Forgot your password?</Link></div>
                         <ErrorMessage error={this.props.error} />
                     </form>
                 </article>
