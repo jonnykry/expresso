@@ -7,6 +7,8 @@ import About from './components/About';
 import LoginContainer from './components/LoginContainer';
 import Logout from './components/Logout';
 import RegisterContainer from './components/RegisterContainer';
+import ResetContainer from './components/ResetContainer';
+import RequestResetContainer from './components/RequestResetContainer';
 import DashboardContainer from './components/dashboard/DashboardContainer';
 import Home from './components/Home';
 import BrowseBeansContainer from './components/dashboard/browse/BrowseBeansContainer';
@@ -71,6 +73,10 @@ ReactDOM.render(
                     <Route path="subscribe/:id" component={Subscribe}/>
                 </Route>
                 <Route path="settings" component={AccountSettings}/>
+            </Route>
+            <Route path="reset">
+                <IndexRoute component={RequestResetContainer}/>
+                <Route path=":token" component={ResetContainer}/>
             </Route>
         </Router>
     </Provider>,
