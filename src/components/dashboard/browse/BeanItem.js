@@ -23,7 +23,7 @@ class BeanItem extends Component {
                                 View Details
                             </div>
                         </Link>
-                        <Link to={'/dashboard/subscriptions/subscribe/' + this.props.item['id']} className={linkClass}>
+                        <Link to={'/dashboard/subscribe/' + this.props.item['id']} className={linkClass}>
                             <div className={btnClass}>
                                 Subscribe
                             </div>

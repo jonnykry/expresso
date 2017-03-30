@@ -69,9 +69,8 @@ ReactDOM.render(
                     <Route path="account" component={RoasterAccount}/>
                     <Route path="register" component={RoasterRegisterContainer}/>
                 </Route>
-                <Route path="subscriptions" component={SubscriptionContainer}>
-                    <Route path="subscribe/:id" component={Subscribe}/>
-                </Route>
+                <Route path="subscriptions" component={SubscriptionContainer}/>
+                <Route path="subscribe/:id" component={Subscribe}/>
                 <Route path="settings" component={AccountSettings}/>
             </Route>
             <Route path="reset">

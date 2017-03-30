@@ -15,12 +15,13 @@ class Subscribe extends Component {
     }
 
     render() {
+        console.log(this.props);
         const btnClass = 'pointer dim br1 ba bw1 ph4 pv2 black';
         let linkClass = 'no-underline black';
         console.log(this.props);
         // TODO:  Set up subscribe page and a subscribe / go back button.
         return (
-            <div className="pa4">
+            <div className="content pa4">
                 <div>Are you sure you want to subscribe to {this.props.bean.name}?</div>
                 <div className="flex mt2">
                     <Link to="/dashboard/browse" className={linkClass + ' mr2'}>
