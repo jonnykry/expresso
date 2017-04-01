@@ -7,6 +7,7 @@ function wrapPagedAction(dispatch, action) {
         const limit = 10;
 
         let offset = (page - 1) * limit;
+
         dispatch(action(offset, limit));
     };
 }
@@ -20,10 +21,10 @@ function wrapPagedActionWithId(id, dispatch, action) {
     };
 }
 
-function handlePagedRequest(item, url, type, offset, limit) {
+function handlePagedRequest(item, url, type, offset, limit, optional) {
     return dispatch => {
         dispatch(sendPaged(item));
-        return fetch(getAllUrl(url, offset, limit), auth({
+        return fetch(getAllUrl(url, offset, limit, optional), auth({
             method: type
         })).then(res => {
             if (res.status === 401) {
@@ -76,6 +77,7 @@ function handleRequest(url, type, body) {
 }
 
 function handlePaged(itemType, payload, offset, limit) {
+    console.log(payload);
     return {
         type: ActionTypes.HANDLE_PAGED,
         itemType,
@@ -127,7 +129,10 @@ function auth(options) {
     return options;
 }
 
-function getAllUrl(url, offset, limit) {
+function getAllUrl(url, offset, limit, optional) {
+    if (optional)
+        return url + '?offset=' + offset + '&limit=' + limit + optional || '';
+
     return url + '?offset=' + offset + '&limit=' + limit;
 }
 

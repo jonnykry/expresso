@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import Select from 'react-select';
+import DebounceInput from 'react-debounce-input';
 
 import 'react-select/dist/react-select.css';
 
@@ -15,10 +16,12 @@ class BeanSearchBar extends Component {
         return (
             <div className="bean-item-card w-40 center ph1 flex flex-row">
                 <span className="w-100 ba border-box br2 b--light-silver">
-                    <input type="search"
+                    <DebounceInput
                         ref={(input) => { this.searchInput = input; }}
-                        placeholder="Search for a Bean" 
+                        placeholder="Search by Name or Roast Type" 
                         className="pv1 ph3 input-reset bn w-90 h-100"
+                        minLength={2}
+                        debounceTimeout={400}
                         onChange={this.props.onSearchChange} />
                         <span onClick={this.props.onClear.bind(this)} className="pointer silver pl3">X</span>
                 </span>
@@ -26,8 +29,8 @@ class BeanSearchBar extends Component {
                     <Select options={options}
                             simpleValue
                             value={this.props.selected}
-                            placeholder="Choose a Filter"
-                            onChange={this.props.onFilterChange} />
+                            placeholder="Order Results"
+                            onChange={this.props.onOrderChange} />
                 </div>
             </div>
         );
@@ -36,7 +39,7 @@ class BeanSearchBar extends Component {
 
 BeanSearchBar.propTypes = {
     onSearchChange: PropTypes.func.isRequired,
-    onFilterChange: PropTypes.func.isRequired,
+    onOrderChange: PropTypes.func.isRequired,
     selected: PropTypes.number.isRequired
 };
 
