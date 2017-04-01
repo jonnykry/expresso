@@ -12,6 +12,7 @@ class BrowseBeansContainer extends Component {
         this.update = this.update.bind(this);
         this.search = this.search.bind(this);
         this.order = this.order.bind(this);
+        this.clear = this.clear.bind(this);
 
         this.state = {
             searchTerm: '',
@@ -21,10 +22,10 @@ class BrowseBeansContainer extends Component {
         }
     }
 
-    update(page) {
+    update(page, reset) {
         const limit = 10;
         let offset = (page - 1) * limit;
-        this.props.dispatch(getAllItems(offset, limit, this.state.searchTerm, this.state.name, this.state.cost));
+        this.props.dispatch(getAllItems(reset ? 0 : offset, limit, reset ? '' : this.state.searchTerm, this.state.name, this.state.cost));
     }
 
     search(e) {
@@ -59,8 +60,9 @@ class BrowseBeansContainer extends Component {
     }
 
     clear() {
-        this.searchInput.value = '';
-        this.searchInput.focus = true;
+        this.setState({searchTerm: ''});
+
+        this.update(0, true);
     }
 
     render() {
@@ -70,7 +72,8 @@ class BrowseBeansContainer extends Component {
                 <BrowseSearchBar selected={this.state.selected}
                     onSearchChange={this.search} 
                     onOrderChange={this.order} 
-                    onClear={this.clear} reload={this.reload} />
+                    onClear={this.clear} reload={this.reload}
+                    value={this.state.searchTerm} />
                 <InfiniteList update={this.update} {...this.props.items} >
                     <BeanItemList {...this.props.items}/>
                 </InfiniteList>
