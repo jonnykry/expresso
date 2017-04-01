@@ -77,7 +77,6 @@ function handleRequest(url, type, body) {
 }
 
 function handlePaged(itemType, payload, offset, limit) {
-    console.log(payload);
     return {
         type: ActionTypes.HANDLE_PAGED,
         itemType,
