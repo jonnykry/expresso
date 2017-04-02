@@ -12,8 +12,11 @@ function receiveItem(payload) {
     };
 }
 
-export function getAllItems(offset, limit) {
-    return ActionUtil.handlePagedRequest(ActionTypes.WAREHOUSE_ITEMS, ITEMS_URL, 'GET', offset, limit);
+export function getAllItems(offset, limit, searchTerm, orderName, orderCost) {
+    const shouldFilter = searchTerm !== undefined || orderName !== undefined || orderCost !== undefined;
+    const filterParams = `&q=${searchTerm || ''}&name=${orderName !== undefined ? orderName : ''}&cost=${orderCost !== undefined ? orderCost : ''}`;
+
+    return ActionUtil.handlePagedRequest(ActionTypes.WAREHOUSE_ITEMS, ITEMS_URL, 'GET', offset, limit, shouldFilter ? filterParams : false);
 }
 
 export function getItem(id) {
