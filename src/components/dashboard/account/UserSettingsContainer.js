@@ -53,7 +53,8 @@ class UserSettingsContainer extends Component {
                   legend={'Update User Account'}
                   handleSubmit={this.updateUserBind}
                   user={this.props.user}
-                  submitText={'Update Information'} />
+                  submitText={'Update Information'}
+                  roaster={false} />
             </main>
         );
     }

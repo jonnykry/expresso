@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import {Link} from 'react-router';
 import {connect} from 'react-redux';
 
@@ -136,6 +136,15 @@ class AccountInfo extends Component {
 		);
 	}
 }
+
+AccountInfo.propTypes = {
+    user: PropTypes.object,
+    roaster: PropTypes.bool.isRequired,
+    legend: PropTypes.string.isRequired,
+    submitText: PropTypes.string.isRequired,
+    showLogin: PropTypes.bool,
+    handleSubmit: PropTypes.func.isRequired
+};
 
 function mapStateToProps(state) {
 	return {
