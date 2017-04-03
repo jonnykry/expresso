@@ -104,7 +104,7 @@ export function getUserInfo() {
 
 export function updateUserInfo(userInfo, userId) {
     return dispatch => {
-        return fetch(USER_URL + userId, ActionUtil.auth({
+        return fetch(USER_URL + '/' + userId, ActionUtil.auth({
             method: 'PUT',
             body: JSON.stringify(userInfo)
         })).then(response => {
@@ -116,6 +116,29 @@ export function updateUserInfo(userInfo, userId) {
             }
 
             dispatch(receiveUser(json));
+        }).catch(err => {
+            dispatch(ActionUtil.error(500, err.message));
+        });
+    };
+}
+
+export function uploadProfilePicture(file, userId) {
+    var formData = new FormData();
+    formData.append("profile", file);
+
+    return dispatch => {
+        return fetch(USER_URL + '/' + userId + '/photo', ActionUtil.auth({
+            method: 'POST',
+            body: formData
+        })).then(response => {
+            return response.json();
+        }).then(json => {
+            if(!json.success) {
+                dispatch(ActionUtil.error(500, json.message));
+                return;
+            }
+
+            dispatch(getUserInfo());
         }).catch(err => {
             dispatch(ActionUtil.error(500, err.message));
         });
