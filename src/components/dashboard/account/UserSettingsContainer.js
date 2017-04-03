@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { updateUserInfo } from '../../../actions/userActions'
+import { updateUserInfo, uploadProfilePicture } from '../../../actions/userActions'
 
 import AccountInfo from '../../AccountInfo';
 
@@ -9,11 +9,21 @@ class UserSettingsContainer extends Component {
         super(props);
 
         this.state = {
-            error: null
+            error: null,
+            profile: null
         };
 
         this.updateUserBind = this.onHandleSubmit.bind(this);
+        this.profileChangeBind = this.profileImageChanged.bind(this);
     }
+
+    profileImageChanged(file) {
+        this.setState({
+            error: this.state.error,
+            profile: file
+        });
+    }
+
 
     onHandleSubmit(refs) {
         const { dispatch } = this.props;
@@ -21,11 +31,13 @@ class UserSettingsContainer extends Component {
 
         if(password.value !== '' && password.value !== confirmPassword.value) {
             this.setState({
-                error: 'Passwords are not equal'
+                error: 'Passwords are not equal',
+                profile: this.state.profile
             });
         } else {
             this.setState({
-                error: null
+                error: null,
+                profile: this.state.profile
             });
             const userInfo = {
                 id: this.props.user.id,
@@ -43,6 +55,9 @@ class UserSettingsContainer extends Component {
             };
 
   		    dispatch(updateUserInfo(userInfo, this.props.user.id));
+            if(this.state.profile != null) {
+                dispatch(uploadProfilePicture(this.state.profile, this.props.user.id));
+            }
         }
     }
 
@@ -53,7 +68,8 @@ class UserSettingsContainer extends Component {
                   legend={'Update User Account'}
                   handleSubmit={this.updateUserBind}
                   user={this.props.user}
-                  submitText={'Update Information'} />
+                  submitText={'Update Information'}
+                  imageChange={this.profileChangeBind} />
             </main>
         );
     }

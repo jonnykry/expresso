@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { createUser } from '../actions/userActions'
+import { createUser, uploadProfilePicture } from '../actions/userActions'
 
 import AccountInfo from './AccountInfo';
 
@@ -9,10 +9,19 @@ class RegisterContainer extends Component {
         super(props);
 
         this.state = {
-            error: null
+            error: null,
+            profile: null
         };
 
         this.registerBind = this.handleSubmit.bind(this);
+        this.profileChangeBind = this.profileImageChanged.bind(this);
+    }
+
+    profileImageChanged(file) {
+        this.setState({
+            error: this.state.error,
+            profile: file
+        });
     }
 
     handleSubmit(refs) {
@@ -20,11 +29,12 @@ class RegisterContainer extends Component {
         const { password, confirmPassword,
             firstName, lastName, email, phone,
             addressLine1, addressLine2,
-            city, state, zipCode, country } = refs;
+            city, state, zipCode, country, profile } = refs;
 
         if (password.value !== confirmPassword.value) {
             this.setState({
-                error: 'Passwords are not equal'
+                error: 'Passwords are not equal',
+                profile: this.state.profile
             });
         } else {
             const data = {
@@ -40,8 +50,9 @@ class RegisterContainer extends Component {
                 addressZip: zipCode.value,
                 addressCountry: country.value,
             };
-
+            
             dispatch(createUser(data)).then(() => {
+                dispatch(uploadProfilePicture(this.state.profile, this.props.user.id));
                 router.replace('/dashboard');
             });
         }
@@ -56,7 +67,8 @@ class RegisterContainer extends Component {
                         handleSubmit={this.registerBind}
                         error={this.state.error}
                         showLogin={true} 
-                        submitText={'Create Account'} />
+                        submitText={'Create Account'}
+                        imageChange={this.profileChangeBind} />
                 </article>
             </div>
         );
