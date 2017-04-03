@@ -1,5 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router';
+import {connect} from 'react-redux';
 import SidebarSelector from './SidebarSelector';
 import BloodlinesSidebar from './BloodlinesSidebar';
 import RoasterSidebar from './RoasterSidebar';
@@ -19,6 +20,11 @@ class SidebarContent extends Component {
         const bloodlines = <BloodlinesSidebar location={this.props.location}/>;
         const roaster = <RoasterSidebar location={this.props.location}/>;
 
+        var profileImage = null;
+        if(this.props.user != undefined && this.props.user.profileUrl != '') {
+            profileImage = this.props.user.profileUrl;
+        }
+
         const b = this.props.location;
         const d = '/dashboard/';
         return (
@@ -34,6 +40,9 @@ class SidebarContent extends Component {
                     </SidebarSelector>
                 </div>
                 <div className="flex h4 justify-between ph3 pv4 bt ">
+                     {profileImage != null &&
+                        <img className="w-20" height="auto" src={profileImage} />
+                     }
                      <Link to={'/'} className={bottomLinkClass}><div className={bottomTextClass}><FaHome className="pl2 pb1 white f3" /> Home</div></Link>
                      <Link to={d + 'settings'} className={bottomLinkClass}><div className={bottomTextClass}><TiUserOutline className="pl3 pb1 white f3" /> Account</div></Link>
                      <Link to={'/logout'} className={bottomLinkClass}><div className={bottomTextClass}><FaSignOut className="pl3 pb1 white f3" /> Logout</div></Link>               
@@ -47,4 +56,10 @@ SidebarContent.propTypes = {
     location: PropTypes.string.isRequired
 };
 
-export default SidebarContent;
+function mapStateToProps(state) {
+    return {
+        user: state.userReducer.user
+    };
+}
+
+export default connect(mapStateToProps)(SidebarContent);
