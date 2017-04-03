@@ -24,6 +24,7 @@ class AccountInfo extends Component {
 	}
 
     profileImageSelected(filename) {
+        this.props.imageChange(filename);
         var fileReader = new FileReader();
 
         var _this = this;
@@ -152,7 +153,7 @@ class AccountInfo extends Component {
                             fileSelected={this.profileImageSelectedBind} />
                     </div>
                     <div className="mt3">
-                        <img  className="w-100" height="auto" alt="" src={this.state.profileImage} />
+                        <img  className="w-100" height="auto" alt="" ref="profile" src={this.state.profileImage} />
                     </div>
 					<div className="mt3">
 							<button className="f4 w-100 link pointer dim br1 ba bw1 pv3 mb2 white bg-green" type="submit">{submitText}</button>
