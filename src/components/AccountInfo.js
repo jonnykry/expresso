@@ -171,7 +171,8 @@ AccountInfo.propTypes = {
     legend: PropTypes.string.isRequired,
     submitText: PropTypes.string.isRequired,
     showLogin: PropTypes.bool,
-    handleSubmit: PropTypes.func.isRequired
+    handleSubmit: PropTypes.func.isRequired,
+    imageChange: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state) {
