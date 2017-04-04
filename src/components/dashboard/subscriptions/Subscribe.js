@@ -24,7 +24,7 @@ class Subscribe extends Component {
         let linkClass = 'no-underline black';
         // TODO:  Set up subscribe page and a subscribe / go back button.
         return (
-            <div className="content pa4">
+            <div className="content mw7 pa4">
                 <div>Are you sure you want to subscribe to {this.props.bean.name}?</div>
                 <div className="flex mt2">
                 <div className={btnClass}>Yes</div>
