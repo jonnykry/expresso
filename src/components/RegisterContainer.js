@@ -52,7 +52,9 @@ class RegisterContainer extends Component {
             };
             
             dispatch(createUser(data)).then(() => {
-                dispatch(uploadProfilePicture(this.state.profile, this.props.user.id));
+                if(this.state.profile != null) {
+                    dispatch(uploadProfilePicture(this.state.profile, this.props.user.id));
+                }
                 router.replace('/dashboard');
             });
         }
