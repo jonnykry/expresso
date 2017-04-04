@@ -20,7 +20,7 @@ class DashboardContainer extends Component {
             <Dashboard
                 user={this.props.user}
                 roaster={this.props.roaster}
-                error={this.props.error}
+                errors={this.props.errors}
                 location={this.props.location}
                 >
                 {this.props.children}
@@ -32,7 +32,6 @@ class DashboardContainer extends Component {
 DashboardContainer.propTypes = {
     router: PropTypes.object,
     errors: PropTypes.object,
-    error: PropTypes.string,
     children: PropTypes.object,
     location: PropTypes.object,
     user: PropTypes.object,
@@ -43,7 +42,6 @@ DashboardContainer.propTypes = {
 function mapStateToProps(state) {
     return {
         errors: state.errors,
-        error: state.errors[500],
         user: state.userReducer.user,
         roaster: state.roaster.roaster
     };
