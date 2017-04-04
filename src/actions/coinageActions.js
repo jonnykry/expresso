@@ -18,4 +18,9 @@ export function modifyPaymentInfo(data) {
             return ActionUtil.handleRequest(url, 'POST', data);
         });
     };
+
+}
+
+export function subscribe(id, body) {
+    return ActionUtil.handleRequest(COINAGE_URL + '/' + id + '/subscription', body)
 }
