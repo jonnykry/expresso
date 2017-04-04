@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { createUser, uploadProfilePicture } from '../actions/userActions'
+import React, {Component, PropTypes} from 'react';
+import {connect} from 'react-redux';
+import {createUser, uploadProfilePicture} from '../actions/userActions';
 
 import AccountInfo from './AccountInfo';
+import ErrorMessage from './ErrorMessage';
 
 class RegisterContainer extends Component {
     constructor(props) {
@@ -25,11 +26,11 @@ class RegisterContainer extends Component {
     }
 
     handleSubmit(refs) {
-        const { router, dispatch } = this.props;
-        const { password, confirmPassword,
+        const {router, dispatch} = this.props;
+        const {password, confirmPassword,
             firstName, lastName, email, phone,
             addressLine1, addressLine2,
-            city, state, zipCode, country, profile } = refs;
+            city, state, zipCode, country } = refs;
 
         if (password.value !== confirmPassword.value) {
             this.setState({
@@ -64,23 +65,31 @@ class RegisterContainer extends Component {
         return (
             <div className="overflow-y-auto h-100 bg-blue">
                 <article className="ph4 pv5 mw7 center black-80">
-                    <AccountInfo 
+                    <ErrorMessage errors={this.props.errors}/>
+                    <AccountInfo
                         legend={'Sign up to Create an Account'}
                         handleSubmit={this.registerBind}
                         error={this.state.error}
                         showLogin={true} 
                         submitText={'Create Account'}
                         imageChange={this.profileChangeBind} />
+                        submitText={'Create Account'}
+                        roaster={false}
+                        />
                 </article>
             </div>
         );
     }
 }
 
+RegisterContainer.propTypes = {
+    errors: PropTypes.object
+};
+
 function mapStateToProps(state) {
     return {
         user: state.userReducer.user,
-        error: state.userReducer.error,
+        errors: state.errors,
         success: state.userReducer.success
     };
 }

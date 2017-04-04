@@ -41,7 +41,7 @@ class RoasterAccount extends Component {
             <div className="h-100 min-h- overflow-y-auto">
                 <main className="h-100 min-h-100 pa4 black-80">
                     <AccountInfo
-                        roaster
+                        roaster={true}
                         user={this.props.roaster}
                         handleSubmit={this.updateBind}
                         legend={'Roaster Account'}

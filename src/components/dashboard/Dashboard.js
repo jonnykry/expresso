@@ -12,12 +12,14 @@ class Dashboard extends Component {
 
         return (
             <div className="w-100 min-h-100 h-100 absolute dib">
-                <ErrorMessage error={this.props.error}/>
                 <div className="h-100 dashboard">
                     <div className="sidebar h-100 fixed shadow-4">
                         {sidebar}
                     </div>
                     <div className="h-100 min-h-100">
+                        <div className="content">
+                            <ErrorMessage errors={this.props.errors}/>
+                        </div>
                         {this.props.children}
                     </div>
                 </div>
@@ -27,9 +29,9 @@ class Dashboard extends Component {
 }
 
 Dashboard.propTypes = {
-    error: PropTypes.string,
+    errors: PropTypes.object,
     children: PropTypes.object,
-    location: PropTypes.object,
+    location: PropTypes.object
 };
 
 export default Dashboard;

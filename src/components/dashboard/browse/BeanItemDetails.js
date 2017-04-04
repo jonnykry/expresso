@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router';
 import {getItem} from '../../../actions/warehouseActions';
+import FaArrowLeft from 'react-icons/lib/fa/arrow-left';
 
 class BeanItemDetails extends Component {
     componentDidMount() {
@@ -15,33 +16,37 @@ class BeanItemDetails extends Component {
     }
 
     render() {
-        const btnClass = 'pointer dim br1 ba bw1 ph4 pv2 black';
+        const btnClass = 'pointer dim ba bw1 ph2 pv2 black';
         let linkClass = 'no-underline black';
 
         return (
-            <div className="pa4">
-                <h1 className="tc"> Details For {this.props.bean.name}</h1>
-                <img alt="Beans" src={this.props.bean.pictureURL || 'https://i.imgur.com/uSUY2O8.jpg'} height="250" width="250"/>
-                <div>Item ID: {this.props.bean.id}</div>
-                <div>Price: {this.props.bean.consumerPrice}</div>
-                <div>In Stock: {this.props.bean.inStockBags}</div>
-                <h1> Roaster Details </h1>
-                <div>Name: {this.props.roaster.name}</div>
-                <div>Location: {this.props.roaster.addressLine1} - {(this.props.roaster.addressLine2 + ' ' || '') + this.props.roaster.addressState} 
-                    {this.props.roaster.addressCity} {this.props.roaster.addressZip}</div>
-                <div>Phone #: {this.props.roaster.phone}</div>
-                <div>E-mail: {this.props.roaster.email}</div>
-                <div className="flex mt2">
-                    <Link to="/dashboard/browse" className={linkClass + ' mr2'}>
+            <div className="content">
+                <div style={{width: 100 + 'px'}}>
+                    <Link to="/dashboard/browse" className={linkClass}>
                         <div className={btnClass}>
-                            Go Back
+                            <FaArrowLeft className="pv2 ph3 f1" />
                         </div>
                     </Link>
-                    <Link to={'/dashboard/subscriptions/subscribe/' + this.props.params.id} className={linkClass}>
-                        <div className={btnClass}>
-                            Subscribe
-                        </div>
-                    </Link>
+                </div>
+                <div className="mw7 center pa4">
+                    <h1 className="tc"> Details For {this.props.bean.name}</h1>
+                    <img alt="Beans" src={this.props.bean.pictureURL || 'https://i.imgur.com/uSUY2O8.jpg'} />
+                    <div>Item ID: {this.props.bean.id}</div>
+                    <div>Price: {this.props.bean.consumerPrice}</div>
+                    <div>In Stock: {this.props.bean.inStockBags}</div>
+                    <h1> Roaster Details </h1>
+                    <div>Name: {this.props.roaster.name}</div>
+                    <div>Location: {this.props.roaster.addressLine1} - {(this.props.roaster.addressLine2 + ' ' || '') + this.props.roaster.addressState} 
+                        {this.props.roaster.addressCity} {this.props.roaster.addressZip}</div>
+                    <div>Phone #: {this.props.roaster.phone}</div>
+                    <div>E-mail: {this.props.roaster.email}</div>
+                </div>
+                <div className="mw7 center mh3 pointer ba b--transparent br3 bg-green pv3 dim">
+                    <div>
+                        <Link to={'/dashboard/subscriptions/subscribe/' + this.props.params.id} className={linkClass}>
+                                <div className="f2 tc white">Subscribe</div>
+                        </Link>
+                    </div>
                 </div>
             </div>
         );

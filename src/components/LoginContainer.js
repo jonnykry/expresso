@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { authenticateUser } from '../actions/userActions';
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import {authenticateUser} from '../actions/userActions';
 
 import Login from './Login';
 
@@ -8,12 +8,12 @@ class LoginContainer extends Component {
     handleSubmit(event) {
         event.preventDefault();
 
-        const { router, dispatch } = this.props;
+        const {router, dispatch} = this.props;
 
         const email = this.refs.email.value;
         const passHash = this.refs.password.value;
 
-        const data ={
+        const data = {
             email, passHash
         };
 
@@ -25,7 +25,7 @@ class LoginContainer extends Component {
     render() {
         return (
             <div className="h-100">
-                <Login onHandleSubmit={this.handleSubmit} {...this.props} />
+                <Login onHandleSubmit={this.handleSubmit} {...this.props}/>
             </div>
         );
     }
@@ -36,7 +36,7 @@ function mapStateToProps(state) {
         user: state.userReducer.user,
         isFetching: state.userReducer.isFetching,
         didAuthenticate: state.userReducer.didAuthenticate,
-        error: state.userReducer.error
+        errors: state.errors
     };
 }
 

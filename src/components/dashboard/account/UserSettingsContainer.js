@@ -70,6 +70,7 @@ class UserSettingsContainer extends Component {
                   user={this.props.user}
                   submitText={'Update Information'}
                   imageChange={this.profileChangeBind} />
+                  roaster={false} />
             </main>
         );
     }
