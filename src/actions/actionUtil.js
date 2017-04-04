@@ -29,6 +29,7 @@ function handlePagedRequest(item, url, type, offset, limit, optional) {
         })).then(res => {
             if (res.status === 401) {
                 dispatch(error(401, 'Forbidden'));
+                return;
             }
 
             return res.json();
@@ -60,6 +61,7 @@ function handleRequest(url, type, body) {
         })).then(res => {
             if (res.status === 401) {
                 dispatch(error(401, 'Forbidden'));
+                return;
             }
 
             return res.json();

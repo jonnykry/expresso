@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { createUser } from '../actions/userActions'
+import React, {Component, PropTypes} from 'react';
+import {connect} from 'react-redux';
+import {createUser} from '../actions/userActions';
 
 import AccountInfo from './AccountInfo';
+import ErrorMessage from './ErrorMessage';
 
 class RegisterContainer extends Component {
     constructor(props) {
@@ -16,58 +17,65 @@ class RegisterContainer extends Component {
     }
 
     handleSubmit(refs) {
-        const { router, dispatch } = this.props;
-        const { password, confirmPassword,
+        const {router, dispatch} = this.props;
+        const {password, confirmPassword,
             firstName, lastName, email, phone,
             addressLine1, addressLine2,
-            city, state, zipCode, country } = refs;
+            city, state, zipCode, country} = refs;
 
         if (password.value !== confirmPassword.value) {
             this.setState({
                 error: 'Passwords are not equal'
             });
-        } else {
-            const data = {
-                firstName: firstName.value,
-                lastName: lastName.value,
-                email: email.value,
-                passHash: password.value,
-                phone: phone.value,
-                addressLine1: addressLine1.value,
-                addressLine2: addressLine2.value,
-                addressCity: city.value,
-                addressState: state.value,
-                addressZip: zipCode.value,
-                addressCountry: country.value,
-            };
-
-            dispatch(createUser(data)).then(() => {
-                router.replace('/dashboard');
-            });
+            return;
         }
+
+        const data = {
+            firstName: firstName.value,
+            lastName: lastName.value,
+            email: email.value,
+            passHash: password.value,
+            phone: phone.value,
+            addressLine1: addressLine1.value,
+            addressLine2: addressLine2.value,
+            addressCity: city.value,
+            addressState: state.value,
+            addressZip: zipCode.value,
+            addressCountry: country.value
+        };
+
+        dispatch(createUser(data)).then(() => {
+            router.replace('/dashboard');
+        });
     }
 
     render() {
         return (
             <div className="overflow-y-auto h-100 bg-blue">
                 <article className="ph4 pv5 mw7 center black-80">
-                    <AccountInfo 
+                    <ErrorMessage errors={this.props.errors}/>
+                    <AccountInfo
                         legend={'Sign up to Create an Account'}
                         handleSubmit={this.registerBind}
                         error={this.state.error}
-                        showLogin={true} 
-                        submitText={'Create Account'} 
-                        roaster={false} />
+                        submitText={'Create Account'}
+                        roaster={false}
+                        showLogin
+                        />
                 </article>
             </div>
         );
     }
 }
 
+RegisterContainer.propTypes = {
+    errors: PropTypes.object
+};
+
 function mapStateToProps(state) {
     return {
         user: state.userReducer.user,
-        error: state.userReducer.error,
+        errors: state.errors,
         success: state.userReducer.success
     };
 }

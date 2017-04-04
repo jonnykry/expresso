@@ -1,21 +1,30 @@
 import React, {Component, PropTypes} from 'react';
 
+import Error from './Error';
+
 class ErrorMessage extends Component {
     render() {
-        let c = 'bg-red pa2';
+        let c = '';
 
-        if (!this.props.error) {
-            c += ' dn';
+        if (!this.props.errors) {
+            return (
+                <div/>
+            );
         }
 
+        const keys = Object.keys(this.props.errors);
         return (
-            <div className={c}>{this.props.error}</div>
+            <div className={c}>
+                {keys.map(key =>
+                    <Error key={key} code={key} message={this.props.errors[key]}/>
+                )}
+            </div>
         );
     }
 }
 
 ErrorMessage.propTypes = {
-    error: PropTypes.string
+    errors: PropTypes.object
 };
 
 export default ErrorMessage;
