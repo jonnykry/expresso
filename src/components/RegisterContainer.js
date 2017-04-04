@@ -56,7 +56,8 @@ class RegisterContainer extends Component {
                         handleSubmit={this.registerBind}
                         error={this.state.error}
                         showLogin={true} 
-                        submitText={'Create Account'} />
+                        submitText={'Create Account'} 
+                        roaster={false} />
                 </article>
             </div>
         );
