@@ -1,4 +1,6 @@
 import React, {Component, PropTypes} from 'react';
+import {Link} from 'react-router';
+
 
 class Title extends Component {
     render() {
@@ -9,7 +11,9 @@ class Title extends Component {
         }
 
         return (
-            <object type="image/svg+xml" data={location} className="w-100 ma3"/>
+            <Link to="/" className="pointer tc f1 b i white no-underline">
+                <img alt="expresso header" src={location} className="w-100" />
+            </Link>
         );
     }
 }

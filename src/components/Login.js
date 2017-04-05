@@ -11,9 +11,7 @@ class Login extends Component {
         return (
             <div className="bg-blue h-100">
                 <article className="h-100 bg-blue pa4 mw4 mw6-ns center white">
-                    <Link to="/" className="pointer tc f1 b i white no-underline">
-                        <Title color="white"/>
-                    </Link>
+                    <Title color="white" className="mb3" />
                     <div className="f2 tc">Log in</div>
                     <form onSubmit={this.props.onHandleSubmit} className="w-100">
                         <input className={inputClass} ref={this.props.email} placeholder="E-mail" name="e-mail" id="e-mail"/>
