@@ -28,7 +28,7 @@ class SidebarContent extends Component {
                     <SidebarSelector name="Bloodlines" to={d + 'bloodlines'} location={b} icon={<FaEnvelopeO className="mr2 pb1" />}>
                         {bloodlines}
                     </SidebarSelector>
-                    <SidebarSelector name="Subscriptions" to={d+"subscriptions"} location={b} icon={<FaRssSquare className="mr2 pb1" />} />
+                    <SidebarSelector name="Subscriptions" to={d + 'subscriptions'} location={b} icon={<FaRssSquare className="mr2 pb1" />} />
                     <SidebarSelector name="Roaster" to={d + 'roaster'} location={b} icon={<FaShoppingBag className="mr2 pb1" />}>
                         {roaster}
                     </SidebarSelector>
@@ -36,7 +36,7 @@ class SidebarContent extends Component {
                 <div className="flex h4 justify-between ph3 pv4 bt ">
                      <Link to={'/'} className={bottomLinkClass}><div className={bottomTextClass}><FaHome className="pl2 pb1 white f3" /> Home</div></Link>
                      <Link to={d + 'settings'} className={bottomLinkClass}><div className={bottomTextClass}><TiUserOutline className="pl3 pb1 white f3" /> Account</div></Link>
-                     <Link to={'/logout'} className={bottomLinkClass}><div className={bottomTextClass}><FaSignOut className="pl3 pb1 white f3" /> Logout</div></Link>               
+                     <Link to={'/logout'} className={bottomLinkClass}><div className={bottomTextClass}><FaSignOut className="pl3 pb1 white f3" /> Logout</div></Link>
                 </div>
             </div>
         );
@@ -44,7 +44,8 @@ class SidebarContent extends Component {
 }
 
 SidebarContent.propTypes = {
-    location: PropTypes.string.isRequired
+    location: PropTypes.string.isRequired,
+    roaster: PropTypes.bool
 };
 
 export default SidebarContent;

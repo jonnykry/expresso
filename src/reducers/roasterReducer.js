@@ -3,7 +3,7 @@ import ActionTypes from '../actions/actionTypes';
 export function roaster(state = {
     isFetching: false,
     didAuthenticate: false,
-    roaster: null
+    roaster: {}
 }, action) {
     switch (action.type) {
         case ActionTypes.RECEIVE_ROASTER:
@@ -19,6 +19,6 @@ export function roaster(state = {
                 roaster: {}
             });
         default:
-            return state
+            return state;
     }
 }

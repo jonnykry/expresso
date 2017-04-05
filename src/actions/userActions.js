@@ -104,7 +104,7 @@ export function getUserInfo() {
 
 export function updateUserInfo(userInfo, userId) {
     return dispatch => {
-        return fetch(USER_URL + userId, ActionUtil.auth({
+        return fetch(USER_URL + '/' + userId, ActionUtil.auth({
             method: 'PUT',
             body: JSON.stringify(userInfo)
         })).then(response => {
