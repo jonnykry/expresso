@@ -20,8 +20,8 @@ class AccountInfo extends Component {
                     <legend className="center f2 pb4 blue fw1">{legendText}</legend>
                     {!isRoaster &&
                         <div className={formRowClass}>
-                            <input className={inputClass + ' w-40'} ref={this.props.firstName} placeholder="First Name" defaultValue={user === null ? "" : user.firstName} required/>
-                            <input className={inputClass + ' w-40'} ref={this.props.lastName} placeholder="Last Name" defaultValue={this.props.user.lastName} required/>
+                            <input className={inputClass + ' w-40'} ref={this.props.firstName} placeholder="First Name" defaultValue={user.firstName} required/>
+                            <input className={inputClass + ' w-40'} ref={this.props.lastName} placeholder="Last Name" defaultValue={user.lastName} required/>
                         </div>
                     }
                     {isRoaster &&
@@ -30,10 +30,10 @@ class AccountInfo extends Component {
                         </div>
                     }
                     <div className={formRowClass}>
-                        <input className={inputClass + ' w-100'} ref={this.props.phone} placeholder="Phone Number (##########)" defaultValue={user === null ? "" : user.phone} required/>
+                        <input className={inputClass + ' w-100'} ref={this.props.phone} placeholder="Phone Number (##########)" defaultValue={user.phone} required/>
                     </div>
                     <div className={formRowClass}>
-                        <input className={inputClass + ' w-100'} ref={this.props.email} placeholder="E-mail" defaultValue={user === null ? "" : user.email} required/>
+                        <input className={inputClass + ' w-100'} ref={this.props.email} placeholder="E-mail" defaultValue={user.email} required/>
                     </div>
                     {!isRoaster &&
                         <div>
@@ -46,17 +46,17 @@ class AccountInfo extends Component {
                         </div>
                     }
                     <div className={formRowClass}>
-                        <input className={inputClass + ' w-100'} ref={this.props.addressLine1} placeholder="Address Line 1" defaultValue={user === null ? "" : user.addressLine1} required/>
+                        <input className={inputClass + ' w-100'} ref={this.props.addressLine1} placeholder="Address Line 1" defaultValue={user.addressLine1} required/>
                     </div>
                     <div className={formRowClass}>
-                        <input className={inputClass + ' w-100'} ref={this.props.addressLine2} placeholder="Address Line 2 (Optional)" defaultValue={user === null ? "" : user.addressLine2}/>
+                        <input className={inputClass + ' w-100'} ref={this.props.addressLine2} placeholder="Address Line 2 (Optional)" defaultValue={user.addressLine2}/>
                     </div>
                     <div className={formRowClass}>
-                        <input className={inputClass + ' w-100'} ref={this.props.city} placeholder="City or Town" defaultValue={user === null ? "" : user.addressCity} required/>
-                        <input className={inputClass} ref={this.props.zipCode} placeholder="Zip Code" defaultValue={user === null ? "" : user.addressZip} required/>
+                        <input className={inputClass + ' w-100'} ref={this.props.city} placeholder="City or Town" defaultValue={user.addressCity} required/>
+                        <input className={inputClass} ref={this.props.zipCode} placeholder="Zip Code" defaultValue={user.addressZip} required/>
                     </div>
                     <div className={formRowClass}>
-                        <select className={inputClass + ' w-50 pointer'} ref={this.props.state} defaultValue={user === null ? "" : user.addressState} required>
+                        <select className={inputClass + ' w-50 pointer'} ref={this.props.state} defaultValue={user.addressState} required>
                             <option value="AL">Alabama</option>
                             <option value="AK">Alaska</option>
                             <option value="AZ">Arizona</option>
@@ -109,7 +109,7 @@ class AccountInfo extends Component {
                             <option value="WI">Wisconsin</option>
                             <option value="WY">Wyoming</option>
                         </select>
-                        <select className={inputClass + ' w-50 pointer'} ref={this.props.country} defaultValue={user === null ? "" : user.addressCountry} required>
+                        <select className={inputClass + ' w-50 pointer'} ref={this.props.country} defaultValue={user.addressCountry} required>
                             <option value="United States">United States</option>
                         </select>
                     </div>
@@ -124,12 +124,25 @@ class AccountInfo extends Component {
 }
 
 AccountInfo.propTypes = {
-    user: PropTypes.object,
+    user: PropTypes.object.isRequired,
     roaster: PropTypes.bool,
     legend: PropTypes.string.isRequired,
     submitText: PropTypes.string.isRequired,
     showLogin: PropTypes.bool,
-    handleSubmit: PropTypes.func.isRequired
+    handleSubmit: PropTypes.func.isRequired,
+    firstName: PropTypes.func,
+    lastName: PropTypes.func,
+    name: PropTypes.func,
+    country: PropTypes.func,
+    state: PropTypes.func,
+    city: PropTypes.func,
+    addressLine1: PropTypes.func,
+    addressLine2: PropTypes.func,
+    zipCode: PropTypes.func,
+    password: PropTypes.func,
+    confirmPassword: PropTypes.func,
+    phone: PropTypes.func,
+    email: PropTypes.func
 };
 
 export default AccountInfo;

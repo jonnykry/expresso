@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { createRoaster } from '../../../actions/roasterActions';
+import React, {Component, PropTypes} from 'react';
+import {connect} from 'react-redux';
+import {createRoaster} from '../../../actions/roasterActions';
 
 import AccountInfo from '../../AccountInfo';
 
@@ -8,32 +8,43 @@ class RoasterRegisterContainer extends Component {
     constructor(props) {
         super(props);
 
-        this.registerBind = this.handleSubmit.bind(this);
+        this.onHandleSubmitBind = this.onHandleSubmit.bind(this);
     }
-    handleSubmit(refs) {
-        const { router, dispatch } = this.props;
-        const { name, email, phone,
-            addressLine1, addressLine2,
-            city, state, zipCode, country } = refs;
+
+    componentWillReceiveProps() {
+        if (!this.props.roaster.success) {
+            return;
+        }
+
+        this.props.router.replace('/dashboard/roaster/account');
+    }
+
+    onHandleSubmit(e) {
+        e.preventDefault();
+        const {dispatch} = this.props;
 
         const data = {
             userId: this.props.user.id,
             roaster: {
-                name: name.value,
-                email: email.value,
-                phone: phone.value,
-                addressLine1: addressLine1.value,
-                addressLine2: addressLine2.value,
-                addressCity: city.value,
-                addressState: state.value,
-                addressZip: zipCode.value,
-                addressCountry: country.value
+                name: this.name.value,
+                email: this.email.value,
+                phone: this.phone.value,
+                addressLine1: this.addressLine1.value,
+                addressLine2: this.addressLine2.value,
+                addressCity: this.city.value,
+                addressState: this.state.value,
+                addressZip: this.zipCode.value,
+                addressCountry: this.country.value
             }
         };
 
         dispatch(createRoaster(data));
+    }
 
-        router.replace('/dashboard/roaster/account');
+    _addRef(name) {
+        return (i => {
+            this[name] = i;
+        });
     }
 
     render() {
@@ -41,19 +52,38 @@ class RoasterRegisterContainer extends Component {
             <div className="h-100 overflow-y-auto">
                 <main className="pa4 black-80">
                     <AccountInfo
-                        roaster={true}
-                        handleSubmit={this.registerBind}
+                        roaster
+                        user={this.props.roaster.roaster}
+                        handleSubmit={this.onHandleSubmitBind}
                         legend={'Register Roaster Account'}
-                        submitText={'Register Roaster'} />
+                        submitText={'Register Roaster'}
+                        name={this._addRef('name')}
+                        email={this._addRef('email')}
+                        phone={this._addRef('phone')}
+                        addressLine1={this._addRef('addressLine1')}
+                        addressLine2={this._addRef('addressLine2')}
+                        city={this._addRef('city')}
+                        state={this._addRef('state')}
+                        zipCode={this._addRef('zipCode')}
+                        country={this._addRef('country')}
+                        />
                 </main>
             </div>
         );
     }
 }
 
+RoasterRegisterContainer.propTypes = {
+    roaster: PropTypes.object.isRequired,
+    router: PropTypes.object.isRequired,
+    dispatch: PropTypes.func.isRequired,
+    user: PropTypes.object.isRequired
+};
+
 function mapStateToProps(state) {
     return {
         user: state.userReducer.user,
+        roaster: state.roaster,
         error: state.userReducer.error
     };
 }

@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
-import {Router, Route, IndexRedirect, IndexRoute, browserHistory} from 'react-router';
+import {Router, Route, Redirect, IndexRedirect, IndexRoute, browserHistory} from 'react-router';
 import App from './App';
 import About from './components/About';
+import NotFoundComponent from './components/NotFoundComponent';
 import LoginContainer from './components/LoginContainer';
 import Logout from './components/Logout';
 import RegisterContainer from './components/RegisterContainer';
@@ -61,6 +62,7 @@ ReactDOM.render(
                 <IndexRoute component={Home}/>
                 <Route path="about" component={About}/>
                 <Route path="logout" component={Logout}/>
+                <Route path="404" component={NotFoundComponent}/>
             </Route>
             <Route path="/register" component={RegisterContainer}/>
             <Route path="/login" component={LoginContainer}/>
@@ -75,9 +77,8 @@ ReactDOM.render(
                     <Route path="receipt" component={ReceiptContainer}/>
                     <Route path="preference"/>
                 </Route>
-                <Route path="roaster" onEnter={requireRoaster}>
-                    <IndexRedirect to="account"/>
-                    <Route path="account" component={RoasterAccount}/>
+                <Route path="roaster">
+                    <Route path="account" component={RoasterAccount} onEnter={requireRoaster}/>
                     <Route path="register" component={RoasterRegisterContainer}/>
                 </Route>
                 <Route path="subscriptions" component={SubscriptionContainer}>
@@ -89,6 +90,7 @@ ReactDOM.render(
                 <IndexRoute component={RequestResetContainer}/>
                 <Route path=":token" component={ResetContainer}/>
             </Route>
+            <Redirect from="*" to="/404"/>
         </Router>
     </Provider>,
     document.getElementById('root')

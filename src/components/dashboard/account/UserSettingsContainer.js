@@ -9,10 +9,6 @@ class UserSettingsContainer extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            error: null
-        };
-
         this.updateUserBind = this.onHandleSubmit.bind(this);
     }
 
@@ -41,7 +37,7 @@ class UserSettingsContainer extends Component {
             addressLine1: this.addressLine1.value,
             addressLine2: this.addressLine2.value,
             addressCity: this.city.value,
-            addressState: this.state.value,
+            addressState: this.stateCode.value,
             addressZip: this.zipCode.value,
             addressCountry: this.country.value,
             passHash: this.password.value
@@ -67,7 +63,7 @@ class UserSettingsContainer extends Component {
                     addressLine1={this._addRef('addressLine1')}
                     addressLine2={this._addRef('addressLine2')}
                     city={this._addRef('city')}
-                    state={this._addRef('state')}
+                    state={this._addRef('stateCode')}
                     zipCode={this._addRef('zipCode')}
                     country={this._addRef('country')}
                     />
