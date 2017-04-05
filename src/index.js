@@ -35,12 +35,23 @@ function loggedIn() {
 }
 
 function requireAuth(nextState, replace) {
-    if (!loggedIn()) {
-        replace({
-            pathname: '/login'
-        });
+    if (loggedIn()) {
         return;
     }
+
+    replace({
+        pathname: '/login'
+    });
+}
+
+function requireRoaster(nextState, replace) {
+    if (store.getState().roaster.roaster) {
+        return;
+    }
+
+    replace({
+        pathname: '/dashboard'
+    });
 }
 
 ReactDOM.render(
@@ -64,7 +75,7 @@ ReactDOM.render(
                     <Route path="receipt" component={ReceiptContainer}/>
                     <Route path="preference"/>
                 </Route>
-                <Route path="roaster">
+                <Route path="roaster" onEnter={requireRoaster}>
                     <IndexRedirect to="account"/>
                     <Route path="account" component={RoasterAccount}/>
                     <Route path="register" component={RoasterRegisterContainer}/>
