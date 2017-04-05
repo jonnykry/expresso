@@ -39,16 +39,15 @@ class LoginContainer extends Component {
     }
 
     componentWillReceiveProps() {
-        console.log(this.props.user);
         if (!this.props.user.success) {
             return;
         }
 
-        this.props.router.replace('/dashboard');
+        const pathname = this.props.location.state.nextPathname || '/dashboard';
+        this.props.router.replace(pathname);
     }
 
     render() {
-        console.log(this.props.errors);
         return (
             <div className="h-100">
                 <Login

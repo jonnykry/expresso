@@ -9,13 +9,11 @@ class RoasterSidebar extends Component {
         const d = '/dashboard/roaster/';
 
         // TODO:  This is where we need to do something different for roaster accounts
-        const content = !this.props.user.roasterId ?
-            <SidebarSelector subSelector name="Register a Roaster Account" to={d + 'register'} location={b}/> :
-                <SidebarSelector subSelector name="Roaster Account" to={d + 'account'} location={b}/>;
+        const content = <SidebarSelector subSelector name="Roaster Account" to={d + 'account'} location={b}/>;
 
         return (
             <div>
-                {content}
+                {this.props.user.roasterId && content}
             </div>
         );
     }

@@ -1,8 +1,9 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
-import {createRoaster} from '../../../actions/roasterActions';
+import {createRoaster} from '../actions/roasterActions';
 
-import AccountInfo from '../../AccountInfo';
+import AccountInfo from './AccountInfo';
+import ErrorMessage from './ErrorMessage';
 
 class RoasterRegisterContainer extends Component {
     constructor(props) {
@@ -49,8 +50,9 @@ class RoasterRegisterContainer extends Component {
 
     render() {
         return (
-            <div className="h-100 overflow-y-auto">
-                <main className="pa4 black-80">
+            <div className="h-100 overflow-y-auto bg-blue">
+                <main className="ph4 pv5 mw7 center black-80">
+                    <ErrorMessage errors={this.props.errors}/>
                     <AccountInfo
                         roaster
                         user={this.props.roaster.roaster}
@@ -75,6 +77,7 @@ class RoasterRegisterContainer extends Component {
 
 RoasterRegisterContainer.propTypes = {
     roaster: PropTypes.object.isRequired,
+    errors: PropTypes.object.isRequired,
     router: PropTypes.object.isRequired,
     dispatch: PropTypes.func.isRequired,
     user: PropTypes.object.isRequired
@@ -84,7 +87,7 @@ function mapStateToProps(state) {
     return {
         user: state.userReducer.user,
         roaster: state.roaster,
-        error: state.userReducer.error
+        errors: state.errors
     };
 }
 

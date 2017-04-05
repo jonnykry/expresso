@@ -17,7 +17,7 @@ import BeanItemDetails from './components/dashboard/browse/BeanItemDetails';
 import Bloodlines from './components/dashboard/bloodlines/Bloodlines';
 import AccountSettings from './components/dashboard/account/AccountSettings';
 import RoasterAccount from './components/dashboard/roaster/RoasterAccount';
-import RoasterRegisterContainer from './components/dashboard/roaster/RoasterRegisterContainer';
+import RoasterRegisterContainer from './components/RoasterRegisterContainer';
 import Subscribe from './components/dashboard/subscriptions/Subscribe';
 import MessageContentContainer from './components/dashboard/bloodlines/MessageContentContainer';
 import TriggerContainer from './components/dashboard/bloodlines/TriggerContainer';
@@ -41,7 +41,8 @@ function requireAuth(nextState, replace) {
     }
 
     replace({
-        pathname: '/login'
+        pathname: '/login',
+        state: {nextPathname: nextState.location.pathname}
     });
 }
 
@@ -64,7 +65,11 @@ ReactDOM.render(
                 <Route path="logout" component={Logout}/>
                 <Route path="404" component={NotFoundComponent}/>
             </Route>
-            <Route path="/register" component={RegisterContainer}/>
+            <Route path="/register">
+                <IndexRedirect to="user"/>
+                <Route path="user" component={RegisterContainer}/>
+                <Route path="roaster" component={RoasterRegisterContainer} onEnter={requireAuth}/>
+            </Route>
             <Route path="/login" component={LoginContainer}/>
             <Route path="/dashboard" component={DashboardContainer} onEnter={requireAuth}>
                 <IndexRedirect to="browse"/>
@@ -77,9 +82,8 @@ ReactDOM.render(
                     <Route path="receipt" component={ReceiptContainer}/>
                     <Route path="preference"/>
                 </Route>
-                <Route path="roaster">
-                    <Route path="account" component={RoasterAccount} onEnter={requireRoaster}/>
-                    <Route path="register" component={RoasterRegisterContainer}/>
+                <Route path="roaster" onEnter={requireRoaster}>
+                    <Route path="account" component={RoasterAccount}/>
                 </Route>
                 <Route path="subscriptions" component={SubscriptionContainer}>
                     <Route path="subscribe/:id" component={Subscribe}/>

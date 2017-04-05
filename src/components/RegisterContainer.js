@@ -16,8 +16,18 @@ class RegisterContainer extends Component {
         this.registerBind = this.handleSubmit.bind(this);
     }
 
+    componentWillReceiveProps() {
+        if (!this.props.user.success) {
+            return;
+        }
+
+        console.log(this.props.location.state);
+        const pathname = this.location.state.nextPathname || '/dashboard';
+        this.props.router.replace(pathname);
+    }
+
     handleSubmit(refs) {
-        const {router, dispatch} = this.props;
+        const {dispatch} = this.props;
         const {password, confirmPassword,
             firstName, lastName, email, phone,
             addressLine1, addressLine2,
@@ -44,9 +54,7 @@ class RegisterContainer extends Component {
             addressCountry: country.value
         };
 
-        dispatch(createUser(data)).then(() => {
-            router.replace('/dashboard');
-        });
+        dispatch(createUser(data));
     }
 
     render() {
@@ -56,6 +64,7 @@ class RegisterContainer extends Component {
                     <ErrorMessage errors={this.props.errors}/>
                     <AccountInfo
                         legend={'Sign up to Create an Account'}
+                        user={this.props.user}
                         handleSubmit={this.registerBind}
                         error={this.state.error}
                         submitText={'Create Account'}
@@ -69,6 +78,7 @@ class RegisterContainer extends Component {
 }
 
 RegisterContainer.propTypes = {
+    user: PropTypes.object.isRequired,
     errors: PropTypes.object
 };
 
