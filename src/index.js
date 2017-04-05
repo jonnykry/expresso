@@ -56,6 +56,19 @@ function requireRoaster(nextState, replace) {
     });
 }
 
+/**
+ * Used to prevent authenticated users from accessing `/login`.
+ */
+function requireNoAuth(nextState, replace) {
+    if (!loggedIn()) {
+        return;
+    }
+
+    replace({
+        pathname: '/dashboard'
+    });
+}
+
 ReactDOM.render(
     <Provider store={store}>
         <Router history={browserHistory}>
@@ -70,7 +83,7 @@ ReactDOM.render(
                 <Route path="user" component={RegisterContainer}/>
                 <Route path="roaster" component={RoasterRegisterContainer} onEnter={requireAuth}/>
             </Route>
-            <Route path="/login" component={LoginContainer}/>
+            <Route path="/login" component={LoginContainer} onEnter={requireNoAuth}/>
             <Route path="/dashboard" component={DashboardContainer} onEnter={requireAuth}>
                 <IndexRedirect to="browse"/>
                 <Route path="browse" component={BrowseBeansContainer}/>

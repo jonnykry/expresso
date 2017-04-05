@@ -11,6 +11,16 @@ class LoginContainer extends Component {
         this.handleSubmitBind = this.handleSubmit.bind(this);
     }
 
+    componentWillReceiveProps() {
+        if (!this.props.user.success) {
+            return;
+        }
+
+        console.log(this.props.location)
+        const pathname = this.props.location.state !== undefined ? this.props.location.state.nextPathname : '/dashboard';
+        this.props.router.replace(pathname);
+    }
+
     handleSubmit(event) {
         event.preventDefault();
 
@@ -27,24 +37,15 @@ class LoginContainer extends Component {
     }
 
     _email() {
-        return (i => {
-            this.email = i;
+        return (ref => {
+            this.email = ref;
         });
     }
 
     _password() {
-        return (i => {
-            this.password = i;
+        return (ref => {
+            this.password = ref;
         });
-    }
-
-    componentWillReceiveProps() {
-        if (!this.props.user.success) {
-            return;
-        }
-
-        const pathname = this.props.location.state.nextPathname || '/dashboard';
-        this.props.router.replace(pathname);
     }
 
     render() {
