@@ -74,7 +74,7 @@ class BrowseBeansContainer extends Component {
                         onSearchChange={this.search}
                         onOrderChange={this.order}
                         onClear={this.clear} reload={this.reload}
-                        value={this.state.searchTerm} />
+                        value={this.state.searchTerm}/>
                     <BeanItemList {...this.props.items}/>
                 </InfiniteList>
             </div>

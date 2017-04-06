@@ -23,6 +23,7 @@ class Navigation extends Component {
                 <div className="flex-grow pa3 pv4 flex items-center">
                     <Link to="/" className={linkClass} title="Home">Home</Link>
                     <Link to="/about" className={linkClass} title="About">About</Link>
+                    <Link to="/register/roaster" className={linkClass} title="">Roaster Account</Link>
                     {logInOrLogOut}
                     {dashOrRegister}
                 </div>

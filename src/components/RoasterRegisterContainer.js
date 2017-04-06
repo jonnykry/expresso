@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {createRoaster} from '../actions/roasterActions';
+import {getUserInfo} from '../actions/userActions';
 
 import AccountInfo from './AccountInfo';
 import ErrorMessage from './ErrorMessage';
@@ -10,6 +11,7 @@ class RoasterRegisterContainer extends Component {
         super(props);
 
         this.onHandleSubmitBind = this.onHandleSubmit.bind(this);
+        this.props.dispatch(getUserInfo());
     }
 
     componentWillReceiveProps() {
