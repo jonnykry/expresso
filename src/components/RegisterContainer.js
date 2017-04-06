@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {createUser, uploadProfilePicture} from '../actions/userActions';
+import ActionUtils from '../actions/actionUtil';
 
 import AccountInfo from './AccountInfo';
 import ErrorMessage from './ErrorMessage';
@@ -10,7 +11,6 @@ class RegisterContainer extends Component {
         super(props);
 
         this.state = {
-            error: null,
             profile: null
         };
 
@@ -20,45 +20,54 @@ class RegisterContainer extends Component {
 
     profileImageChanged(file) {
         this.setState({
-            error: this.state.error,
             profile: file
         });
     }
 
-    handleSubmit(refs) {
-        const {router, dispatch} = this.props;
-        const {password, confirmPassword,
-            firstName, lastName, email, phone,
-            addressLine1, addressLine2,
-            city, state, zipCode, country } = refs;
-
-        if (password.value !== confirmPassword.value) {
-            this.setState({
-                error: 'Passwords are not equal',
-                profile: this.state.profile
-            });
-        } else {
-            const data = {
-                firstName: firstName.value,
-                lastName: lastName.value,
-                email: email.value,
-                passHash: password.value,
-                phone: phone.value,
-                addressLine1: addressLine1.value,
-                addressLine2: addressLine2.value,
-                addressCity: city.value,
-                addressState: state.value,
-                addressZip: zipCode.value,
-                addressCountry: country.value,
-            };
-            
-            dispatch(createUser(data)).then(() => {
-                if(this.state.profile != null) {
-                    dispatch(uploadProfilePicture(this.state.profile, this.props.user.id));
-                }
-                router.replace('/dashboard');
-            });
+    componentWillReceiveProps() {
+        if (!this.props.success) {
+            return;
         }
+
+        this.props.router.replace('/dashboard');
+    }
+
+    handleSubmit(e) {
+        e.preventDefault();
+
+        const {dispatch} = this.props;
+
+        if (this.password.value !== '' && this.password.value !== this.confirmPassword.value) {
+            dispatch(ActionUtils.error('400', 'Passwords do not match.'));
+            return;
+        }
+
+        const data = {
+            firstName: this.firstName.value,
+            lastName: this.lastName.value,
+            phone: this.phone.value,
+            email: this.email.value,
+            addressLine1: this.addressLine1.value,
+            addressLine2: this.addressLine2.value,
+            addressCity: this.city.value,
+            addressState: this.stateCode.value,
+            addressZip: this.zipCode.value,
+            addressCountry: this.country.value,
+            passHash: this.password.value
+        };
+
+        dispatch(createUser(data)).then(() => {
+            if(this.state.profile != null) {
+                dispatch(uploadProfilePicture(this.state.profile, this.props.user.id));
+            }
+            router.replace('/dashboard');
+        });
+    }
+
+    _addRef(name) {
+        return (i => {
+            this[name] = i;
+        });
     }
 
     render() {
@@ -68,13 +77,23 @@ class RegisterContainer extends Component {
                     <ErrorMessage errors={this.props.errors}/>
                     <AccountInfo
                         legend={'Sign up to Create an Account'}
+                        user={this.props.user}
                         handleSubmit={this.registerBind}
-                        error={this.state.error}
-                        showLogin={true} 
+                        imageChange={this.profileChangeBind}
                         submitText={'Create Account'}
-                        imageChange={this.profileChangeBind} />
-                        submitText={'Create Account'}
-                        roaster={false}
+                        showLogin
+                        firstName={this._addRef('firstName')}
+                        lastName={this._addRef('lastName')}
+                        password={this._addRef('password')}
+                        confirmPassword={this._addRef('confirmPassword')}
+                        email={this._addRef('email')}
+                        phone={this._addRef('phone')}
+                        addressLine1={this._addRef('addressLine1')}
+                        addressLine2={this._addRef('addressLine2')}
+                        city={this._addRef('city')}
+                        state={this._addRef('stateCode')}
+                        zipCode={this._addRef('zipCode')}
+                        country={this._addRef('country')}
                         />
                 </article>
             </div>
@@ -83,6 +102,7 @@ class RegisterContainer extends Component {
 }
 
 RegisterContainer.propTypes = {
+    user: PropTypes.object.isRequired,
     errors: PropTypes.object
 };
 

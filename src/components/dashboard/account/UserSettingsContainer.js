@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { updateUserInfo, uploadProfilePicture } from '../../../actions/userActions'
+import {updateUserInfo, uploadProfilePicture} from '../../../actions/userActions'
+import React, {Component, PropTypes} from 'react';
+import {connect} from 'react-redux';
+import ActionUtils from '../../../actions/actionUtil';
 
 import AccountInfo from '../../AccountInfo';
 
@@ -9,7 +10,6 @@ class UserSettingsContainer extends Component {
         super(props);
 
         this.state = {
-            error: null,
             profile: null
         };
 
@@ -19,45 +19,44 @@ class UserSettingsContainer extends Component {
 
     profileImageChanged(file) {
         this.setState({
-            error: this.state.error,
             profile: file
         });
     }
 
+    _addRef(name) {
+        return (i => {
+            this[name] = i;
+        });
+    }
 
-    onHandleSubmit(refs) {
-        const { dispatch } = this.props;
-		const { firstName, lastName, phone, email, addressLine1, addressLine2, city, state, zipCode, country, password, confirmPassword } = refs;
+    onHandleSubmit(e) {
+        e.preventDefault();
+        const {dispatch} = this.props;
 
-        if(password.value !== '' && password.value !== confirmPassword.value) {
-            this.setState({
-                error: 'Passwords are not equal',
-                profile: this.state.profile
-            });
-        } else {
-            this.setState({
-                error: null,
-                profile: this.state.profile
-            });
-            const userInfo = {
-                id: this.props.user.id,
-          	    firstName: firstName.value,
-  			    lastName: lastName.value,
-  			    phone: phone.value,
-  			    email: email.value,
-  			    addressLine1: addressLine1.value,
-  			    addressLine2: addressLine2.value,
-  			    addressCity: city.value,
-  			    addressState: state.value,
-  			    addressZip: zipCode.value,
-  			    addressCountry: country.value,
-                passHash: password.value
-            };
+        if (this.password.value !== '' && this.password.value !== this.confirmPassword.value) {
+            dispatch(ActionUtils.error('400', 'Passwords do not match.'));
+            return;
+        }
 
-  		    dispatch(updateUserInfo(userInfo, this.props.user.id));
-            if(this.state.profile != null) {
-                dispatch(uploadProfilePicture(this.state.profile, this.props.user.id));
-            }
+        dispatch(ActionUtils.resolveError());
+        const userInfo = {
+            id: this.props.user.id,
+            firstName: this.firstName.value,
+            lastName: this.lastName.value,
+            phone: this.phone.value,
+            email: this.email.value,
+            addressLine1: this.addressLine1.value,
+            addressLine2: this.addressLine2.value,
+            addressCity: this.city.value,
+            addressState: this.stateCode.value,
+            addressZip: this.zipCode.value,
+            addressCountry: this.country.value,
+            passHash: this.password.value
+        };
+
+        dispatch(updateUserInfo(userInfo, this.props.user.id));
+        if(this.state.profile != null) {
+            dispatch(uploadProfilePicture(this.state.profile, this.props.user.id));
         }
     }
 
@@ -65,21 +64,38 @@ class UserSettingsContainer extends Component {
         return (
             <main className="pa4 black-80">
                 <AccountInfo
-                  legend={'Update User Account'}
-                  handleSubmit={this.updateUserBind}
-                  user={this.props.user}
-                  submitText={'Update Information'}
-                  imageChange={this.profileChangeBind} />
-                  roaster={false} />
+                    legend={'Update User Account'}
+                    handleSubmit={this.updateUserBind}
+                    user={this.props.user}
+                    submitText={'Update Information'}
+                    firstName={this._addRef('firstName')}
+                    lastName={this._addRef('lastName')}
+                    password={this._addRef('password')}
+                    confirmPassword={this._addRef('confirmPassword')}
+                    email={this._addRef('email')}
+                    phone={this._addRef('phone')}
+                    addressLine1={this._addRef('addressLine1')}
+                    addressLine2={this._addRef('addressLine2')}
+                    city={this._addRef('city')}
+                    state={this._addRef('stateCode')}
+                    zipCode={this._addRef('zipCode')}
+                    country={this._addRef('country')}
+                    imageChange={this.profileChangeBind}
+                    />
             </main>
         );
     }
 }
 
+UserSettingsContainer.propTypes = {
+    user: PropTypes.object.isRequired,
+    dispatch: PropTypes.func.isRequired
+};
+
 function mapStateToProps(state) {
-	return {
-        user: state.userReducer.user,
-	};
+    return {
+        user: state.userReducer.user
+    };
 }
 
 export default connect(mapStateToProps)(UserSettingsContainer);

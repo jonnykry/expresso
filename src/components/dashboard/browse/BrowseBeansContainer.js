@@ -68,13 +68,13 @@ class BrowseBeansContainer extends Component {
     render() {
         return (
             <div className="content h-100 min-h-100 relative overflow-y-auto">
-                <h1 className="tc f1 mt2 b">Browse Beans</h1>
-                <BrowseSearchBar selected={this.state.selected}
-                    onSearchChange={this.search} 
-                    onOrderChange={this.order} 
-                    onClear={this.clear} reload={this.reload}
-                    value={this.state.searchTerm} />
                 <InfiniteList update={this.update} {...this.props.items} >
+                    <h1 className="tc f1 mt2 b">Browse Beans</h1>
+                    <BrowseSearchBar selected={this.state.selected}
+                        onSearchChange={this.search}
+                        onOrderChange={this.order}
+                        onClear={this.clear} reload={this.reload}
+                        value={this.state.searchTerm}/>
                     <BeanItemList {...this.props.items}/>
                 </InfiniteList>
             </div>
