@@ -41,7 +41,7 @@ class SidebarContent extends Component {
                 </div>
                 <div className="flex h4 justify-between ph3 pv4 bt ">
                      {profileImage != null &&
-                        <img className="w-20" height="auto" src={profileImage} />
+                        <img src={profileImage} className="br-100 h3 w3 dib" alt="" />
                      }
                      <Link to={'/'} className={bottomLinkClass}><div className={bottomTextClass}><FaHome className="pl2 pb1 white f3" /> Home</div></Link>
                      <Link to={d + 'settings'} className={bottomLinkClass}><div className={bottomTextClass}><TiUserOutline className="pl3 pb1 white f3" /> Account</div></Link>
