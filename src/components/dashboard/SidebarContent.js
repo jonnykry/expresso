@@ -5,6 +5,7 @@ import BloodlinesSidebar from './BloodlinesSidebar';
 import RoasterSidebar from './RoasterSidebar';
 import TiUserOutline from 'react-icons/lib/ti/user-outline';
 import FaSearch from 'react-icons/lib/fa/search';
+import FaArchive from 'react-icons/lib/fa/archive';
 import FaEnvelopeO from 'react-icons/lib/fa/envelope-o';
 import FaRssSquare from 'react-icons/lib/fa/rss-square';
 import FaShoppingBag from 'react-icons/lib/fa/shopping-bag';
@@ -29,6 +30,7 @@ class SidebarContent extends Component {
                         {bloodlines}
                     </SidebarSelector>
                     <SidebarSelector name="Subscriptions" to={d+"subscriptions"} location={b} icon={<FaRssSquare className="mr2 pb1" />} />
+                    <SidebarSelector name="Inventory" to={d + 'inventory'} location={b} icon={<FaArchive className="mr2 pb1" />}/>
                     <SidebarSelector name="Roaster" to={d + 'roaster'} location={b} icon={<FaShoppingBag className="mr2 pb1" />}>
                         {roaster}
                     </SidebarSelector>

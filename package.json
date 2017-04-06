@@ -52,10 +52,14 @@
     "xo": "^0.17.1"
   },
   "dependencies": {
-    "react": "^15.4.1",
+    "fixed-data-table": "^0.6.3",
+    "react": "^15.4.2",
+    "react-addons-update": "^15.4.2",
+    "react-data-grid": "^2.0.24",
+    "react-data-grid-addons": "^2.0.24",
     "react-dom": "^15.4.1",
-    "react-infinite-scroller": "^1.0.7",
     "react-icons": "^2.2.3",
+    "react-infinite-scroller": "^1.0.7",
     "react-redux": "^5.0.2",
     "react-router": "^3.0.1",
     "react-sidebar": "^2.2.1",
