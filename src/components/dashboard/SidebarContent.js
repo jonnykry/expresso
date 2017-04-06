@@ -29,9 +29,9 @@ class SidebarContent extends Component {
                         {bloodlines}
                     </SidebarSelector>
                     <SidebarSelector name="Subscriptions" to={d + 'subscriptions'} location={b} icon={<FaRssSquare className="mr2 pb1" />} />
-                    <SidebarSelector name="Roaster" to={d + 'roaster'} location={b} icon={<FaShoppingBag className="mr2 pb1" />}>
+                    {this.props.roaster && <SidebarSelector name="Roaster" to={d + 'roaster'} location={b} icon={<FaShoppingBag className="mr2 pb1" />}>
                         {roaster}
-                    </SidebarSelector>
+                    </SidebarSelector>}
                 </div>
                 <div className="flex h4 justify-between ph3 pv4 bt ">
                      <Link to={'/'} className={bottomLinkClass}><div className={bottomTextClass}><FaHome className="pl2 pb1 white f3" /> Home</div></Link>

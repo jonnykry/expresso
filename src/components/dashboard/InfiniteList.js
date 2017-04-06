@@ -5,7 +5,6 @@ import Loading from './../Loading';
 
 class InfiniteList extends Component {
     render() {
-        console.log(this.props.children);
         return (
             <InfiniteScroll
                 pageStart={0}
