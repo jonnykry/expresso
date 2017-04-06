@@ -9,18 +9,12 @@ class UserSettingsContainer extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            profile: null
+        this.profileImage = {
+            src: null,
+            file: null
         };
 
         this.updateUserBind = this.onHandleSubmit.bind(this);
-        this.profileChangeBind = this.profileImageChanged.bind(this);
-    }
-
-    profileImageChanged(file) {
-        this.setState({
-            profile: file
-        });
     }
 
     _addRef(name) {
@@ -55,8 +49,8 @@ class UserSettingsContainer extends Component {
         };
 
         dispatch(updateUserInfo(userInfo, this.props.user.id));
-        if(this.state.profile != null) {
-            dispatch(uploadProfilePicture(this.state.profile, this.props.user.id));
+        if(this.profileImage.file != null) {
+            dispatch(uploadProfilePicture(this.profileImage.file, this.props.user.id));
         }
     }
 
@@ -80,7 +74,7 @@ class UserSettingsContainer extends Component {
                     state={this._addRef('stateCode')}
                     zipCode={this._addRef('zipCode')}
                     country={this._addRef('country')}
-                    imageChange={this.profileChangeBind}
+                    profileImage={this.profileImage}
                     />
             </main>
         );

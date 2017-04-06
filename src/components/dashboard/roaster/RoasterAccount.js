@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 
-import {updateRoaster} from '../../../actions/roasterActions';
+import {updateRoaster, uploadProfilePicture} from '../../../actions/roasterActions';
 import {getUserInfo} from '../../../actions/userActions';
 
 import AccountInfo from '../../AccountInfo';
@@ -9,6 +9,11 @@ import AccountInfo from '../../AccountInfo';
 class RoasterAccount extends Component {
     constructor(props) {
         super(props);
+
+        this.profileImage = {
+            src: null,
+            file: null
+        };
 
         this.onHandleSubmitBind = this.onHandleSubmit.bind(this);
     }
@@ -33,7 +38,11 @@ class RoasterAccount extends Component {
             addressCountry: this.country.value
         };
 
-        dispatch(updateRoaster(data, this.props.roaster.id));
+        dispatch(updateRoaster(data, this.props.roaster.id)).then(() => {
+            if(this.profileImage.file != null) {
+                dispatch(uploadProfilePicture(this.profileImage.file, this.props.roaster.id));
+            }
+        });
     }
 
     _addRef(name) {
@@ -50,6 +59,7 @@ class RoasterAccount extends Component {
                         roaster
                         user={this.props.roaster}
                         handleSubmit={this.onHandleSubmitBind}
+                        profileImage={this.profileImage}
                         legend={'Roaster Account'}
                         submitText={'Update Information'}
                         name={this._addRef('name')}

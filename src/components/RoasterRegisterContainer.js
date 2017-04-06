@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
-import {createRoaster} from '../actions/roasterActions';
+import {createRoaster, uploadProfilePicture} from '../actions/roasterActions';
 import {getUserInfo} from '../actions/userActions';
 
 import AccountInfo from './AccountInfo';
@@ -9,6 +9,11 @@ import ErrorMessage from './ErrorMessage';
 class RoasterRegisterContainer extends Component {
     constructor(props) {
         super(props);
+
+        this.profileImage = {
+            src: null,
+            file: null
+        };
 
         this.onHandleSubmitBind = this.onHandleSubmit.bind(this);
         this.props.dispatch(getUserInfo());
@@ -41,7 +46,11 @@ class RoasterRegisterContainer extends Component {
             }
         };
 
-        dispatch(createRoaster(data));
+        dispatch(createRoaster(data)).then(() => {
+            if(this.profileImage.file != null) {
+                dispatch(uploadProfilePicture(this.profileImage.file, this.props.roaster.id));
+            }
+        });
     }
 
     _addRef(name) {
@@ -70,6 +79,7 @@ class RoasterRegisterContainer extends Component {
                         state={this._addRef('state')}
                         zipCode={this._addRef('zipCode')}
                         country={this._addRef('country')}
+                        profileImage={this.profileImage}
                         />
                 </main>
             </div>

@@ -10,20 +10,14 @@ class RegisterContainer extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            profile: null
+        this.profileImage = {
+            src: null,
+            file: null
         };
-
+        
         this.registerBind = this.handleSubmit.bind(this);
-        this.profileChangeBind = this.profileImageChanged.bind(this);
     }
-
-    profileImageChanged(file) {
-        this.setState({
-            profile: file
-        });
-    }
-
+    
     componentWillReceiveProps() {
         if (!this.props.success) {
             return;
@@ -57,10 +51,10 @@ class RegisterContainer extends Component {
         };
 
         dispatch(createUser(data)).then(() => {
-            if(this.state.profile != null) {
-                dispatch(uploadProfilePicture(this.state.profile, this.props.user.id));
+            if(this.profileImage.file != null) {
+                dispatch(uploadProfilePicture(this.profileImage.file, this.props.user.id));
             }
-            router.replace('/dashboard');
+            this.props.router.replace('/dashboard');
         });
     }
 
@@ -79,7 +73,7 @@ class RegisterContainer extends Component {
                         legend={'Sign up to Create an Account'}
                         user={this.props.user}
                         handleSubmit={this.registerBind}
-                        imageChange={this.profileChangeBind}
+                        profileImage={this.profileImage}
                         submitText={'Create Account'}
                         showLogin
                         firstName={this._addRef('firstName')}
