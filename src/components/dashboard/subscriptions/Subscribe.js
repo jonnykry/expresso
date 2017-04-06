@@ -2,11 +2,22 @@ import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router';
 import {getItem} from '../../../actions/warehouseActions';
-import {subscribe} from '../../../actions/coinageActions';
+import {createSubscription} from '../../../actions/covenantActions';
 
 class Subscribe extends Component {
     componentDidMount() {
         this.update();
+    }
+    
+
+    subscribe(){
+        const dispatch = this.props;
+        const data = {
+            roasterId: this.props.bean.roasterId,
+            itemId: this.props.bean.id,
+            frequency: this.props.frequency // doesnt exist - get frequency from drop down?
+        }
+        dispatch(createSubscription(data))
     }
 
     update() {
@@ -14,20 +25,19 @@ class Subscribe extends Component {
         const {dispatch, params} = this.props;
 
         dispatch(getItem(params.id));
-        //Dispatch Coinage subscribe action.
-        dispatch(subscribe(this.props.user.id, this.props.params));
     }
 
     render() {
         console.log(this.props);
         const btnClass = 'pointer dim br1 ba bw1 ph4 pv2 black';
         let linkClass = 'no-underline black';
-        // TODO:  Set up subscribe page and a subscribe / go back button.
         return (
             <div className="content mw7 pa4">
                 <div>Are you sure you want to subscribe to {this.props.bean.name}?</div>
                 <div className="flex mt2">
-                <div className={btnClass}>Yes</div>
+                    <div className={btnClass} onClick={this.subscribe}> 
+                        Yes
+                    </div>
                     <Link to="/dashboard/browse" className={linkClass + ' mr2'}>
                         <div className={btnClass}>Go Back</div>
                     </Link>
@@ -44,7 +54,7 @@ Subscribe.propTypes = {
     fetching:  PropTypes.bool,
     error: PropTypes.string,
     user: PropTypes.object,
-    subscribe: PropTypes.object
+    subscribe: PropTypes.object,
 };
 
 function mapStateToProps(state) {
@@ -53,7 +63,7 @@ function mapStateToProps(state) {
         fetching: state.bean.fetching,
         error: state.bean.error,
         user: state.userReducer.user,
-        subscribe: state.coinageReducer
+        subscribe: state.covenantReducer
     };
 }
 

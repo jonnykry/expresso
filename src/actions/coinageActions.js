@@ -20,7 +20,3 @@ export function modifyPaymentInfo(data) {
     };
 
 }
-
-export function subscribe(id, body) {
-    return ActionUtil.handleRequest(COINAGE_URL + '/' + id + '/subscription', body)
-}
