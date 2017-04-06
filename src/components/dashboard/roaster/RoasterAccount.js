@@ -10,30 +10,36 @@ class RoasterAccount extends Component {
     constructor(props) {
         super(props);
 
-        this.updateBind = this.handleSubmit.bind(this);
+        this.onHandleSubmitBind = this.onHandleSubmit.bind(this);
     }
 
     componenetDidMount() {
         this.props.dispatch(getUserInfo());
     }
 
-    handleSubmit(refs) {
+    onHandleSubmit(e) {
+        e.preventDefault();
         const {dispatch} = this.props;
-        const {name, email, phone, addressLine1, addressLine2, city, state, zipCode, country} = refs;
 
         const data = {
-            name: name.value,
-            email: email.value,
-            phone: phone.value,
-            addressLine1: addressLine1.value,
-            addressLine2: addressLine2.value,
-            addressCity: city.value,
-            addressState: state.value,
-            addressZip: zipCode.value,
-            addressCountry: country.value
+            name: this.name.value,
+            email: this.email.value,
+            phone: this.phone.value,
+            addressLine1: this.addressLine1.value,
+            addressLine2: this.addressLine2.value,
+            addressCity: this.city.value,
+            addressState: this.state.value,
+            addressZip: this.zipCode.value,
+            addressCountry: this.country.value
         };
 
         dispatch(updateRoaster(data, this.props.roaster.id));
+    }
+
+    _addRef(name) {
+        return (i => {
+            this[name] = i;
+        });
     }
 
     render() {
@@ -43,9 +49,18 @@ class RoasterAccount extends Component {
                     <AccountInfo
                         roaster
                         user={this.props.roaster}
-                        handleSubmit={this.updateBind}
+                        handleSubmit={this.onHandleSubmitBind}
                         legend={'Roaster Account'}
                         submitText={'Update Information'}
+                        name={this._addRef('name')}
+                        email={this._addRef('email')}
+                        phone={this._addRef('phone')}
+                        addressLine1={this._addRef('addressLine1')}
+                        addressLine2={this._addRef('addressLine2')}
+                        city={this._addRef('city')}
+                        state={this._addRef('state')}
+                        zipCode={this._addRef('zipCode')}
+                        country={this._addRef('country')}
                         />
                 </main>
             </div>

@@ -34,6 +34,7 @@ export function createUser(userInfo) {
             if (!json.success) {
                 localStorage.removeItem('token');
                 dispatch(ActionUtil.error(500, json.message));
+                dispatch(errorUser());
                 return;
             }
 
@@ -104,7 +105,7 @@ export function getUserInfo() {
 
 export function updateUserInfo(userInfo, userId) {
     return dispatch => {
-        return fetch(USER_URL + userId, ActionUtil.auth({
+        return fetch(USER_URL + '/' + userId, ActionUtil.auth({
             method: 'PUT',
             body: JSON.stringify(userInfo)
         })).then(response => {
@@ -128,6 +129,12 @@ export function requestToken(email) {
 
 export function resetPassword(token, passHash) {
     return ActionUtil.handleRequest(RESET_URL + '/' + token, 'POST', {passHash});
+}
+
+function errorUser() {
+    return {
+        type: ActionTypes.ERROR_USER
+    };
 }
 
 function receiveUser(payload) {

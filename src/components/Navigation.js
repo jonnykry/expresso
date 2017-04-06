@@ -17,12 +17,11 @@ class Navigation extends Component {
 
         return (
             <nav className="flex justify-between bg-blue shadow-2">
-                    <Link to="/" className="link flex items-center" title="Home">
-                        <Title color="white"/>
-                    </Link>
+                <Title color="white"/>
                 <div className="flex-grow pa3 pv4 flex items-center">
                     <Link to="/" className={linkClass} title="Home">Home</Link>
                     <Link to="/about" className={linkClass} title="About">About</Link>
+                    <Link to="/register/roaster" className={linkClass} title="">Roaster Account</Link>
                     {logInOrLogOut}
                     {dashOrRegister}
                 </div>

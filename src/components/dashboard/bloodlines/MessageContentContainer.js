@@ -59,8 +59,7 @@ class MessageContentContainer extends Component {
 MessageContentContainer.propTypes = {
     modify: PropTypes.object,
     items: PropTypes.object,
-    dispatch: PropTypes.func,
-    error: PropTypes.string
+    dispatch: PropTypes.func
 };
 
 function mapStateToProps(state) {
