@@ -8,25 +8,23 @@ class AccountInfo extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            profileImage: null
-        };
+        if(this.props.user != null) {
+            this.props.profileImage.src = this.props.user.profileUrl;
+        }
 
         this.profileImageSelectedBind = this.profileImageSelected.bind(this);
 	}
 
-    profileImageSelected(filename) {
-        this.props.imageChange(filename);
-        var fileReader = new FileReader();
+    profileImageSelected(file) {
+        const fileReader = new FileReader();
 
-        var _this = this;
-        fileReader.onload = function(e) {
-            _this.setState({
-                profileImage: e.target.result
-            });
-        }
+        fileReader.onload = (e => {
+            this.props.profileImage.src = e.target.result;
+        });
 
-        fileReader.readAsDataURL(filename);
+        fileReader.readAsDataURL(file);
+
+        this.props.profileImage.file = file;
     }
 
 	render() {
@@ -144,7 +142,7 @@ class AccountInfo extends Component {
                             fileSelected={this.profileImageSelectedBind} />
                     </div>
                     <div className="mt3">
-                        <img  className="w-100" height="auto" alt="" src={this.state.profileImage} />
+                        <img  className="w-100" height="auto" alt="" src={this.props.profileImage.src} />
                     </div>
                     <div className="mt3">
                         <button className="f4 w-100 link pointer dim br1 ba bw1 pv3 mb2 white bg-green" type="submit">{submitText}</button>
@@ -163,7 +161,7 @@ AccountInfo.propTypes = {
     submitText: PropTypes.string.isRequired,
     showLogin: PropTypes.bool,
     handleSubmit: PropTypes.func.isRequired,
-    imageChange: PropTypes.func.isRequired,
+    profileImage: PropTypes.object.isRequired,
     firstName: PropTypes.func,
     lastName: PropTypes.func,
     name: PropTypes.func,
