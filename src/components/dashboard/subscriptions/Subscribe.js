@@ -16,6 +16,7 @@ class Subscribe extends Component {
             roasterId: this.props.bean.roasterId,
             itemId: this.props.bean.id,
             frequency: this.props.frequency // doesnt exist - get frequency from drop down?
+            // WEEKLY, BIWEEKLY, TRIWEEKLY, MONTHLY
         }
         dispatch(createSubscription(data))
     }

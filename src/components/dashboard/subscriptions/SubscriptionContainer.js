@@ -22,6 +22,7 @@ class SubscriptionContainer extends Component {
 
 	update(page) {
 		if (!this.loadMore) {
+			// TODO:  If this is a roaster, dispatch other action.
 			this.loadMore = ActionUtil.wrapPagedActionWithId(this.props.user.id, this.props.dispatch, getSubscriptionsByUser);
 		}
 
@@ -38,6 +39,7 @@ class SubscriptionContainer extends Component {
 	change(id) {
 		const {dispatch} = this.props;
 
+		// TODO:  update status to CANCELLED by user
 		dispatch(updateSubscription(id)).then(this.refresh.bind(this));
 	}
 
