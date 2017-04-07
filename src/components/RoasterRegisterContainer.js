@@ -98,7 +98,7 @@ RoasterRegisterContainer.propTypes = {
 function mapStateToProps(state) {
     return {
         user: state.userReducer.user,
-        roaster: state.roaster,
+        roaster: state.roaster.roaster,
         errors: state.errors
     };
 }
