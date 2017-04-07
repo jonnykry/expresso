@@ -68,6 +68,29 @@ export function getRoaster(id) {
     };
 }
 
+export function uploadProfilePicture(file, roasterId) {
+    var formData = new FormData();
+    formData.append("profile", file);
+
+    return dispatch => {
+        return fetch(ROASTER_URL + '/' + roasterId + '/photo', ActionUtil.auth({
+            method: 'POST',
+            body: formData
+        })).then(response => {
+            return response.json();
+        }).then(json => {
+            if(!json.success) {
+                dispatch(ActionUtil.error(500, json.message));
+                return;
+            }
+
+            dispatch(getRoaster(roasterId));
+        }).catch(err => {
+            dispatch(ActionUtil.error(500, err.message));
+        });
+    };
+}
+
 function receiveRoaster(payload) {
     return {
         type: ActionTypes.RECEIVE_ROASTER,

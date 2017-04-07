@@ -35,6 +35,9 @@ class SidebarContent extends Component {
                     </SidebarSelector>}
                 </div>
                 <div className="flex h4 justify-between ph3 pv4 bt ">
+                     {this.props.profileImage != null &&
+                        <img src={this.props.profileImage} className="br-100 h3 w3 dib" alt="" />
+                     }
                      <Link to={'/'} className={bottomLinkClass}><div className={bottomTextClass}><FaHome className="pl2 pb1 white f3" /> Home</div></Link>
                      <Link to={d + 'settings'} className={bottomLinkClass}><div className={bottomTextClass}><TiUserOutline className="pl3 pb1 white f3" /> Account</div></Link>
                      <Link to={'/logout'} className={bottomLinkClass}><div className={bottomTextClass}><FaSignOut className="pl3 pb1 white f3" /> Logout</div></Link>
@@ -46,6 +49,7 @@ class SidebarContent extends Component {
 
 SidebarContent.propTypes = {
     location: PropTypes.string.isRequired,
+    profileImage: PropTypes.string.isRequired,
     roaster: PropTypes.bool
 };
 
