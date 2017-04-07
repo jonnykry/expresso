@@ -50,7 +50,7 @@ class Inventory extends Component {
         },
         {
             key: 'isActive',
-            name: 'Is Active',
+            name: 'Available',
             editor: ActiveEditor
         },
         {
@@ -77,16 +77,11 @@ class Inventory extends Component {
         };
 
         this.handleAddToggleBind = this.handleAddToggle.bind(this);
-        this.handleAddRowBind = this.handleAddRow.bind(this);
     }
 
     rowGetter(i) {
         const key = this.props.ids[i];
         return this.props.items[key];
-    }
-
-    handleAddRow(e) {
-        e.preventDefault();
     }
 
     handleAddToggle(e) {
@@ -107,7 +102,7 @@ class Inventory extends Component {
     }
 
     render() {
-        const toggleClass = 'pt1 pointer tracked';
+        const toggleClass = 'pt2 pl2 pointer tracked';
 
         return (
             <div>
@@ -117,18 +112,18 @@ class Inventory extends Component {
                     rowGetter={this.rowGetter}
                     rowsCount={this.props.ids.length}
                     minHeight={500}
-                    onGridRowsUpdated={this.props.handleUpdateBeans}
+                    onGridRowsUpdated={this.props.onUpdateBeans}
                     />
                 {
                     !this.state.showAdd &&
-                        (<div className={toggleClass} onClick={this.handleAddToggle}>[+] Add Beans</div>)
+                        (<div className={toggleClass} onClick={this.handleAddToggleBind}>[+] Add Beans</div>)
                 }
                 {
                     this.state.showAdd &&
                     (
                         <div>
-                            <div className={toggleClass} onClick={this.handleAddToggle}>[-] Add Beans</div>
-                            <InventoryInput/>
+                            <div className={toggleClass} onClick={this.handleAddToggleBind}>[-] Add Beans</div>
+                            <InventoryInput onAddBeans={this.props.onAddBeans} {...this.props.input}/>
                         </div>
                     )
                 }
