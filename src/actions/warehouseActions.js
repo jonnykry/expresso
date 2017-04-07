@@ -2,7 +2,7 @@ import ActionTypes from './actionTypes';
 import ActionUtil from './actionUtil';
 import {getRoaster} from './roasterActions';
 
-const WAREHOUSE_URL = 'https://warehouse.expresso.store/api';// 'http://localhost:8083/api';
+const WAREHOUSE_URL = 'https://warehouse.expresso.store/api';
 const ITEMS_URL = WAREHOUSE_URL + '/item';
 
 function receiveItem(payload) {
