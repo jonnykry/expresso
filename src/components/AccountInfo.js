@@ -1,12 +1,41 @@
 import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router';
+import FileSelector from './FileSelector';
 
 import Title from './Title';
 
 class AccountInfo extends Component {
-    render() {
-        const inputClass = 'input-reset ba b--silver pa3 mv2 db br3 mh3';
-        const formRowClass = 'mt3 flex flex-row';
+    constructor(props) {
+        super(props);
+
+        if(this.props.user != null) {
+            this.props.profileImage.src = this.props.user.profileUrl;
+        }
+
+        this.profileImageSelectedBind = this.profileImageSelected.bind(this);
+	}
+
+    profileImageSelected(file) {
+        const fileReader = new FileReader();
+
+        fileReader.onload = (e => {
+            this.profile.src = e.target.result;
+        });
+
+        fileReader.readAsDataURL(file);
+
+        this.props.profileImage.file = file;
+    }
+
+    _addRef(name) {
+        return (i => {
+            this[name] = i;
+        });
+    }
+
+	render() {
+		const inputClass = 'input-reset ba b--silver pa3 mv2 db br3 mh3';
+		const formRowClass = "mt3 flex flex-row";
 
         const user = this.props.user;
         const isRoaster = this.props.roaster;
@@ -114,6 +143,14 @@ class AccountInfo extends Component {
                         </select>
                     </div>
                     <div className="mt3">
+                        <FileSelector 
+                            buttonText="Upload Profile Picture (Optional)"
+                            fileSelected={this.profileImageSelectedBind} />
+                    </div>
+                    <div className="mt3">
+                        <img  className="w-100" height="auto" alt="" ref={this._addRef('profile')} src={this.props.profileImage.src} />
+                    </div>
+                    <div className="mt3">
                         <button className="f4 w-100 link pointer dim br1 ba bw1 pv3 mb2 white bg-green" type="submit">{submitText}</button>
                         {showLogin && <div className="tc pv2">Already have an account? <Link to="/login" title="Login">Log In</Link>!</div>}
                     </div>
@@ -130,6 +167,7 @@ AccountInfo.propTypes = {
     submitText: PropTypes.string.isRequired,
     showLogin: PropTypes.bool,
     handleSubmit: PropTypes.func.isRequired,
+    profileImage: PropTypes.object.isRequired,
     firstName: PropTypes.func,
     lastName: PropTypes.func,
     name: PropTypes.func,

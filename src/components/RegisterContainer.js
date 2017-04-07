@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
-import {createUser} from '../actions/userActions';
+import {createUser, uploadProfilePicture} from '../actions/userActions';
 import ActionUtils from '../actions/actionUtil';
 
 import AccountInfo from './AccountInfo';
@@ -10,13 +10,14 @@ class RegisterContainer extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            error: null
+        this.profileImage = {
+            src: null,
+            file: null
         };
-
+        
         this.registerBind = this.handleSubmit.bind(this);
     }
-
+    
     componentWillReceiveProps() {
         if (!this.props.success) {
             return;
@@ -49,7 +50,12 @@ class RegisterContainer extends Component {
             passHash: this.password.value
         };
 
-        dispatch(createUser(data));
+        dispatch(createUser(data)).then(() => {
+            if(this.profileImage.file != null) {
+                dispatch(uploadProfilePicture(this.profileImage.file, this.props.user.id));
+            }
+            this.props.router.replace('/dashboard');
+        });
     }
 
     _addRef(name) {
@@ -67,6 +73,7 @@ class RegisterContainer extends Component {
                         legend={'Sign up to Create an Account'}
                         user={this.props.user}
                         handleSubmit={this.registerBind}
+                        profileImage={this.profileImage}
                         submitText={'Create Account'}
                         showLogin
                         firstName={this._addRef('firstName')}
