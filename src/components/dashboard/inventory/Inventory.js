@@ -1,12 +1,12 @@
 import React, {Component, PropTypes} from 'react';
 import ReactDataGrid from 'react-data-grid';
 import {update} from 'react-addons-update';
-import {Editors, Formatters} from 'react-data-grid-addons';
+import {Editors /* , Formatters */} from 'react-data-grid-addons';
 
 import InventoryInput from './InventoryInput';
 
-const {AutoComplete: AutoCompleteEditor, DropDownEditor} = Editors;
-const {DropDownFormatter} = Formatters;
+const {AutoComplete: AutoCompleteEditor /* , DropDownEditor */} = Editors;
+// const {DropDownFormatter} = Formatters;
 
 // options for priorities autocomplete editor
 const priorities = [{id: 0, title: 'Regular'}, {id: 1, title: 'Decaf'}];
@@ -77,6 +77,7 @@ class Inventory extends Component {
         };
 
         this.handleAddToggleBind = this.handleAddToggle.bind(this);
+        this.rowGetterBind = this.rowGetter.bind(this);
     }
 
     rowGetter(i) {
@@ -109,7 +110,7 @@ class Inventory extends Component {
                 <ReactDataGrid
                     enableCellSelect
                     columns={this._columns}
-                    rowGetter={this.rowGetter}
+                    rowGetter={this.rowGetterBind}
                     rowsCount={this.props.ids.length}
                     minHeight={500}
                     onGridRowsUpdated={this.props.onUpdateBeans}
@@ -123,7 +124,7 @@ class Inventory extends Component {
                     (
                         <div>
                             <div className={toggleClass} onClick={this.handleAddToggleBind}>[-] Add Beans</div>
-                            <InventoryInput onAddBeans={this.props.onAddBeans} {...this.props.input}/>
+                            <InventoryInput onAddBeans={this.props.onAddBeans} {...this.props.input} success={this.props.modify.success} fetching={this.props.modify.fetching}/>
                         </div>
                     )
                 }
@@ -133,8 +134,9 @@ class Inventory extends Component {
 }
 
 Inventory.propTypes = {
-    ids: PropTypes.array,
-    items: PropTypes.object
+    ids: PropTypes.array.isRequired,
+    items: PropTypes.object.isRequired,
+    modify: PropTypes.object.isRequired
 };
 
 export default Inventory;

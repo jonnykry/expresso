@@ -2,7 +2,7 @@ import ActionTypes from './actionTypes';
 import ActionUtil from './actionUtil';
 import {getRoaster} from './roasterActions';
 
-const WAREHOUSE_URL = 'https://warehouse.expresso.store/api';
+const WAREHOUSE_URL = 'http://localhost:8083/api';//'https://warehouse.expresso.store/api';
 const ITEMS_URL = WAREHOUSE_URL + '/item';
 
 function receiveItem(payload) {
@@ -17,6 +17,10 @@ export function getAllItems(offset, limit, searchTerm, orderName, orderCost) {
     const filterParams = `&q=${searchTerm || ''}&name=${orderName !== undefined ? orderName : ''}&cost=${orderCost !== undefined ? orderCost : ''}`;
 
     return ActionUtil.handlePagedRequest(ActionTypes.WAREHOUSE_ITEMS, ITEMS_URL, 'GET', offset, limit, shouldFilter ? filterParams : false);
+}
+
+export function addItem(data) {
+    return ActionUtil.handleRequest(ITEMS_URL, 'POST', data);
 }
 
 export function getItem(id) {
