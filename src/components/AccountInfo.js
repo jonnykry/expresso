@@ -180,7 +180,7 @@ AccountInfo.propTypes = {
     password: PropTypes.func,
     confirmPassword: PropTypes.func,
     phone: PropTypes.func,
-    email: PropTypes.func,
+    email: PropTypes.func
 };
 
 export default AccountInfo;
