@@ -28,7 +28,8 @@ class SidebarContent extends Component {
                     <SidebarSelector name="Bloodlines" to={d + 'bloodlines'} location={b} icon={<FaEnvelopeO className="mr2 pb1" />}>
                         {bloodlines}
                     </SidebarSelector>
-                    <SidebarSelector name="Subscriptions" to={d + 'subscriptions'} location={b} icon={<FaRssSquare className="mr2 pb1" />} />
+                    <SidebarSelector name="Subscriptions" to={d + 'subscriptions'} location={b} icon={<FaRssSquare className="mr2 pb1" />}/>
+
                     {this.props.roaster && <SidebarSelector name="Roaster" to={d + 'roaster'} location={b} icon={<FaShoppingBag className="mr2 pb1" />}>
                         {roaster}
                     </SidebarSelector>}

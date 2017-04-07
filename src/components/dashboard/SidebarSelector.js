@@ -20,7 +20,7 @@ class SidebarSelector extends Component {
 
     render() {
         let linkClass = 'no-underline white';
-        let btnClass = 'pointer f5 pa1 center w-100 link dim white b pl3 pv3';
+        let btnClass = 'pointer f5 pa1 center w-100 link dim white b pv3';
 
         const active = this.props.location.includes(this.props.to);
         const dropdown = this.hasChildren(active);
@@ -28,6 +28,8 @@ class SidebarSelector extends Component {
         if (this.props.subSelector) {
             btnClass += ' pl5';
             linkClass += ' white';
+        } else {
+            btnClass += ' pl3';
         }
 
         if (active) {

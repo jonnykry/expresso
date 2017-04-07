@@ -9,8 +9,7 @@ export function beans(state = ReducerUtil.getPagedState(), action) {
     return ReducerUtil.handlePagedAction(action, state);
 }
 
-
-export function bean(state ={
+export function bean(state = {
         fetching: false,
         item: {},
         error: null
