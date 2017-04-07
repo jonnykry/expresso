@@ -1,4 +1,5 @@
 import ActionTypes from '../actions/actionTypes';
+import ReducerUtil from './reducerUtil';
 
 export function roaster(state = {
     isFetching: false,
@@ -21,4 +22,12 @@ export function roaster(state = {
         default:
             return state;
     }
+}
+
+export function roasterItems(state = ReducerUtil.getPagedState(), action) {
+    if (action.itemType !== ActionTypes.ROASTER_ITEMS) {
+        return state;
+    }
+
+    return ReducerUtil.handlePagedAction(action, state);
 }

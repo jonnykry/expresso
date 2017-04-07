@@ -22,6 +22,7 @@ export default({
 
     /* Roaster */
     ROASTER: 'ROASTER',
+    ROASTER_ITEMS: 'ROASTER_ITEMS',
     RECEIVE_ROASTER: 'RECEIVE_ROASTER',
     ERROR_ROASTER: 'ERROR_ROASTER',
 

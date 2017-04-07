@@ -2,6 +2,7 @@ import ActionTypes from './actionTypes';
 import ActionUtil from './actionUtil';
 
 const ROASTER_URL = 'https://towncenter.expresso.store/api/roaster';
+const ROASTER_ITEMS_URL = 'https://warehouse.expresso.store/api/roaster/item';
 
 export function createRoaster(roasterInfo) {
     return dispatch => {
@@ -41,6 +42,11 @@ export function updateRoaster(roasterInfo, roasterId) {
             dispatch(ActionUtil.error(500, err));
         });
     };
+}
+
+export function getRoasterItems(id, offset, limit) {
+    const url = ROASTER_ITEMS_URL + '/' + id;
+    return ActionUtil.handlePagedRequest(ActionTypes.ROASTER_ITEMS, url, 'GET', offset, limit);
 }
 
 export function getRoaster(id) {
