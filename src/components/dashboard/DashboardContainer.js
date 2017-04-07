@@ -7,15 +7,13 @@ import Dashboard from './Dashboard';
 
 class DashboardContainer extends Component {
     componentDidMount() {
-        this.props.dispatch(getUserInfo());
-    }
-
-    componentWillReceiveProps() {
-        if (this.props.errors[401]) {
-            this.props.dispatch(ActionUtil.resolveError());
-            this.props.router.replace('/login');
-            return;
-        }
+        this.props.dispatch(getUserInfo()).then(() => {
+            if (this.props.errors[401]) {
+                this.props.router.replace('/login');
+                this.props.dispatch(ActionUtil.resolveError());
+                return;
+            }
+        });
     }
 
     render() {
