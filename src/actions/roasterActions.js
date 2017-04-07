@@ -2,7 +2,7 @@ import ActionTypes from './actionTypes';
 import ActionUtil from './actionUtil';
 
 const ROASTER_URL = 'https://towncenter.expresso.store/api/roaster';
-const ROASTER_ITEMS_URL = 'https://warehouse.expresso.store/api/roaster/item'; // 'http://localhost:8083/api/roaster/item';
+const ROASTER_ITEMS_URL = 'https://warehouse.expresso.store/api/roaster/item';
 
 export function createRoaster(roasterInfo) {
     return dispatch => {
