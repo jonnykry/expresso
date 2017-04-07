@@ -8,7 +8,7 @@ import './Dashboard.css';
 class Dashboard extends Component {
 
     render() {
-        let sidebar = <SidebarContent roaster={this.props.user.roasterId !== ''} location={this.props.location.pathname}/>;
+        let sidebar = <SidebarContent roaster={this.props.user.roasterId !== ''} profileImage={this.props.user.profileUrl} location={this.props.location.pathname}/>;
 
         return (
             <div className="w-100 min-h-100 h-100 absolute dib">
