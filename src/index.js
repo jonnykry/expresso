@@ -1,5 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import ReactDataGrid from 'react-data-grid';
+import ReactDataGridPlugins from 'react-data-grid-addons';
 import {Provider} from 'react-redux';
 import {Router, Route, Redirect, IndexRedirect, IndexRoute, browserHistory} from 'react-router';
 import App from './App';
@@ -13,6 +15,8 @@ import RequestResetContainer from './components/RequestResetContainer';
 import DashboardContainer from './components/dashboard/DashboardContainer';
 import Home from './components/Home';
 import BrowseBeansContainer from './components/dashboard/browse/BrowseBeansContainer';
+import InventoryContainer from './components/dashboard/inventory/InventoryContainer';
+import Roaster from './components/dashboard/roaster/Roaster';
 import BeanItemDetails from './components/dashboard/browse/BeanItemDetails';
 import Bloodlines from './components/dashboard/bloodlines/Bloodlines';
 import AccountSettings from './components/dashboard/account/AccountSettings';
@@ -25,6 +29,7 @@ import ReceiptContainer from './components/dashboard/bloodlines/ReceiptContainer
 import SubscriptionContainer from './components/dashboard/subscriptions/SubscriptionContainer';
 
 import configureStore from './store/configureStore';
+//import update from 'react-addons-update'; // ES6
 
 import 'tachyons/css/tachyons.css';
 import './index.css';
@@ -95,7 +100,9 @@ ReactDOM.render(
                     <Route path="receipt" component={ReceiptContainer}/>
                     <Route path="preference"/>
                 </Route>
-                <Route path="roaster" onEnter={requireRoaster}>
+                <Route path="roaster" component={Roaster} onEnter={requireRoaster}>
+                    <IndexRedirect to="inventory"/>
+                    <Route path="inventory" component={InventoryContainer}/>
                     <Route path="account" component={RoasterAccount}/>
                 </Route>
                 <Route path="subscriptions" component={SubscriptionContainer}>

@@ -19,6 +19,10 @@ export function getAllItems(offset, limit, searchTerm, orderName, orderCost) {
     return ActionUtil.handlePagedRequest(ActionTypes.WAREHOUSE_ITEMS, ITEMS_URL, 'GET', offset, limit, shouldFilter ? filterParams : false);
 }
 
+export function addItem(data) {
+    return ActionUtil.handleRequest(ITEMS_URL, 'POST', data);
+}
+
 export function getItem(id) {
     return dispatch => {
         return fetch(ITEMS_URL + '/' + id, ActionUtil.auth({
