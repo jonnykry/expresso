@@ -123,6 +123,29 @@ export function updateUserInfo(userInfo, userId) {
     };
 }
 
+export function uploadProfilePicture(file, userId) {
+    var formData = new FormData();
+    formData.append("profile", file);
+
+    return dispatch => {
+        return fetch(USER_URL + '/' + userId + '/photo', ActionUtil.auth({
+            method: 'POST',
+            body: formData
+        })).then(response => {
+            return response.json();
+        }).then(json => {
+            if(!json.success) {
+                dispatch(ActionUtil.error(500, json.message));
+                return;
+            }
+
+            dispatch(getUserInfo());
+        }).catch(err => {
+            dispatch(ActionUtil.error(500, err.message));
+        });
+    };
+}
+
 export function requestToken(email) {
     return ActionUtil.handleRequest(RESET_URL + '?email=' + email, 'POST', {});
 }

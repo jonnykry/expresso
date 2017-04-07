@@ -51,7 +51,6 @@ class SubscriptionContainer extends Component {
 	}
 
 	render () {
-		console.log(this.props);
 		return (
 			<div className="content h-100 min-h-100 relative overflow-y-auto pt4">
 				<InfiniteList ready={this.props.user.id !== undefined} update={this.updateBind} {...this.props.items}>

@@ -2,6 +2,7 @@ import ActionTypes from './actionTypes';
 import ActionUtil from './actionUtil';
 
 const ROASTER_URL = 'https://towncenter.expresso.store/api/roaster';
+const ROASTER_ITEMS_URL = 'https://warehouse.expresso.store/api/roaster/item';
 
 export function createRoaster(roasterInfo) {
     return dispatch => {
@@ -43,6 +44,11 @@ export function updateRoaster(roasterInfo, roasterId) {
     };
 }
 
+export function getRoasterItems(id, offset, limit) {
+    const url = ROASTER_ITEMS_URL + '/' + id;
+    return ActionUtil.handlePagedRequest(ActionTypes.ROASTER_ITEMS, url, 'GET', offset, limit);
+}
+
 export function getRoaster(id) {
     return dispatch => {
         return fetch(ROASTER_URL + '/' + id, ActionUtil.auth({
@@ -58,6 +64,29 @@ export function getRoaster(id) {
             dispatch(receiveRoaster(json));
         }).catch(err => {
             dispatch(ActionUtil.error(500, err));
+        });
+    };
+}
+
+export function uploadProfilePicture(file, roasterId) {
+    var formData = new FormData();
+    formData.append("profile", file);
+
+    return dispatch => {
+        return fetch(ROASTER_URL + '/' + roasterId + '/photo', ActionUtil.auth({
+            method: 'POST',
+            body: formData
+        })).then(response => {
+            return response.json();
+        }).then(json => {
+            if(!json.success) {
+                dispatch(ActionUtil.error(500, json.message));
+                return;
+            }
+
+            dispatch(getRoaster(roasterId));
+        }).catch(err => {
+            dispatch(ActionUtil.error(500, err.message));
         });
     };
 }

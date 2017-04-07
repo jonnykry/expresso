@@ -1,6 +1,6 @@
+import {updateUserInfo, uploadProfilePicture} from '../../../actions/userActions'
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
-import {updateUserInfo} from '../../../actions/userActions';
 import ActionUtils from '../../../actions/actionUtil';
 
 import AccountInfo from '../../AccountInfo';
@@ -8,6 +8,11 @@ import AccountInfo from '../../AccountInfo';
 class UserSettingsContainer extends Component {
     constructor(props) {
         super(props);
+
+        this.profileImage = {
+            src: null,
+            file: null
+        };
 
         this.updateUserBind = this.onHandleSubmit.bind(this);
     }
@@ -44,6 +49,9 @@ class UserSettingsContainer extends Component {
         };
 
         dispatch(updateUserInfo(userInfo, this.props.user.id));
+        if(this.profileImage.file != null) {
+            dispatch(uploadProfilePicture(this.profileImage.file, this.props.user.id));
+        }
     }
 
     render() {
@@ -66,6 +74,7 @@ class UserSettingsContainer extends Component {
                     state={this._addRef('stateCode')}
                     zipCode={this._addRef('zipCode')}
                     country={this._addRef('country')}
+                    profileImage={this.profileImage}
                     />
             </main>
         );
