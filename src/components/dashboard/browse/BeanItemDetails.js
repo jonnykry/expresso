@@ -31,9 +31,15 @@ class BeanItemDetails extends Component {
                 <div className="mw7 center pa4">
                     <h1 className="tc"> Details For {this.props.bean.name}</h1>
                     <img alt="Beans" src={this.props.bean.pictureURL || 'https://i.imgur.com/uSUY2O8.jpg'} />
-                    <div>Item ID: {this.props.bean.id}</div>
-                    <div>Price: {this.props.bean.consumerPrice}</div>
-                    <div>In Stock: {this.props.bean.inStockBags}</div>
+                    <div>Price: ${this.props.bean.consumerPrice}</div>
+                    <div>There are {this.props.bean.inStockBags} bags in stock</div>
+                    <div>{this.props.bean.ozInBag} oz in each bag</div>
+                    {this.props.bean.isDecaf && 
+                        <div>Decaf</div>
+                    }
+                    {this.props.bean.description != '' &&
+                        <div>{this.props.bean.description}</div>
+                    }
                     <h1> Roaster Details </h1>
                     <div>Name: {this.props.roaster.name}</div>
                     <div>Location: {this.props.roaster.addressLine1} - {(this.props.roaster.addressLine2 + ' ' || '') + this.props.roaster.addressState} 
