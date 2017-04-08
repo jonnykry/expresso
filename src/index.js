@@ -1,7 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ReactDataGrid from 'react-data-grid';
-import ReactDataGridPlugins from 'react-data-grid-addons';
 import {Provider} from 'react-redux';
 import {Router, Route, Redirect, IndexRedirect, IndexRoute, browserHistory} from 'react-router';
 import App from './App';
