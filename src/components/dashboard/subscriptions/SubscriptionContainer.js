@@ -21,7 +21,6 @@ class SubscriptionContainer extends Component {
 
 	update(page) {
 		if (!this.loadMore) {
-			// TODO:  If this is a roaster, dispatch other action.
 			this.loadMore = ActionUtil.wrapPagedActionWithId(this.props.user.id, this.props.dispatch, getSubscriptionsByUser);
 		}
 
