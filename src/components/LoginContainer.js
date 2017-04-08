@@ -33,14 +33,14 @@ class LoginContainer extends Component {
     }
 
     _email() {
-        return (ref => {
-            this.email = ref;
+        return (i => {
+            this.email = i;
         });
     }
 
     _password() {
-        return (ref => {
-            this.password = ref;
+        return (i => {
+            this.password = i;
         });
     }
 
@@ -51,8 +51,7 @@ class LoginContainer extends Component {
                     onHandleSubmit={this.handleSubmitBind}
                     email={this._email()}
                     password={this._password()}
-                    errors={this.props.errors}
-                    />
+                    errors={this.props.errors} />
             </div>
         );
     }
