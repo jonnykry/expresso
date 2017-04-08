@@ -14,16 +14,8 @@ class RegisterContainer extends Component {
             src: null,
             file: null
         };
-        
-        this.registerBind = this.handleSubmit.bind(this);
-    }
-    
-    componentWillReceiveProps() {
-        if (!this.props.success) {
-            return;
-        }
 
-        this.props.router.replace('/dashboard');
+        this.registerBind = this.handleSubmit.bind(this);
     }
 
     handleSubmit(e) {
@@ -51,10 +43,14 @@ class RegisterContainer extends Component {
         };
 
         dispatch(createUser(data)).then(() => {
-            if(this.profileImage.file != null) {
-                dispatch(uploadProfilePicture(this.profileImage.file, this.props.user.id));
+            if (this.profileImage.file === null) {
+                this.props.router.replace('/dashboard');
+                return;
             }
-            this.props.router.replace('/dashboard');
+
+            dispatch(uploadProfilePicture(this.profileImage.file, this.props.user.id)).then(() => {
+                this.props.router.replace('/dashboard');
+            });
         });
     }
 
