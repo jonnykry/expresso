@@ -17,14 +17,6 @@ class RegisterContainer extends Component {
         
         this.registerBind = this.handleSubmit.bind(this);
     }
-    
-    componentWillReceiveProps() {
-        if (!this.props.success) {
-            return;
-        }
-
-        this.props.router.replace('/dashboard');
-    }
 
     handleSubmit(e) {
         e.preventDefault();
