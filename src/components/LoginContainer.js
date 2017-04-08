@@ -11,16 +11,6 @@ class LoginContainer extends Component {
         this.handleSubmitBind = this.handleSubmit.bind(this);
     }
 
-    componentWillReceiveProps() {
-        if (!this.props.user.success) {
-            return;
-        }
-
-        console.log(this.props.location)
-        const pathname = this.props.location.state !== undefined ? this.props.location.state.nextPathname : '/dashboard';
-        this.props.router.replace(pathname);
-    }
-
     handleSubmit(event) {
         event.preventDefault();
 
@@ -33,7 +23,13 @@ class LoginContainer extends Component {
             email, passHash
         };
 
-        dispatch(authenticateUser(data));
+        dispatch(authenticateUser(data)).then(() => {
+            let pathname = '/dashboard';
+            if (this.props.location.state) {
+                pathname = this.props.location.state.nextPathname;
+            }
+            this.props.router.replace(pathname);
+        });
     }
 
     _email() {

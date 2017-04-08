@@ -5,6 +5,8 @@ import ReactDataGridPlugins from 'react-data-grid-addons';
 import {Provider} from 'react-redux';
 import {Router, Route, Redirect, IndexRedirect, IndexRoute, browserHistory} from 'react-router';
 import App from './App';
+import {getUserInfo} from './actions/userActions';
+import ActionUtil from './actions/actionUtil';
 import About from './components/About';
 import NotFoundComponent from './components/NotFoundComponent';
 import LoginContainer from './components/LoginContainer';
@@ -36,18 +38,32 @@ import './index.css';
 
 const store = configureStore();
 
-function loggedIn() {
-    return localStorage.getItem('token') !== null;
+function loggedIn(cb) {
+    const token = localStorage.getItem('token');
+    return new Promise(resolve => {
+        if (token === null) {
+            resolve(false);
+            return;
+        }
+
+        store.dispatch(getUserInfo()).then(() => {
+            resolve(store.getState().userReducer.success);
+        });
+    });
 }
 
-function requireAuth(nextState, replace) {
-    if (loggedIn()) {
-        return;
-    }
-
-    replace({
-        pathname: '/login',
-        state: {nextPathname: nextState.location.pathname}
+function requireAuth(nextState, replace, callback) {
+    loggedIn().then(success => {
+        if (success) {
+            callback();
+            return;
+        }
+        store.dispatch(ActionUtil.resolveError());
+        replace({
+            pathname: '/login',
+            state: {nextPathname: nextState.location.pathname}
+        });
+        callback();
     });
 }
 
@@ -64,13 +80,18 @@ function requireRoaster(nextState, replace) {
 /**
  * Used to prevent authenticated users from accessing `/login`.
  */
-function requireNoAuth(nextState, replace) {
-    if (!loggedIn()) {
-        return;
-    }
+function requireNoAuth(nextState, replace, callback) {
+    loggedIn().then(success => {
+        if (!success) {
+            store.dispatch(ActionUtil.resolveError());
+            callback();
+            return;
+        }
 
-    replace({
-        pathname: '/dashboard'
+        replace({
+            pathname: '/dashboard'
+        });
+        callback();
     });
 }
 
