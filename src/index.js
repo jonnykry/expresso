@@ -40,27 +40,30 @@ const store = configureStore();
 
 function loggedIn(cb) {
     const token = localStorage.getItem('token');
-    if (token === null) {
-        cb(false);
-        return;
-    }
-
-    store.dispatch(getUserInfo()).then(() => {
-        store.dispatch(ActionUtil.resolveError());
-        cb(store.getState().userReducer.success);
-    });
-}
-
-function requireAuth(nextState, replace) {
-    loggedIn(success => {
-        if (success) {
+    return new Promise(resolve => {
+        if (token === null) {
+            resolve(false);
             return;
         }
 
+        store.dispatch(getUserInfo()).then(() => {
+            resolve(store.getState().userReducer.success);
+        });
+    });
+}
+
+function requireAuth(nextState, replace, callback) {
+    loggedIn().then(success => {
+        if (success) {
+            callback();
+            return;
+        }
+        store.dispatch(ActionUtil.resolveError());
         replace({
             pathname: '/login',
             state: {nextPathname: nextState.location.pathname}
         });
+        callback();
     });
 }
 
@@ -77,15 +80,18 @@ function requireRoaster(nextState, replace) {
 /**
  * Used to prevent authenticated users from accessing `/login`.
  */
-function requireNoAuth(nextState, replace) {
-    loggedIn(success => {
+function requireNoAuth(nextState, replace, callback) {
+    loggedIn().then(success => {
         if (!success) {
+            store.dispatch(ActionUtil.resolveError());
+            callback();
             return;
         }
 
         replace({
             pathname: '/dashboard'
         });
+        callback();
     });
 }
 
