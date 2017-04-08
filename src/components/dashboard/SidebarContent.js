@@ -13,7 +13,7 @@ import FaSignOut from 'react-icons/lib/fa/sign-out';
 
 class SidebarContent extends Component {
     render() {
-        const bottomTextClass = "b dim pt3 white";
+        const bottomTextClass = "b dim white";
         const bottomLinkClass = "no-underline ph2";
 
         const bloodlines = <BloodlinesSidebar location={this.props.location}/>;
@@ -34,16 +34,17 @@ class SidebarContent extends Component {
                         {roaster}
                     </SidebarSelector>}
                 </div>
-                <div className="flex h4 justify-between ph3 pv4 bt ">
+                <div className="flex h4 justify-between ph3 pv4 bt">
                      <Link to={'/'} className={bottomLinkClass}><div className={bottomTextClass}><FaHome className="pl2 pb1 white f3" /> Home</div></Link>
-                     <Link to={d + 'settings'} className={bottomLinkClass}>
+                     <Link to={d + 'settings'} className={bottomLinkClass}><div className={bottomTextClass}>
                          {this.props.profileImage &&
-                            <div className={bottomTextClass}><img src={this.props.profileImage} className="br4 pb1 w3 h3 dib" alt="Account" /></div>
+                            <div className="ph2 pb1"><img src={this.props.profileImage} className="br4 ba bw2 w2 h2 dib" alt="Account" /></div>
                          }
                          {this.props.profileImage === undefined &&
-                            <div className={bottomTextClass}><TiUserOutline className="pl3 pb1 white f3" /> Account</div>
+                            <TiUserOutline className="pl3 pb1 white f3" />
                          }
-                     </Link>
+                          Account
+                     </div></Link>
                      <Link to={'/logout'} className={bottomLinkClass}><div className={bottomTextClass}><FaSignOut className="pl3 pb1 white f3" /> Logout</div></Link>
                 </div>
             </div>
