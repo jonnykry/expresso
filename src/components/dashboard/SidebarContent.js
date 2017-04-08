@@ -49,7 +49,7 @@ class SidebarContent extends Component {
 
 SidebarContent.propTypes = {
     location: PropTypes.string.isRequired,
-    profileImage: PropTypes.string.isRequired,
+    profileImage: PropTypes.string,
     roaster: PropTypes.bool
 };
 
