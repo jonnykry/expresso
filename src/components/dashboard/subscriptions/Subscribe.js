@@ -6,31 +6,36 @@ class Subscribe extends Component {
         const inputClass = 'input-reset ba b--silver pa3 mv2 db br3 mh3';
         const btnClass = 'pointer dim br1 ba bw1 ph4 pv3 black mr3 b';
         const linkClass = 'no-underline black';
+        const rowClass = 'mv3';
 
+        console.log(this.props.bean);
         return (
             <div className="content">
-                <div className="flex center mw7 pa4">
-                    <div className="center">
-                        <h1 className="tc pb3"> Subscribe to "{this.props.bean.name}"</h1>
-                        <div className="mv3 flex">
-                            <p className="pv2">Quantity (Max 10): </p><input className={inputClass + ' w2'} ref={this.props.quantityRef} onChange={this.props.handleQuantity} defaultValue={1}/>
-                            <p className="pv2">Frequency: </p><select className={inputClass + ' pointer'} onChange={this.props.handleFrequency}>
-                                <option value="MONTHLY">Monthly</option>
-                                <option value="TRIWEEKLY">Triweekly</option>
-                                <option value="BIWEEKLY">Biweekly</option>
-                                <option value="WEEKLY">Weekly</option>
-                            </select>
-                        </div>
-                        <div className="mv3 f3">Price per Bean Item: {'$' + (this.props.bean.consumerPrice || 0).toFixed(2)}</div>
-                        <div className="mv3 f3">Total Price: <strong>{'$' + (this.props.bean.consumerPrice * (this.props.quantity || 1)).toFixed(2)}
-                            {' ' + (this.props.frequency.charAt(0) + this.props.frequency.substr(1).toLowerCase()) || 'Monthly'}</strong></div>
-                        <div className="mv4 flex">
-                            <Link to="/dashboard/browse" className={linkClass + ' mr2'}>
-                                <div className={btnClass}>Go Back</div>
-                            </Link>
-                            <div className={btnClass} onClick={this.props.handleSubscribe}> 
-                                Subscribe
-                            </div>
+                <div className="center mw7 pa3 w-100">
+                    <h1 className="tc pb3"> Subscribe to "{this.props.bean.name}"</h1>
+                    <div className="tc pa3"><img alt="Beans" src={this.props.bean.pictureURL || 'https://i.imgur.com/uSUY2O8.jpg'} width="75%" height="75%" /></div>
+                    <div className={rowClass + ' f3'}><strong>Coffee type:</strong> {this.props.bean.coffeeType}</div>
+                    {this.props.bean.isDecaf ? <div className="mv3 f4">Note:  this is a decaf coffee bean.</div> : ''}
+                    <div className={rowClass + ' f3'}><strong>Bag size:</strong> {this.props.bean.ozInBag} oz.</div>
+                    <div className={rowClass + ' f3'}><strong>Price per Bag:</strong> {'$' + (this.props.bean.consumerPrice || 0).toFixed(2)}</div>
+                    <div className={rowClass + ' f3'}><strong>In Stock:</strong> {this.props.bean.inStockBags} oz.</div>
+                    <div className={rowClass + ' flex'}>
+                        <p className="pv2 b">Number of Bags (Max 10): </p><input className={inputClass + ' w2'} ref={this.props.quantityRef} onChange={this.props.handleQuantity} defaultValue={1}/>
+                        <p className="pv2 b">Frequency: </p><select className={inputClass + ' pointer'} onChange={this.props.handleFrequency}>
+                            <option value="MONTHLY">Monthly</option>
+                            <option value="TRIWEEKLY">Triweekly</option>
+                            <option value="BIWEEKLY">Biweekly</option>
+                            <option value="WEEKLY">Weekly</option>
+                        </select>
+                    </div>
+                    <div className={rowClass + ' f3'}>Total Price: <strong>{'$' + (this.props.bean.consumerPrice * (this.props.quantity || 1)).toFixed(2)}
+                        {' ' + (this.props.frequency.charAt(0) + this.props.frequency.substr(1).toLowerCase()) || 'Monthly'}</strong></div>
+                    <div className="mv4 flex">
+                        <Link to="/dashboard/browse" className={linkClass + ' mr2'}>
+                            <div className={btnClass}>Go Back</div>
+                        </Link>
+                        <div className={btnClass} onClick={this.props.handleSubscribe}> 
+                            Subscribe
                         </div>
                     </div>
                 </div>
