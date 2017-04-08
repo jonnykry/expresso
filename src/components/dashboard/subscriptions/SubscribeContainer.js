@@ -32,15 +32,17 @@ class SubscribeContainer extends Component {
     }
     
     subscribe() {
-        const dispatch = this.props;
+        const {dispatch} = this.props;
         
         const data = {
+            userId: this.props.user.id,
             roasterId: this.props.bean.roasterId,
             itemId: this.props.bean.id,
-            frequency: this.props.frequency
+            frequency: this.state.frequency,
+            quantity: parseInt(this.state.quantity)
         }
 
-        dispatch(createSubscription(data))
+        dispatch(createSubscription(data)).then(this.props.router.replace('/dashboard/subscriptions'));
     }
 
     quantity(e) {

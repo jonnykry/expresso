@@ -2,7 +2,6 @@ import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router';
 
 class Subscribe extends Component {
-
     render() {
         const inputClass = 'input-reset ba b--silver pa3 mv2 db br3 mh3';
         const btnClass = 'pointer dim br1 ba bw1 ph4 pv2 black mr3';
@@ -26,7 +25,7 @@ class Subscribe extends Component {
                         <div className="mv3">Total Price: {'$' + (this.props.bean.consumerPrice * (this.props.quantity || 1)).toFixed(2)} 
                             {' ' + (this.props.frequency.charAt(0) + this.props.frequency.substr(1).toLowerCase()) || 'Monthly'}</div>
                         <div className="mv3 flex">
-                            <div className={btnClass} onClick={this.props.subscribe}> 
+                            <div className={btnClass} onClick={this.props.handleSubscribe}> 
                                 Subscribe
                             </div>
                             <Link to="/dashboard/browse" className={linkClass + ' mr2'}>
