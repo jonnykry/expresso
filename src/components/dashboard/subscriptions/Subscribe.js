@@ -1,48 +1,39 @@
 import React, {Component, PropTypes} from 'react';
-import {connect} from 'react-redux';
 import {Link} from 'react-router';
-import {getItem} from '../../../actions/warehouseActions';
-import {createSubscription} from '../../../actions/covenantActions';
 
 class Subscribe extends Component {
-    componentDidMount() {
-        this.update();
-    }
-    
-
-    subscribe(){
-        const dispatch = this.props;
-        const data = {
-            roasterId: this.props.bean.roasterId,
-            itemId: this.props.bean.id,
-            frequency: this.props.frequency // doesnt exist - get frequency from drop down?
-            // WEEKLY, BIWEEKLY, TRIWEEKLY, MONTHLY
-        }
-        dispatch(createSubscription(data))
-    }
-
-    update() {
-        console.log(this.props);
-        const {dispatch, params} = this.props;
-
-        dispatch(getItem(params.id));
-    }
 
     render() {
-        console.log(this.props);
-        const btnClass = 'pointer dim br1 ba bw1 ph4 pv2 black';
-        let linkClass = 'no-underline black';
+        const inputClass = 'input-reset ba b--silver pa3 mv2 db br3 mh3';
+        const btnClass = 'pointer dim br1 ba bw1 ph4 pv2 black mr3';
+        const linkClass = 'no-underline black';
+
         return (
             <div className="content mw7 pa4">
                 <div>Are you sure you want to subscribe to {this.props.bean.name}?</div>
                 <div className="flex mt2">
-                    <div className={btnClass} onClick={this.subscribe}> 
-                        Yes
+                    <div>
+                        <div className="mv3 flex">
+                            <p className="pv2">Quantity (Max 10): </p><input className={inputClass + ' w2'} ref={this.props.quantityRef} onChange={this.props.handleQuantity} defaultValue={1}/>
+                            <p className="pv2">Frequency: </p><select className={inputClass + ' pointer'} onChange={this.props.handleFrequency}>
+                                <option value="MONTHLY">Monthly</option>
+                                <option value="TRIWEEKLY">Triweekly</option>
+                                <option value="BIWEEKLY">Biweekly</option>
+                                <option value="WEEKLY">Weekly</option>
+                            </select>
+                        </div>
+                        <div className="mv3">Price per Bean Item: {'$' + (this.props.bean.consumerPrice || 0).toFixed(2)}</div>
+                        <div className="mv3">Total Price: {'$' + (this.props.bean.consumerPrice * (this.props.quantity || 1)).toFixed(2)} 
+                            {' ' + (this.props.frequency.charAt(0) + this.props.frequency.substr(1).toLowerCase()) || 'Monthly'}</div>
+                        <div className="mv3 flex">
+                            <div className={btnClass} onClick={this.props.subscribe}> 
+                                Subscribe
+                            </div>
+                            <Link to="/dashboard/browse" className={linkClass + ' mr2'}>
+                                <div className={btnClass}>Go Back</div>
+                            </Link>
+                        </div>
                     </div>
-                    <Link to="/dashboard/browse" className={linkClass + ' mr2'}>
-                        <div className={btnClass}>Go Back</div>
-                    </Link>
-                    <div>Price: {this.props.bean.consumerPrice} / Month</div>
                 </div>
             </div>
         );
@@ -50,7 +41,6 @@ class Subscribe extends Component {
 }
 
 Subscribe.propTypes = {
-    params: PropTypes.object.isRequired,
     bean: PropTypes.object,
     fetching:  PropTypes.bool,
     error: PropTypes.string,
@@ -58,14 +48,4 @@ Subscribe.propTypes = {
     subscribe: PropTypes.object,
 };
 
-function mapStateToProps(state) {
-    return {
-        bean: state.bean.item,
-        fetching: state.bean.fetching,
-        error: state.bean.error,
-        user: state.userReducer.user,
-        subscribe: state.covenantReducer
-    };
-}
-
-export default connect(mapStateToProps)(Subscribe);
+export default Subscribe;

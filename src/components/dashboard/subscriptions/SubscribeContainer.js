@@ -1,0 +1,101 @@
+import React, { Component, PropTypes } from 'react';
+import {connect} from 'react-redux';
+import Subscribe from './Subscribe';
+
+import {getItem} from '../../../actions/warehouseActions';
+import {createSubscription} from '../../../actions/covenantActions';
+
+
+class SubscribeContainer extends Component {    
+    constructor(props) {
+        super(props);
+
+        this.subscribe = this.subscribe.bind(this);
+        this.update = this.update.bind(this);
+        this.quantity = this.quantity.bind(this);
+        this.frequency = this.frequency.bind(this);
+
+        this.state = {
+            quantity: 1,
+            frequency: "MONTHLY"
+        };
+	}
+
+    componentDidMount() {
+        this.update();
+    }
+
+    update() {
+        const {dispatch, params} = this.props;
+
+        dispatch(getItem(params.id));
+    }
+    
+    subscribe() {
+        const dispatch = this.props;
+        
+        const data = {
+            roasterId: this.props.bean.roasterId,
+            itemId: this.props.bean.id,
+            frequency: this.props.frequency
+        }
+
+        dispatch(createSubscription(data))
+    }
+
+    quantity(e) {
+        let val = e.target.value;
+        val = val > 10 ? 10 : val;
+
+        this.quantityInput.value = val;
+
+        this.setState({
+            quantity: val
+        });
+    }
+
+    frequency(e) {
+        const val = e.target.value;
+
+        this.setState({
+            frequency: val
+        });
+    }
+
+    _quantity() {
+        return (i => {
+            this.quantityInput = i;
+        });
+    }
+    
+    render() {
+        return (
+            <div>
+                <Subscribe handleUpdate={this.update}
+                    handleSubscribe={this.subscribe}
+                    handleQuantity={this.quantity}
+                    handleFrequency={this.frequency}
+                    quantity={this.state.quantity}
+                    frequency={this.state.frequency}
+                    bean={this.props.bean} 
+                    quantityRef={this._quantity()} />
+            </div>
+        );
+    }
+}
+
+SubscribeContainer.propTypes = {
+
+};
+
+function mapStateToProps(state) {
+    return {
+        bean: state.bean.item,
+        fetching: state.bean.fetching,
+        error: state.bean.error,
+        user: state.userReducer.user,
+        subscribe: state.covenantReducer
+    };
+}
+
+export default connect(mapStateToProps)(SubscribeContainer);
