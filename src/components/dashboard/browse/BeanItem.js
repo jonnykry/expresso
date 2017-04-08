@@ -6,6 +6,7 @@ import './BeanItem.css';
 class BeanItem extends Component {
     render() {
         const btnClass = 'pointer dim br1 ba bw1 tc ph2 pv2 black';
+        const detailsText = 'f5 pv2';
         let linkClass = 'no-underline black w-50';
         
         return (
@@ -14,7 +15,11 @@ class BeanItem extends Component {
                 <div className="pl3 flex flex-column justify-between">
                     <div>
                         <div className="f1 b">{this.props.item.name}</div>
-                        <div className="i f5 gray pv2">{this.props.item.coffeeType}</div>
+                        <div className={detailsText + ' i gray'}>{this.props.item.coffeeType}</div>
+                        {this.props.item.isDecaf &&
+                            <div className={detailsText}>Decaf</div>
+                        }
+                        <div className={detailsText}>In stock: {this.props.item.inStockBags}</div>
                         <div className="f2 pa1">${parseFloat(this.props.item.consumerPrice).toFixed(2)} / mo</div>
                     </div>
                     <div className="pb2 flex flex-row">
