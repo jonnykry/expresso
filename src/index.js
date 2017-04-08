@@ -81,7 +81,6 @@ function requireRoaster(nextState, replace) {
 function requireNoAuth(nextState, replace, callback) {
     loggedIn().then(success => {
         if (!success) {
-            store.dispatch(ActionUtil.resolveError());
             callback();
             return;
         }
