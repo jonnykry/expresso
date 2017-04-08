@@ -66,7 +66,7 @@ class RoasterRegisterContainer extends Component {
                     <ErrorMessage errors={this.props.errors}/>
                     <AccountInfo
                         roaster
-                        user={this.props.roaster.roaster}
+                        user={this.props.roaster}
                         handleSubmit={this.onHandleSubmitBind}
                         legend={'Register Roaster Account'}
                         submitText={'Register Roaster'}
