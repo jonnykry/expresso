@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 
-import {getSubscriptionsByUser, updateSubscription, deleteSubscription} from '../../../actions/covenantActions';
+import {getSubscriptionsByUser, updateSubscription} from '../../../actions/covenantActions';
 import {getUserInfo} from '../../../actions/userActions';
 import InfiniteList from '../InfiniteList';
 import ActionUtil from '../../../actions/actionUtil';
@@ -12,7 +12,6 @@ class SubscriptionContainer extends Component {
 	constructor(props) {
 		super(props);
 		this.changeBind = this.change.bind(this);
-		this.deleteBind = this.delete.bind(this);
 		this.updateBind = this.update.bind(this);
 	}
 
@@ -22,6 +21,7 @@ class SubscriptionContainer extends Component {
 
 	update(page) {
 		if (!this.loadMore) {
+			// TODO:  If this is a roaster, dispatch other action.
 			this.loadMore = ActionUtil.wrapPagedActionWithId(this.props.user.id, this.props.dispatch, getSubscriptionsByUser);
 		}
 
@@ -38,14 +38,8 @@ class SubscriptionContainer extends Component {
 	change(id) {
 		const {dispatch} = this.props;
 
+		// TODO:  update status to CANCELLED by user
 		dispatch(updateSubscription(id)).then(this.refresh.bind(this));
-	}
-
-
-	delete(id) {
-		const {dispatch} = this.props;
-
-		dispatch(deleteSubscription(id)).then(this.refresh.bind(this));
 	}
 
 	render () {

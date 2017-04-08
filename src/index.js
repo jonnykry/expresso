@@ -1,7 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ReactDataGrid from 'react-data-grid';
-import ReactDataGridPlugins from 'react-data-grid-addons';
 import {Provider} from 'react-redux';
 import {Router, Route, Redirect, IndexRedirect, IndexRoute, browserHistory} from 'react-router';
 import App from './App';
@@ -24,7 +22,7 @@ import Bloodlines from './components/dashboard/bloodlines/Bloodlines';
 import AccountSettings from './components/dashboard/account/AccountSettings';
 import RoasterAccount from './components/dashboard/roaster/RoasterAccount';
 import RoasterRegisterContainer from './components/RoasterRegisterContainer';
-import Subscribe from './components/dashboard/subscriptions/Subscribe';
+import SubscribeContainer from './components/dashboard/subscriptions/SubscribeContainer';
 import MessageContentContainer from './components/dashboard/bloodlines/MessageContentContainer';
 import TriggerContainer from './components/dashboard/bloodlines/TriggerContainer';
 import ReceiptContainer from './components/dashboard/bloodlines/ReceiptContainer';
@@ -126,9 +124,8 @@ ReactDOM.render(
                     <Route path="inventory" component={InventoryContainer}/>
                     <Route path="account" component={RoasterAccount}/>
                 </Route>
-                <Route path="subscriptions" component={SubscriptionContainer}>
-                    <Route path="subscribe/:id" component={Subscribe}/>
-                </Route>
+                <Route path="subscriptions" component={SubscriptionContainer}/>
+                <Route path="subscribe/:id" component={SubscribeContainer}/>
                 <Route path="settings" component={AccountSettings}/>
             </Route>
             <Route path="reset">

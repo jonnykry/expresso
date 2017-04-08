@@ -2,17 +2,30 @@ import React, { Component, PropTypes } from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router';
 import {getItem} from '../../../actions/warehouseActions';
+import {getRoasterItems} from '../../../actions/roasterActions';
+import InfiniteList from '../InfiniteList';
+import BeanItemList from './BeanItemList';
 import FaArrowLeft from 'react-icons/lib/fa/arrow-left';
 
 class BeanItemDetails extends Component {
-    componentDidMount() {
-        this.update();
+    constructor(props) {
+        super(props);
+
+        this.update = this.update.bind(this);
     }
 
-    update() {
+    componentDidMount() {
+        this.update(1, false);
+    }
+
+    update(page, reset) {
         const {dispatch, params} = this.props;
 
-        dispatch(getItem(params.id));
+        dispatch(getItem(params.id)).then(() => {
+           const limit = 10;
+            let offset = (page - 1) * limit;
+            dispatch(getRoasterItems(this.props.bean.roasterId, reset ? 0 : offset, limit));
+        });
     }
 
     render() {
@@ -20,7 +33,7 @@ class BeanItemDetails extends Component {
         let linkClass = 'no-underline black';
 
         return (
-            <div className="content">
+            <div className="content h-100 min-h-100 overflow-y-auto">
                 <div style={{width: 100 + 'px'}}>
                     <Link to="/dashboard/browse" className={linkClass}>
                         <div className={btnClass}>
@@ -54,6 +67,12 @@ class BeanItemDetails extends Component {
                         </Link>
                     </div>
                 </div>
+                <div className="mw7 center pa4">
+                    <InfiniteList update={this.update} {...this.props.items}>
+                        <h2 className="tc">More by {this.props.roaster.name}</h2>
+                        <BeanItemList {...this.props.items} isDetails/>
+                    </InfiniteList>
+                </div>
             </div>
         );
     }
@@ -64,7 +83,8 @@ BeanItemDetails.propTypes = {
     bean: PropTypes.object,
     roaster: PropTypes.object,
     fetching:  PropTypes.bool,
-    error: PropTypes.string
+    error: PropTypes.string,
+    items: PropTypes.object
 };
 
 function mapStateToProps(state) {
@@ -72,7 +92,8 @@ function mapStateToProps(state) {
         bean: state.bean.item,
         roaster: state.roaster.roaster,
         fetching: state.bean.fetching,
-        error: state.bean.error
+        error: state.bean.error,
+        items: state.roasterItems
     };
 }
 
