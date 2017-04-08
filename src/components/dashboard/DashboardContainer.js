@@ -1,21 +1,9 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 
-import {getUserInfo} from './../../actions/userActions';
-import ActionUtil from './../../actions/actionUtil';
 import Dashboard from './Dashboard';
 
 class DashboardContainer extends Component {
-    componentDidMount() {
-        this.props.dispatch(getUserInfo()).then(() => {
-            if (this.props.errors[401]) {
-                this.props.router.replace('/login');
-                this.props.dispatch(ActionUtil.resolveError());
-                return;
-            }
-        });
-    }
-
     render() {
         return (
             <Dashboard
@@ -30,12 +18,10 @@ class DashboardContainer extends Component {
 }
 
 DashboardContainer.propTypes = {
-    router: PropTypes.object,
     errors: PropTypes.object,
     children: PropTypes.object,
     location: PropTypes.object,
-    user: PropTypes.object,
-    dispatch: PropTypes.func
+    user: PropTypes.object
 };
 
 function mapStateToProps(state) {
