@@ -40,7 +40,7 @@ class SidebarContent extends Component {
                          {this.props.profileImage &&
                             <div className="ph2 pb1"><img src={this.props.profileImage} className="br4 ba bw2 w2 h2 dib" alt="Account" /></div>
                          }
-                         {this.props.profileImage === undefined &&
+                         {!this.props.profileImage &&
                             <TiUserOutline className="pl3 pb1 white f3" />
                          }
                           Account
