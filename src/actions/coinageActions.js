@@ -18,4 +18,5 @@ export function modifyPaymentInfo(data) {
             return ActionUtil.handleRequest(url, 'POST', data);
         });
     };
+
 }
