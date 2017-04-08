@@ -5,6 +5,8 @@ import ReactDataGridPlugins from 'react-data-grid-addons';
 import {Provider} from 'react-redux';
 import {Router, Route, Redirect, IndexRedirect, IndexRoute, browserHistory} from 'react-router';
 import App from './App';
+import {getUserInfo} from './actions/userActions';
+import ActionUtil from './actions/actionUtil';
 import About from './components/About';
 import NotFoundComponent from './components/NotFoundComponent';
 import LoginContainer from './components/LoginContainer';
@@ -36,18 +38,29 @@ import './index.css';
 
 const store = configureStore();
 
-function loggedIn() {
-    return localStorage.getItem('token') !== null;
-}
-
-function requireAuth(nextState, replace) {
-    if (loggedIn()) {
+function loggedIn(cb) {
+    const token = localStorage.getItem('token');
+    if (token === null) {
+        cb(false);
         return;
     }
 
-    replace({
-        pathname: '/login',
-        state: {nextPathname: nextState.location.pathname}
+    store.dispatch(getUserInfo()).then(() => {
+        store.dispatch(ActionUtil.resolveError());
+        cb(store.getState().userReducer.success);
+    });
+}
+
+function requireAuth(nextState, replace) {
+    loggedIn(success => {
+        if (success) {
+            return;
+        }
+
+        replace({
+            pathname: '/login',
+            state: {nextPathname: nextState.location.pathname}
+        });
     });
 }
 
@@ -65,12 +78,14 @@ function requireRoaster(nextState, replace) {
  * Used to prevent authenticated users from accessing `/login`.
  */
 function requireNoAuth(nextState, replace) {
-    if (!loggedIn()) {
-        return;
-    }
+    loggedIn(success => {
+        if (!success) {
+            return;
+        }
 
-    replace({
-        pathname: '/dashboard'
+        replace({
+            pathname: '/dashboard'
+        });
     });
 }
 
