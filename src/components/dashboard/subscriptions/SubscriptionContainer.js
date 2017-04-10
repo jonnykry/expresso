@@ -1,6 +1,5 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
-
 import {getSubscriptionsByUser, updateSubscription} from '../../../actions/covenantActions';
 import {getUserInfo} from '../../../actions/userActions';
 import InfiniteList from '../InfiniteList';
@@ -11,8 +10,9 @@ import SubscriptionList from './SubscriptionList';
 class SubscriptionContainer extends Component {
 	constructor(props) {
 		super(props);
-		this.changeBind = this.change.bind(this);
 		this.updateBind = this.update.bind(this);
+		this.updateStatus = this.updateStatus.bind(this);
+		this.updateFrequency = this.updateFrequency.bind(this);
 	}
 
 	componentDidMount() {
@@ -21,7 +21,6 @@ class SubscriptionContainer extends Component {
 
 	update(page) {
 		if (!this.loadMore) {
-			// TODO:  If this is a roaster, dispatch other action.
 			this.loadMore = ActionUtil.wrapPagedActionWithId(this.props.user.id, this.props.dispatch, getSubscriptionsByUser);
 		}
 
@@ -35,11 +34,14 @@ class SubscriptionContainer extends Component {
 		}
 	}
 
-	change(id) {
-		const {dispatch} = this.props;
+	updateFrequency(item, val) {
+		item.frequency = val;
+		this.props.dispatch(updateSubscription(item));
+	}
 
-		// TODO:  update status to CANCELLED by user
-		dispatch(updateSubscription(id)).then(this.refresh.bind(this));
+	updateStatus(item) {
+		item.status = item.status === 'ACTIVE' ? 'INACTIVE' : 'ACTIVE';
+		this.props.dispatch(updateSubscription(item));
 	}
 
 	render () {
@@ -50,7 +52,7 @@ class SubscriptionContainer extends Component {
 					<h1 className="tc f1-l mt2 b">
 						Subscriptions
 					</h1>
-					<SubscriptionList changeSubscription={this.changeBind} deleteSubscription={this.deleteBind} {...this.props.items} />
+					<SubscriptionList onFrequencyChange={this.updateFrequency} onStatusUpdate={this.updateStatus} {...this.props.items} />
 				</InfiniteList>
 			</div>
 			);

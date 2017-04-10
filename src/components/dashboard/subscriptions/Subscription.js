@@ -1,65 +1,40 @@
 import React, { Component, PropTypes } from 'react';
-import MessageContentProperty from '../bloodlines/MessageContentProperty';
+import {Link} from 'react-router';
+
+import Select from 'react-select';
 
 class Subscription extends Component {
-	constructor(props) {
-		super(props);
-
-		this.state = {
-			details: false
-		};
-		this.handleDetailsBind = this.handleDetails.bind(this);
-		this.handleUpdateBind = this.handleUpdate.bind(this);
-		this.handleDeleteBind = this.handleDelete.bind(this);
-	}
-
-	handleDetails(e) {
-		e.preventDefault();
-		const s = !this.state.details;
-		this.setState({details: s});
-	}
-
-	handleUpdate(e) {
-		e.preventDefault();
-		const s = !this.state.showUpdate;
-		this.setState({showUpdate: s});
-	}
-
-	handleDelete(e) {
-		e.preventDefault();
-		this.props.deleteSubscription(this.props.item.id);
-	}
-
 	render () {
-		const item = this.props.item; 
-		const btnClass = 'pointer dim br1 ba bw1 tc ph2 pv2 black';
+		const item = this.props.item;
+		const frequencyOptions = [
+			{ value: 'MONTHLY', label: 'Monthly' },
+			{ value: 'TRIMONTHLY', label: 'Trimonthly' },
+			{ value: 'BIMONTHLY', label: 'Bimonthly' },
+			{ value: 'WEEKLY', label: 'Weekly' }
+		];
+		const btnClass = 'pointer dim br1 ba bw1 tc pa2 black';
+		const statusLabel = item.status === 'ACTIVE' ? 'Deactivate' : 'Activate';
+
+		const date = new Date(item.createdAt);
+
 		return (
-			<div className="bl br bt bb mb2">
-				<div onClick={this.handleToggleDetails}>
-						<div>
-							<MessageContentProperty name={'Subscription ID'} value={item.id}></MessageContentProperty>
-							<MessageContentProperty name={'Coffee Item'} value={item.itemId}></MessageContentProperty>
-							<MessageContentProperty name={'User'} value={item.userId}></MessageContentProperty>
-							<MessageContentProperty name={'Roaster'} value={item.roasterId}></MessageContentProperty>
-							<MessageContentProperty name={'Status'} value={item.status}></MessageContentProperty>
-							<MessageContentProperty name={'Created At'} value={item.createdAt}></MessageContentProperty>
-							<MessageContentProperty name={'Frequency'} value={item.frequency}></MessageContentProperty>
-						</div>
-					<div className="pb2 flex flex-row">
-						<div className={btnClass} onClick={this.handleDeleteBind}>
-							DELETE
-						</div>	
-					</div>
+			<div className="mw7 flex center bl br bt bb mb2 pa3 flex flex-column">
+				<div className="flex">
+					<Link className="pa1 mr2 black no-underline ba bw1" to={'/dashboard/browse/' + item.itemId}>View Item Details</Link>
+					<div className={btnClass + ' w4 pr3 mr3'} onClick={() => this.props.onStatusUpdate(item)}>{statusLabel}</div>
+					<div className="w-25 pt2"><strong># Bags:</strong> {item.quantity}</div>
+					<div className="b pv2 pr2">Frequency:</div>
+					<Select className="w-50 mr3 h-100"
+							options={frequencyOptions}
+							simpleValue
+							clearable={false}
+							value={item.frequency}
+							onChange={(val) => this.props.onFrequencyChange(item, val)} />
 				</div>
+				<div className="w-100 pt3"><strong>Started:</strong> {date.toLocaleDateString()}</div>
 			</div>		
 		);
 	}
 }
-
-Subscription.PropTypes = {
-	deleteContent: PropTypes.func.isRequired,
-	updateContent: PropTypes.func.isRequired,
-	item: PropTypes.object.isRequired
-};
 
 export default Subscription;
