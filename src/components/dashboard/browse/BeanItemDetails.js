@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import {connect} from 'react-redux';
-import {Link} from 'react-router';
+import {Link, browserHistory} from 'react-router';
 import {getItem} from '../../../actions/warehouseActions';
 import {getRoasterItems} from '../../../actions/roasterActions';
 import InfiniteList from '../InfiniteList';
@@ -36,11 +36,9 @@ class BeanItemDetails extends Component {
         return (
             <div className="content h-100 min-h-100 overflow-y-auto">
                 <div style={{width: 100 + 'px'}}>
-                    <Link to="/dashboard/browse" className={linkClass}>
-                        <div className={btnClass}>
-                            <FaArrowLeft className="pv2 ph3 f1" />
-                        </div>
-                    </Link>
+                    <div className={btnClass} onClick={browserHistory.goBack}>
+                        <FaArrowLeft className="pv2 ph3 f1" />
+                    </div>
                 </div>
                 <div className="mw7 center pa4">
                     <h1 className="tc"> Details For {this.props.bean.name}</h1>

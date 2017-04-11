@@ -4,7 +4,6 @@ const COINAGE_URL = 'https://coinage.expresso.store/api/customer';
 
 export function modifyPaymentInfo(data) {
     return dispatch => {
-        console.log(data, process.env);
         Stripe.setPublishableKey(process.env.REACT_APP_STRIPE_PUB_KEY);
 
         return Stripe.createToken(data, function (status, response) {

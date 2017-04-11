@@ -25,8 +25,8 @@ class PaymentSettingsContainer extends Component {
         const card = {
             number: this.number.value,
             cvc: this.cvc.value,
-            month: this.month.value,
-            year: this.year.value
+            exp_month: this.month.value,
+            exp_year: this.year.value
         };
 
         dispatch(modifyPaymentInfo(card));
