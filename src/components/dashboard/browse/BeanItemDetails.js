@@ -52,7 +52,8 @@ class BeanItemDetails extends Component {
                     }
                     {this.props.bean.description != '' &&
                         <div>{this.props.bean.description}</div>
-                    }                    <h1> Roaster Details </h1>
+                    }                    
+                    <h1> Roaster Details </h1>
                     <div>Name: {this.props.roaster.name}</div>
                     <div>Location: {this.props.roaster.addressLine1} - {(this.props.roaster.addressLine2 + ' ' || '') + this.props.roaster.addressState}
                         {this.props.roaster.addressCity} {this.props.roaster.addressZip}</div>
