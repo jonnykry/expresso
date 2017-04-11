@@ -9,7 +9,7 @@ class Subscribe extends Component {
     render() {
         const inputClass = 'input-reset ba b--silver pa3 mv2 db br3 mh3';
         const btnClass = 'pointer dim br1 ba bw1 ph2 pv3 black b';
-        const linkClass = 'no-underline black';
+        //const linkClass = 'no-underline black';
         const rowClass = 'mv3';
 
         console.log(this.props.bean);
