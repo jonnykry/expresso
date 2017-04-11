@@ -68,6 +68,7 @@ class RegisterContainer extends Component {
                     <AccountInfo
                         legend={'Sign up to Create an Account'}
                         user={this.props.user}
+                        empty
                         handleSubmit={this.registerBind}
                         profileImage={this.profileImage}
                         submitText={'Create Account'}
