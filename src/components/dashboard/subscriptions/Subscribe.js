@@ -3,16 +3,18 @@ import {browserHistory} from 'react-router';
 
 import FaArrowLeft from 'react-icons/lib/fa/arrow-left';
 
+import BeanItemImage from '../browse/BeanItemImage';
+
 class Subscribe extends Component {
     render() {
         const inputClass = 'input-reset ba b--silver pa3 mv2 db br3 mh3';
         const btnClass = 'pointer dim br1 ba bw1 ph2 pv3 black b';
-        const linkClass = 'no-underline black';
+        //const linkClass = 'no-underline black';
         const rowClass = 'mv3';
 
         console.log(this.props.bean);
         return (
-            <div className="content">
+            <div className="content h-100 min-h-100 relative overflow-y-auto pt4">
                 <div style={{width: 100 + 'px'}}>
                     <div className={btnClass} onClick={browserHistory.goBack}>
                         <FaArrowLeft className="pv2 ph3 f1" />
@@ -20,7 +22,9 @@ class Subscribe extends Component {
                 </div>
                 <div className="center mw7 pa3 w-100">
                     <h1 className="tc pb3"> Subscribe to "{this.props.bean.name}"</h1>
-                    <div className="tc pa3"><img alt="Beans" src={this.props.bean.pictureURL || 'https://i.imgur.com/uSUY2O8.jpg'} width="75%" height="75%" /></div>
+                    <div className="cb center tc pa3" width="50%" height="50%">
+                        <BeanItemImage alt={this.props.bean.name} src={this.props.bean.pictureURL}/>
+                    </div>
                     <div className={rowClass + ' f3'}><strong>Coffee type:</strong> {this.props.bean.coffeeType}</div>
                     {this.props.bean.isDecaf ? <div className="mv3 f4">Note:  this is a decaf coffee bean.</div> : ''}
                     <div className={rowClass + ' f3'}><strong>Bag size:</strong> {this.props.bean.ozInBag} oz.</div>
@@ -38,7 +42,7 @@ class Subscribe extends Component {
                     <div className={rowClass + ' f3'}>Total Price: <strong>{'$' + (this.props.bean.consumerPrice * (this.props.quantity || 1)).toFixed(2)}
                         {' ' + (this.props.frequency.charAt(0) + this.props.frequency.substr(1).toLowerCase()) || 'Monthly'}</strong></div>
                     <div className="mv4 flex">
-                        <div className={btnClass + ' center ph5'} onClick={this.props.handleSubscribe}> 
+                        <div className={btnClass + ' center ph5'} onClick={this.props.handleSubscribe}>
                             Subscribe
                         </div>
                     </div>

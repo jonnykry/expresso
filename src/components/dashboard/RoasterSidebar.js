@@ -8,11 +8,10 @@ class RoasterSidebar extends Component {
         const b = this.props.location;
         const d = '/dashboard/roaster/';
 
-        // TODO:  This is where we need to do something different for roaster accounts
         return (
             <div>
-                <SidebarSelector subSelector name="Roaster Account" to={d + 'account'} location={b}/>
                 <SidebarSelector subSelector name="Inventory" to={d + 'inventory'} location={b} icon={<FaArchive className="mr2 pb1"/>}/>
+                <SidebarSelector subSelector name="Roaster Account" to={d + 'account'} location={b}/>
             </div>
         );
     }

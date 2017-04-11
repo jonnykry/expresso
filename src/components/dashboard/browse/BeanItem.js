@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router';
 
+import BeanItemImage from './BeanItemImage';
+
 import './BeanItem.css';
 
 class BeanItem extends Component {
@@ -11,7 +13,9 @@ class BeanItem extends Component {
 
         return (
             <div className="bean-item-card w-40 center ma1 mb3 pa4 ba flex">
-                <img alt="Beans" src={this.props.item['pictureURL'] || 'https://s3.amazonaws.com/warehouse-profile/coffee_beans.png'} height="250" width="250" />
+                <div width="250" height="250">
+                    <BeanItemImage src={this.props.item.pictureURL} alt={this.props.item.name}/>
+                </div>
                 <div className="pl3 flex flex-column justify-between">
                     <div>
                         <div className="f1 b">{this.props.item.name}</div>

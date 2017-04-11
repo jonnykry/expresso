@@ -2,7 +2,6 @@ import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 
 import {updateRoaster, uploadProfilePicture} from '../../../actions/roasterActions';
-import {getUserInfo} from '../../../actions/userActions';
 
 import AccountInfo from '../../AccountInfo';
 
@@ -18,15 +17,11 @@ class RoasterAccount extends Component {
         this.onHandleSubmitBind = this.onHandleSubmit.bind(this);
     }
 
-    componenetDidMount() {
-        this.props.dispatch(getUserInfo());
-    }
-
     onHandleSubmit(e) {
         e.preventDefault();
         const {dispatch} = this.props;
-
         const data = {
+            id: this.props.roaster.id,
             name: this.name.value,
             email: this.email.value,
             phone: this.phone.value,
@@ -39,7 +34,7 @@ class RoasterAccount extends Component {
         };
 
         dispatch(updateRoaster(data, this.props.roaster.id)).then(() => {
-            if(this.profileImage.file != null) {
+            if (this.profileImage.file) {
                 dispatch(uploadProfilePicture(this.profileImage.file, this.props.roaster.id));
             }
         });
@@ -53,7 +48,7 @@ class RoasterAccount extends Component {
 
     render() {
         return (
-            <div className="h-100 min-h- overflow-y-auto">
+            <div className="h-100">
                 <main className="h-100 min-h-100 pa4 black-80">
                     <AccountInfo
                         roaster

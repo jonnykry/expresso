@@ -2,20 +2,20 @@ import ActionTypes from '../actions/actionTypes';
 import ReducerUtil from './reducerUtil';
 
 export function roaster(state = {
-    isFetching: false,
-    didAuthenticate: false,
+    success: false,
+    didCreate: false,
     roaster: {}
 }, action) {
     switch (action.type) {
         case ActionTypes.RECEIVE_ROASTER:
             return Object.assign({}, state, {
-                isFetching: false,
+                success: action.payload.success,
                 didCreate: action.payload.data.id !== '',
                 roaster: action.payload.data
             });
         case ActionTypes.ERROR_ROASTER:
             return Object.assign({}, state, {
-                isFetching: false,
+                success: false,
                 didCreate: false,
                 roaster: {}
             });

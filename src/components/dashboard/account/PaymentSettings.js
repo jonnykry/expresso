@@ -1,5 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 
+import SuccessMessage from '../../SuccessMessage';
+
 class PaymentSettings extends Component {
     render() {
         const inputClass = 'input-reset ba pa2 mb2 db';
@@ -8,6 +10,7 @@ class PaymentSettings extends Component {
 
         return (
             <main className="pa4 black-80">
+                <SuccessMessage success={this.props.success} message={'Successfully Modified Payment Info'}/>
                 <form className="measure center" onSubmit={this.props.handleSubmit}>
                     <legend className="f4 fw6">Update Payment Details</legend>
                     <div className="ba pa4 mt2 mb2">
@@ -37,7 +40,8 @@ PaymentSettings.propTypes = {
     _number: PropTypes.func.isRequired,
     _cvc: PropTypes.func.isRequired,
     _year: PropTypes.func.isRequired,
-    _month: PropTypes.func.isRequired
+    _month: PropTypes.func.isRequired,
+    success: PropTypes.bool
 };
 
 export default PaymentSettings;

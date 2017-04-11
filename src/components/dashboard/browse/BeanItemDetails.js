@@ -5,6 +5,7 @@ import {getItem} from '../../../actions/warehouseActions';
 import {getRoasterItems} from '../../../actions/roasterActions';
 import InfiniteList from '../InfiniteList';
 import BeanItemList from './BeanItemList';
+import BeanItemImage from './BeanItemImage';
 import FaArrowLeft from 'react-icons/lib/fa/arrow-left';
 
 class BeanItemDetails extends Component {
@@ -41,26 +42,26 @@ class BeanItemDetails extends Component {
                 </div>
                 <div className="mw7 center pa4">
                     <h1 className="tc"> Details For {this.props.bean.name}</h1>
-                    <img alt="Beans" src={this.props.bean.pictureURL || 'https://i.imgur.com/uSUY2O8.jpg'} />
-                    <div>Price: ${this.props.bean.consumerPrice}</div>
-                    <div>There are {this.props.bean.inStockBags} bags in stock</div>
+                    <BeanItemImage src={this.props.bean.pictureURL} alt={this.props.bean.name}/>
+                    <div>Item ID: {this.props.bean.id}</div>
+                    <div>Price: {this.props.bean.consumerPrice}</div>
+                    <div>In Stock: {this.props.bean.inStockBags}</div>
                     <div>{this.props.bean.ozInBag} oz in each bag</div>
                     {this.props.bean.isDecaf && 
                         <div>Decaf</div>
                     }
                     {this.props.bean.description != '' &&
                         <div>{this.props.bean.description}</div>
-                    }
-                    <h1> Roaster Details </h1>
+                    }                    <h1> Roaster Details </h1>
                     <div>Name: {this.props.roaster.name}</div>
-                    <div>Location: {this.props.roaster.addressLine1} - {(this.props.roaster.addressLine2 + ' ' || '') + this.props.roaster.addressState} 
+                    <div>Location: {this.props.roaster.addressLine1} - {(this.props.roaster.addressLine2 + ' ' || '') + this.props.roaster.addressState}
                         {this.props.roaster.addressCity} {this.props.roaster.addressZip}</div>
                     <div>Phone #: {this.props.roaster.phone}</div>
                     <div>E-mail: {this.props.roaster.email}</div>
                 </div>
                 <div className="mw7 center mh3 pointer ba b--transparent br3 bg-green pv3 dim">
                     <div>
-                        <Link to={'/dashboard/subscriptions/subscribe/' + this.props.params.id} className={linkClass}>
+                        <Link to={'/dashboard/subscribe/' + this.props.params.id} className={linkClass}>
                                 <div className="f2 tc white">Subscribe</div>
                         </Link>
                     </div>

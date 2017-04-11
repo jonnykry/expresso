@@ -35,15 +35,18 @@ class AccountInfo extends Component {
 
 	render() {
 		const inputClass = 'input-reset ba b--silver pa3 mv2 db br3 mh3';
-		const formRowClass = "mt3 flex flex-row";
+		const formRowClass = 'mt3 flex flex-row';
 
         const user = this.props.user;
+        const exists = this.props.user.id;
+        console.log(this.props.user);
         const isRoaster = this.props.roaster;
         const legendText = this.props.legend;
         const submitText = this.props.submitText;
         const showLogin = this.props.showLogin;
         return (
             <form className="mw7 center w-100 h-100" onSubmit={this.props.handleSubmit}>
+                {exists &&
                 <div className="ba br3 b--light-silver bs1 ph5 pb5 mt2 mb2 bg-white">
                     <Title color="black"/>
                     <legend className="center f2 pb4 blue fw1">{legendText}</legend>
@@ -143,7 +146,7 @@ class AccountInfo extends Component {
                         </select>
                     </div>
                     <div className="mt3">
-                        <FileSelector 
+                        <FileSelector
                             buttonText="Upload Profile Picture (Optional)"
                             fileSelected={this.profileImageSelectedBind} />
                     </div>
@@ -154,7 +157,7 @@ class AccountInfo extends Component {
                         <button className="f4 w-100 link pointer dim br1 ba bw1 pv3 mb2 white bg-green" type="submit">{submitText}</button>
                         {showLogin && <div className="tc pv2">Already have an account? <Link to="/login" title="Login">Log In</Link>!</div>}
                     </div>
-                </div>
+                </div>}
             </form>
         );
     }
