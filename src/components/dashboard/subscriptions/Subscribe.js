@@ -1,6 +1,8 @@
 import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router';
 
+import BeanItemImage from '../browse/BeanItemImage';
+
 class Subscribe extends Component {
     render() {
         const inputClass = 'input-reset ba b--silver pa3 mv2 db br3 mh3';
@@ -10,10 +12,12 @@ class Subscribe extends Component {
 
         console.log(this.props.bean);
         return (
-            <div className="content">
+            <div className="content h-100 min-h-100 relative overflow-y-auto pt4">
                 <div className="center mw7 pa3 w-100">
                     <h1 className="tc pb3"> Subscribe to "{this.props.bean.name}"</h1>
-                    <div className="tc pa3"><img alt="Beans" src={this.props.bean.pictureURL || 'https://i.imgur.com/uSUY2O8.jpg'} width="75%" height="75%" /></div>
+                    <div className="cb center tc pa3" width="50%" height="50%">
+                        <BeanItemImage alt={this.props.bean.name} src={this.props.bean.pictureURL}/>
+                    </div>
                     <div className={rowClass + ' f3'}><strong>Coffee type:</strong> {this.props.bean.coffeeType}</div>
                     {this.props.bean.isDecaf ? <div className="mv3 f4">Note:  this is a decaf coffee bean.</div> : ''}
                     <div className={rowClass + ' f3'}><strong>Bag size:</strong> {this.props.bean.ozInBag} oz.</div>
@@ -34,7 +38,7 @@ class Subscribe extends Component {
                         <Link to="/dashboard/browse" className={linkClass + ' mr2'}>
                             <div className={btnClass}>Go Back</div>
                         </Link>
-                        <div className={btnClass} onClick={this.props.handleSubscribe}> 
+                        <div className={btnClass} onClick={this.props.handleSubscribe}>
                             Subscribe
                         </div>
                     </div>

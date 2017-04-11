@@ -19,7 +19,7 @@ export function createRoaster(roasterInfo) {
 
             dispatch(receiveRoaster(json));
         }).catch(err => {
-            dispatch(ActionUtil.error(500, err));
+            dispatch(ActionUtil.error(500, err.message));
         });
     };
 }
@@ -39,7 +39,7 @@ export function updateRoaster(roasterInfo, roasterId) {
 
             dispatch(receiveRoaster(json));
         }).catch(err => {
-            dispatch(ActionUtil.error(500, err));
+            dispatch(ActionUtil.error(500, err.message));
         });
     };
 }
@@ -63,14 +63,14 @@ export function getRoaster(id) {
 
             dispatch(receiveRoaster(json));
         }).catch(err => {
-            dispatch(ActionUtil.error(500, err));
+            dispatch(ActionUtil.error(500, err.message));
         });
     };
 }
 
 export function uploadProfilePicture(file, roasterId) {
     var formData = new FormData();
-    formData.append("profile", file);
+    formData.append('profile', file);
 
     return dispatch => {
         return fetch(ROASTER_URL + '/' + roasterId + '/photo', ActionUtil.auth({

@@ -6,7 +6,7 @@ import {getItem} from '../../../actions/warehouseActions';
 import {createSubscription} from '../../../actions/covenantActions';
 
 
-class SubscribeContainer extends Component {    
+class SubscribeContainer extends Component {
     constructor(props) {
         super(props);
 
@@ -30,10 +30,10 @@ class SubscribeContainer extends Component {
 
         dispatch(getItem(params.id));
     }
-    
+
     subscribe() {
         const {dispatch} = this.props;
-        
+
         const data = {
             userId: this.props.user.id,
             roasterId: this.props.bean.roasterId,
@@ -69,17 +69,17 @@ class SubscribeContainer extends Component {
             this.quantityInput = i;
         });
     }
-    
+
     render() {
         return (
-            <div>
+            <div className="h-100 min-h-100">
                 <Subscribe handleUpdate={this.update}
                     handleSubscribe={this.subscribe}
                     handleQuantity={this.quantity}
                     handleFrequency={this.frequency}
                     quantity={this.state.quantity}
                     frequency={this.state.frequency}
-                    bean={this.props.bean} 
+                    bean={this.props.bean}
                     quantityRef={this._quantity()} />
             </div>
         );
