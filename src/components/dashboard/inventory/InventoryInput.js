@@ -1,4 +1,5 @@
 import React, {Component, PropTypes} from 'react';
+import {WithContext as ReactTags} from 'react-tag-input';
 
 import SuccessMessage from '../../SuccessMessage';
 
@@ -39,6 +40,9 @@ class InventoryInput extends Component {
                                 <input id="decaf" ref={this.props.isDecaf} className="mr3" type="checkbox" value="isDecaf"/>
                                 <label className="dib b pr2">Currently Available:</label>
                                 <input id="available" ref={this.props.isActive} className="mr3" type="checkbox" value="isDecaf"/>
+                            </div>
+                            <div className="w-100 dib">
+                                <ReactTags/>
                             </div>
                             <div className="w-100 dib">
                                 <label className={labelClass}>Description:</label>

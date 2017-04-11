@@ -39,7 +39,6 @@ class AccountInfo extends Component {
 
         const user = this.props.user;
         const exists = this.props.user.id;
-        console.log(this.props.user);
         const isRoaster = this.props.roaster;
         const legendText = this.props.legend;
         const submitText = this.props.submitText;
