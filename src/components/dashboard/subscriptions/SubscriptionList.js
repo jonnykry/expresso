@@ -10,7 +10,7 @@ class SubscriptionList extends Component {
 			<div className="w-100 pa4-ns">
 				<ErrorMessage error={this.props.error} />
 				{this.props.ids.map((key) => 
-					<Subscription item={this.props.items[key]} key={key} />
+					<Subscription item={this.props.items[key]} key={key} onFrequencyChange={this.props.onFrequencyChange} onStatusUpdate={this.props.onStatusUpdate} />
 					)}
 					<Loading fetching={this.props.fetching} length={this.props.items.length}/>
 				</div>
@@ -24,8 +24,6 @@ SubscriptionList.propTypes = {
 	items: PropTypes.object,
 	fetching: PropTypes.bool,
 	error: PropTypes.string,
-	changeSubscription: PropTypes.func.isRequired,
-	deleteSubscription: PropTypes.func.isRequired
 };
 
 export default SubscriptionList; 

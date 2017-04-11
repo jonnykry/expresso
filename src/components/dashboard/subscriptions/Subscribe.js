@@ -1,16 +1,23 @@
 import React, {Component, PropTypes} from 'react';
-import {Link} from 'react-router';
+import {browserHistory} from 'react-router';
+
+import FaArrowLeft from 'react-icons/lib/fa/arrow-left';
 
 class Subscribe extends Component {
     render() {
         const inputClass = 'input-reset ba b--silver pa3 mv2 db br3 mh3';
-        const btnClass = 'pointer dim br1 ba bw1 ph4 pv3 black mr3 b';
+        const btnClass = 'pointer dim br1 ba bw1 ph2 pv3 black b';
         const linkClass = 'no-underline black';
         const rowClass = 'mv3';
 
         console.log(this.props.bean);
         return (
             <div className="content">
+                <div style={{width: 100 + 'px'}}>
+                    <div className={btnClass} onClick={browserHistory.goBack}>
+                        <FaArrowLeft className="pv2 ph3 f1" />
+                    </div>
+                </div>
                 <div className="center mw7 pa3 w-100">
                     <h1 className="tc pb3"> Subscribe to "{this.props.bean.name}"</h1>
                     <div className="tc pa3"><img alt="Beans" src={this.props.bean.pictureURL || 'https://i.imgur.com/uSUY2O8.jpg'} width="75%" height="75%" /></div>
@@ -31,10 +38,7 @@ class Subscribe extends Component {
                     <div className={rowClass + ' f3'}>Total Price: <strong>{'$' + (this.props.bean.consumerPrice * (this.props.quantity || 1)).toFixed(2)}
                         {' ' + (this.props.frequency.charAt(0) + this.props.frequency.substr(1).toLowerCase()) || 'Monthly'}</strong></div>
                     <div className="mv4 flex">
-                        <Link to="/dashboard/browse" className={linkClass + ' mr2'}>
-                            <div className={btnClass}>Go Back</div>
-                        </Link>
-                        <div className={btnClass} onClick={this.props.handleSubscribe}> 
+                        <div className={btnClass + ' center ph5'} onClick={this.props.handleSubscribe}> 
                             Subscribe
                         </div>
                     </div>

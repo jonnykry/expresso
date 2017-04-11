@@ -26,8 +26,8 @@ export function getAllSubscriptions(offset, limit) {
 	return ActionUtil.handlePagedRequest(ActionTypes.COVENANT_SUBSCRIPTIONS, SUBSCRIPTION_URL, "GET", offset, limit);
 }
 
-export function updateSubscription(id) {
-	return ActionUtil.handleRequest(SUBSCRIPTION_URL + "/" + id, "PUT");
+export function updateSubscription(body) {
+	return ActionUtil.handleRequest(SUBSCRIPTION_URL + "/" + body.id, "PUT", body);
 }
 
 export function deleteSubscription(id) {
