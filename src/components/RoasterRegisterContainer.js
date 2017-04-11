@@ -67,6 +67,7 @@ class RoasterRegisterContainer extends Component {
                     <AccountInfo
                         roaster
                         user={this.props.roaster}
+                        empty
                         handleSubmit={this.onHandleSubmitBind}
                         legend={'Register Roaster Account'}
                         submitText={'Register Roaster'}
