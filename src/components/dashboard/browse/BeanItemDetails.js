@@ -36,7 +36,7 @@ class BeanItemDetails extends Component {
         return (
             <div className="content h-100 min-h-100 overflow-y-auto">
                 <div style={{width: 100 + 'px'}}>
-                    <div className={btnClass} onClick={browserHistory.goBack}>
+                    <div className={btnClass + ' absolute'} onClick={browserHistory.goBack}>
                         <FaArrowLeft className="pv2 ph3 f1" />
                     </div>
                 </div>
