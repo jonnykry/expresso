@@ -3,7 +3,7 @@ import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import ActionUtils from '../../../actions/actionUtil';
 
-import AccountInfo from '../../AccountInfo';
+import UserAccountInfo from '../../UserAccountInfo';
 
 class UserSettingsContainer extends Component {
     constructor(props) {
@@ -57,11 +57,9 @@ class UserSettingsContainer extends Component {
     render() {
         return (
             <main className="pa4 black-80">
-                <AccountInfo
-                    legend={'Update User Account'}
+                <UserAccountInfo
                     handleSubmit={this.updateUserBind}
                     user={this.props.user}
-                    submitText={'Update Information'}
                     firstName={this._addRef('firstName')}
                     lastName={this._addRef('lastName')}
                     password={this._addRef('password')}
@@ -82,7 +80,7 @@ class UserSettingsContainer extends Component {
 }
 
 UserSettingsContainer.propTypes = {
-    user: PropTypes.object.isRequired,
+    user: PropTypes.object,
     dispatch: PropTypes.func.isRequired
 };
 
