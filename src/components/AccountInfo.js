@@ -38,7 +38,7 @@ class AccountInfo extends Component {
 		const formRowClass = 'mt3 flex flex-row';
 
         const user = this.props.user;
-        const exists = this.props.user.id;
+        const exists = this.props.user.id || this.props.empty;
         console.log(this.props.user);
         const isRoaster = this.props.roaster;
         const legendText = this.props.legend;
@@ -171,6 +171,7 @@ AccountInfo.propTypes = {
     showLogin: PropTypes.bool,
     handleSubmit: PropTypes.func.isRequired,
     profileImage: PropTypes.object.isRequired,
+    empty: PropTypes.bool,
     firstName: PropTypes.func,
     lastName: PropTypes.func,
     name: PropTypes.func,
