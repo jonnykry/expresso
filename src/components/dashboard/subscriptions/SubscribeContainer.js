@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import {connect} from 'react-redux';
 import Subscribe from './Subscribe';
 
@@ -83,6 +83,14 @@ class SubscribeContainer extends Component {
         );
     }
 }
+
+SubscribeContainer.propTypes = {
+    subscribe: PropTypes.object,
+    bean: PropTypes.object,
+    fetching:  PropTypes.bool,
+    error: PropTypes.string,
+    user: PropTypes.object
+};
 
 function mapStateToProps(state) {
     return {

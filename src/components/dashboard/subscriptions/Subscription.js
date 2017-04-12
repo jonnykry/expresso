@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router';
 
 import Select from 'react-select';
@@ -37,5 +37,11 @@ class Subscription extends Component {
         );
     }
 }
+
+Subscription.propTypes = {
+    onFrequencyChange:  PropTypes.func.isRequired,
+    onStatusUpdate:  PropTypes.func.isRequired,
+    item: PropTypes.object
+};
 
 export default Subscription;
