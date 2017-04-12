@@ -53,14 +53,14 @@ class BeanItemDetails extends Component {
                     <div>Phone #: {this.props.roaster.phone}</div>
                     <div>E-mail: {this.props.roaster.email}</div>
                 </div>
-                <div className="mw7 center mh3 pointer ba b--transparent br3 bg-green pv3 dim">
+                <div className="mw7 center mh3 pointer">
                     <div>
                         <Link to={'/dashboard/subscribe/' + this.props.params.id} className={linkClass}>
-                                <div className="f2 tc white">Subscribe</div>
+                                <div className="pointer f2 dim br1 ba bw1 tc ph2 mh4 pv3 green">Subscribe</div>
                         </Link>
                     </div>
                 </div>
-                <div className="mw7 center pa4">
+                <div className="mw7 center mt5">
                     <InfiniteList update={this.update} {...this.props.items}>
                         <h2 className="tc">More by {this.props.roaster.name}</h2>
                         <BeanItemList {...this.props.items} isDetails/>
