@@ -19,15 +19,19 @@ class SidebarContent extends Component {
         const bloodlines = <BloodlinesSidebar location={this.props.location}/>;
         const roaster = <RoasterSidebar location={this.props.location}/>;
 
+        const isDev = process.env.NODE_ENV !== 'production';
+
         const b = this.props.location;
         const d = '/dashboard/';
         return (
             <div className="relative h-100 overflow-hidden flex justify-between flex-column bg-blue white">
                 <div>
                     <SidebarSelector name="Browse Beans" to={d + 'browse'} location={b} icon={<FaSearch className="mr2 pb1" />}/>
-                    <SidebarSelector name="Bloodlines" to={d + 'bloodlines'} location={b} icon={<FaEnvelopeO className="mr2 pb1" />}>
-                        {bloodlines}
-                    </SidebarSelector>
+                    {isDev ? 
+                            <SidebarSelector name="Bloodlines" to={d + 'bloodlines'} location={b} icon={<FaEnvelopeO className="mr2 pb1" />}>
+                                {bloodlines}
+                            </SidebarSelector> 
+                            : ''}
                     <SidebarSelector name="Subscriptions" to={d + 'subscriptions'} location={b} icon={<FaRssSquare className="mr2 pb1" />}/>
 
                     {this.props.roaster && <SidebarSelector name="Roaster" to={d + 'roaster'} location={b} icon={<FaShoppingBag className="mr2 pb1" />}>
