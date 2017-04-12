@@ -43,14 +43,14 @@ class BeanItemDetails extends Component {
                 <div className="mw7 center pa4">
                     <h1 className="tc"> Details For {this.props.bean.name}</h1>
                     <BeanItemImage src={this.props.bean.pictureURL} alt={this.props.bean.name}/>
-                    <div>Price: {this.props.bean.consumerPrice}</div>
-                    <div>In Stock: {this.props.bean.inStockBags}</div>
-                    <div>Weight: {this.props.bean.ozInBag} oz</div>
+                    <div className="mb2"><strong>Price: </strong>{this.props.bean.consumerPrice}</div>
+                    <div className="mb2"><strong>In Stock: </strong>{this.props.bean.inStockBags}</div>
+                    <div className="mb2"><strong>Weight: </strong>{this.props.bean.ozInBag} oz</div>
                     {this.props.bean.isDecaf && 
                         <div>Decaf</div>
                     }
                     {this.props.bean.description &&
-                        <div>{this.props.bean.description}</div>
+                        <div><strong>Description:</strong> {this.props.bean.description}</div>
                     }  
                     {this.props.tags &&
                         <div>
