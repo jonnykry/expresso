@@ -13,6 +13,8 @@ class InventoryContainer extends Component {
 
         this.handleAddBeansBind = this.handleAddBeans.bind(this);
         this.handleUpdateBeansBind = this.handleUpdateBeans.bind(this);
+        this.handleAddTagBind = this.handleAddTag.bind(this);
+        this.handleDeleteTagBind = this.handleDeleteTag.bind(this);
 
         this.inputHandlers = {
             name: this._ref('name'),
@@ -24,11 +26,17 @@ class InventoryContainer extends Component {
             isActive: this._ref('isActive'),
             description: this._ref('description')
         };
+
+        this.state = {
+            tags: []
+        };
+        this.tags = {};
     }
 
     componentWillMount() {
         this.props.dispatch(getUserInfo());
     }
+
     componentWillReceiveProps() {
         if (this.props.modify.success) {
             this.handleAddSuccess();
@@ -49,6 +57,9 @@ class InventoryContainer extends Component {
         this.isDecaf.checked = false;
         this.isActive.checked = false;
         this.description.value = '';
+        this.size.value = '';
+        this.setState({tags: []});
+        this.tags = {};
 
         this.props.dispatch(getRoasterItems(this.props.roaster.id, 0, 100));
     }
@@ -70,6 +81,15 @@ class InventoryContainer extends Component {
             return;
         }
 
+        let tags = [];
+        const keys = Object.keys(this.tags);
+        for (let i = 0; i < keys.length; i++) {
+            if (!this.tags[keys[i]]) {
+                continue;
+            }
+            tags.push(keys[i]);
+        }
+
         const bean = {
             name: this.name.value,
             coffeeType: this.type.value,
@@ -80,10 +100,31 @@ class InventoryContainer extends Component {
             isDecaf: this.isDecaf.checked,
             isActive: this.isActive.checked,
             description: this.description.value,
-            roasterId: this.props.roaster.id
+            roasterId: this.props.roaster.id,
+            tags: tags
         };
-
         dispatch(addItem(bean));
+    }
+
+    handleDeleteTag(i) {
+        let tags = this.state.tags;
+        this.tags[tags[i].text] = false;
+        tags.splice(i, 1);
+        this.setState({tags: tags});
+    }
+
+    handleAddTag(tag) {
+        if (this.tags[tag]) {
+            return;
+        }
+        this.tags[tag] = true;
+        let tags = this.state.tags;
+        tags.push({text: tag});
+        this.setState({tags: tags});
+    }
+
+    handleDragTag() {
+
     }
 
     getNumber(s) {
@@ -116,6 +157,10 @@ class InventoryContainer extends Component {
                     items={this.props.items}
                     input={this.inputHandlers}
                     modify={this.props.modify}
+                    onAddTag={this.handleAddTagBind}
+                    onDeleteTag={this.handleDeleteTagBind}
+                    onDragTag={this.handleDragTag}
+                    tags={this.state.tags}
                     />
             </div>
         );

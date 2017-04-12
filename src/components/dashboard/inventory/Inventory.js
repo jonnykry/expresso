@@ -1,18 +1,10 @@
 import React, {Component, PropTypes} from 'react';
 import ReactDataGrid from 'react-data-grid';
 import {update} from 'react-addons-update';
-import {Editors /* , Formatters */} from 'react-data-grid-addons';
+import {Editors, Formatters} from 'react-data-grid-addons';
 
 import InventoryInput from './InventoryInput';
-
-const {AutoComplete: AutoCompleteEditor /* , DropDownEditor */} = Editors;
-// const {DropDownFormatter} = Formatters;
-
-// options for priorities autocomplete editor
-const priorities = [{id: 0, title: 'Regular'}, {id: 1, title: 'Decaf'}];
-const PrioritiesEditor = <AutoCompleteEditor options={priorities}/>;
-const active = [{id: 0, title: 'True'}, {id: 1, title: 'False'}];
-const ActiveEditor = <AutoCompleteEditor options={active}/>;
+import BooleanFormatter from './BooleanFormatter';
 
 class Inventory extends Component {
     constructor(props) {
@@ -24,43 +16,45 @@ class Inventory extends Component {
             editable: true
         },
         {
-            key: 'coffeeType', //name
-            name: 'Coffee Type', //Name
+            key: 'coffeeType',
+            name: 'Coffee Type',
             editable: true
         },
         {
-            key: 'inStockBags', //name
-            name: 'Bags in stock', //Name
+            key: 'inStockBags',
+            name: 'Bags in stock',
             editable: true
         },
         {
-            key: 'consumerPrice', //name
-            name: 'Price per Bag', //Name
+            key: 'consumerPrice',
+            name: 'Price per Bag',
             editable: true
         },
         {
-            key: 'ozInBag', //name
-            name: 'oz/Bag', //Name
+            key: 'ozInBag',
+            name: 'oz/Bag',
             editable: true
         },
         {
             key: 'isDecaf',
             name: 'Decaf',
-            editor: PrioritiesEditor
+            editable: true,
+            formatter: BooleanFormatter
         },
         {
             key: 'isActive',
             name: 'Available',
-            editor: ActiveEditor
+            editable: true,
+            formatter: BooleanFormatter
         },
         {
-            key: 'tags', //name
-            name: 'Tags', //Name
+            key: 'tags',
+            name: 'Tags',
             editable: true
         },
         {
-            key: 'description', //name
-            name: 'Description', //Name
+            key: 'description',
+            name: 'Description',
             editable: true
         },
         {
@@ -103,18 +97,10 @@ class Inventory extends Component {
     }
 
     render() {
-        const toggleClass = 'pt2 pl2 pointer tracked';
+        const toggleClass = 'pv2 f5 b pl2 pointer tracked';
 
         return (
             <div>
-                <ReactDataGrid
-                    enableCellSelect
-                    columns={this._columns}
-                    rowGetter={this.rowGetterBind}
-                    rowsCount={this.props.ids.length}
-                    minHeight={500}
-                    onGridRowsUpdated={this.props.onUpdateBeans}
-                    />
                 {
                     !this.state.showAdd &&
                         (<div className={toggleClass} onClick={this.handleAddToggleBind}>[+] Add Beans</div>)
@@ -124,10 +110,28 @@ class Inventory extends Component {
                     (
                         <div>
                             <div className={toggleClass} onClick={this.handleAddToggleBind}>[-] Add Beans</div>
-                            <InventoryInput onAddBeans={this.props.onAddBeans} {...this.props.input} success={this.props.modify.success} fetching={this.props.modify.fetching}/>
+                            <InventoryInput
+                                tags={this.props.tags}
+                                onAddBeans={this.props.onAddBeans}
+                                onAddTag={this.props.onAddTag}
+                                onDeleteTag={this.props.onDeleteTag}
+                                onDragTag={this.props.onDragTag}
+                                success={this.props.modify.success}
+                                fetching={this.props.modify.fetching}
+                                {...this.props.input}
+                                />
                         </div>
                     )
                 }
+                <ReactDataGrid
+                    enableCellSelect
+                    //enableRowSelect
+                    columns={this._columns}
+                    rowGetter={this.rowGetterBind}
+                    rowsCount={this.props.ids.length}
+                    minHeight={500}
+                    onGridRowsUpdated={this.props.onUpdateBeans}
+                    />
             </div>
         );
     }
@@ -135,8 +139,13 @@ class Inventory extends Component {
 
 Inventory.propTypes = {
     ids: PropTypes.array.isRequired,
+    input: PropTypes.object.isRequired,
     items: PropTypes.object.isRequired,
-    modify: PropTypes.object.isRequired
+    tags: PropTypes.array.isRequired,
+    modify: PropTypes.object.isRequired,
+    onDeleteTag: PropTypes.func.isRequired,
+    onAddTag: PropTypes.func.isRequired,
+    onDragTag: PropTypes.func.isRequired
 };
 
 export default Inventory;
