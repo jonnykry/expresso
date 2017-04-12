@@ -50,6 +50,7 @@ class RoasterRegisterContainer extends Component {
             if(this.profileImage.file != null) {
                 dispatch(uploadProfilePicture(this.profileImage.file, this.props.roaster.id));
             }
+            this.props.router.replace('/dashboard');
         });
     }
 
