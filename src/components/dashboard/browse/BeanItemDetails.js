@@ -1,12 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import {connect} from 'react-redux';
-import {Link, browserHistory} from 'react-router';
+import {Link} from 'react-router';
 import {getItem} from '../../../actions/warehouseActions';
 import {getRoasterItems} from '../../../actions/roasterActions';
 import InfiniteList from '../InfiniteList';
 import BeanItemList from './BeanItemList';
 import BeanItemImage from './BeanItemImage';
-import FaArrowLeft from 'react-icons/lib/fa/arrow-left';
+import BackButton from '../BackButton';
 
 class BeanItemDetails extends Component {
     constructor(props) {
@@ -30,16 +30,11 @@ class BeanItemDetails extends Component {
     }
 
     render() {
-        const btnClass = 'pointer dim ba bw1 ph2 pv2 black';
-        const linkClass = 'no-underline black';
+        let linkClass = 'no-underline black';
 
         return (
             <div className="content h-100 min-h-100 overflow-y-auto">
-                <div style={{width: 100 + 'px'}}>
-                    <div className={btnClass} onClick={browserHistory.goBack}>
-                        <FaArrowLeft className="pv2 ph3 f1" />
-                    </div>
-                </div>
+                <BackButton />
                 <div className="mw7 center pa4">
                     <h1 className="tc"> Details For {this.props.bean.name}</h1>
                     <BeanItemImage src={this.props.bean.pictureURL} alt={this.props.bean.name}/>
@@ -65,14 +60,14 @@ class BeanItemDetails extends Component {
                         </div>
                     }
                 </div>
-                <div className="mw7 center mh3 pointer ba b--transparent br3 bg-green pv3 dim">
+                <div className="mw7 center mh3 pointer">
                     <div>
                         <Link to={'/dashboard/subscribe/' + this.props.params.id} className={linkClass}>
-                                <div className="f2 tc white">Subscribe</div>
+                                <div className="pointer f2 dim br1 ba bw1 tc ph2 mh4 pv3 green">Subscribe</div>
                         </Link>
                     </div>
                 </div>
-                <div className="mw7 center pa4">
+                <div className="mw7 center mt5">
                     <InfiniteList update={this.update} {...this.props.items}>
                         <h2 className="tc">More by {this.props.roaster.name}</h2>
                         <BeanItemList {...this.props.items} isDetails/>

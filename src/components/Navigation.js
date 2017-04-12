@@ -16,8 +16,10 @@ class Navigation extends Component {
             <Link to="/register" className={dashClass} title="Register">Sign up Free</Link>;
 
         return (
-            <nav className="flex justify-between bg-blue shadow-2">
-                <Title color="white"/>
+            <nav className="flex justify-between bg-blue shadow-2 absolute w-100">
+                <div className="pa4">
+                    <Title color="white"/>
+                </div>
                 <div className="flex-grow pa3 pv4 flex items-center">
                     <Link to="/" className={linkClass} title="Home">Home</Link>
                     <Link to="/about" className={linkClass} title="About">About</Link>
