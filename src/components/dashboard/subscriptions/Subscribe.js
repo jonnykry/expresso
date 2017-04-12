@@ -1,5 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 
+import Select from 'react-select';
 import BackButton from '../BackButton';
 import BeanItemImage from '../browse/BeanItemImage';
 
@@ -9,7 +10,13 @@ class Subscribe extends Component {
         const btnClass = 'pointer dim br1 ba bw1 ph2 pv3 black b';
         const rowClass = 'mv3';
 
-        console.log(this.props.bean);
+        const options = [
+            {value: 'MONTHLY', label: 'Monthly'},
+            {value: 'TRIMONTHLY', label: 'Trimonthly'},
+            {value: 'BIMONTHLY', label: 'Bimonthly'},
+            {value: 'WEEKLY', label: 'Weekly'}
+        ];
+
         return (
             <div className="content h-100 min-h-100 overflow-y-auto">
                 <BackButton />
@@ -25,12 +32,16 @@ class Subscribe extends Component {
                     <div className={rowClass + ' f3'}><strong>In Stock:</strong> {this.props.bean.inStockBags} oz.</div>
                     <div className={rowClass + ' flex'}>
                         <p className="pv2 b">Number of Bags (Max 10): </p><input className={inputClass + ' w2'} ref={this.props.quantityRef} onChange={this.props.handleQuantity} defaultValue={1}/>
-                        <p className="pv2 b">Frequency: </p><select className={inputClass + ' pointer'} onChange={this.props.handleFrequency}>
-                            <option value="MONTHLY">Monthly</option>
-                            <option value="TRIWEEKLY">Triweekly</option>
-                            <option value="BIWEEKLY">Biweekly</option>
-                            <option value="WEEKLY">Weekly</option>
-                        </select>
+                        <p className="pv2 b">Frequency: </p>
+                        <div className="w-25 pv3 ph2">
+                            <Select style={{width: '100%'}}
+                                options={options}
+                                simpleValue
+                                clearable={false}
+                                value={this.props.frequency}
+                                placeholder="Frequency"
+                                onChange={this.props.handleFrequency} />
+                        </div>
                     </div>
                     <div className={rowClass + ' f3'}>Total Price: <strong>{'$' + (this.props.bean.consumerPrice * (this.props.quantity || 1)).toFixed(2)}
                         {' ' + (this.props.frequency.charAt(0) + this.props.frequency.substr(1).toLowerCase()) || 'Monthly'}</strong></div>

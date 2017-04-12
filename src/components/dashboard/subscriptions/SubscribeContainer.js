@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import Subscribe from './Subscribe';
 
@@ -56,9 +56,7 @@ class SubscribeContainer extends Component {
         });
     }
 
-    frequency(e) {
-        const val = e.target.value;
-
+    frequency(val) {
         this.setState({
             frequency: val
         });
@@ -85,10 +83,6 @@ class SubscribeContainer extends Component {
         );
     }
 }
-
-SubscribeContainer.propTypes = {
-
-};
 
 function mapStateToProps(state) {
     return {

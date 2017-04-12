@@ -39,7 +39,7 @@ class SidebarContent extends Component {
                     </SidebarSelector>}
                 </div>
                 <div className="flex h4 justify-between ph3 pv4 bt">
-                     <Link to={'/'} className={bottomLinkClass + ' ph2'} style={{'padding-top': '1.25rem'}}><div className={bottomTextClass}><FaHome className="pl2 pb1 white f3" /> Home</div></Link>
+                     <Link to={'/'} className={bottomLinkClass + ' ph2'} style={{paddingTop: '1.25rem'}}><div className={bottomTextClass}><FaHome className="pl2 pb1 white f3" /> Home</div></Link>
                      <Link to={d + 'settings'} className={bottomLinkClass + ' ph3'}><div className={bottomTextClass}>
                          {this.props.profileImage &&
                             <div className="ph2 pb1"><img src={this.props.profileImage} className="br4 ba bw2 w2 h2 dib" alt="Account" /></div>
@@ -49,7 +49,7 @@ class SidebarContent extends Component {
                          }
                           Account
                      </div></Link>
-                     <Link to={'/logout'} className={bottomLinkClass + ' ph2'} style={{'padding-top': '1.25rem'}}><div className={bottomTextClass}><FaSignOut className="pl3 pb1 white f3" /> Logout</div></Link>
+                     <Link to={'/logout'} className={bottomLinkClass + ' ph2'} style={{paddingTop: '1.25rem'}}><div className={bottomTextClass}><FaSignOut className="pl3 pb1 white f3" /> Logout</div></Link>
                 </div>
             </div>
         );
