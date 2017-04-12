@@ -1,25 +1,18 @@
 import React, {Component, PropTypes} from 'react';
-import {browserHistory} from 'react-router';
 
-import FaArrowLeft from 'react-icons/lib/fa/arrow-left';
-
+import BackButton from '../BackButton';
 import BeanItemImage from '../browse/BeanItemImage';
 
 class Subscribe extends Component {
     render() {
         const inputClass = 'input-reset ba b--silver pa3 mv2 db br3 mh3';
         const btnClass = 'pointer dim br1 ba bw1 ph2 pv3 black b';
-        //const linkClass = 'no-underline black';
         const rowClass = 'mv3';
 
         console.log(this.props.bean);
         return (
             <div className="content h-100 min-h-100 overflow-y-auto">
-                <div style={{width: 100 + 'px'}}>
-                    <div className={btnClass + ' absolute'} onClick={browserHistory.goBack}>
-                        <FaArrowLeft className="pv2 ph3 f1" />
-                    </div>
-                </div>
+                <BackButton />
                 <div className="center mw7 pa3 w-100">
                     <h1 className="tc pb3"> Subscribe to "{this.props.bean.name}"</h1>
                     <div className="cb center tc pa3" width="50%" height="50%">
