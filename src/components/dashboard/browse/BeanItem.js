@@ -15,7 +15,7 @@ class BeanItem extends Component {
                 <div width="250" height="250">
                     <BeanItemImage src={this.props.item.pictureURL} alt={this.props.item.name}/>
                 </div>
-                <div className="pl3 flex flex-column justify-between">
+                <div className="pl3 flex flex-column justify-between w-90">
                     <div>
                         <div className="f1 b">{this.props.item.name}</div>
                         <div className="i f5 gray pv2">{this.props.item.coffeeType}</div>
