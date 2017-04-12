@@ -23,7 +23,7 @@ class BeanItem extends Component {
                         {this.props.item.isDecaf &&
                             <div className={detailsText}>Decaf</div>
                         }
-                        <div className={detailsText}>In stock: {this.props.item.inStockBags}</div>
+                        <div className={detailsText}>Weight: {this.props.item.ozInBag} oz</div>
                         <div className="f2 pa1">${parseFloat(this.props.item.consumerPrice).toFixed(2)} / mo</div>
                     </div>
                     <div className="pb2 flex flex-row">

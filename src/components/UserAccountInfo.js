@@ -4,11 +4,11 @@ import FileSelector from './FileSelector';
 
 import Title from './Title';
 
-class AccountInfo extends Component {
+class UserAccountInfo extends Component {
     constructor(props) {
         super(props);
 
-        if(this.props.user != null) {
+        if(this.props.user) {
             this.props.profileImage.src = this.props.user.profileUrl;
         }
 
@@ -38,45 +38,35 @@ class AccountInfo extends Component {
 		const formRowClass = 'mt3 flex flex-row';
 
         const user = this.props.user;
-        const exists = this.props.user.id || this.props.empty;
-        console.log(this.props.user);
-        const isRoaster = this.props.roaster;
-        const legendText = this.props.legend;
-        const submitText = this.props.submitText;
-        const showLogin = this.props.showLogin;
+        const exists = this.props.user.id;
+
+        const legendText = exists ? 'User Account Settings' : 'Register User Account';
+        const submitText = exists ? 'Update' : 'Register';
+
         return (
             <form className="mw7 center w-100 h-100" onSubmit={this.props.handleSubmit}>
                 {exists &&
                 <div className="ba br3 b--light-silver bs1 ph5 pb5 mt2 mb2 bg-white">
                     <Title color="black"/>
                     <legend className="center f2 pb4 blue fw1">{legendText}</legend>
-                    {!isRoaster &&
-                        <div className={formRowClass}>
-                            <input className={inputClass + ' w-40'} ref={this.props.firstName} placeholder="First Name" defaultValue={user.firstName} required/>
-                            <input className={inputClass + ' w-40'} ref={this.props.lastName} placeholder="Last Name" defaultValue={user.lastName} required/>
-                        </div>
-                    }
-                    {isRoaster &&
-                        <div className={formRowClass}>
-                            <input className={inputClass + ' w-100'} ref={this.props.name} placeholder="Name" defaultValue={user.name} required/>
-                        </div>
-                    }
+                    <div className={formRowClass}>
+                        <input className={inputClass + ' w-40'} ref={this.props.firstName} placeholder="First Name" defaultValue={user.firstName} required/>
+                        <input className={inputClass + ' w-40'} ref={this.props.lastName} placeholder="Last Name" defaultValue={user.lastName} required/>
+                    </div>
                     <div className={formRowClass}>
                         <input className={inputClass + ' w-100'} pattern="^\d{10}$" title="Requested format is ##########" ref={this.props.phone} placeholder="Phone Number (##########)" defaultValue={user.phone} required/>
                     </div>
                     <div className={formRowClass}>
                         <input className={inputClass + ' w-100'} type="email" ref={this.props.email} placeholder="E-mail" defaultValue={user.email} required/>
                     </div>
-                    {!isRoaster &&
-                        <div>
-                            <div className={formRowClass}>
-                                <input className={inputClass + ' w-100'} pattern="^.{10,}$" title="Password must be at least 10 characters" type="password" ref={this.props.password} placeholder="Password (must be at least 10 characters)"/>
-                            </div>
-                            <div className={formRowClass}>
-                                <input className={inputClass + ' w-100'} type="password" ref={this.props.confirmPassword} placeholder="Confirm Password"/>
-                            </div>
+                    <div>
+                        <div className={formRowClass}>
+                            <input className={inputClass + ' w-100'} pattern="^.{10,}$" title="Password must be at least 10 characters" type="password" ref={this.props.password} placeholder="Password (must be at least 10 characters)"/>
                         </div>
-                    }
+                        <div className={formRowClass}>
+                            <input className={inputClass + ' w-100'} type="password" ref={this.props.confirmPassword} placeholder="Confirm Password"/>
+                        </div>
+                    </div>
                     <div className={formRowClass}>
                         <input className={inputClass + ' w-100'} ref={this.props.addressLine1} placeholder="Address Line 1" defaultValue={user.addressLine1} required/>
                     </div>
@@ -403,7 +393,7 @@ class AccountInfo extends Component {
                     </div>
                     <div className="mt3">
                         <button className="f4 w-100 link pointer dim br1 ba bw1 pv3 mb2 white bg-green" type="submit">{submitText}</button>
-                        {showLogin && <div className="tc pv2">Already have an account? <Link to="/login" title="Login">Log In</Link>!</div>}
+                        {!exists && <div className="tc pv2">Already have an account? <Link to="/login" title="Login">Log In</Link>!</div>}
                     </div>
                 </div>}
             </form>
@@ -411,18 +401,12 @@ class AccountInfo extends Component {
     }
 }
 
-AccountInfo.propTypes = {
+UserAccountInfo.propTypes = {
     user: PropTypes.object.isRequired,
-    roaster: PropTypes.bool,
-    legend: PropTypes.string.isRequired,
-    submitText: PropTypes.string.isRequired,
-    showLogin: PropTypes.bool,
     handleSubmit: PropTypes.func.isRequired,
     profileImage: PropTypes.object.isRequired,
-    empty: PropTypes.bool,
     firstName: PropTypes.func,
     lastName: PropTypes.func,
-    name: PropTypes.func,
     country: PropTypes.func,
     state: PropTypes.func,
     city: PropTypes.func,
@@ -435,4 +419,4 @@ AccountInfo.propTypes = {
     email: PropTypes.func
 };
 
-export default AccountInfo;
+export default UserAccountInfo;
