@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {createUser, uploadProfilePicture} from '../actions/userActions';
 import ActionUtils from '../actions/actionUtil';
 
-import AccountInfo from './AccountInfo';
+import UserAccountInfo from './UserAccountInfo';
 import ErrorMessage from './ErrorMessage';
 
 class RegisterContainer extends Component {
@@ -65,14 +65,9 @@ class RegisterContainer extends Component {
             <div className="overflow-y-auto h-100 bg-blue">
                 <article className="ph4 pv5 mw7 center black-80">
                     <ErrorMessage errors={this.props.errors}/>
-                    <AccountInfo
-                        legend={'Sign up to Create an Account'}
-                        user={this.props.user}
-                        empty
+                    <UserAccountInfo
                         handleSubmit={this.registerBind}
                         profileImage={this.profileImage}
-                        submitText={'Create Account'}
-                        showLogin
                         firstName={this._addRef('firstName')}
                         lastName={this._addRef('lastName')}
                         password={this._addRef('password')}

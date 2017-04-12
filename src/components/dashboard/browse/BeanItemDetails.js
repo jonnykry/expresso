@@ -31,7 +31,7 @@ class BeanItemDetails extends Component {
 
     render() {
         const btnClass = 'pointer dim ba bw1 ph2 pv2 black';
-        let linkClass = 'no-underline black';
+        const linkClass = 'no-underline black';
 
         return (
             <div className="content h-100 min-h-100 overflow-y-auto">
@@ -43,15 +43,27 @@ class BeanItemDetails extends Component {
                 <div className="mw7 center pa4">
                     <h1 className="tc"> Details For {this.props.bean.name}</h1>
                     <BeanItemImage src={this.props.bean.pictureURL} alt={this.props.bean.name}/>
-                    <div>Item ID: {this.props.bean.id}</div>
-                    <div>Price: {this.props.bean.consumerPrice}</div>
-                    <div>In Stock: {this.props.bean.inStockBags}</div>
-                    <h1> Roaster Details </h1>
-                    <div>Name: {this.props.roaster.name}</div>
-                    <div>Location: {this.props.roaster.addressLine1} - {(this.props.roaster.addressLine2 + ' ' || '') + this.props.roaster.addressState}
-                        {this.props.roaster.addressCity} {this.props.roaster.addressZip}</div>
-                    <div>Phone #: {this.props.roaster.phone}</div>
-                    <div>E-mail: {this.props.roaster.email}</div>
+                    <div className="mb2"><strong>Price: </strong>{this.props.bean.consumerPrice}</div>
+                    <div className="mb2"><strong>In Stock: </strong>{this.props.bean.inStockBags}</div>
+                    <div className="mb2"><strong>Weight: </strong>{this.props.bean.ozInBag} oz</div>
+                    {this.props.bean.isDecaf && 
+                        <div>Decaf</div>
+                    }
+                    {this.props.bean.description &&
+                        <div><strong>Description:</strong> {this.props.bean.description}</div>
+                    }  
+                    {this.props.tags &&
+                        <div>
+                            <h3 className="tc">Tags</h3>                  
+                            {
+                                this.props.bean.tags.map(function(tag) {
+                                    return (
+                                        <div>{tag}</div>
+                                    );
+                                })
+                            }
+                        </div>
+                    }
                 </div>
                 <div className="mw7 center mh3 pointer ba b--transparent br3 bg-green pv3 dim">
                     <div>
