@@ -1,67 +1,51 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
-import {getSubscriptionsByUser, updateSubscription} from '../../../../actions/covenantActions';
+import {getSubscriptionsByRoaster, updateSubscription} from '../../../../actions/covenantActions';
 import {getUserInfo} from '../../../../actions/userActions';
 import InfiniteList from '../../InfiniteList';
 import ActionUtil from '../../../../actions/actionUtil';
 import SuccessMessage from '../../../SuccessMessage';
-import SubscriptionList from './SubscriptionList';
+import RoasterSubscriptionList from './RoasterSubscriptionList';
 
 class RoasterSubscriptionContainer extends Component {
 	constructor(props) {
 		super(props);
 
 		this.updateBind = this.update.bind(this);
-		this.updateStatus = this.updateStatus.bind(this);
-		this.updateFrequency = this.updateFrequency.bind(this);
 	}
 
     componentDidMount() {
-        this.props.dispatch(getUserInfo());
+        this.props.dispatch(getUserInfo()).then(() => {
+            this.update(1, false);
+        });
     }
 
+    update(page, reset) {
+        const {dispatch, params} = this.props;
 
-	update(page) {
-		if (!this.loadMore) {
-			this.loadMore = ActionUtil.wrapPagedActionWithId(this.props.user.id, this.props.dispatch, getSubscriptionsByUser);
-		}
-
-        this.loadMore(page);
-    }
-
-    refresh() {
-        if (this.props.modify.success && !this.props.modify.fetching) {
-            this.update(true);
-            return;
-        }
-    }
-
-    updateFrequency(item, val) {
-        item.frequency = val;
-        this.props.dispatch(updateSubscription(item));
-    }
-
-    updateStatus(item) {
-        item.status = item.status === 'ACTIVE' ? 'INACTIVE' : 'ACTIVE';
-        this.props.dispatch(updateSubscription(item));
+        const limit = 10;
+        let offset = (page - 1) * limit;
+        dispatch(getSubscriptionsByRoaster(this.props.roaster.id, reset ? 0 : offset, limit)).then(() => {
+          console.log(this.props.items);  
+        });
     }
 
 	render () {
 		return (
 			<div className="content h-100 min-h-100 relative overflow-y-auto pt4">
-				<InfiniteList ready={this.props.user.id !== ''} update={this.updateBind} {...this.props.items}>
+				<InfiniteList ready={this.props.roaster.id} update={this.updateBind} {...this.props.items}>
 					<SuccessMessage success={this.props.modify.success} message={'Success'}/>
 					<h1 className="tc f1-l mt2 b">
 						Subscriptions
 					</h1>
-					<SubscriptionList onFrequencyChange={this.updateFrequency} onStatusUpdate={this.updateStatus} {...this.props.items} />
+					<RoasterSubscriptionList {...this.props.items} />
 				</InfiniteList>
 			</div>
 		);
 	}
 }
 
-SubscriptionContainer.propTypes = {
+RoasterSubscriptionContainer.propTypes = {
     dispatch: PropTypes.func.isRequired,
     items: PropTypes.object.isRequired,
     modify: PropTypes.object,
