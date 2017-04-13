@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import ReactDataGrid from 'react-data-grid';
 import {update} from 'react-addons-update';
-import {Editors, Formatters} from 'react-data-grid-addons';
+// import {Editors, Formatters} from 'react-data-grid-addons';
 
 import InventoryInput from './InventoryInput';
 import BooleanFormatter from './BooleanFormatter';
@@ -67,7 +67,7 @@ class Inventory extends Component {
         }];
 
         this.state = {
-            showAdd: false
+            showAdd: true
         };
 
         this.handleAddToggleBind = this.handleAddToggle.bind(this);
@@ -118,6 +118,7 @@ class Inventory extends Component {
                                 onDragTag={this.props.onDragTag}
                                 success={this.props.modify.success}
                                 fetching={this.props.modify.fetching}
+                                image={this.props.image}
                                 {...this.props.input}
                                 />
                         </div>
@@ -145,7 +146,8 @@ Inventory.propTypes = {
     modify: PropTypes.object.isRequired,
     onDeleteTag: PropTypes.func.isRequired,
     onAddTag: PropTypes.func.isRequired,
-    onDragTag: PropTypes.func.isRequired
+    onDragTag: PropTypes.func.isRequired,
+    image: PropTypes.string,
 };
 
 export default Inventory;

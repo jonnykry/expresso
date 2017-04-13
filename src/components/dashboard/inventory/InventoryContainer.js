@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 
 import {getUserInfo} from '../../../actions/userActions';
 import {getRoasterItems} from '../../../actions/roasterActions';
-import {addItem} from '../../../actions/warehouseActions';
+import {addItem, uploadImage} from '../../../actions/warehouseActions';
 import ActionUtil from '../../../actions/actionUtil';
 import Inventory from './Inventory';
 
@@ -24,11 +24,13 @@ class InventoryContainer extends Component {
             price: this._ref('price'),
             isDecaf: this._ref('isDecaf'),
             isActive: this._ref('isActive'),
-            description: this._ref('description')
+            description: this._ref('description'),
+            photo: this.handlePhoto.bind(this)
         };
 
         this.state = {
-            tags: []
+            tags: [],
+            image: ''
         };
         this.tags = {};
     }
@@ -103,7 +105,17 @@ class InventoryContainer extends Component {
             roasterId: this.props.roaster.id,
             tags: tags
         };
-        dispatch(addItem(bean));
+        dispatch(addItem(bean)).then(() => {
+            if (!this.photo) {
+                return;
+            }
+            const data = this.props.modify.data;
+            if (!data.id) {
+                dispatch(ActionUtil.error(400, 'Unable to upload image.'));
+            }
+
+            dispatch(uploadImage(this.photo, data.id));
+        });
     }
 
     handleDeleteTag(i) {
@@ -125,6 +137,18 @@ class InventoryContainer extends Component {
 
     handleDragTag() {
 
+    }
+
+    handlePhoto(file) {
+        const fileReader = new FileReader();
+
+        fileReader.onload = (e => {
+            this.setState({image: e.target.result});
+        });
+
+        fileReader.readAsDataURL(file);
+
+        this.photo = file;
     }
 
     getNumber(s) {
@@ -161,6 +185,7 @@ class InventoryContainer extends Component {
                     onDeleteTag={this.handleDeleteTagBind}
                     onDragTag={this.handleDragTag}
                     tags={this.state.tags}
+                    image={this.state.image}
                     />
             </div>
         );

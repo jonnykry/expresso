@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 
 import {updateRoaster, uploadProfilePicture} from '../../../actions/roasterActions';
 
-import AccountInfo from '../../AccountInfo';
+import RoasterAccountInfo from '../../RoasterAccountInfo';
 
 class RoasterAccount extends Component {
     constructor(props) {
@@ -50,13 +50,10 @@ class RoasterAccount extends Component {
         return (
             <div className="h-100">
                 <main className="h-100 min-h-100 pa4 black-80">
-                    <AccountInfo
-                        roaster
-                        user={this.props.roaster}
+                    <RoasterAccountInfo
+                        roaster={this.props.roaster}
                         handleSubmit={this.onHandleSubmitBind}
                         profileImage={this.profileImage}
-                        legend={'Roaster Account'}
-                        submitText={'Update Information'}
                         name={this._addRef('name')}
                         email={this._addRef('email')}
                         phone={this._addRef('phone')}

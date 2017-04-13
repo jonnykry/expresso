@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {createRoaster, uploadProfilePicture} from '../actions/roasterActions';
 import {getUserInfo} from '../actions/userActions';
 
-import AccountInfo from './AccountInfo';
+import RoasterAccountInfo from './RoasterAccountInfo';
 import ErrorMessage from './ErrorMessage';
 
 class RoasterRegisterContainer extends Component {
@@ -50,6 +50,7 @@ class RoasterRegisterContainer extends Component {
             if(this.profileImage.file != null) {
                 dispatch(uploadProfilePicture(this.profileImage.file, this.props.roaster.id));
             }
+            this.props.router.replace('/dashboard');
         });
     }
 
@@ -64,12 +65,8 @@ class RoasterRegisterContainer extends Component {
             <div className="h-100 overflow-y-auto bg-blue">
                 <main className="ph4 pv5 mw7 center black-80">
                     <ErrorMessage errors={this.props.errors}/>
-                    <AccountInfo
-                        roaster
-                        user={this.props.roaster}
+                    <RoasterAccountInfo
                         handleSubmit={this.onHandleSubmitBind}
-                        legend={'Register Roaster Account'}
-                        submitText={'Register Roaster'}
                         name={this._addRef('name')}
                         email={this._addRef('email')}
                         phone={this._addRef('phone')}
@@ -88,11 +85,11 @@ class RoasterRegisterContainer extends Component {
 }
 
 RoasterRegisterContainer.propTypes = {
-    roaster: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired,
     router: PropTypes.object.isRequired,
     dispatch: PropTypes.func.isRequired,
-    user: PropTypes.object.isRequired
+    user: PropTypes.object.isRequired,
+    roaster: PropTypes.object
 };
 
 function mapStateToProps(state) {

@@ -1,13 +1,15 @@
 import React, {Component, PropTypes} from 'react';
 import {WithContext as ReactTags} from 'react-tag-input';
 
+import FileSelector from '../../FileSelector';
 import SuccessMessage from '../../SuccessMessage';
+import BeanItemImage from '../browse/BeanItemImage';
 
 class InventoryInput extends Component {
     render() {
         const labelClass = 'b dib mb2 w-100';
         const inputClass = 'input-reset ba b--black-20 pa1 mb2 w-100';
-        const combinedClass = 'f6 pa2 w-100 w-50-m w-third-l pr1 dib';
+        const combinedClass = 'f6 pa1 w-100 w-50-m w-third-l dib';
 
         return (
             <div>
@@ -41,7 +43,7 @@ class InventoryInput extends Component {
                                 <label className="dib b pr2">Currently Available:</label>
                                 <input id="available" ref={this.props.isActive} className="mr3" type="checkbox" value="isDecaf"/>
                             </div>
-                            <div className="w-100 pa2 dib">
+                            <div className="w-50-l w-100 dib f6 pa1 fl">
                                 <label className={labelClass}>Tags:</label>
                                 <ReactTags
                                     tags={this.props.tags}
@@ -53,14 +55,28 @@ class InventoryInput extends Component {
                                     delimiters={[32, 44, 13, 9]}
                                     classNames={{
                                         tags: 'tagsClass',
-                                        tagInput: 'tagInputClass',
-                                        tagInputField: 'tagInputFieldClass',
+                                        tagInput: 'w-100 ma1',
+                                        tagInputField: 'w-100 pa1',
                                         selected: 'selectedClass',
-                                        tag: 'pa1 mv2 f6 b--black-20 ba',
+                                        tag: 'ml1 pa1 mv2 f6 b--black-20 ba',
                                         remove: 'b pa1',
                                         suggestions: 'suggestionsClass'
                                     }}
                                     />
+                            </div>
+                            <div className="w-50-l w-100 dt f6 pa2 fr">
+                                <div className="w-50 dtc v-mid pa1">
+                                    <label className={labelClass}>Bean Image:</label>
+                                    <div className="ma1 ph5  ba">
+                                        <BeanItemImage src={this.props.image}/>
+                                    </div>
+                                </div>
+                                <div className="w-50 dtc v-mid pa1">
+                                    <FileSelector
+                                        fileSelected={this.props.photo}
+                                        buttonText={'Upload Image'}
+                                        />
+                                </div>
                             </div>
                             <div className="w-100 pa2 dib">
                                 <label className={labelClass}>Description:</label>
@@ -90,6 +106,8 @@ InventoryInput.propTypes = {
     isActive: PropTypes.func.isRequired,
     description: PropTypes.func.isRequired,
     tags: PropTypes.array.isRequired,
+    photo: PropTypes.func.isRequired,
+    image: PropTypes.string,
     onDeleteTag: PropTypes.func.isRequired,
     onAddTag: PropTypes.func.isRequired,
     onDragTag: PropTypes.func.isRequired
