@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 
 import {getUserInfo} from '../../../actions/userActions';
 import {getRoasterItems} from '../../../actions/roasterActions';
-import {addItem, uploadImage} from '../../../actions/warehouseActions';
+import {addItem, uploadImage, updateItem} from '../../../actions/warehouseActions';
 import ActionUtil from '../../../actions/actionUtil';
 import Inventory from './Inventory';
 
@@ -16,13 +16,17 @@ class InventoryContainer extends Component {
         this.state = {
             tags: [],
             image: '',
+            type: {},
             selected: '',
-            selectedTags: []
+            selectedTags: [],
+            eimage: '',
+            etype: {},
+            send: false
         };
 
         this.inputHandlers = {
             name: this._ref('name'),
-            type: this._ref('type'),
+            onAddType: this.getAddType('type'),
             bags: this._ref('bags'),
             size: this._ref('size'),
             price: this._ref('price'),
@@ -31,35 +35,31 @@ class InventoryContainer extends Component {
             description: this._ref('description'),
             photo: this.handlePhoto.bind(this),
             onAddTag: this.getAddTag('tags'),
-            onDeleteTag: this.getDeleteTag('tags'),
-            onAddBeans: this.handleAddBeans.bind(this),
-            tags: this.state.tags
+            onAddBeans: this.handleAddBeans.bind(this)
         };
         this.editHandlers = {
             name: this._ref('ename'),
-            type: this._ref('etype'),
+            onAddType: this.getAddType('etype'),
             bags: this._ref('ebags'),
+            size: () => {},
+            price: () => {},
             isDecaf: this._ref('eisDecaf'),
             isActive: this._ref('eisActive'),
             description: this._ref('edescription'),
             photo: this.handleEditPhoto.bind(this),
             onAddTag: this.getAddTag('selectedTags'),
-            onDeleteTag: this.getDeleteTag('selectedTags'),
-            onEditBeans: this.handleEditBeans.bind(this),
-            tags: this.state.selectedTags
+            onAddBeans: this.handleEditBeans.bind(this)
         };
-
-        this.tags = {};
-        this.selectedTags = {};
     }
 
     componentWillMount() {
         this.props.dispatch(getUserInfo());
     }
 
-    componentWillReceiveProps() {
-        if (this.props.modify.success) {
-            this.handleAddSuccess();
+    componentWillReceiveProps(next) {
+        if (next.modify.success && (this.state.send || this.state.esend)) {
+            this.handleSuccess();
+            return;
         }
 
         if (!this.props.roaster.id || !this.props.next) {
@@ -69,17 +69,26 @@ class InventoryContainer extends Component {
         this.props.dispatch(getRoasterItems(this.props.roaster.id, 0, 100));
     }
 
-    handleAddSuccess() {
-        this.name.value = '';
-        this.type.value = '';
-        this.bags.value = '';
-        this.price.value = '';
-        this.isDecaf.checked = false;
-        this.isActive.checked = false;
-        this.description.value = '';
-        this.size.value = '';
-        this.tags = {};
-        this.setState({image: '', tags: []});
+    handleSuccess() {
+        if (this.state.send) {
+            this.name.value = '';
+            this.bags.value = '';
+            this.price.value = '';
+            this.isDecaf.value = false;
+            this.isActive.value = false;
+            this.description.value = '';
+            this.size.value = '';
+            this.setState({send: false, type: {}, image: '', tags: []});
+        }
+
+        if (this.state.esend) {
+            this.ename.value = '';
+            this.ebags.value = '';
+            this.eisDecaf.value = false;
+            this.eisActive.value = false;
+            this.edescription.value = '';
+            this.setState({selected: '', esend: false, etype: {}, eimage: '', etags: []});
+        }
 
         this.props.dispatch(getRoasterItems(this.props.roaster.id, 0, 100));
     }
@@ -91,6 +100,7 @@ class InventoryContainer extends Component {
         const bags = this.getNumber(this.bags.value);
         const ozInBag = this.getNumber(this.size.value);
         const price = this.getNumber(this.price.value);
+        this.setState({send: true});
 
         if (!bags) {
             dispatch(ActionUtil.error(400, 'Bags in Stock must be a number'));
@@ -102,27 +112,26 @@ class InventoryContainer extends Component {
         }
 
         let tags = [];
-        const keys = Object.keys(this.tags);
+        const keys = this.state.tags;
         for (let i = 0; i < keys.length; i++) {
-            if (!this.tags[keys[i]]) {
-                continue;
-            }
-            tags.push(keys[i]);
+            tags.push(keys[i].value);
         }
 
+        const type = this.state.type.value;
         const bean = {
             name: this.name.value,
-            coffeeType: this.type.value,
+            coffeeType: type,
             inStockBags: bags,
             ozInBag: ozInBag,
             providerPrice: price,
             consumerPrice: price,
-            isDecaf: this.isDecaf.checked,
-            isActive: this.isActive.checked,
+            isDecaf: this.isDecaf.value,
+            isActive: this.isActive.value,
             description: this.description.value,
             roasterId: this.props.roaster.id,
             tags: tags
         };
+
         dispatch(addItem(bean)).then(() => {
             if (!this.photo) {
                 return;
@@ -130,33 +139,68 @@ class InventoryContainer extends Component {
             const data = this.props.modify.data;
             if (!data.id) {
                 dispatch(ActionUtil.error(400, 'Unable to upload image.'));
+                return;
             }
 
             dispatch(uploadImage(this.photo, data.id));
         });
     }
 
-    getDeleteTag(key) {
-        return (i => {
-            let tags = this.state[key];
-            this[key][tags[i].text] = false;
-            tags.splice(i, 1);
-            let obj = {};
-            obj[key] = tags;
-            this.setState(obj);
+    handleEditBeans(e) {
+        e.preventDefault();
+
+        const {dispatch} = this.props;
+        const bags = this.getNumber(this.ebags.value);
+        this.setState({esend: true});
+
+        if (!bags) {
+            dispatch(ActionUtil.error(400, 'Bags in Stock must be a number'));
+            return;
+        }
+
+        let tags = [];
+        const keys = this.state.selectedTags;
+        for (let i = 0; i < keys.length; i++) {
+            tags.push(keys[i].value);
+        }
+
+        const type = this.state.etype.value;
+
+        let bean = this.props.items[this.state.selected];
+        bean.name = this.ename.value;
+        bean.coffeeType = type;
+        bean.inStockBags = bags;
+        bean.isDecaf = this.eisDecaf.value;
+        bean.isActive = this.eisActive.value;
+        bean.description = this.edescription.value;
+        bean.roasterId = this.props.roaster.id;
+        bean.tags = tags;
+
+        dispatch(updateItem(bean)).then(() => {
+            if (!this.ephoto) {
+                return;
+            }
+            if (!this.state.selected) {
+                dispatch(ActionUtil.error(400, 'Unable to upload image.'));
+                return;
+            }
+
+            dispatch(uploadImage(this.ephoto, this.state.selected));
         });
     }
 
     getAddTag(key) {
         return (tag => {
-            if (this[key][tag]) {
-                return;
-            }
-            this[key][tag] = true;
-            let tags = this.state[key];
-            tags.push({text: tag});
             let obj = {};
-            obj[key] = tags;
+            obj[key] = tag;
+            this.setState(obj);
+        });
+    }
+
+    getAddType(key) {
+        return (type => {
+            let obj = {};
+            obj[key] = type;
             this.setState(obj);
         });
     }
@@ -186,13 +230,16 @@ class InventoryContainer extends Component {
     }
 
     handleRowClick(i) {
-        this.setState({selected: this.props.ids[i]});
-        let tags = this.props.items[this.props.ids[i]].tags;
+        const id = this.props.ids[i];
+        this.setState({selected: id});
+        let tags = this.props.items[id].tags;
         let selected = [];
         for (let i = 0; i < tags.length; i++) {
-            selected.push({text: tags[i]});
+            selected.push({value: tags[i], label: tags[i]});
         }
+        let type = this.props.items[id].coffeeType;
         this.setState({selectedTags: selected});
+        this.setState({etype: {value: type, label: type}});
     }
 
     getNumber(s) {
@@ -211,10 +258,6 @@ class InventoryContainer extends Component {
         });
     }
 
-    handleEditBeans(e) {
-        e.preventDefault();
-    }
-
     render() {
         return (
             <div>
@@ -223,11 +266,16 @@ class InventoryContainer extends Component {
                     ids={this.props.ids}
                     items={this.props.items}
                     input={this.inputHandlers}
+                    edit={this.editHandlers}
                     modify={this.props.modify}
                     onRowClick={this.handleRowClickBind}
                     selected={this.state.selected}
                     image={this.state.image}
                     eimage={this.state.eimage}
+                    tags={this.state.tags}
+                    etags={this.state.selectedTags}
+                    type={this.state.type}
+                    etype={this.state.etype}
                     />
             </div>
         );

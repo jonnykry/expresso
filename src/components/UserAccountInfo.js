@@ -140,8 +140,10 @@ class UserAccountInfo extends Component {
                             fileSelected={this.profileImageSelectedBind}
                             />
                     </div>
-                    <div className="mt3">
-                        <img className="w-100" height="auto" alt="" ref={this._addRef('profile')} src={this.props.profileImage.src}/>
+                    <div className="mt3 w-100">
+                        <div className="w-50 center">
+                            <img height="auto" alt="" ref={this._addRef('profile')} src={this.props.profileImage.src}/>
+                        </div>
                     </div>
                     <div className="mt3">
                         <button className="f4 w-100 link pointer dim br1 ba bw1 pv3 mb2 white bg-green" type="submit">{submitText}</button>

@@ -44,6 +44,10 @@ export function getItem(id) {
     };
 }
 
+export function updateItem(data) {
+    return ActionUtil.handleRequest(ITEMS_URL + '/' + data.id, 'PUT', data);
+}
+
 export function uploadImage(file, itemId) {
     var formData = new FormData();
     formData.append('photo', file);
