@@ -11,10 +11,14 @@ class InventoryContainer extends Component {
     constructor(props) {
         super(props);
 
-        this.handleAddBeansBind = this.handleAddBeans.bind(this);
-        this.handleUpdateBeansBind = this.handleUpdateBeans.bind(this);
-        this.handleAddTagBind = this.handleAddTag.bind(this);
-        this.handleDeleteTagBind = this.handleDeleteTag.bind(this);
+        this.handleRowClickBind = this.handleRowClick.bind(this);
+
+        this.state = {
+            tags: [],
+            image: '',
+            selected: '',
+            selectedTags: []
+        };
 
         this.inputHandlers = {
             name: this._ref('name'),
@@ -25,14 +29,28 @@ class InventoryContainer extends Component {
             isDecaf: this._ref('isDecaf'),
             isActive: this._ref('isActive'),
             description: this._ref('description'),
-            photo: this.handlePhoto.bind(this)
+            photo: this.handlePhoto.bind(this),
+            onAddTag: this.getAddTag('tags'),
+            onDeleteTag: this.getDeleteTag('tags'),
+            onAddBeans: this.handleAddBeans.bind(this),
+            tags: this.state.tags
+        };
+        this.editHandlers = {
+            name: this._ref('ename'),
+            type: this._ref('etype'),
+            bags: this._ref('ebags'),
+            isDecaf: this._ref('eisDecaf'),
+            isActive: this._ref('eisActive'),
+            description: this._ref('edescription'),
+            photo: this.handleEditPhoto.bind(this),
+            onAddTag: this.getAddTag('selectedTags'),
+            onDeleteTag: this.getDeleteTag('selectedTags'),
+            onEditBeans: this.handleEditBeans.bind(this),
+            tags: this.state.selectedTags
         };
 
-        this.state = {
-            tags: [],
-            image: ''
-        };
         this.tags = {};
+        this.selectedTags = {};
     }
 
     componentWillMount() {
@@ -60,8 +78,8 @@ class InventoryContainer extends Component {
         this.isActive.checked = false;
         this.description.value = '';
         this.size.value = '';
-        this.setState({tags: []});
         this.tags = {};
+        this.setState({image: '', tags: []});
 
         this.props.dispatch(getRoasterItems(this.props.roaster.id, 0, 100));
     }
@@ -118,25 +136,41 @@ class InventoryContainer extends Component {
         });
     }
 
-    handleDeleteTag(i) {
-        let tags = this.state.tags;
-        this.tags[tags[i].text] = false;
-        tags.splice(i, 1);
-        this.setState({tags: tags});
+    getDeleteTag(key) {
+        return (i => {
+            let tags = this.state[key];
+            this[key][tags[i].text] = false;
+            tags.splice(i, 1);
+            let obj = {};
+            obj[key] = tags;
+            this.setState(obj);
+        });
     }
 
-    handleAddTag(tag) {
-        if (this.tags[tag]) {
-            return;
-        }
-        this.tags[tag] = true;
-        let tags = this.state.tags;
-        tags.push({text: tag});
-        this.setState({tags: tags});
+    getAddTag(key) {
+        return (tag => {
+            if (this[key][tag]) {
+                return;
+            }
+            this[key][tag] = true;
+            let tags = this.state[key];
+            tags.push({text: tag});
+            let obj = {};
+            obj[key] = tags;
+            this.setState(obj);
+        });
     }
 
-    handleDragTag() {
+    handleEditPhoto(file) {
+        const fileReader = new FileReader();
 
+        fileReader.onload = (e => {
+            this.setState({eimage: e.target.result});
+        });
+
+        fileReader.readAsDataURL(file);
+
+        this.ephoto = file;
     }
 
     handlePhoto(file) {
@@ -149,6 +183,16 @@ class InventoryContainer extends Component {
         fileReader.readAsDataURL(file);
 
         this.photo = file;
+    }
+
+    handleRowClick(i) {
+        this.setState({selected: this.props.ids[i]});
+        let tags = this.props.items[this.props.ids[i]].tags;
+        let selected = [];
+        for (let i = 0; i < tags.length; i++) {
+            selected.push({text: tags[i]});
+        }
+        this.setState({selectedTags: selected});
     }
 
     getNumber(s) {
@@ -167,7 +211,7 @@ class InventoryContainer extends Component {
         });
     }
 
-    handleUpdateBeans(e) {
+    handleEditBeans(e) {
         e.preventDefault();
     }
 
@@ -176,16 +220,14 @@ class InventoryContainer extends Component {
             <div>
                 <Inventory
                     onAddBeans={this.handleAddBeansBind}
-                    onUpdateBeans={this.handleUpdateBeansBind}
                     ids={this.props.ids}
                     items={this.props.items}
                     input={this.inputHandlers}
                     modify={this.props.modify}
-                    onAddTag={this.handleAddTagBind}
-                    onDeleteTag={this.handleDeleteTagBind}
-                    onDragTag={this.handleDragTag}
-                    tags={this.state.tags}
+                    onRowClick={this.handleRowClickBind}
+                    selected={this.state.selected}
                     image={this.state.image}
+                    eimage={this.state.eimage}
                     />
             </div>
         );

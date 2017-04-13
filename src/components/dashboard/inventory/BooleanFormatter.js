@@ -6,8 +6,8 @@ class BooleanFormatter extends Component {
     render() {
         const value = this.props.value;
         return (
-            <div>
-                {value && <FaCheck/>}
+            <div className="tc">
+                {value && <FaCheck className={'green'}/>}
             </div>
         );
     }
