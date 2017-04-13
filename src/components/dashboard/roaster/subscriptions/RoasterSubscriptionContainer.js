@@ -35,7 +35,7 @@ class RoasterSubscriptionContainer extends Component {
 			<div className="content h-100 min-h-100 relative overflow-y-auto pt4">
 				<InfiniteList ready={this.props.roaster.id} update={this.updateBind} {...this.props.items}>
 					<SuccessMessage success={this.props.modify.success} message={'Success'}/>
-					<h1 className="tc f1-l mt2 b">
+					<h1 className="center f1-l mt2 b">
 						Subscriptions
 					</h1>
 					<RoasterSubscriptionList {...this.props.items} />
