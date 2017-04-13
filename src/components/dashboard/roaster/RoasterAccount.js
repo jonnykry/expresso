@@ -1,5 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
+import moment from 'moment';
 
 import {updateRoaster, uploadProfilePicture} from '../../../actions/roasterActions';
 
@@ -12,6 +13,9 @@ class RoasterAccount extends Component {
         this.profileImage = {
             src: null,
             file: null
+        };
+        this.birthday = {
+            value: this.props.roaster.birth
         };
 
         this.onHandleSubmitBind = this.onHandleSubmit.bind(this);
@@ -30,7 +34,8 @@ class RoasterAccount extends Component {
             addressCity: this.city.value,
             addressState: this.state.value,
             addressZip: this.zipCode.value,
-            addressCountry: this.country.value
+            addressCountry: this.country.value,
+            birth: this.birthday.value
         };
 
         dispatch(updateRoaster(data, this.props.roaster.id)).then(() => {
@@ -63,6 +68,7 @@ class RoasterAccount extends Component {
                         state={this._addRef('state')}
                         zipCode={this._addRef('zipCode')}
                         country={this._addRef('country')}
+                        birthday={this.birthday}
                         />
                 </main>
             </div>

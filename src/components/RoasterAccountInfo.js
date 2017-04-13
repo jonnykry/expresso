@@ -1,6 +1,8 @@
 import React, {Component, PropTypes} from 'react';
-import {Link} from 'react-router';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 import FileSelector from './FileSelector';
+import moment from 'moment';
 
 import Title from './Title';
 
@@ -12,8 +14,21 @@ class RoasterAccountInfo extends Component {
             this.props.profileImage.src = this.props.user.profileUrl;
         }
 
+        const birthdayString = this.props.birthday;
+        this.state = {
+            date: birthdayString ? new moment(birthdayString) : null
+        }
+
         this.profileImageSelectedBind = this.profileImageSelected.bind(this);
+        this.onDateChangeBind = this.onDateChange.bind(this);
 	}
+
+    onDateChange(dateString) {
+        this.setState({
+            date: dateString
+        });
+        this.props.birthday.value = dateString.format('YYYY-MM-DD');
+    }
 
     profileImageSelected(file) {
         const fileReader = new FileReader();
@@ -36,6 +51,7 @@ class RoasterAccountInfo extends Component {
 	render() {
 		const inputClass = 'input-reset ba b--silver pa3 mv2 db br3 mh3';
 		const formRowClass = 'mt3 flex flex-row';
+        const labelClass = 'b dib mb2';
 
         const roaster = this.props.roaster;
         const exists = this.props.roaster;
@@ -55,7 +71,13 @@ class RoasterAccountInfo extends Component {
                         <input className={inputClass + ' w-100'} pattern="^\d{10}$" title="Requested format is ##########" ref={this.props.phone} placeholder="Phone Number (##########)" defaultValue={exists ? roaster.phone : ''} required/>
                     </div>
                     <div className={formRowClass}>
-                        <input className={inputClass + ' w-100'} ref={this.props.email} placeholder="E-mail" defaultValue={exists ? roaster.email : ''} required/>
+                        <input className={inputClass + ' w-50'} ref={this.props.email} placeholder="E-mail" defaultValue={exists ? roaster.email : ''} required/>
+                        <DatePicker
+                            placeholderText="Roaster owner's birthday"
+                            onSelect={this.onDateChangeBind}
+                            selected={this.state.date}
+                            className={inputClass + ' w-85'}
+                            required />
                     </div>
                     <div className={formRowClass}>
                         <input className={inputClass + ' w-100'} ref={this.props.addressLine1} placeholder="Address Line 1" defaultValue={exists ? roaster.addressLine1 : ''} required/>
@@ -207,7 +229,8 @@ RoasterAccountInfo.propTypes = {
     password: PropTypes.func,
     confirmPassword: PropTypes.func,
     phone: PropTypes.func,
-    email: PropTypes.func
+    email: PropTypes.func,
+    birthday: PropTypes.object
 };
 
 export default RoasterAccountInfo;

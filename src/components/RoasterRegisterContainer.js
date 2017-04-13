@@ -14,6 +14,10 @@ class RoasterRegisterContainer extends Component {
             src: null,
             file: null
         };
+        this.birthday = {
+            value: null
+        };
+        
 
         this.onHandleSubmitBind = this.onHandleSubmit.bind(this);
         this.props.dispatch(getUserInfo());
@@ -42,7 +46,8 @@ class RoasterRegisterContainer extends Component {
                 addressCity: this.city.value,
                 addressState: this.state.value,
                 addressZip: this.zipCode.value,
-                addressCountry: this.country.value
+                addressCountry: this.country.value,
+                birth: this.birthday.value
             }
         };
 
@@ -77,6 +82,7 @@ class RoasterRegisterContainer extends Component {
                         zipCode={this._addRef('zipCode')}
                         country={this._addRef('country')}
                         profileImage={this.profileImage}
+                        birthday={this.birthday}
                         />
                 </main>
             </div>
