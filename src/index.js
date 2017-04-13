@@ -66,14 +66,19 @@ function requireAuth(nextState, replace, callback) {
     });
 }
 
-function requireRoaster(nextState, replace) {
-    if (store.getState().roaster.roaster) {
+function requireRoaster(nextState, replace, callback) {
+    if (store.getState().roaster.roaster.id) {
+        callback();
         return;
     }
 
+
     replace({
-        pathname: '/dashboard'
+        pathname: '/dashboard',
+        state: {nextPathname: nextState.location.pathname}
     });
+
+    callback();
 }
 
 /**
@@ -87,10 +92,28 @@ function requireNoAuth(nextState, replace, callback) {
         }
 
         replace({
-            pathname: '/dashboard'
+            pathname: '/dashboard',
+            state: {nextPathname: nextState.location.pathname}
         });
+
         callback();
     });
+}
+
+/**
+ * Used to prevent users from accessing `/bloodlines` from production.
+ */
+function requireDev(nextState, replace, callback) {
+    if (process.env.NODE_ENV !== 'production') {
+        callback();
+        return;
+    }
+
+    replace({
+        pathname: '/dashboard'
+    });
+
+    callback();
 }
 
 ReactDOM.render(
@@ -112,7 +135,7 @@ ReactDOM.render(
                 <IndexRedirect to="browse"/>
                 <Route path="browse" component={BrowseBeansContainer}/>
                 <Route path="browse/:id" component={BeanItemDetails}/>
-                <Route path="bloodlines" component={Bloodlines}>
+                <Route path="bloodlines" component={Bloodlines} onEnter={requireDev}>
                     <IndexRedirect to="content"/>
                     <Route path="content" component={MessageContentContainer}/>
                     <Route path="trigger" component={TriggerContainer}/>

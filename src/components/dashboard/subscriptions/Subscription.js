@@ -38,4 +38,10 @@ class Subscription extends Component {
     }
 }
 
+Subscription.propTypes = {
+    onFrequencyChange:  PropTypes.func.isRequired,
+    onStatusUpdate:  PropTypes.func.isRequired,
+    item: PropTypes.object
+};
+
 export default Subscription;

@@ -32,12 +32,12 @@ class PaymentSettingsContainer extends Component {
             /* eslint-enable camelcase */
         };
 
-        const intMonth = parseInt(card.exp_month);
+        const intMonth = parseInt(card.exp_month, 10);
         if (intMonth > 12 || intMonth < 1) {
             dispatch(ActionUtil.error(0, 'Expiration Month must be between 1 and 12'));
             return;
         }
-        const intYear = parseInt(card.exp_year);
+        const intYear = parseInt(card.exp_year, 10);
         if (intYear < new Date().getYear() % 100 || intYear > 100) {
             dispatch(ActionUtil.error(0, 'Expiration two digits and cannot be in the past'));
             return;
