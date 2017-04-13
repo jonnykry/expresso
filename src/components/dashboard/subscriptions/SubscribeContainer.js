@@ -56,9 +56,7 @@ class SubscribeContainer extends Component {
         });
     }
 
-    frequency(e) {
-        const val = e.target.value;
-
+    frequency(val) {
         this.setState({
             frequency: val
         });
@@ -87,7 +85,11 @@ class SubscribeContainer extends Component {
 }
 
 SubscribeContainer.propTypes = {
-
+    subscribe: PropTypes.object,
+    bean: PropTypes.object,
+    fetching:  PropTypes.bool,
+    error: PropTypes.string,
+    user: PropTypes.object
 };
 
 function mapStateToProps(state) {

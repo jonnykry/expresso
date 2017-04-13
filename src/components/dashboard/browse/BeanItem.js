@@ -13,10 +13,10 @@ class BeanItem extends Component {
 
         return (
             <div className="bean-item-card w-40 center ma1 mb3 pa4 ba flex">
-                <div width="250" height="250">
+                <div style={{maxWidth: '250px'}}>
                     <BeanItemImage src={this.props.item.pictureURL} alt={this.props.item.name}/>
                 </div>
-                <div className="pl3 flex flex-column justify-between">
+                <div className="pl3 flex flex-column justify-between w-90">
                     <div>
                         <div className="f1 b">{this.props.item.name}</div>
                         <div className={detailsText + ' i gray'}>{this.props.item.coffeeType}</div>
