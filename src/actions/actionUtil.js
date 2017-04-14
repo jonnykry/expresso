@@ -46,7 +46,7 @@ function handlePagedRequest(item, url, type, offset, limit, optional) {
 }
 
 function handleRequest(url, type, body) {
-    let raw = '';
+    let raw = null;
     if (body) {
         raw = JSON.stringify(body);
     }
