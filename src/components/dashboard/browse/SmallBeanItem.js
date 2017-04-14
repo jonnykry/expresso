@@ -10,6 +10,10 @@ class SmallBeanItem extends Component {
         const btnClass = 'pointer dim br1 ba bw1 tc ph2 pv1 black pl3';
         let linkClass = 'no-underline black w-50';
 
+        // don't display the item if the id is already being displayed
+        if (this.props.params.id === this.props.item.id)
+            return null;
+
         return (
             <div className="bean-item-card w-40 center ma1 mb3 pa4 ba flex">
                 <div className="w3 h3">

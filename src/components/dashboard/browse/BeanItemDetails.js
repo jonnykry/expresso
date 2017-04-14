@@ -45,7 +45,7 @@ class BeanItemDetails extends Component {
                 <div className="mw7 center mt5">
                     <InfiniteList update={this.props.update} {...this.props.items}>
                         <h2 className="tc">More by {this.props.roaster.name}</h2>
-                        <BeanItemList {...this.props.items} isDetails/>
+                        <BeanItemList {...this.props.items} params={this.props.params} isDetails/>
                     </InfiniteList>
                 </div>
             </div>
