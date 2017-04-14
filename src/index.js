@@ -17,7 +17,7 @@ import Home from './components/Home';
 import BrowseBeansContainer from './components/dashboard/browse/BrowseBeansContainer';
 import InventoryContainer from './components/dashboard/inventory/InventoryContainer';
 import Roaster from './components/dashboard/roaster/Roaster';
-import BeanItemDetails from './components/dashboard/browse/BeanItemDetails';
+import BeanItemDetailsContainer from './components/dashboard/browse/BeanItemDetailsContainer';
 import Bloodlines from './components/dashboard/bloodlines/Bloodlines';
 import AccountSettings from './components/dashboard/account/AccountSettings';
 import RoasterAccount from './components/dashboard/roaster/RoasterAccount';
@@ -133,7 +133,7 @@ ReactDOM.render(
             <Route path="/dashboard" component={DashboardContainer} onEnter={requireAuth}>
                 <IndexRedirect to="browse"/>
                 <Route path="browse" component={BrowseBeansContainer}/>
-                <Route path="browse/:id" component={BeanItemDetails}/>
+                <Route path="browse/:id" component={BeanItemDetailsContainer}/>
                 <Route path="bloodlines" component={Bloodlines} onEnter={requireDev}>
                     <IndexRedirect to="content"/>
                     <Route path="content" component={MessageContentContainer}/>
