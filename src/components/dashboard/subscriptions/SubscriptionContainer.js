@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {getSubscriptionsByUser, updateSubscription} from '../../../actions/covenantActions';
-import {getUserInfo} from '../../../actions/userActions';
+import {getOrdersByUser} from '../../../actions/warehouseActions';
 import InfiniteList from '../InfiniteList';
 import ActionUtil from '../../../actions/actionUtil';
 import SuccessMessage from '../../SuccessMessage';
@@ -16,7 +16,7 @@ class SubscriptionContainer extends Component {
 	}
 
     componentDidMount() {
-        this.props.dispatch(getUserInfo());
+        this.props.dispatch(getOrdersByUser(this.props.user.id));
     }
 
 
@@ -46,6 +46,7 @@ class SubscriptionContainer extends Component {
     }
 
 	render () {
+        console.log(this.props.orders);
 		return (
 			<div className="content h-100 min-h-100 relative overflow-y-auto pt4">
 				<InfiniteList ready={this.props.user.id !== ''} update={this.updateBind} {...this.props.items}>
@@ -71,7 +72,8 @@ function mapStateToProps(state) {
     return {
         items: state.subscriptions,
         modify: state.modify,
-        user: state.userReducer.user
+        user: state.userReducer.user,
+        orders: state.orders.items,
     };
 }
 

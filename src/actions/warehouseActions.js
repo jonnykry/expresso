@@ -4,6 +4,7 @@ import {getRoaster} from './roasterActions';
 
 const WAREHOUSE_URL = 'https://warehouse.expresso.store/api';
 const ITEMS_URL = WAREHOUSE_URL + '/item';
+const USER_ORDERS_URL = WAREHOUSE_URL + '/user/order';
 
 function receiveItem(payload) {
     return {
@@ -17,6 +18,12 @@ export function getAllItems(offset, limit, searchTerm, orderName, orderCost) {
     const filterParams = `&q=${searchTerm || ''}&name=${orderName !== undefined ? orderName : ''}&cost=${orderCost !== undefined ? orderCost : ''}`;
 
     return ActionUtil.handlePagedRequest(ActionTypes.WAREHOUSE_ITEMS, ITEMS_URL, 'GET', offset, limit, shouldFilter ? filterParams : false);
+}
+
+export function getOrdersByUser(userId) {
+    console.log('??', userId);
+    // NOTE: hard code limit arbitrarily high for now to avoid multiple calls and not getting orders for a subscription
+    return ActionUtil.handlePagedRequest(ActionTypes.WAREHOUSE_USER_ORDERS, USER_ORDERS_URL + '/' + userId, 'GET', 0, 1000);
 }
 
 export function addItem(data) {

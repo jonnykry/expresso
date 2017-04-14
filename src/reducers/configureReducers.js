@@ -1,7 +1,7 @@
 import {combineReducers} from 'redux';
 
 import ActionTypes from '../actions/actionTypes';
-import {beans, bean} from './warehouseReducer';
+import {beans, bean, orders} from './warehouseReducer';
 import {roaster, roasterItems} from './roasterReducer';
 import {userReducer} from './userReducer';
 import {triggers, contents, receipts} from './bloodlinesReducer';
@@ -18,6 +18,7 @@ const rootReducer = combineReducers({
     contents,
     receipts,
     subscriptions,
+    orders,
     errors,
     modify: ReducerUtil.modify
 });

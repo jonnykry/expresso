@@ -9,6 +9,15 @@ export function beans(state = ReducerUtil.getPagedState(), action) {
     return ReducerUtil.handlePagedAction(action, state);
 }
 
+export function orders(state = ReducerUtil.getPagedState(), action) {
+    console.log('??');
+    if (action.itemType !== ActionTypes.WAREHOUSE_USER_ORDERS) {
+        return state;
+    }
+
+    return ReducerUtil.handlePagedAction(action, state);
+}
+
 export function bean(state = {
         fetching: false,
         item: {},
