@@ -43,3 +43,28 @@ export function getItem(id) {
         });
     };
 }
+
+export function updateItem(data) {
+    return ActionUtil.handleRequest(ITEMS_URL + '/' + data.id, 'PUT', data);
+}
+
+export function uploadImage(file, itemId) {
+    var formData = new FormData();
+    formData.append('photo', file);
+
+    return dispatch => {
+        return fetch(ITEMS_URL + '/' + itemId + '/photo', ActionUtil.auth({
+            method: 'POST',
+            body: formData
+        })).then(response => {
+            return response.json();
+        }).then(json => {
+            if (!json.success) {
+                dispatch(ActionUtil.error(500, json.message));
+                return;
+            }
+        }).catch(err => {
+            dispatch(ActionUtil.error(500, err.message));
+        });
+    };
+}

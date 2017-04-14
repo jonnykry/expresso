@@ -33,13 +33,12 @@ class UserAccountInfo extends Component {
         });
     }
 
-	render() {
-		const inputClass = 'input-reset ba b--silver pa3 mv2 db br3 mh3';
-		const formRowClass = 'mt3 flex flex-row';
+    render() {
+        const inputClass = 'input-reset ba b--silver pa3 mv2 db br3 mh3';
+        const formRowClass = 'mt3 flex flex-row';
 
         const user = this.props.user;
         const exists = this.props.user.id;
-
         const legendText = exists ? 'User Account Settings' : 'Register User Account';
         const submitText = exists ? 'Update' : 'Register';
 
@@ -138,10 +137,13 @@ class UserAccountInfo extends Component {
                     <div className="mt3">
                         <FileSelector
                             buttonText="Upload Profile Picture (Optional)"
-                            fileSelected={this.profileImageSelectedBind} />
+                            fileSelected={this.profileImageSelectedBind}
+                            />
                     </div>
-                    <div className="mt3">
-                        <img  className="w-100" height="auto" alt="" ref={this._addRef('profile')} src={this.props.profileImage.src} />
+                    <div className="mt3 w-100">
+                        <div className="w-50 center">
+                            <img height="auto" alt="" ref={this._addRef('profile')} src={this.props.profileImage.src}/>
+                        </div>
                     </div>
                     <div className="mt3">
                         <button className="f4 w-100 link pointer dim br1 ba bw1 pv3 mb2 white bg-green" type="submit">{submitText}</button>

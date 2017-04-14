@@ -1,18 +1,11 @@
 import React, {Component, PropTypes} from 'react';
 import ReactDataGrid from 'react-data-grid';
-import {update} from 'react-addons-update';
-import {Editors /* , Formatters */} from 'react-data-grid-addons';
+// import {update} from 'react-addons-update';
+// import {Editors, Formatters} from 'react-data-grid-addons';
 
-import InventoryInput from './InventoryInput';
-
-const {AutoComplete: AutoCompleteEditor /* , DropDownEditor */} = Editors;
-// const {DropDownFormatter} = Formatters;
-
-// options for priorities autocomplete editor
-const priorities = [{id: 0, title: 'Regular'}, {id: 1, title: 'Decaf'}];
-const PrioritiesEditor = <AutoCompleteEditor options={priorities}/>;
-const active = [{id: 0, title: 'True'}, {id: 1, title: 'False'}];
-const ActiveEditor = <AutoCompleteEditor options={active}/>;
+import InventoryEdit from './InventoryEdit';
+import BooleanFormatter from './BooleanFormatter';
+import ArrayFormatter from './ArrayFormatter';
 
 class Inventory extends Component {
     constructor(props) {
@@ -20,56 +13,57 @@ class Inventory extends Component {
 
         this._columns = [{
             key: 'name',
-            name: 'Name',
-            editable: true
+            name: 'Name'
         },
         {
-            key: 'coffeeType', //name
-            name: 'Coffee Type', //Name
-            editable: true
+            key: 'coffeeType',
+            name: 'Coffee Type'
         },
         {
-            key: 'inStockBags', //name
-            name: 'Bags in stock', //Name
-            editable: true
+            key: 'inStockBags',
+            name: 'Stock',
+            width: 75
         },
         {
-            key: 'consumerPrice', //name
-            name: 'Price per Bag', //Name
-            editable: true
+            key: 'consumerPrice',
+            name: 'Unit Price',
+            width: 90
         },
         {
-            key: 'ozInBag', //name
-            name: 'oz/Bag', //Name
-            editable: true
+            key: 'ozInBag',
+            name: 'oz',
+            width: 50
         },
         {
             key: 'isDecaf',
             name: 'Decaf',
-            editor: PrioritiesEditor
+            width: 55,
+            formatter: BooleanFormatter
         },
         {
             key: 'isActive',
-            name: 'Available',
-            editor: ActiveEditor
+            name: 'Avail',
+            width: 50,
+            formatter: BooleanFormatter
         },
         {
-            key: 'tags', //name
-            name: 'Tags', //Name
-            editable: true
+            key: 'tags',
+            name: 'Tags',
+            formatter: ArrayFormatter
         },
         {
-            key: 'description', //name
-            name: 'Description', //Name
-            editable: true
+            key: 'description',
+            name: 'Description'
         },
         {
-            key: 'dateCreated',
-            name: 'Created'
+            key: 'createdAt',
+            name: 'Created',
+            width: 90
         },
         {
-            key: 'dateModified',
-            name: 'Modified'
+            key: 'updatedAt',
+            name: 'Modified',
+            width: 90
         }];
 
         this.state = {
@@ -82,7 +76,21 @@ class Inventory extends Component {
 
     rowGetter(i) {
         const key = this.props.ids[i];
-        return this.props.items[key];
+        const item = this.props.items[key];
+        const row = {
+            name: item.name,
+            coffeeType: item.coffeeType,
+            inStockBags: item.inStockBags,
+            consumerPrice: '$' + item.consumerPrice,
+            ozInBag: item.ozInBag,
+            isDecaf: item.isDecaf,
+            isActive: item.isActive,
+            tags: item.tags,
+            description: item.description,
+            createdAt: new Date(item.createdAt).toLocaleDateString(),
+            updatedAt: new Date(item.updatedAt).toLocaleDateString()
+        };
+        return row;
     }
 
     handleAddToggle(e) {
@@ -92,29 +100,11 @@ class Inventory extends Component {
         this.setState({showAdd: s});
     }
 
-    handleGridRowsUpdated({fromRow, toRow, updated}) {
-        let rows = this.state.rows.slice();
-
-        for (let i = fromRow; i <= toRow; i++) {
-            let rowToUpdate = rows[i];
-            let updatedRow = update(rowToUpdate, {$merge: updated});
-            rows[i] = updatedRow;
-        }
-    }
-
     render() {
-        const toggleClass = 'pt2 pl2 pointer tracked';
+        const toggleClass = 'pv2 f5 b pl2 pointer tracked';
 
         return (
             <div>
-                <ReactDataGrid
-                    enableCellSelect
-                    columns={this._columns}
-                    rowGetter={this.rowGetterBind}
-                    rowsCount={this.props.ids.length}
-                    minHeight={500}
-                    onGridRowsUpdated={this.props.onUpdateBeans}
-                    />
                 {
                     !this.state.showAdd &&
                         (<div className={toggleClass} onClick={this.handleAddToggleBind}>[+] Add Beans</div>)
@@ -124,10 +114,35 @@ class Inventory extends Component {
                     (
                         <div>
                             <div className={toggleClass} onClick={this.handleAddToggleBind}>[-] Add Beans</div>
-                            <InventoryInput onAddBeans={this.props.onAddBeans} {...this.props.input} success={this.props.modify.success} fetching={this.props.modify.fetching}/>
+                            <InventoryEdit
+                                success={this.props.modify.success}
+                                fetching={this.props.modify.fetching}
+                                image={this.props.image}
+                                tags={this.props.tags}
+                                type={this.props.type}
+                                {...this.props.input}
+                                />
                         </div>
                     )
                 }
+                <ReactDataGrid
+                    columns={this._columns}
+                    rowGetter={this.rowGetterBind}
+                    rowsCount={this.props.ids.length}
+                    minHeight={400}
+                    onRowClick={this.props.onRowClick}
+                    />
+                {this.props.selected &&
+                    <InventoryEdit
+                        success={this.props.modify.success}
+                        fetching={this.props.modify.fetching}
+                        id={this.props.selected}
+                        items={this.props.items}
+                        image={this.props.eimage}
+                        tags={this.props.etags}
+                        type={this.props.etype}
+                        {...this.props.edit}
+                        />}
             </div>
         );
     }
@@ -135,8 +150,18 @@ class Inventory extends Component {
 
 Inventory.propTypes = {
     ids: PropTypes.array.isRequired,
+    input: PropTypes.object.isRequired,
     items: PropTypes.object.isRequired,
-    modify: PropTypes.object.isRequired
+    edit: PropTypes.object.isRequired,
+    selected: PropTypes.string.isRequired,
+    modify: PropTypes.object.isRequired,
+    onRowClick: PropTypes.func.isRequired,
+    image: PropTypes.string,
+    eimage: PropTypes.string,
+    tags: PropTypes.array.isRequired,
+    etags: PropTypes.array.isRequired,
+    type: PropTypes.object.isRequired,
+    etype: PropTypes.object.isRequired
 };
 
 export default Inventory;
