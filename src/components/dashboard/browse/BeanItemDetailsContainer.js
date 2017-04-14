@@ -14,13 +14,20 @@ class BeanItemDetailsContainer extends Component {
     }
 
     componentDidMount() {
-        this.update(1, false);
+        this.update(1, false, this.props.params.id);
     }
 
-    update(page, reset) {
-        const {dispatch, params} = this.props;
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.params.id !== this.props.params.id) {
+            this.update(1, true, nextProps.params.id);
+            document.getElementById('topDiv').scrollTop = 0;
+        }
+    }
 
-        dispatch(getItem(params.id)).then(() => {
+    update(page, reset, id) {
+        const {dispatch} = this.props;
+
+        dispatch(getItem(id)).then(() => {
            const limit = 10;
             let offset = (page - 1) * limit;
             dispatch(getRoasterItems(this.props.bean.roasterId, reset ? 0 : offset, limit));
@@ -29,7 +36,7 @@ class BeanItemDetailsContainer extends Component {
 
     render() {
         return (
-            <div className="content h-100 min-h-100 overflow-y-auto">
+            <div id="topDiv" className="content h-100 min-h-100 overflow-y-auto">
                 <BeanItemDetails update={this.update} params={this.props.params} bean={this.props.bean} roaster={this.props.roaster} items={this.props.items} />
             </div>
         );

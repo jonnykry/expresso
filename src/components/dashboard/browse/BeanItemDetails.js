@@ -8,7 +8,7 @@ import BackButton from '../BackButton';
 class BeanItemDetails extends Component {
     render() {
         return (
-            <div key={this.props.params.id}>
+            <div>
                 <BackButton />
                 <div className="mw7 center pa4">
                     <h1 className="tc"> Details For {this.props.bean.name}</h1>

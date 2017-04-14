@@ -19,7 +19,7 @@ class SmallBeanItem extends Component {
                     <div>
                         <div><span className="f2 b">{this.props.item.name}</span><span className="f3 pa1">  ${parseFloat(this.props.item.consumerPrice).toFixed(2)} / mo</span></div>
                         <div className="pt2"><span className="i f5 gray pv2">{this.props.item.coffeeType}</span>
-                            <Link onClick={this.forceUpdate} to={'/dashboard/browse/' + this.props.item.id} className={linkClass + ' mr2 ml2'}>
+                            <Link to={'/dashboard/browse/' + this.props.item.id} className={linkClass + ' mr2 ml2'}>
                                 <span className={btnClass}>
                                     View Details
                                 </span>
