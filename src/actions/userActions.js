@@ -103,6 +103,29 @@ export function getUserInfo() {
     };
 }
 
+export function getSecondaryUserInfo(id) {
+    return dispatch => {
+        return fetch(USER_URL + '/' + id, ActionUtil.auth({
+            method: 'GET'
+        })).then(response => {
+            if(response.status == 401) {
+                dispatch(ActionUtil.error(401, 'Forbidden'));
+            }
+
+            return response.json();
+        }).then(json => {
+            if(!json.success) {
+                dispatch(ActionUtil.error(500, json.message));
+                return
+            }
+
+            dispatch(receiveUser(json, ActionTypes.RECEIVE_SECONDARY_USER));
+        }).catch(err => {
+            dispatch(ActionUtil.error(500, err.message));
+        });
+    };
+}
+
 export function updateUserInfo(userInfo, userId) {
     return dispatch => {
         return fetch(USER_URL + '/' + userId, ActionUtil.auth({
@@ -160,9 +183,9 @@ function errorUser() {
     };
 }
 
-function receiveUser(payload) {
+function receiveUser(payload, actionType) {
     return {
-        type: ActionTypes.RECEIVE_USER,
+        type: actionType || ActionTypes.RECEIVE_USER,
         payload
     };
 }

@@ -11,7 +11,26 @@ export function createSubscription(body) {
 }
 
 export function getSubscription(id) {
-	return ActionUtil.handleRequest(SUBSCRIPTION_URL + "/" + id, "GET");
+    return dispatch => {
+        return fetch(SUBSCRIPTION_URL + '/' + id, ActionUtil.auth({
+            method: 'GET'
+        })).then(response => {
+            if (response.status === 401) {
+                dispatch(ActionUtil.error(401, 'Forbidden'));
+            }
+
+            return response.json();
+        }).then(json => {
+            if (!json.success) {
+                dispatch(ActionUtil.error(500, json.message));
+                return;
+            }
+            
+            dispatch(receiveSubscription(json));
+        }).catch(err => {
+            dispatch(ActionUtil.error(500, err.message));
+        });
+    };
 }
 
 export function getSubscriptionsByUser(id, offset, limit) {
@@ -32,4 +51,11 @@ export function updateSubscription(body) {
 
 export function deleteSubscription(id) {
 	return ActionUtil.handleRequest(SUBSCRIPTION_URL + "/" + id, "DELETE");
+}
+
+function receiveSubscription(payload) {
+    return {
+        type: ActionTypes.COVENANT_SUBSCRIPTION,
+        payload
+    };
 }
