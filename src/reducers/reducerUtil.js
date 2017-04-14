@@ -52,7 +52,8 @@ function handlePagedAction(action, state) {
 
 function modify(state = {
     fetching: false,
-    success: false
+    success: false,
+    data: {}
 }, action) {
     return handleModifyAction(action, state);
 }
@@ -61,19 +62,22 @@ function handleModifyAction(action, state) {
     switch (action.type) {
         case ActionTypes.REQUEST: {
             return Object.assign({}, state, {
-                fetching: true
+                fetching: true,
+                data: {}
             });
         }
         case ActionTypes.HANDLE: {
             return Object.assign({}, state, {
                 fetching: false,
-                success: action.payload.success
+                success: action.payload.success,
+                data: action.payload.data
             });
         }
         case ActionTypes.TIMEOUT: {
             return Object.assign({}, state, {
                 fetching: false,
-                success: false
+                success: false,
+                data: {}
             });
         }
         default: {
