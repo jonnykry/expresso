@@ -42,7 +42,6 @@ class InventoryEdit extends Component {
             item = this.props.items[this.props.id];
         }
 
-        console.log(this.props.description);
         return (
             <div>
                 <SuccessMessage success={this.props.success} message={this.props.id ? 'Successfully edited ' + item.name + '.' : 'Successfully added beans.'}/>
