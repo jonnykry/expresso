@@ -9,7 +9,7 @@ class BeanItemList extends Component {
         return (
             <div className="w-100 pa4-ns">
                 {this.props.ids.map((key) =>
-                    this.props.isDetails ? <SmallBeanItem  item={this.props.items[key]} key={key}/> : <BeanItem  item={this.props.items[key]} key={key}/>
+                    this.props.isDetails ? <SmallBeanItem params={this.props.params} item={this.props.items[key]} key={key}/> : <BeanItem  item={this.props.items[key]} key={key}/>
                 )}
                 <Loading fetching={this.props.fetching} length={this.props.items.length} />
             </div>

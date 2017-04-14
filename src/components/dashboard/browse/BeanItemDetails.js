@@ -1,39 +1,14 @@
 import React, { Component, PropTypes } from 'react';
-import {connect} from 'react-redux';
 import {Link} from 'react-router';
-import {getItem} from '../../../actions/warehouseActions';
-import {getRoasterItems} from '../../../actions/roasterActions';
 import InfiniteList from '../InfiniteList';
 import BeanItemList from './BeanItemList';
 import BeanItemImage from './BeanItemImage';
 import BackButton from '../BackButton';
 
 class BeanItemDetails extends Component {
-    constructor(props) {
-        super(props);
-
-        this.update = this.update.bind(this);
-    }
-
-    componentDidMount() {
-        this.update(1, false);
-    }
-
-    update(page, reset) {
-        const {dispatch, params} = this.props;
-
-        dispatch(getItem(params.id)).then(() => {
-           const limit = 10;
-            let offset = (page - 1) * limit;
-            dispatch(getRoasterItems(this.props.bean.roasterId, reset ? 0 : offset, limit));
-        });
-    }
-
     render() {
-        let linkClass = 'no-underline black';
-
         return (
-            <div className="content h-100 min-h-100 overflow-y-auto">
+            <div>
                 <BackButton />
                 <div className="mw7 center pa4">
                     <h1 className="tc"> Details For {this.props.bean.name}</h1>
@@ -62,15 +37,15 @@ class BeanItemDetails extends Component {
                 </div>
                 <div className="mw7 center mh3 pointer">
                     <div>
-                        <Link to={'/dashboard/subscribe/' + this.props.params.id} className={linkClass}>
+                        <Link to={'/dashboard/subscribe/' + this.props.params.id} className="no-underline black">
                                 <div className="pointer f2 dim br1 ba bw1 tc ph2 mh4 pv3 green">Subscribe</div>
                         </Link>
                     </div>
                 </div>
                 <div className="mw7 center mt5">
-                    <InfiniteList update={this.update} {...this.props.items}>
+                    <InfiniteList update={this.props.update} {...this.props.items}>
                         <h2 className="tc">More by {this.props.roaster.name}</h2>
-                        <BeanItemList {...this.props.items} isDetails/>
+                        <BeanItemList {...this.props.items} params={this.props.params} isDetails/>
                     </InfiniteList>
                 </div>
             </div>
@@ -79,7 +54,7 @@ class BeanItemDetails extends Component {
 }
 
 BeanItemDetails.propTypes = {
-    params: PropTypes.object.isRequired,
+    params: PropTypes.object,
     bean: PropTypes.object,
     roaster: PropTypes.object,
     fetching:  PropTypes.bool,
@@ -87,14 +62,4 @@ BeanItemDetails.propTypes = {
     items: PropTypes.object
 };
 
-function mapStateToProps(state) {
-    return {
-        bean: state.bean.item,
-        roaster: state.roaster.roaster,
-        fetching: state.bean.fetching,
-        error: state.bean.error,
-        items: state.roasterItems
-    };
-}
-
-export default connect(mapStateToProps)(BeanItemDetails);
+export default BeanItemDetails;
