@@ -11,10 +11,10 @@ class Subscribe extends Component {
         const rowClass = 'mv3';
 
         const options = [
-            {value: 'MONTHLY', label: 'Monthly'},
-            {value: 'TRIMONTHLY', label: 'Trimonthly'},
-            {value: 'BIMONTHLY', label: 'Bimonthly'},
-            {value: 'WEEKLY', label: 'Weekly'}
+            {value: 'MONTHLY', label: 'Every month'},
+            {value: 'TRIWEEKLY', label: 'Every three weeks'},
+            {value: 'BIWEEKLY', label: 'Every two weeks'},
+            {value: 'WEEKLY', label: 'Every week'}
         ];
 
         return (
