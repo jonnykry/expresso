@@ -6,6 +6,7 @@ import {getRoasterItems} from '../../../actions/roasterActions';
 import {addItem, uploadImage, updateItem} from '../../../actions/warehouseActions';
 import ActionUtil from '../../../actions/actionUtil';
 import Inventory from './Inventory';
+import Loading from '../../Loading';
 
 class InventoryContainer extends Component {
     constructor(props) {
@@ -21,7 +22,8 @@ class InventoryContainer extends Component {
             selectedTags: [],
             eimage: '',
             etype: {},
-            send: false
+            send: false,
+            itemsReceived: false
         };
 
         this.inputHandlers = {
@@ -66,7 +68,9 @@ class InventoryContainer extends Component {
             return;
         }
 
-        this.props.dispatch(getRoasterItems(this.props.roaster.id, 0, 100));
+        this.props.dispatch(getRoasterItems(this.props.roaster.id, 0, 100)).then(() => {
+            this.setState({itemsReceived: true});
+        });
     }
 
     handleSuccess() {
@@ -259,6 +263,9 @@ class InventoryContainer extends Component {
     }
 
     render() {
+        if(!this.state.itemsReceived) {
+            return <Loading fetching={true} />
+        }
         return (
             <div>
                 <Inventory
