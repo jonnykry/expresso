@@ -10,6 +10,10 @@ class SmallBeanItem extends Component {
         const btnClass = 'pointer dim br1 ba bw1 tc ph2 pv1 black pl3';
         let linkClass = 'no-underline black w-50';
 
+        // don't display the item if the id is already being displayed
+        if (this.props.params.id === this.props.item.id)
+            return null;
+
         return (
             <div className="bean-item-card w-40 center ma1 mb3 pa4 ba flex">
                 <div className="w3 h3">
@@ -19,7 +23,7 @@ class SmallBeanItem extends Component {
                     <div>
                         <div><span className="f2 b">{this.props.item.name}</span><span className="f3 pa1">  ${parseFloat(this.props.item.consumerPrice).toFixed(2)} / mo</span></div>
                         <div className="pt2"><span className="i f5 gray pv2">{this.props.item.coffeeType}</span>
-                            <Link onClick={this.forceUpdate} to={'/dashboard/browse/' + this.props.item.id} className={linkClass + ' mr2 ml2'}>
+                            <Link to={'/dashboard/browse/' + this.props.item.id} className={linkClass + ' mr2 ml2'}>
                                 <span className={btnClass}>
                                     View Details
                                 </span>
