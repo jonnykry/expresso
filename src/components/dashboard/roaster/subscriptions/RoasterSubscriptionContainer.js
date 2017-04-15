@@ -24,9 +24,7 @@ class RoasterSubscriptionContainer extends Component {
 
         const limit = 10;
         let offset = (page - 1) * limit;
-        dispatch(getSubscriptionsByRoaster(this.props.roaster.id, reset ? 0 : offset, limit)).then(() => {
-          console.log(this.props.items);  
-        });
+        dispatch(getSubscriptionsByRoaster(this.props.roaster.id, reset ? 0 : offset, limit));
     }
 
 	render () {
