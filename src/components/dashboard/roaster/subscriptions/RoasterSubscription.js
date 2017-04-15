@@ -30,4 +30,8 @@ class RoasterSubscription extends Component {
     }
 }
 
+RoasterSubscription.propTypes = {
+    item: PropTypes.object.isRequired
+}
+
 export default RoasterSubscription;
