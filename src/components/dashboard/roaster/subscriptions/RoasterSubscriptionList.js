@@ -21,8 +21,6 @@ RoasterSubscriptionList.propTypes = {
     ids: PropTypes.array.isRequired,
     items: PropTypes.object,
     fetching: PropTypes.bool,
-    onFrequencyChange: PropTypes.func.isRequired,
-    onStatusUpdate: PropTypes.func.isRequired
 };
 
 export default RoasterSubscriptionList;
