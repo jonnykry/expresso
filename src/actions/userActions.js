@@ -108,7 +108,7 @@ export function getSecondaryUserInfo(id) {
         return fetch(USER_URL + '/' + id, ActionUtil.auth({
             method: 'GET'
         })).then(response => {
-            if(response.status == 401) {
+            if(response.status === 401) {
                 dispatch(ActionUtil.error(401, 'Forbidden'));
             }
 

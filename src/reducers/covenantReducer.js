@@ -10,7 +10,7 @@ export function subscriptions(state = ReducerUtil.getPagedState(), action) {
 }
 
 export function subscription(state = {item: {}}, action) {
-    if(action.type != ActionTypes.COVENANT_SUBSCRIPTION) {
+    if(action.type !== ActionTypes.COVENANT_SUBSCRIPTION) {
         return state;
     }
 

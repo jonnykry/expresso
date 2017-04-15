@@ -1,9 +1,8 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
-import {getSubscriptionsByRoaster, updateSubscription} from '../../../../actions/covenantActions';
+import {getSubscriptionsByRoaster} from '../../../../actions/covenantActions';
 import {getUserInfo} from '../../../../actions/userActions';
 import InfiniteList from '../../InfiniteList';
-import ActionUtil from '../../../../actions/actionUtil';
 import SuccessMessage from '../../../SuccessMessage';
 import RoasterSubscriptionList from './RoasterSubscriptionList';
 
@@ -21,7 +20,7 @@ class RoasterSubscriptionContainer extends Component {
     }
 
     update(page, reset) {
-        const {dispatch, params} = this.props;
+        const {dispatch} = this.props;
 
         const limit = 10;
         let offset = (page - 1) * limit;

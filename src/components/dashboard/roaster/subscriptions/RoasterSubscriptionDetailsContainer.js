@@ -2,7 +2,6 @@ import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {getSubscription} from '../../../../actions/covenantActions';
 import {getSecondaryUserInfo} from '../../../../actions/userActions';
-import BackButton from '../../BackButton';
 import RoasterSubscriptionDetails from './RoasterSubscriptionDetails';
 
 class RoasterSubscriptionDetailsContainer extends Component {

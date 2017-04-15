@@ -51,7 +51,6 @@ class RoasterAccountInfo extends Component {
 	render() {
 		const inputClass = 'input-reset ba b--silver pa3 mv2 db br3 mh3';
 		const formRowClass = 'mt3 flex flex-row';
-        const labelClass = 'b dib mb2';
 
         const roaster = this.props.roaster;
         const exists = this.props.roaster;
