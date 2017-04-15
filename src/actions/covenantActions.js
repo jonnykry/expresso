@@ -1,5 +1,7 @@
 import ActionTypes from './actionTypes';
 import ActionUtil from './actionUtil';
+import {getSecondaryUserInfo} from './userActions';
+import {getItem} from './warehouseActions';
 
 const COVENANT_URL = "https://covenant.expresso.store/api";
 const USER_SUBSCRIPTIONS_URL = COVENANT_URL + "/user/subscription";
@@ -27,6 +29,8 @@ export function getSubscription(id) {
             }
             
             dispatch(receiveSubscription(json));
+            dispatch(getSecondaryUserInfo(json.data.userId));
+            dispatch(getItem(json.data.itemId));
         }).catch(err => {
             dispatch(ActionUtil.error(500, err.message));
         });
