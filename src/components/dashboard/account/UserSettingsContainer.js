@@ -1,4 +1,4 @@
-import {updateUserInfo, uploadProfilePicture} from '../../../actions/userActions'
+import {updateUserInfo, uploadProfilePicture} from '../../../actions/userActions';
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import ActionUtils from '../../../actions/actionUtil';

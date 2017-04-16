@@ -22,3 +22,30 @@ export function receipts(state = ReducerUtil.getPagedState(), action) {
     return ReducerUtil.handlePagedAction(action, state);
 }
 
+export function preference(state = {
+    preference: {},
+    success: false,
+    fetching: false
+}, action) {
+    if (action.itemType !== ActionTypes.PREFERENCE) {
+        return state;
+    }
+    switch (action.type) {
+        case ActionTypes.SEND_PAGED: {
+            return Object.assign({}, state, {
+                fetching: true
+            });
+        }
+        case ActionTypes.HANDLE_PAGED: {
+            return Object.assign({}, state, {
+                fetching: false,
+                success: true,
+                preference: action.payload.data
+            });
+        }
+        default: {
+            return state;
+        }
+    }
+}
+
