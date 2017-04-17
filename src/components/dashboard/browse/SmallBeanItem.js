@@ -7,7 +7,6 @@ import './BeanItem.css';
 
 class SmallBeanItem extends Component {
     render() {
-        const btnClass = 'pointer dim br1 ba bw1 tc ph2 pv1 black pl3';
         let linkClass = 'no-underline black';
 
         // don't display the item if the id is already being displayed
