@@ -29,7 +29,7 @@ class BeanItemDetails extends Component {
                         </div>
                         <div className="pa1 pl2 dib w-two-thirds-l w-50-m w-100 dtc-m v-top">
                             <div className="mt3 mb2">
-                                <span className="f2">${this.props.bean.consumerPrice}</span>
+                                <span className="f2">${parseFloat(this.props.bean.consumerPrice).toFixed(2)}</span>
                                 <span className="f5 fw1 black-60 ttu">&nbsp;per {this.props.bean.ozInBag} oz bag</span>
                             </div>
                             {this.props.bean.isDecaf &&
@@ -44,11 +44,11 @@ class BeanItemDetails extends Component {
                             }
                             {this.props.bean.tags &&
                                 <div className="pa2">
-                                    <strong>Tags:</strong>
+                                    <div className="dib b">Tags:</div>
                                     {
                                         this.props.bean.tags.map(tag => {
                                             return (
-                                                <span className="br1 ba ttu f5 b--black-10 bg-black-05 pa2 ma1" key={tag}>{tag}</span>
+                                                <div className="dib br1 ba ttu f5 b--black-10 bg-black-05 pa2 ma1" key={tag}>{tag}</div>
                                             );
                                         })
                                     }
