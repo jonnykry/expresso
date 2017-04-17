@@ -4,8 +4,8 @@ import ActionTypes from '../actions/actionTypes';
 import {beans, bean} from './warehouseReducer';
 import {roaster, roasterItems} from './roasterReducer';
 import {userReducer} from './userReducer';
-import {triggers, contents, receipts} from './bloodlinesReducer';
 import {subscriptions, subscription} from './covenantReducer';
+import {triggers, contents, receipts, preference} from './bloodlinesReducer';
 import ReducerUtil from './reducerUtil';
 
 const rootReducer = combineReducers({
@@ -19,6 +19,7 @@ const rootReducer = combineReducers({
     receipts,
     subscriptions,
     subscription,
+    preference,
     errors,
     modify: ReducerUtil.modify
 });
