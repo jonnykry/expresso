@@ -5,6 +5,7 @@ const BLOODLINES_URL = 'https://bloodlines.expresso.store/api';
 const CONTENT_URL = BLOODLINES_URL + '/content';
 const TRIGGER_URL = BLOODLINES_URL + '/trigger';
 const RECEIPT_URL = BLOODLINES_URL + '/receipt';
+const PREFERENCE_URL = BLOODLINES_URL + '/preference';
 
 export function getAllContent(offset, limit) {
     return ActionUtil.handlePagedRequest(ActionTypes.CONTENTS, CONTENT_URL, 'GET', offset, limit);
@@ -16,6 +17,10 @@ export function getAllTriggers(offset, limit) {
 
 export function getAllReceipts(offset, limit) {
     return ActionUtil.handlePagedRequest(ActionTypes.RECEIPTS, RECEIPT_URL, 'GET', offset, limit);
+}
+
+export function getPreference(id) {
+    return ActionUtil.handlePagedRequest(ActionTypes.PREFERENCE, PREFERENCE_URL + '/' + id, 'GET', 0, 0);
 }
 
 export function createContent(body) {
@@ -36,4 +41,8 @@ export function deleteTrigger(id) {
 
 export function activateTrigger(id, body) {
     return ActionUtil.handleRequest(TRIGGER_URL + '/' + id + '/activate', 'POST', body);
+}
+
+export function modifyPreference(id, body) {
+    return ActionUtil.handleRequest(PREFERENCE_URL + '/' + id, 'PATCH', body);
 }
