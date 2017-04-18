@@ -27,6 +27,8 @@ import MessageContentContainer from './components/dashboard/bloodlines/MessageCo
 import TriggerContainer from './components/dashboard/bloodlines/TriggerContainer';
 import ReceiptContainer from './components/dashboard/bloodlines/ReceiptContainer';
 import SubscriptionContainer from './components/dashboard/subscriptions/SubscriptionContainer';
+import RoasterSubscriptionContainer from './components/dashboard/roaster/subscriptions/RoasterSubscriptionContainer';
+import RoasterSubscriptionDetailsContainer from './components/dashboard/roaster/subscriptions/RoasterSubscriptionDetailsContainer';
 
 import configureStore from './store/configureStore';
 //import update from 'react-addons-update'; // ES6
@@ -142,8 +144,10 @@ ReactDOM.render(
                     <Route path="preference"/>
                 </Route>
                 <Route path="roaster" component={Roaster} onEnter={requireRoaster}>
-                    <IndexRedirect to="inventory"/>
+                    <IndexRedirect to="subscriptions"/>
                     <Route path="inventory" component={InventoryContainer}/>
+                    <Route path="subscriptions" component={RoasterSubscriptionContainer}/>
+                    <Route path="subscriptions/:id" component={RoasterSubscriptionDetailsContainer}/>
                     <Route path="account" component={RoasterAccount}/>
                 </Route>
                 <Route path="subscriptions" component={SubscriptionContainer}/>
