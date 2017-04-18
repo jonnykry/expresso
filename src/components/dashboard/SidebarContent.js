@@ -13,8 +13,8 @@ import FaSignOut from 'react-icons/lib/fa/sign-out';
 
 class SidebarContent extends Component {
     render() {
-        const bottomTextClass = "b dim white";
-        const bottomLinkClass = "no-underline";
+        const bottomTextClass = 'b dim white';
+        const bottomLinkClass = 'no-underline';
 
         const bloodlines = <BloodlinesSidebar location={this.props.location}/>;
         const roaster = <RoasterSidebar location={this.props.location}/>;
@@ -27,10 +27,10 @@ class SidebarContent extends Component {
             <div className="relative h-100 overflow-hidden flex justify-between flex-column bg-blue white">
                 <div>
                     <SidebarSelector name="Browse Beans" to={d + 'browse'} location={b} icon={<FaSearch className="mr2 pb1" />}/>
-                    {isDev ? 
+                    {isDev ?
                             <SidebarSelector name="Bloodlines" to={d + 'bloodlines'} location={b} icon={<FaEnvelopeO className="mr2 pb1" />}>
                                 {bloodlines}
-                            </SidebarSelector> 
+                            </SidebarSelector>
                             : ''}
                     <SidebarSelector name="Subscriptions" to={d + 'subscriptions'} location={b} icon={<FaRssSquare className="mr2 pb1" />}/>
 

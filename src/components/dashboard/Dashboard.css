@@ -4,8 +4,20 @@ body {
 
 .sidebar {
     width: 270px;
+    padding-top: 0px;
 }
 
 .content {
     margin-left: 270px;
+    padding-top: 0px;
+}
+
+@media screen and (max-width: 60em) {
+    .content {
+        margin-left: 0px;
+        margin-top: 59px;
+    }
+    .sidebar {
+        padding-top: 59px;
+    }
 }
