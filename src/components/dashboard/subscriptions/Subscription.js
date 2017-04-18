@@ -7,10 +7,6 @@ class Subscription extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            details: false
-        };
-
         this.frequencyOptions = [
             {value: 'MONTHLY', label: 'Every Month'},
             {value: 'TRIWEEKLY', label: 'Every Three Weeks'},

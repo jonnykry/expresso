@@ -4,13 +4,6 @@ import ActionUtil from './actionUtil';
 const WAREHOUSE_URL = 'https://warehouse.expresso.store/api';
 const ITEMS_URL = WAREHOUSE_URL + '/item';
 
-// function receiveItem(payload) {
-//     return {
-//         type: ActionTypes.WAREHOUSE_ITEM,
-//         payload
-//     };
-// }
-
 export function getAllItems(offset, limit, searchTerm, orderName, orderCost) {
     const shouldFilter = searchTerm !== undefined || orderName !== undefined || orderCost !== undefined;
     const filterParams = `&q=${searchTerm || ''}&name=${orderName !== undefined ? orderName : ''}&cost=${orderCost !== undefined ? orderCost : ''}`;
