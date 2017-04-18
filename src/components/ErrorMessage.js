@@ -5,7 +5,6 @@ import Error from './Error';
 class ErrorMessage extends Component {
     render() {
         let c = '';
-
         if (!this.props.errors) {
             return (
                 <div/>

@@ -77,7 +77,7 @@ RoasterAccount.propTypes = {
 
 function mapStateToProps(state) {
     return {
-        roaster: state.roaster.roaster
+        //roasters: state.roaster.roasters
     };
 }
 

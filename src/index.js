@@ -26,7 +26,7 @@ import SubscribeContainer from './components/dashboard/subscriptions/SubscribeCo
 import MessageContentContainer from './components/dashboard/bloodlines/MessageContentContainer';
 import TriggerContainer from './components/dashboard/bloodlines/TriggerContainer';
 import ReceiptContainer from './components/dashboard/bloodlines/ReceiptContainer';
-import SubscriptionContainer from './components/dashboard/subscriptions/SubscriptionContainer';
+import SubscriptionListContainer from './components/dashboard/subscriptions/SubscriptionListContainer';
 
 import configureStore from './store/configureStore';
 //import update from 'react-addons-update'; // ES6
@@ -66,11 +66,11 @@ function requireAuth(nextState, replace, callback) {
 }
 
 function requireRoaster(nextState, replace, callback) {
-    if (store.getState().roaster.roaster.id) {
+    const id = store.getState().userReducer.user.roasterId;
+    if (id) {
         callback();
         return;
     }
-
 
     replace({
         pathname: '/dashboard',
@@ -146,7 +146,7 @@ ReactDOM.render(
                     <Route path="inventory" component={InventoryContainer}/>
                     <Route path="account" component={RoasterAccount}/>
                 </Route>
-                <Route path="subscriptions" component={SubscriptionContainer}/>
+                <Route path="subscriptions" component={SubscriptionListContainer}/>
                 <Route path="subscribe/:id" component={SubscribeContainer}/>
                 <Route path="settings" component={AccountSettings}/>
             </Route>

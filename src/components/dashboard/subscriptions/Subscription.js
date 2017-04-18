@@ -1,38 +1,73 @@
 import React, {Component, PropTypes} from 'react';
-import {Link} from 'react-router';
-
 import Select from 'react-select';
 
-class Subscription extends Component {
-    render() {
-        const item = this.props.item;
-        const frequencyOptions = [
-            {value: 'MONTHLY', label: 'Monthly'},
-            {value: 'TRIMONTHLY', label: 'Trimonthly'},
-            {value: 'BIMONTHLY', label: 'Bimonthly'},
-            {value: 'WEEKLY', label: 'Weekly'}
-        ];
-        const btnClass = 'pointer dim br1 ba bw1 tc pa2 black';
-        const statusLabel = item.status === 'ACTIVE' ? 'Deactivate' : 'Activate';
+import BeanItemImage from '../browse/BeanItemImage';
 
-        const date = new Date(item.createdAt);
+class Subscription extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            details: false
+        };
+
+        this.frequencyOptions = [
+            {value: 'MONTHLY', label: 'Every Month'},
+            {value: 'TRIWEEKLY', label: 'Every Three Weeks'},
+            {value: 'BIWEEKLY', label: 'Every Two Weeks'},
+            {value: 'WEEKLY', label: 'Every Weeks'}
+        ];
+    }
+
+    render() {
+        const {item, bean} = this.props;
+
+        const btnClass = 'pointer dim br2 ba bw1 tc pa2 white bg-red';
+        const statusLabel = item.status === 'ACTIVE' ? 'Pause' : 'Activate';
+
+        const date = new Date(item.createdAt).toDateString();
+        const next = new Date(item.nextOrder).toDateString();
+
+        let bag = 'bag';
+        if (bean && item.quantity > 1) {
+            bag += 's';
+        }
 
         return (
-            <div className="mw7 flex center bl br bt bb mb2 pa3 flex flex-column">
-                <div className="flex">
-                    <Link className="pa1 mr2 black no-underline ba bw1" to={'/dashboard/browse/' + item.itemId}>View Item Details</Link>
-                    <div className={btnClass + ' w4 pr3 mr3'} onClick={() => this.props.onStatusUpdate(item)}>{statusLabel}</div>
-                    <div className="w-25 pt2"><strong># Bags:</strong> {item.quantity}</div>
-                    <div className="b pv2 pr2">Frequency:</div>
-                    <Select className="w-50 mr3 h-100"
-                        options={frequencyOptions}
-                        simpleValue
-                        clearable={false}
-                        value={item.frequency}
-                        onChange={val => this.props.onFrequencyChange(item, val)}
-                        />
+            <div className="dt w-100 mw7 center bl br bt bb mb2 pa3">
+                <div className="dtc w-third-l w-50-m w-100 v-mid">
+                    {bean && <BeanItemImage alt={bean.name} src={bean.pictureURL}/>}
                 </div>
-                <div className="w-100 pt3"><strong>Started:</strong> {date.toLocaleDateString()}</div>
+                <div className="dtc w-two-third-l w-50-m w-100 v-mid pl2">
+                    {
+                        bean &&
+                        <div className="mt3 mb2">
+                            <span className="f3">${(parseFloat(bean.consumerPrice) * item.quantity).toFixed(2)}</span>
+                            <span className="f5 fw1 black-60 ttu">&nbsp;for {item.quantity}, {bean.ozInBag} oz {bag}</span>
+                        </div>
+                    }
+                    <div className="ma2 db mb3">
+                        <span className="f5 fw1 black-80 ttu bg-green pa2 br2">billed {item.frequency}</span>
+                    </div>
+                    <div className="w-100 pt3 db tracked"><strong>Next order</strong> {next}</div>
+                    <div className="w-100 pt3 db tracked"><strong>Started on</strong> {date}</div>
+                    <div className="w-100 ml0 ma3">
+                        <div className="w-50-l w-100 pr2 dib v-mid">
+                            <div className="b pv2">Change Frequency:</div>
+                            <Select className="h-100"
+                                options={this.frequencyOptions}
+                                simpleValue
+                                clearable={false}
+                                value={item.frequency}
+                                onChange={val => this.props.onFrequencyChange(item, val)}
+                                />
+                        </div>
+                        <div className="w-50-l w-100 dib v-mid">
+                            <div className="w-100 b pv2 tc">Change Status:</div>
+                            <div className={btnClass + ' w4 center'} onClick={() => this.props.onStatusUpdate(item)}>{statusLabel}</div>
+                        </div>
+                    </div>
+                </div>
             </div>
         );
     }
@@ -41,7 +76,8 @@ class Subscription extends Component {
 Subscription.propTypes = {
     onFrequencyChange:  PropTypes.func.isRequired,
     onStatusUpdate:  PropTypes.func.isRequired,
-    item: PropTypes.object
+    item: PropTypes.object,
+    bean: PropTypes.object
 };
 
 export default Subscription;

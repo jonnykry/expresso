@@ -1,34 +1,39 @@
-import React, { Component, PropTypes } from 'react';
+import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
-import Subscribe from './Subscribe';
 
 import {getItem} from '../../../actions/warehouseActions';
 import {createSubscription} from '../../../actions/covenantActions';
-
+import Subscribe from './Subscribe';
 
 class SubscribeContainer extends Component {
     constructor(props) {
         super(props);
 
         this.subscribe = this.subscribe.bind(this);
-        this.update = this.update.bind(this);
         this.quantity = this.quantity.bind(this);
         this.frequency = this.frequency.bind(this);
 
         this.state = {
             quantity: 1,
-            frequency: "MONTHLY"
+            frequency: 'MONTHLY'
         };
-	}
-
-    componentDidMount() {
-        this.update();
     }
 
-    update() {
-        const {dispatch, params} = this.props;
+    componentDidMount() {
+        this.update(this.props.params.id);
+    }
 
-        dispatch(getItem(params.id));
+    update(id) {
+        const {dispatch} = this.props;
+        if (this.bean()) {
+            return;
+        }
+
+        dispatch(getItem(id));
+    }
+
+    bean() {
+        return this.props.bean[this.props.params.id];
     }
 
     subscribe() {
@@ -36,11 +41,11 @@ class SubscribeContainer extends Component {
 
         const data = {
             userId: this.props.user.id,
-            roasterId: this.props.bean.roasterId,
-            itemId: this.props.bean.id,
+            roasterId: this.bean().roasterId,
+            itemId: this.bean().id,
             frequency: this.state.frequency,
             quantity: parseInt(this.state.quantity, 10)
-        }
+        };
 
         dispatch(createSubscription(data)).then(this.props.router.replace('/dashboard/subscriptions'));
     }
@@ -69,34 +74,39 @@ class SubscribeContainer extends Component {
     }
 
     render() {
+        const bean = this.bean();
         return (
             <div className="h-100 min-h-100">
-                <Subscribe handleUpdate={this.update}
-                    handleSubscribe={this.subscribe}
-                    handleQuantity={this.quantity}
-                    handleFrequency={this.frequency}
-                    quantity={this.state.quantity}
-                    frequency={this.state.frequency}
-                    bean={this.props.bean}
-                    quantityRef={this._quantity()} />
+                {
+                    bean &&
+                    <Subscribe
+                        handleSubscribe={this.subscribe}
+                        handleQuantity={this.quantity}
+                        handleFrequency={this.frequency}
+                        quantity={this.state.quantity}
+                        frequency={this.state.frequency}
+                        bean={bean}
+                        quantityRef={this._quantity()}
+                        />
+                }
+
             </div>
         );
     }
 }
 
 SubscribeContainer.propTypes = {
-    subscribe: PropTypes.object,
     bean: PropTypes.object,
-    fetching:  PropTypes.bool,
-    error: PropTypes.string,
-    user: PropTypes.object
+    user: PropTypes.object,
+    router: PropTypes.object.isRequired,
+    params: PropTypes.object.isRequired,
+    dispatch: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state) {
     return {
-        bean: state.bean.item,
-        fetching: state.bean.fetching,
-        error: state.bean.error,
+        bean: state.beans.items,
+        fetching: state.beans.fetching,
         user: state.userReducer.user,
         subscribe: state.covenantReducer
     };

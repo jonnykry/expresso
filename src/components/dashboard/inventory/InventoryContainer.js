@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 
-import {getUserInfo} from '../../../actions/userActions';
+// import {getUserInfo} from '../../../actions/userActions';
 import {getRoasterItems} from '../../../actions/roasterActions';
 import {addItem, uploadImage, updateItem} from '../../../actions/warehouseActions';
 import ActionUtil from '../../../actions/actionUtil';
@@ -21,7 +21,8 @@ class InventoryContainer extends Component {
             selectedTags: [],
             eimage: '',
             etype: {},
-            send: false
+            send: false,
+            showItems: false,
         };
 
         this.inputHandlers = {
@@ -52,8 +53,10 @@ class InventoryContainer extends Component {
         };
     }
 
-    componentWillMount() {
-        this.props.dispatch(getUserInfo());
+    componentDidMount() {
+        this.props.dispatch(getRoasterItems(this.props.roaster.id, 0, 100)).then(() => {
+            this.setState({showItems: true});
+        });
     }
 
     componentWillReceiveProps(next) {
@@ -62,11 +65,10 @@ class InventoryContainer extends Component {
             return;
         }
 
-        if (!this.props.roaster.id || !this.props.next) {
+        if (!this.props.roaster.id) {
             return;
         }
 
-        this.props.dispatch(getRoasterItems(this.props.roaster.id, 0, 100));
     }
 
     handleSuccess() {
@@ -261,6 +263,7 @@ class InventoryContainer extends Component {
     render() {
         return (
             <div>
+                {this.state.showItems &&
                 <Inventory
                     onAddBeans={this.handleAddBeansBind}
                     ids={this.props.ids}
@@ -277,22 +280,22 @@ class InventoryContainer extends Component {
                     type={this.state.type}
                     etype={this.state.etype}
                     />
+                }
             </div>
         );
     }
 }
 
 InventoryContainer.propTypes = {
+    roaster: PropTypes.object.isRequired,
     dispatch: PropTypes.func.isRequired,
     ids: PropTypes.array.isRequired,
     items: PropTypes.object.isRequired,
-    modify: PropTypes.object.isRequired,
-    roaster: PropTypes.object.isRequired
+    modify: PropTypes.object.isRequired
 };
 
 function mapStateToProps(state) {
     return {
-        roaster: state.roaster.roaster,
         ids: state.roasterItems.ids,
         items: state.roasterItems.items,
         next: state.roasterItems.next,

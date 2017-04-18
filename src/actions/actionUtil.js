@@ -108,6 +108,14 @@ function handle(payload) {
     };
 }
 
+function single(itemType, payload) {
+    return {
+        type: ActionTypes.SINGLE,
+        itemType,
+        payload
+    };
+}
+
 function error(code, message) {
     return {
         type: ActionTypes.ERROR,
@@ -147,5 +155,6 @@ export default({
     handle,
     error,
     resolveError,
-    auth
+    auth,
+    single
 });
