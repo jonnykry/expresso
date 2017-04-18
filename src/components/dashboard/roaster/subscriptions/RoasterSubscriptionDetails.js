@@ -1,6 +1,5 @@
 import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router';
-import BackButton from '../../BackButton';
 import Loading from '../../../Loading';
 import moment from 'moment';
 
@@ -25,7 +24,6 @@ class RoasterSubscriptionDetails extends Component {
         
         return (
             <div className="content-h-100 min-h-100 overflow-y-auto">
-                <BackButton />
                 <div className="mw7 center pa4">
                     <h1 className="tc">Subscription for {name}</h1>
                     <div className={rowClass}><strong>Frequency:</strong> {frequency}</div>
