@@ -18,7 +18,7 @@ class RoasterSubscriptionDetails extends Component {
         const bean = this.props.bean;
 
         const name = user.firstName + ' ' + user.lastName;
-        const date = new moment(subscription.createdAt);
+        const date = new moment(subscription.nextOrder);
         const frequency = subscription.frequency.charAt(0) + subscription.frequency.slice(1).toLowerCase();
         const active = subscription.status.charAt(0) + subscription.status.slice(1).toLowerCase();
         
@@ -27,7 +27,7 @@ class RoasterSubscriptionDetails extends Component {
                 <div className="mw7 center pa4">
                     <h1 className="tc">Subscription for {name}</h1>
                     <div className={rowClass}><strong>Frequency:</strong> {frequency}</div>
-                    <div className={rowClass}><strong>Created:</strong> {date.format('MM/DD/YYYY')}</div>
+                    <div className={rowClass}><strong>Next order:</strong> {date.format('MM/DD/YYYY')}</div>
                     <div className={rowClass}><strong>Status:</strong> {active}</div>
                     <div className={rowClass}><strong>Quantity:</strong> {subscription.quantity}</div>
                     <div className={rowClass}>

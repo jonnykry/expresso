@@ -8,7 +8,7 @@ class RoasterSubscription extends Component {
         const rowClass = 'pa2';
 
         const item = this.props.item;
-        const date = new Date(item.createdAt);
+        const date = new Date(item.nextOrder);
         const frequency = item.frequency.charAt(0).toUpperCase() + item.frequency.slice(1).toLowerCase();
 
         return (
@@ -18,7 +18,7 @@ class RoasterSubscription extends Component {
                     <span className={labelClass}><strong>Frequency:</strong> {frequency}</span>
                 </div>
                 <div className={rowClass}>
-                    <span className={labelClass}><strong>Started:</strong> {date.toLocaleDateString()}</span>
+                    <span className={labelClass}><strong>Next order:</strong> {date.toLocaleDateString()}</span>
                     <span className="pt2">
                         <Link to={'/dashboard/roaster/subscriptions/' + item.id} className={btnClass}>
                             View this subscription
