@@ -37,10 +37,12 @@ class UserAccountInfo extends Component {
         const inputClass = 'input-reset ba b--silver pa3 mv2 db br3 mh3';
         const formRowClass = 'mt3 flex flex-row';
 
-        const user = this.props.user;
-        const exists = this.props.user.id;
-        const legendText = exists ? 'User Account Settings' : 'Register User Account';
-        const submitText = exists ? 'Update' : 'Register';
+        let user = {};
+        if(this.props.user) {
+            user = this.props.user;
+        }
+        const legendText = user.id ? 'User Account Settings' : 'Register User Account';
+        const submitText = user.id ? 'Update' : 'Register';
 
         return (
             <form className="mw7 center w-100 h-100" onSubmit={this.props.handleSubmit}>
@@ -48,14 +50,14 @@ class UserAccountInfo extends Component {
                     <Title color="black"/>
                     <legend className="center f2 pb4 blue fw1">{legendText}</legend>
                     <div className={formRowClass}>
-                        <input className={inputClass + ' w-40'} ref={this.props.firstName} placeholder="First Name" defaultValue={exists ? user.firstName : ''} required/>
-                        <input className={inputClass + ' w-40'} ref={this.props.lastName} placeholder="Last Name" defaultValue={exists ? user.lastName : ''} required/>
+                        <input className={inputClass + ' w-40'} ref={this.props.firstName} placeholder="First Name" defaultValue={user.firstName} required/>
+                        <input className={inputClass + ' w-40'} ref={this.props.lastName} placeholder="Last Name" defaultValue={user.lastName} required/>
                     </div>
                     <div className={formRowClass}>
-                        <input className={inputClass + ' w-100'} pattern="^\d{10}$" title="Requested format is ##########" ref={this.props.phone} placeholder="Phone Number (##########)" defaultValue={exists ? user.phone : ''} required/>
+                        <input className={inputClass + ' w-100'} pattern="^\d{10}$" title="Requested format is ##########" ref={this.props.phone} placeholder="Phone Number (##########)" defaultValue={user.phone} required/>
                     </div>
                     <div className={formRowClass}>
-                        <input className={inputClass + ' w-100'} type="email" ref={this.props.email} placeholder="E-mail" defaultValue={exists ? user.email : ''} required/>
+                        <input className={inputClass + ' w-100'} type="email" ref={this.props.email} placeholder="E-mail" defaultValue={user.email} required/>
                     </div>
                     <div>
                         <div className={formRowClass}>
@@ -66,17 +68,17 @@ class UserAccountInfo extends Component {
                         </div>
                     </div>
                     <div className={formRowClass}>
-                        <input className={inputClass + ' w-100'} ref={this.props.addressLine1} placeholder="Address Line 1" defaultValue={exists ? user.addressLine1 : ''} required/>
+                        <input className={inputClass + ' w-100'} ref={this.props.addressLine1} placeholder="Address Line 1" defaultValue={user.addressLine1} required/>
                     </div>
                     <div className={formRowClass}>
-                        <input className={inputClass + ' w-100'} ref={this.props.addressLine2} placeholder="Address Line 2 (Optional)" defaultValue={exists ? user.addressLine2 : ''}/>
+                        <input className={inputClass + ' w-100'} ref={this.props.addressLine2} placeholder="Address Line 2 (Optional)" defaultValue={user.addressLine2}/>
                     </div>
                     <div className={formRowClass}>
-                        <input className={inputClass + ' w-100'} ref={this.props.city} placeholder="City or Town" defaultValue={exists ? user.addressCity : ''} required/>
-                        <input className={inputClass} pattern="^\d{5}(?:[-\s]\d{4})?$" title="Please enter a valid zip code" ref={this.props.zipCode} placeholder="Zip Code" defaultValue={exists ? user.addressZip : ''} required/>
+                        <input className={inputClass + ' w-100'} ref={this.props.city} placeholder="City or Town" defaultValue={user.addressCity} required/>
+                        <input className={inputClass} pattern="^\d{5}(?:[-\s]\d{4})?$" title="Please enter a valid zip code" ref={this.props.zipCode} placeholder="Zip Code" defaultValue={user.addressZip} required/>
                     </div>
                     <div className={formRowClass}>
-                        <select className={inputClass + ' w-50 pointer'} ref={this.props.state} defaultValue={exists ? user.addressState : ''} required>
+                        <select className={inputClass + ' w-50 pointer'} ref={this.props.state} defaultValue={user.addressState} required>
                             <option value="AL">Alabama</option>
                             <option value="AK">Alaska</option>
                             <option value="AZ">Arizona</option>
@@ -129,7 +131,7 @@ class UserAccountInfo extends Component {
                             <option value="WI">Wisconsin</option>
                             <option value="WY">Wyoming</option>
                         </select>
-                        <select className={inputClass + ' w-50 pointer'} ref={this.props.country} defaultValue={exists ? user.addressCountry : ''} required>
+                        <select className={inputClass + ' w-50 pointer'} ref={this.props.country} defaultValue={user.addressCountry} required>
                             <option value="US">United States</option>
                             <option value="AF">Afghanistan</option>
                             <option value="AL">Albania</option>
@@ -394,7 +396,7 @@ class UserAccountInfo extends Component {
                     </div>
                     <div className="mt3">
                         <button className="f4 w-100 link pointer dim br1 ba bw1 pv3 mb2 white bg-green" type="submit">{submitText}</button>
-                        {!exists && <div className="tc pv2">Already have an account? <Link to="/login" title="Login">Log In</Link>!</div>}
+                        {!user.id && <div className="tc pv2">Already have an account? <Link to="/login" title="Login">Log In</Link>!</div>}
                     </div>
                 </div>
             </form>
@@ -403,7 +405,7 @@ class UserAccountInfo extends Component {
 }
 
 UserAccountInfo.propTypes = {
-    user: PropTypes.object.isRequired,
+    user: PropTypes.object,
     handleSubmit: PropTypes.func.isRequired,
     profileImage: PropTypes.object.isRequired,
     firstName: PropTypes.func,
