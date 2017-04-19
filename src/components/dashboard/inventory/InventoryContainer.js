@@ -105,7 +105,6 @@ class InventoryContainer extends Component {
         const bags = this.getNumber(this.bags.value);
         const ozInBag = this.getNumber(this.size.value);
         const price = this.getNumber(this.price.value);
-        this.setState({send: true});
 
         if (!bags) {
             dispatch(ActionUtil.error(400, 'Bags in Stock must be a number'));
@@ -139,15 +138,20 @@ class InventoryContainer extends Component {
 
         dispatch(addItem(bean)).then(() => {
             if (!this.photo) {
+                this.setState({send: true});
                 return;
             }
             const data = this.props.modify.data;
+
             if (!data.id) {
                 dispatch(ActionUtil.error(400, 'Unable to upload image.'));
+                this.setState({send: true});
                 return;
             }
 
-            dispatch(uploadImage(this.photo, data.id));
+            dispatch(uploadImage(this.photo, data.id)).then(() => {
+                this.setState({send: true});
+            });
         });
     }
 
@@ -156,7 +160,6 @@ class InventoryContainer extends Component {
 
         const {dispatch} = this.props;
         const bags = this.getNumber(this.ebags.value);
-        this.setState({esend: true});
 
         if (!bags) {
             dispatch(ActionUtil.error(400, 'Bags in Stock must be a number'));
@@ -183,14 +186,20 @@ class InventoryContainer extends Component {
 
         dispatch(updateItem(bean)).then(() => {
             if (!this.ephoto) {
-                return;
-            }
-            if (!this.state.selected) {
-                dispatch(ActionUtil.error(400, 'Unable to upload image.'));
+                this.setState({esend: true});
                 return;
             }
 
-            dispatch(uploadImage(this.ephoto, this.state.selected));
+            const data = this.props.modify.data;
+            if (!data.id) {
+                dispatch(ActionUtil.error(400, 'Unable to upload image.'));
+                this.setState({esend: true});
+                return;
+            }
+
+            dispatch(uploadImage(this.ephoto, data.id)).then(() => {
+                this.setState({esend: true});
+            });
         });
     }
 
