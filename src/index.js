@@ -31,7 +31,6 @@ import RoasterSubscriptionContainer from './components/dashboard/roaster/subscri
 import RoasterSubscriptionDetailsContainer from './components/dashboard/roaster/subscriptions/RoasterSubscriptionDetailsContainer';
 
 import configureStore from './store/configureStore';
-//import update from 'react-addons-update'; // ES6
 
 import 'tachyons/css/tachyons.css';
 import './index.css';
