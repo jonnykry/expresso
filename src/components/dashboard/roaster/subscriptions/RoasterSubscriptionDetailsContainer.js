@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {getSubscription} from '../../../../actions/covenantActions';
-import {createContent, createTrigger, activateTrigger} from '../../../../actions/bloodlinesActions';
+import {activateTrigger} from '../../../../actions/bloodlinesActions';
 
 import BackButton from '../../BackButton';
 import SuccessMessage from '../../../SuccessMessage';

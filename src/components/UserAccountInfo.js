@@ -47,8 +47,8 @@ class UserAccountInfo extends Component {
         return (
             <form className="mw7 center w-100 h-100" onSubmit={this.props.handleSubmit}>
                 <div className="ba br3 b--light-silver bs1 ph5 pb5 mt2 mb2 bg-white">
-                    <Title color="black"/>
-                    <legend className="center f2 pb4 blue fw1">{legendText}</legend>
+                    {!user.id ? <Title color="black"/> : null}
+                    <legend className="mt4 center f2 pb4 blue fw1">{legendText}</legend>
                     <div className={formRowClass}>
                         <input className={inputClass + ' w-40'} ref={this.props.firstName} placeholder="First Name" defaultValue={user.firstName} required/>
                         <input className={inputClass + ' w-40'} ref={this.props.lastName} placeholder="Last Name" defaultValue={user.lastName} required/>

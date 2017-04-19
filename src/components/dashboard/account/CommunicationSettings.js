@@ -23,12 +23,13 @@ class CommunicationSettings extends Component {
                         <Select style={{width: '100%'}}
                             options={options}
                             simpleValue
+                            clearable={false}
                             value={this.props.status}
                             placeholder="Status"
                             onChange={this.props.handleStatus}
                             />
                         <div className="mt3">
-                            <button className={btnClass + ' ml1 mr2'} type="submit">Save</button>
+                            <button className={btnClass + ' w-25 ml1 mr2'} type="submit">Save</button>
                         </div>
                     </div>
                 </form>
