@@ -44,6 +44,19 @@ function handlePagedAction(action, state) {
                 cursor: cursor
             });
         }
+        case ActionTypes.SINGLE: {
+            let _contents = state.items;
+            _contents = {
+                ..._contents,
+                [action.payload.data.id]: action.payload.data
+            };
+            const keys = Object.keys(_contents);
+            return Object.assign({}, state, {
+                fetching: false,
+                items: _contents,
+                ids: keys
+            });
+        }
         default: {
             return state;
         }

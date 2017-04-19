@@ -1,7 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 
-import {getUserInfo} from '../../../actions/userActions';
 import {getRoasterItems} from '../../../actions/roasterActions';
 import {addItem, uploadImage, updateItem} from '../../../actions/warehouseActions';
 import ActionUtil from '../../../actions/actionUtil';
@@ -23,7 +22,7 @@ class InventoryContainer extends Component {
             eimage: '',
             etype: {},
             send: false,
-            itemsReceived: false
+            showItems: false
         };
 
         this.inputHandlers = {
@@ -54,8 +53,10 @@ class InventoryContainer extends Component {
         };
     }
 
-    componentWillMount() {
-        this.props.dispatch(getUserInfo());
+    componentDidMount() {
+        this.props.dispatch(getRoasterItems(this.props.roaster.id, 0, 100)).then(() => {
+            this.setState({showItems: true});
+        });
     }
 
     componentWillReceiveProps(next) {
@@ -64,13 +65,13 @@ class InventoryContainer extends Component {
             return;
         }
 
-        if (!this.props.roaster.id || !this.props.next) {
+        if (!this.props.roaster.id) {
             return;
         }
 
-        this.props.dispatch(getRoasterItems(this.props.roaster.id, 0, 100)).then(() => {
-            this.setState({itemsReceived: true});
-        });
+        // this.props.dispatch(getRoasterItems(this.props.roaster.id, 0, 100)).then(() => {
+        //     this.setState({itemsReceived: true});
+        // });
     }
 
     handleSuccess() {
@@ -104,7 +105,6 @@ class InventoryContainer extends Component {
         const bags = this.getNumber(this.bags.value);
         const ozInBag = this.getNumber(this.size.value);
         const price = this.getNumber(this.price.value);
-        this.setState({send: true});
 
         if (!bags) {
             dispatch(ActionUtil.error(400, 'Bags in Stock must be a number'));
@@ -138,15 +138,20 @@ class InventoryContainer extends Component {
 
         dispatch(addItem(bean)).then(() => {
             if (!this.photo) {
+                this.setState({send: true});
                 return;
             }
             const data = this.props.modify.data;
+
             if (!data.id) {
                 dispatch(ActionUtil.error(400, 'Unable to upload image.'));
+                this.setState({send: true});
                 return;
             }
 
-            dispatch(uploadImage(this.photo, data.id));
+            dispatch(uploadImage(this.photo, data.id)).then(() => {
+                this.setState({send: true});
+            });
         });
     }
 
@@ -155,7 +160,6 @@ class InventoryContainer extends Component {
 
         const {dispatch} = this.props;
         const bags = this.getNumber(this.ebags.value);
-        this.setState({esend: true});
 
         if (!bags) {
             dispatch(ActionUtil.error(400, 'Bags in Stock must be a number'));
@@ -182,14 +186,20 @@ class InventoryContainer extends Component {
 
         dispatch(updateItem(bean)).then(() => {
             if (!this.ephoto) {
-                return;
-            }
-            if (!this.state.selected) {
-                dispatch(ActionUtil.error(400, 'Unable to upload image.'));
+                this.setState({esend: true});
                 return;
             }
 
-            dispatch(uploadImage(this.ephoto, this.state.selected));
+            const data = this.props.modify.data;
+            if (!data.id) {
+                dispatch(ActionUtil.error(400, 'Unable to upload image.'));
+                this.setState({esend: true});
+                return;
+            }
+
+            dispatch(uploadImage(this.ephoto, data.id)).then(() => {
+                this.setState({esend: true});
+            });
         });
     }
 
@@ -263,11 +273,12 @@ class InventoryContainer extends Component {
     }
 
     render() {
-        if(!this.state.itemsReceived) {
-            return <Loading fetching={true} />
+        if (!this.state.showItems) {
+            return (<Loading fetching/>);
         }
         return (
             <div>
+                {this.state.showItems &&
                 <Inventory
                     onAddBeans={this.handleAddBeansBind}
                     ids={this.props.ids}
@@ -284,22 +295,22 @@ class InventoryContainer extends Component {
                     type={this.state.type}
                     etype={this.state.etype}
                     />
+                }
             </div>
         );
     }
 }
 
 InventoryContainer.propTypes = {
+    roaster: PropTypes.object.isRequired,
     dispatch: PropTypes.func.isRequired,
     ids: PropTypes.array.isRequired,
     items: PropTypes.object.isRequired,
-    modify: PropTypes.object.isRequired,
-    roaster: PropTypes.object.isRequired
+    modify: PropTypes.object.isRequired
 };
 
 function mapStateToProps(state) {
     return {
-        roaster: state.roaster.roaster,
         ids: state.roasterItems.ids,
         items: state.roasterItems.items,
         next: state.roasterItems.next,

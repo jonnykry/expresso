@@ -62,7 +62,7 @@ class Subscribe extends Component {
                         {' ' + (this.props.frequency.charAt(0) + this.props.frequency.substr(1).toLowerCase()) || 'Monthly'}</strong></div>
                     <div className="mv4 dib w-50 center">
                         <div className={btnClass + ' tc center w-50-l w-100'} onClick={this.props.handleSubscribe}>
-                            Subscribe
+                            Purchase
                         </div>
                     </div>
                 </div>
@@ -76,7 +76,7 @@ Subscribe.propTypes = {
     fetching:  PropTypes.bool,
     error: PropTypes.string,
     user: PropTypes.object,
-    subscribe: PropTypes.object,
+    subscribe: PropTypes.object
 };
 
 export default Subscribe;

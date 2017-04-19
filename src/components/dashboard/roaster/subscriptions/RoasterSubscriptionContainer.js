@@ -1,22 +1,16 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
+
 import {getSubscriptionsByRoaster} from '../../../../actions/covenantActions';
-import {getUserInfo} from '../../../../actions/userActions';
 import InfiniteList from '../../InfiniteList';
 import SuccessMessage from '../../../SuccessMessage';
 import RoasterSubscriptionList from './RoasterSubscriptionList';
 
 class RoasterSubscriptionContainer extends Component {
-	constructor(props) {
-		super(props);
+    constructor(props) {
+        super(props);
 
-		this.updateBind = this.update.bind(this);
-	}
-
-    componentDidMount() {
-        this.props.dispatch(getUserInfo()).then(() => {
-            this.update(1, false);
-        });
+        this.updateBind = this.update.bind(this);
     }
 
     update(page, reset) {
@@ -27,19 +21,19 @@ class RoasterSubscriptionContainer extends Component {
         dispatch(getSubscriptionsByRoaster(this.props.roaster.id, reset ? 0 : offset, limit));
     }
 
-	render () {
-		return (
-			<div className="content h-100 min-h-100 relative overflow-y-auto pt4">
-				<InfiniteList ready={this.props.roaster.id} update={this.updateBind} {...this.props.items}>
-					<SuccessMessage success={this.props.modify.success} message={'Success'}/>
-					<h1 className="center f1-l mt2 b">
-						Subscriptions
-					</h1>
-					<RoasterSubscriptionList {...this.props.items} />
-				</InfiniteList>
-			</div>
-		);
-	}
+    render() {
+        return (
+            <div className="content h-100 min-h-100 relative overflow-y-auto pt4">
+                <InfiniteList ready={this.props.roaster.id !== ''} update={this.updateBind} {...this.props.items}>
+                    <SuccessMessage success={this.props.modify.success} message={'Success'}/>
+                    <h1 className="center f1-l mt2 b">
+                        Subscriptions
+                    </h1>
+                    <RoasterSubscriptionList {...this.props.items}/>
+                </InfiniteList>
+            </div>
+        );
+    }
 }
 
 RoasterSubscriptionContainer.propTypes = {
@@ -52,8 +46,7 @@ RoasterSubscriptionContainer.propTypes = {
 function mapStateToProps(state) {
     return {
         items: state.subscriptions,
-        modify: state.modify,
-        roaster: state.roaster.roaster
+        modify: state.modify
     };
 }
 
