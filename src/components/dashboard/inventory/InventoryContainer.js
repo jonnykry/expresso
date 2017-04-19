@@ -22,8 +22,7 @@ class InventoryContainer extends Component {
             eimage: '',
             etype: {},
             send: false,
-            showItems: false,
-            itemsReceived: false
+            showItems: false
         };
 
         this.inputHandlers = {
@@ -70,9 +69,9 @@ class InventoryContainer extends Component {
             return;
         }
 
-        this.props.dispatch(getRoasterItems(this.props.roaster.id, 0, 100)).then(() => {
-            this.setState({itemsReceived: true});
-        });
+        // this.props.dispatch(getRoasterItems(this.props.roaster.id, 0, 100)).then(() => {
+        //     this.setState({itemsReceived: true});
+        // });
     }
 
     handleSuccess() {
@@ -265,8 +264,8 @@ class InventoryContainer extends Component {
     }
 
     render() {
-        if(!this.state.itemsReceived) {
-            return <Loading fetching={true} />
+        if (!this.state.showItems) {
+            return (<Loading fetching/>);
         }
         return (
             <div>
