@@ -24,10 +24,8 @@ class Subscription extends Component {
         const date = new Date(item.createdAt).toDateString();
         const next = new Date(item.nextOrder).toDateString();
 
-        let bag = 'bag';
-        if (bean && item.quantity > 1) {
-            bag += 's';
-        }
+
+        const bagTag = bean && item.quantity > 1 ? 'bags' : 'bag';
 
         return (
             <div className="dt w-100 mw7 center bl br bt bb mb2 pa3">
@@ -39,7 +37,7 @@ class Subscription extends Component {
                         bean &&
                         <div className="mt3 mb2">
                             <span className="f3">${(parseFloat(bean.consumerPrice) * item.quantity).toFixed(2)}</span>
-                            <span className="f5 fw1 black-60 ttu">&nbsp;for {item.quantity}, {bean.ozInBag} oz {bag}</span>
+                            <span className="f5 fw1 black-60 ttu">&nbsp;for {item.quantity}, {bean.ozInBag} oz {bagTag}</span>
                         </div>
                     }
                     <div className="ma2 db mb3">

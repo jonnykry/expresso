@@ -28,18 +28,18 @@ class BeanItemDetailsContainer extends Component {
     update(page, reset, id) {
         const {dispatch} = this.props;
 
-        if (this.props.bean[id]) {
-            this.loadRoaster(page, reset, this.props.bean[id].roasterId);
+        if (this.props.beans[id]) {
+            this.loadRoaster(page, reset, this.props.beans[id].roasterId);
             return;
         }
 
         dispatch(getItem(id)).then(() => {
-            this.loadRoaster(page, reset, this.props.bean[id].roasterId);
+            this.loadRoaster(page, reset, this.props.beans[id].roasterId);
         });
     }
 
     bean() {
-        return this.props.bean[this.props.params.id];
+        return this.props.beans[this.props.params.id];
     }
 
     loadRoaster(page, reset, id) {
@@ -74,7 +74,7 @@ class BeanItemDetailsContainer extends Component {
 
 BeanItemDetailsContainer.propTypes = {
     params: PropTypes.object.isRequired,
-    bean: PropTypes.object,
+    beans: PropTypes.object,
     roasters: PropTypes.object,
     items: PropTypes.object,
     dispatch: PropTypes.func.isRequired
@@ -82,7 +82,7 @@ BeanItemDetailsContainer.propTypes = {
 
 function mapStateToProps(state) {
     return {
-        bean: state.beans.items,
+        beans: state.beans.items,
         fetching: state.beans.fetching,
         roasters: state.roaster.roasters,
         error: state.beans.error,
