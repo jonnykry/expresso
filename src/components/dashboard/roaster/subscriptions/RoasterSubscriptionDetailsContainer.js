@@ -44,7 +44,6 @@ class RoasterSubscriptionDetailsContainer extends Component {
             }
         };
 
-        console.log(triggerBody);
         dispatch(activateTrigger('roaster_message', triggerBody)).then(() => {
 
         });

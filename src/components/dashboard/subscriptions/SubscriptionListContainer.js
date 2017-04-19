@@ -45,20 +45,24 @@ class SubscriptionListContainer extends Component {
     }
 
     render() {
-        return (
-            <div className="content h-100 min-h-100 relative overflow-y-auto pt4">
+        const itemsOrEmpty = this.props.items.length > 0 ? 
                 <InfiniteList ready={this.props.user.id !== ''} update={this.updateBind} {...this.props.items}>
                     <SuccessMessage success={this.props.modify.success} message={'Success'}/>
-                    <h1 className="tc f1-l mt2 b">
-                        Subscriptions
-                    </h1>
                     <SubscriptionList
                         onFrequencyChange={this.updateFrequency}
                         onStatusUpdate={this.updateStatus}
                         beans={this.props.beans}
                         {...this.props.items}
                         />
-                </InfiniteList>
+                </InfiniteList> :
+                <div className="tc f4 mt2"><strong>Oops!</strong>  Looks like you have no subscriptions.  Check back later!</div>
+
+        return (
+            <div className="content h-100 min-h-100 relative overflow-y-auto pt4">
+                <h1 className="tc f1-l mt2 b">
+                    Subscriptions
+                </h1>
+                {itemsOrEmpty}
             </div>
         );
     }

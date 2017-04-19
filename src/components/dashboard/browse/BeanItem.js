@@ -19,11 +19,11 @@ class BeanItem extends Component {
                 <div className="pl3 flex flex-column justify-between w-90">
                     <div>
                         <div className="f1 b">{this.props.item.name}</div>
-                        <div className={tagClass}>{this.props.item.coffeeType}</div>
+                        <div className={tagClass + ' mv2'}>{this.props.item.coffeeType}</div>
                         {this.props.item.isDecaf &&
                             <div className={tagClass}>Decaf</div>
                         }
-                        <div className="pa1">
+                        <div className="pv2">
                             <span className="f2">${parseFloat(this.props.item.consumerPrice).toFixed(2)}</span>
                             <span className="f5 fw1 black-60 ttu">&nbsp;per {this.props.item.ozInBag} oz bag</span>
                         </div>
