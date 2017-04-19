@@ -1,7 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {createRoaster, uploadProfilePicture} from '../actions/roasterActions';
-import {getUserInfo} from '../actions/userActions';
 
 import RoasterAccountInfo from './RoasterAccountInfo';
 import ErrorMessage from './ErrorMessage';
@@ -14,13 +13,12 @@ class RoasterRegisterContainer extends Component {
             src: null,
             file: null
         };
+
         this.birthday = {
             value: null
         };
-        
 
         this.onHandleSubmitBind = this.onHandleSubmit.bind(this);
-        this.props.dispatch(getUserInfo());
     }
 
     componentWillReceiveProps() {
@@ -55,6 +53,7 @@ class RoasterRegisterContainer extends Component {
             if(this.profileImage.file != null) {
                 dispatch(uploadProfilePicture(this.profileImage.file, this.props.roaster.id));
             }
+            
             this.props.router.replace('/dashboard');
         });
     }
