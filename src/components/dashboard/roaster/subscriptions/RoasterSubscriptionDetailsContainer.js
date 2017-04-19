@@ -1,8 +1,8 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {getSubscription} from '../../../../actions/covenantActions';
-import {createContent, createTrigger, activateTrigger} from '../../../../actions/bloodlinesActions';
-import {getBean} from '../../../../actions/warehouseActions';
+import {activateTrigger} from '../../../../actions/bloodlinesActions';
+import {getItem} from '../../../../actions/warehouseActions';
 
 import BackButton from '../../BackButton';
 import SuccessMessage from '../../../SuccessMessage';
@@ -22,7 +22,7 @@ class RoasterSubscriptionDetailsContainer extends Component {
                 return;
             }
 
-            dispatch(getBean(this.props.subscription.itemId));
+            dispatch(getItem(this.props.subscription.itemId));
         });
     }
 
