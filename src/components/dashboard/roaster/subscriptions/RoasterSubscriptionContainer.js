@@ -22,19 +22,15 @@ class RoasterSubscriptionContainer extends Component {
     }
 
     render() {
-        const itemsOrEmpty = this.props.items.length > 0 ? 
-                <InfiniteList ready={this.props.roaster.id !== ''} update={this.updateBind} {...this.props.items}>
-                    <SuccessMessage success={this.props.modify.success} message={'Success'}/>
-                    <RoasterSubscriptionList {...this.props.items}/>
-                </InfiniteList> :
-                <div className="tc f4 mt2"><strong>Oops!</strong>  Looks like you have no subscriptions.  Check back later!</div>
-
         return (
             <div className="h-100 min-h-100 relative overflow-y-auto pt4">
                 <h1 className="tc center f1-l mt2 b">
                     Subscriptions
                 </h1>
-                {itemsOrEmpty}
+                <InfiniteList ready={this.props.roaster.id !== ''} update={this.updateBind} {...this.props.items}>
+                    <SuccessMessage success={this.props.modify.success} message={'Success'}/>
+                    <RoasterSubscriptionList {...this.props.items}/>
+                </InfiniteList>
             </div>
         );
     }
