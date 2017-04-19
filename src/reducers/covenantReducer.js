@@ -9,3 +9,13 @@ export function subscriptions(state = ReducerUtil.getPagedState(), action) {
 	return ReducerUtil.handlePagedAction(action, state);
 }
 
+export function subscription(state = {item: {}}, action) {
+    if(action.type !== ActionTypes.COVENANT_SUBSCRIPTION) {
+        return state;
+    }
+
+    return Object.assign({}, state, {
+        item: action.payload.data
+    });
+}
+

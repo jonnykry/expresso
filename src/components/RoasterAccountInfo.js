@@ -1,5 +1,8 @@
 import React, {Component, PropTypes} from 'react';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 import FileSelector from './FileSelector';
+import moment from 'moment';
 
 import Title from './Title';
 
@@ -11,8 +14,21 @@ class RoasterAccountInfo extends Component {
             this.props.profileImage.src = this.props.user.profileUrl;
         }
 
+        const birthdayString = this.props.birthday;
+        this.state = {
+            date: birthdayString ? new moment(birthdayString) : null
+        }
+
         this.profileImageSelectedBind = this.profileImageSelected.bind(this);
+        this.onDateChangeBind = this.onDateChange.bind(this);
 	}
+
+    onDateChange(dateString) {
+        this.setState({
+            date: dateString
+        });
+        this.props.birthday.value = dateString.format('YYYY-MM-DD');
+    }
 
     profileImageSelected(file) {
         const fileReader = new FileReader();
@@ -51,10 +67,16 @@ class RoasterAccountInfo extends Component {
                         <input className={inputClass + ' w-100'} ref={this.props.name} placeholder="Name" defaultValue={exists ? roaster.name : ''} required/>
                     </div>
                     <div className={formRowClass}>
-                        <input className={inputClass + ' w-100'} ref={this.props.phone} placeholder="Phone Number (##########)" defaultValue={exists ? roaster.phone : ''} required/>
+                        <input className={inputClass + ' w-100'} pattern="^\d{10}$" title="Requested format is ##########" ref={this.props.phone} placeholder="Phone Number (##########)" defaultValue={exists ? roaster.phone : ''} required/>
                     </div>
                     <div className={formRowClass}>
-                        <input className={inputClass + ' w-100'} ref={this.props.email} placeholder="E-mail" defaultValue={exists ? roaster.email : ''} required/>
+                        <input className={inputClass + ' w-50'} ref={this.props.email} placeholder="E-mail" defaultValue={exists ? roaster.email : ''} required/>
+                        <DatePicker
+                            placeholderText="Roaster owner's birthday"
+                            onSelect={this.onDateChangeBind}
+                            selected={this.state.date}
+                            className={inputClass + ' w-85'}
+                            required />
                     </div>
                     <div className={formRowClass}>
                         <input className={inputClass + ' w-100'} ref={this.props.addressLine1} placeholder="Address Line 1" defaultValue={exists ? roaster.addressLine1 : ''} required/>
@@ -64,7 +86,7 @@ class RoasterAccountInfo extends Component {
                     </div>
                     <div className={formRowClass}>
                         <input className={inputClass + ' w-100'} ref={this.props.city} placeholder="City or Town" defaultValue={exists ? roaster.addressCity : ''} required/>
-                        <input className={inputClass} ref={this.props.zipCode} placeholder="Zip Code" defaultValue={exists ? roaster.addressZip : ''} required/>
+                        <input className={inputClass} pattern="^\d{5}(?:[-\s]\d{4})?$" title="Please enter a valid zip code" ref={this.props.zipCode} placeholder="Zip Code" defaultValue={exists ? roaster.addressZip : ''} required/>
                     </div>
                     <div className={formRowClass}>
                         <select className={inputClass + ' w-50 pointer'} ref={this.props.state} defaultValue={exists ? roaster.addressState : ''} required>
@@ -121,7 +143,57 @@ class RoasterAccountInfo extends Component {
                             <option value="WY">Wyoming</option>
                         </select>
                         <select className={inputClass + ' w-50 pointer'} ref={this.props.country} defaultValue={exists ? roaster.addressCountry : ''} required>
-                            <option value="United States">United States</option>
+                            <option value="AL">Alabama</option>
+                            <option value="AK">Alaska</option>
+                            <option value="AZ">Arizona</option>
+                            <option value="AR">Arkansas</option>
+                            <option value="CA">California</option>
+                            <option value="CO">Colorado</option>
+                            <option value="CT">Connecticut</option>
+                            <option value="DE">Delaware</option>
+                            <option value="DC">District Of Columbia</option>
+                            <option value="FL">Florida</option>
+                            <option value="GA">Georgia</option>
+                            <option value="HI">Hawaii</option>
+                            <option value="ID">Idaho</option>
+                            <option value="IL">Illinois</option>
+                            <option value="IN">Indiana</option>
+                            <option value="IA">Iowa</option>
+                            <option value="KS">Kansas</option>
+                            <option value="KY">Kentucky</option>
+                            <option value="LA">Louisiana</option>
+                            <option value="ME">Maine</option>
+                            <option value="MD">Maryland</option>
+                            <option value="MA">Massachusetts</option>
+                            <option value="MI">Michigan</option>
+                            <option value="MN">Minnesota</option>
+                            <option value="MS">Mississippi</option>
+                            <option value="MO">Missouri</option>
+                            <option value="MT">Montana</option>
+                            <option value="NE">Nebraska</option>
+                            <option value="NV">Nevada</option>
+                            <option value="NH">New Hampshire</option>
+                            <option value="NJ">New Jersey</option>
+                            <option value="NM">New Mexico</option>
+                            <option value="NY">New York</option>
+                            <option value="NC">North Carolina</option>
+                            <option value="ND">North Dakota</option>
+                            <option value="OH">Ohio</option>
+                            <option value="OK">Oklahoma</option>
+                            <option value="OR">Oregon</option>
+                            <option value="PA">Pennsylvania</option>
+                            <option value="RI">Rhode Island</option>
+                            <option value="SC">South Carolina</option>
+                            <option value="SD">South Dakota</option>
+                            <option value="TN">Tennessee</option>
+                            <option value="TX">Texas</option>
+                            <option value="UT">Utah</option>
+                            <option value="VT">Vermont</option>
+                            <option value="VA">Virginia</option>
+                            <option value="WA">Washington</option>
+                            <option value="WV">West Virginia</option>
+                            <option value="WI">Wisconsin</option>
+                            <option value="WY">Wyoming</option>
                         </select>
                     </div>
                     <div className="mt3">
@@ -156,7 +228,8 @@ RoasterAccountInfo.propTypes = {
     password: PropTypes.func,
     confirmPassword: PropTypes.func,
     phone: PropTypes.func,
-    email: PropTypes.func
+    email: PropTypes.func,
+    birthday: PropTypes.object
 };
 
 export default RoasterAccountInfo;

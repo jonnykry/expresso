@@ -53,10 +53,13 @@
   },
   "dependencies": {
     "fixed-data-table": "^0.6.3",
+    "moment": "^2.18.1",
     "react": "^15.4.2",
     "react-addons-update": "^15.4.2",
     "react-data-grid": "^2.0.24",
     "react-data-grid-addons": "^2.0.24",
+    "react-date-picker": "^5.3.28",
+    "react-datepicker": "^0.44.0",
     "react-debounce-input": "^2.4.2",
     "react-dom": "^15.4.1",
     "react-icons": "^2.2.3",
