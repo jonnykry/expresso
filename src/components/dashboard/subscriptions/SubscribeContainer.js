@@ -33,7 +33,7 @@ class SubscribeContainer extends Component {
     }
 
     bean() {
-        return this.props.bean[this.props.params.id];
+        return this.props.beans[this.props.params.id];
     }
 
     subscribe() {
@@ -96,7 +96,7 @@ class SubscribeContainer extends Component {
 }
 
 SubscribeContainer.propTypes = {
-    bean: PropTypes.object,
+    beans: PropTypes.object,
     user: PropTypes.object,
     router: PropTypes.object.isRequired,
     params: PropTypes.object.isRequired,
@@ -105,7 +105,7 @@ SubscribeContainer.propTypes = {
 
 function mapStateToProps(state) {
     return {
-        bean: state.beans.items,
+        beans: state.beans.items,
         fetching: state.beans.fetching,
         user: state.userReducer.user,
         subscribe: state.covenantReducer

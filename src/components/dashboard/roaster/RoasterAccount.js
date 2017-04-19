@@ -80,10 +80,4 @@ RoasterAccount.propTypes = {
     dispatch: PropTypes.func
 };
 
-function mapStateToProps(state) {
-    return {
-        //roasters: state.roaster.roasters
-    };
-}
-
-export default connect(mapStateToProps)(RoasterAccount);
+export default connect()(RoasterAccount);

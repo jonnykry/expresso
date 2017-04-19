@@ -1,7 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 
-// import {getUserInfo} from '../../../actions/userActions';
 import {getRoasterItems} from '../../../actions/roasterActions';
 import {addItem, uploadImage, updateItem} from '../../../actions/warehouseActions';
 import ActionUtil from '../../../actions/actionUtil';
