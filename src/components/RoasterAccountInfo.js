@@ -61,7 +61,7 @@ class RoasterAccountInfo extends Component {
         return (
             <form className="mw7 center w-100 h-100" onSubmit={this.props.handleSubmit}>
                 <div className="ba br3 b--light-silver bs1 ph5 pb5 mt2 mb2 bg-white">
-                    <Title color="black"/>
+                    {exists ? <Title color="black"/> : null}
                     <legend className="center f2 pb4 blue fw1">{legendText}</legend>
                     <div className={formRowClass}>
                         <input className={inputClass + ' w-100'} ref={this.props.name} placeholder="Name" defaultValue={exists ? roaster.name : ''} required/>

@@ -12,7 +12,6 @@ class CommunicationSettings extends Component {
             {value: 'SUBSCRIBED', label: 'Subscribed'},
             {value: 'UNSUBSCRIBED', label: 'Unsubscribed'}
         ];
-        console.log(this.props.status);
 
         return (
             <main className="pa4 black-80">
