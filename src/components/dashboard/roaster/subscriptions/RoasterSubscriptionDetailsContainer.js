@@ -1,7 +1,8 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {getSubscription} from '../../../../actions/covenantActions';
-import {createContent, createTrigger, activateTrigger} from '../../../../actions/bloodlinesActions';
+import {activateTrigger} from '../../../../actions/bloodlinesActions';
+import {getItem} from '../../../../actions/warehouseActions';
 
 import BackButton from '../../BackButton';
 import SuccessMessage from '../../../SuccessMessage';
@@ -16,7 +17,13 @@ class RoasterSubscriptionDetailsContainer extends Component {
 
     componentWillMount() {
         const {dispatch, params} = this.props;
-        dispatch(getSubscription(params.id));
+        dispatch(getSubscription(params.id)).then(() => {
+            if (this.bean()) {
+                return;
+            }
+
+            dispatch(getItem(this.props.subscription.itemId));
+        });
     }
 
     onHandleSubmit(e) {
@@ -31,7 +38,7 @@ class RoasterSubscriptionDetailsContainer extends Component {
             userId: user.id,
             values: {
                 first_name: user.firstName,
-                 last_name: user.lastName,
+                last_name: user.lastName,
                 roaster: roaster.name,
                 message: message
             }
@@ -49,15 +56,23 @@ class RoasterSubscriptionDetailsContainer extends Component {
         });
     }
 
-    render() {        
+    bean() {
+        if (!this.props.subscription.itemId) {
+            return {};
+        }
+
+        return this.props.beans[this.props.subscription.itemId] || {};
+    }
+
+    render() {
         return (
             <div>
-                <BackButton />
+                <BackButton/>
                 <SuccessMessage success={this.props.modify.success} message={'Message sent'}/>
                 <RoasterSubscriptionDetails
                     subscription={this.props.subscription}
                     user={this.props.user}
-                    bean={this.props.bean}
+                    bean={this.bean()}
                     message={this._addRef('message')}
                     handleSubmit={this.contactUserBind}
                     />
@@ -69,8 +84,7 @@ class RoasterSubscriptionDetailsContainer extends Component {
 RoasterSubscriptionDetailsContainer.propTypes = {
     subscription: PropTypes.object.isRequired,
     user: PropTypes.object.isRequired,
-    bean: PropTypes.object.isRequired,
-    response: PropTypes.object.isRequired,
+    beans: PropTypes.object.isRequired,
     roaster: PropTypes.object.isRequired,
     modify: PropTypes.object
 };
@@ -79,9 +93,8 @@ function mapStateToProps(state) {
     return {
         subscription: state.subscription.item,
         user: state.userReducer.secondaryUser,
-        bean: state.bean.item,
+        beans: state.beans.items,
         response: state.modify.data,
-        roaster: state.roaster.roaster,
         modify: state.modify
     };
 }

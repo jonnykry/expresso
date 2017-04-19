@@ -14,7 +14,7 @@ export function userReducer(state = {
         case ActionTypes.RECEIVE_SECONDARY_USER:
             return Object.assign({}, state, {
                 success: action.payload.data.id !== '',
-                secondaryUser: action.payload.data    
+                secondaryUser: action.payload.data
             });
         case ActionTypes.ERROR_USER:
             return Object.assign({}, state, {

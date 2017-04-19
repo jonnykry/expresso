@@ -4,20 +4,23 @@ import ReducerUtil from './reducerUtil';
 export function roaster(state = {
     success: false,
     didCreate: false,
-    roaster: {}
+    roasters: {}
 }, action) {
     switch (action.type) {
         case ActionTypes.RECEIVE_ROASTER:
+            const _roasters = {
+                ...state.roasters,
+                [action.payload.data.id]: action.payload.data
+            };
             return Object.assign({}, state, {
                 success: action.payload.success,
                 didCreate: action.payload.data.id !== '',
-                roaster: action.payload.data
+                roasters: _roasters
             });
         case ActionTypes.ERROR_ROASTER:
             return Object.assign({}, state, {
                 success: false,
-                didCreate: false,
-                roaster: {}
+                didCreate: false
             });
         default:
             return state;

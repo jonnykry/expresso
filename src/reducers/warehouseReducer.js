@@ -8,34 +8,3 @@ export function beans(state = ReducerUtil.getPagedState(), action) {
 
     return ReducerUtil.handlePagedAction(action, state);
 }
-
-export function bean(state = {
-        fetching: false,
-        item: {},
-        error: null
-    }, action) {
-    switch (action.type) {
-        case ActionTypes.REQUEST: {
-            return Object.assign({}, state, {
-                fetching: true
-            });
-        }
-        case ActionTypes.WAREHOUSE_ITEM: {
-            return Object.assign({}, state, {
-                fetching: false,
-                item: action.payload.data,
-                error: null
-            });
-        }
-        case ActionTypes.ERROR: {
-            return Object.assign({}, state, {
-                fetching: false,
-                success: action.success,
-                error: action.err
-            });
-        }
-        default: {
-            return state;
-        }
-    }
-}
