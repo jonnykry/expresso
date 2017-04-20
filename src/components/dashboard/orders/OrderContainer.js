@@ -2,7 +2,6 @@ import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 
 import {getUserInfo} from '../../../actions/userActions';
-// import {getRoasterItems} from '../../../actions/roasterActions';
 import {getOrders, getRoasterOrders} from '../../../actions/roasterActions';
 import {addOrder, uploadImage, updateOrder} from '../../../actions/warehouseActions';
 import ActionUtil from '../../../actions/actionUtil';
@@ -41,10 +40,6 @@ class OrderContainer extends Component {
         };
     }
 
-    // componentWillMount() {
-    //     this.props.dispatch(getUserInfo());
-    // }
-
     componentDidMount() {
         console.log(this.props);
         this.props.dispatch(getOrders(this.props.roaster.id, 0, 100)).then(() => {
@@ -62,12 +57,12 @@ class OrderContainer extends Component {
             return;
         }
 
-        // this.props.dispatch(getRoasterOrders(this.props.roaster.id, 0, 100)).then(() => {
-        //     this.setState({ordersReceived: true});
-        // });
-        this.props.dispatch(getOrders(this.props.roaster.id, 0, 100)).then(() => {
+        this.props.dispatch(getRoasterOrders(this.props.roaster.id, 0, 100)).then(() => {
             this.setState({ordersReceived: true});
         });
+        // this.props.dispatch(getOrders(this.props.roaster.id, 0, 100)).then(() => {
+        //     this.setState({ordersReceived: true});
+        // });
     }
 
     handleSuccess() {
@@ -91,8 +86,8 @@ class OrderContainer extends Component {
             this.setState({selected: '', esend: false, estatus: {}, eimage: '', etags: []});
         }
 
-        // this.props.dispatch(getRoasterOrders(this.props.roaster.id, 0, 100));
-        this.props.dispatch(getOrders(this.props.roaster.id, 0, 100));
+        this.props.dispatch(getRoasterOrders(this.props.roaster.id, 0, 100));
+        //this.props.dispatch(getOrders(this.props.roaster.id, 0, 100));
     }
 
     handleEditBeans(e) {
