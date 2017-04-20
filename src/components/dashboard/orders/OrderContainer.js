@@ -41,8 +41,15 @@ class OrderContainer extends Component {
         };
     }
 
-    componentWillMount() {
-        this.props.dispatch(getUserInfo());
+    // componentWillMount() {
+    //     this.props.dispatch(getUserInfo());
+    // }
+
+    componentDidMount() {
+        console.log(this.props);
+        this.props.dispatch(getOrders(this.props.roaster.id, 0, 100)).then(() => {
+            this.setState({showItems: true});
+        });
     }
 
     componentWillReceiveProps(next) {
@@ -193,7 +200,6 @@ OrderContainer.propTypes = {
 
 function mapStateToProps(state) {
     return {
-        roaster: state.roaster.roaster,
         ids: state.roasterOrders.ids,
         items: state.roasterOrders.items,
         next: state.roasterOrders.next,
