@@ -1,17 +1,9 @@
 import ActionTypes from './actionTypes';
 import ActionUtil from './actionUtil';
-import {getRoaster} from './roasterActions';
 
 const WAREHOUSE_URL = 'https://warehouse.expresso.store/api';
 const ITEMS_URL = WAREHOUSE_URL + '/item';
 const ORDERS_URL = WAREHOUSE_URL + '/order';
-
-function receiveItem(payload) {
-    return {
-        type: ActionTypes.WAREHOUSE_ITEM,
-        payload
-    };
-}
 
 export function getAllItems(offset, limit, searchTerm, orderName, orderCost) {
     const shouldFilter = searchTerm !== undefined || orderName !== undefined || orderCost !== undefined;
@@ -35,10 +27,7 @@ export function getItem(id) {
                 dispatch(ActionUtil.error('', payload.message));
                 return;
             }
-            dispatch(receiveItem(payload));
-
-            // get roaster as well for the page info
-            dispatch(getRoaster(payload.data.roasterId));
+            dispatch(ActionUtil.single(ActionTypes.WAREHOUSE_ITEMS, payload));
         }).catch(err => {
             dispatch(ActionUtil.error('', err));
         });

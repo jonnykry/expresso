@@ -1,8 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import Select from 'react-select';
 
-//import {WithContext as ReactTags} from 'react-tag-input';
-
 import FileSelector from '../../FileSelector';
 import SuccessMessage from '../../SuccessMessage';
 import Checkbox from '../../Checkbox';

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router';
 
 import BeanItemImage from './BeanItemImage';
@@ -10,8 +10,9 @@ class SmallBeanItem extends Component {
         let linkClass = 'no-underline black';
 
         // don't display the item if the id is already being displayed
-        if (this.props.params.id === this.props.item.id)
+        if (this.props.params && this.props.params.id === this.props.item.id) {
             return null;
+        }
 
         return (
             <Link to={'/dashboard/browse/' + this.props.item.id} className={linkClass}>
@@ -33,5 +34,10 @@ class SmallBeanItem extends Component {
         );
     }
 }
+
+SmallBeanItem.propTypes = {
+    item: PropTypes.object,
+    params: PropTypes.object
+};
 
 export default SmallBeanItem;

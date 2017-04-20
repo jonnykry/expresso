@@ -72,9 +72,9 @@ class PaymentSettingsContainer extends Component {
 
     render() {
         return (
-            <div>
+            <main className="pa4 black-80">
                 <PaymentSettings handleSubmit={this.onHandleSubmitBind} success={this.props.modify.success} {...this.funcs}/>
-            </div>
+            </main>
         );
     }
 }

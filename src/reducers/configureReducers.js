@@ -8,13 +8,12 @@ import {subscriptions, subscription} from './covenantReducer';
 import {triggers, contents, receipts, preference} from './bloodlinesReducer';
 import ReducerUtil from './reducerUtil';
 
-const rootReducer = combineReducers({
+const appReducer = combineReducers({
     roaster,
     roasterItems,
     roasterOrders,
     userReducer,
     beans,
-    bean,
     triggers,
     contents,
     receipts,
@@ -24,6 +23,14 @@ const rootReducer = combineReducers({
     errors,
     modify: ReducerUtil.modify
 });
+
+const rootReducer = (state, action) => {
+  if (action.type === 'LOGOUT') {
+    state = undefined
+  }
+
+  return appReducer(state, action)
+}
 
 function errors(state = {}, action) {
     switch (action.type) {
