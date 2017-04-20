@@ -27,7 +27,6 @@ class RequestResetContainer extends Component {
     }
 
     render() {
-        console.log(this.props.modify);
         return (
             <div className="h-100">
                 <RequestReset

@@ -10,7 +10,7 @@ class BeanItemDetails extends Component {
         const subClass = 'pointer f2 dim br1 ba bw1 tc ph2 mh4 pv3';
         const subscribe = this.props.bean.inStockBags > 0 && this.props.bean.isActive ?
             <Link to={'/dashboard/subscribe/' + this.props.params.id} className="no-underline black">
-                <div className={subClass + ' green'}>Subscribe</div>
+                <div className="tc f4 w-75 center link pointer dim br1 ba bw1 ma1 mb3 pa3 white bg-green">Subscribe</div>
             </Link> :
                 <div>
                     <div className={subClass + ' black-40 black--40'}>Not Available</div>
@@ -27,7 +27,7 @@ class BeanItemDetails extends Component {
                                 <BeanItemImage src={this.props.bean.pictureURL} alt={this.props.bean.name}/>
                             </div>
                         </div>
-                        <div className="pa1 pl2 dib w-two-thirds-l w-50-m w-100 dtc-m v-top">
+                        <div className="pa1 pl2 dib w-two-thirds-l w-50-m w-100 mt5 pl4 dtc-m v-top">
                             <div className="mt3 mb2">
                                 <span className="f2">${parseFloat(this.props.bean.consumerPrice).toFixed(2)}</span>
                                 <span className="f5 fw1 black-60 ttu">&nbsp;per {this.props.bean.ozInBag} oz bag</span>

@@ -7,7 +7,6 @@ import BeanItemImage from '../browse/BeanItemImage';
 class Subscribe extends Component {
     render() {
         const inputClass = 'input-reset ba b--silver pa1 mv3 db br3 mh3';
-        const btnClass = 'pointer dim br1 ba bw1 ph2 pv3 black b';
         const rowClass = 'mv3';
 
         const options = [
@@ -61,8 +60,8 @@ class Subscribe extends Component {
                     <div className={rowClass + ' dib w-50-l w-100 f3'}>Price: <strong>{'$' + (this.props.bean.consumerPrice * (this.props.quantity || 1)).toFixed(2)}
                         {' ' + (this.props.frequency.charAt(0) + this.props.frequency.substr(1).toLowerCase()) || 'Monthly'}</strong></div>
                     <div className="mv4 dib w-50 center">
-                        <div className={btnClass + ' tc center w-50-l w-100'} onClick={this.props.handleSubscribe}>
-                            Subscribe
+                        <div className="tc f4 w-75 center link pointer dim br1 ba bw1 pv3 mb2 white bg-green" onClick={this.props.handleSubscribe}>
+                            Purchase
                         </div>
                     </div>
                 </div>
@@ -76,7 +75,7 @@ Subscribe.propTypes = {
     fetching:  PropTypes.bool,
     error: PropTypes.string,
     user: PropTypes.object,
-    subscribe: PropTypes.object,
+    subscribe: PropTypes.object
 };
 
 export default Subscribe;

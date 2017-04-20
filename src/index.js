@@ -27,19 +27,18 @@ import SubscribeContainer from './components/dashboard/subscriptions/SubscribeCo
 import MessageContentContainer from './components/dashboard/bloodlines/MessageContentContainer';
 import TriggerContainer from './components/dashboard/bloodlines/TriggerContainer';
 import ReceiptContainer from './components/dashboard/bloodlines/ReceiptContainer';
-import SubscriptionContainer from './components/dashboard/subscriptions/SubscriptionContainer';
+import SubscriptionListContainer from './components/dashboard/subscriptions/SubscriptionListContainer';
 import RoasterSubscriptionContainer from './components/dashboard/roaster/subscriptions/RoasterSubscriptionContainer';
 import RoasterSubscriptionDetailsContainer from './components/dashboard/roaster/subscriptions/RoasterSubscriptionDetailsContainer';
 
 import configureStore from './store/configureStore';
-//import update from 'react-addons-update'; // ES6
 
 import 'tachyons/css/tachyons.css';
 import './index.css';
 
 const store = configureStore();
 
-function loggedIn(cb) {
+function loggedIn() {
     const token = localStorage.getItem('token');
     return new Promise(resolve => {
         if (token === null) {
@@ -69,11 +68,11 @@ function requireAuth(nextState, replace, callback) {
 }
 
 function requireRoaster(nextState, replace, callback) {
-    if (store.getState().roaster.roaster.id) {
+    const id = store.getState().userReducer.user.roasterId;
+    if (id) {
         callback();
         return;
     }
-
 
     replace({
         pathname: '/dashboard',
@@ -152,7 +151,7 @@ ReactDOM.render(
                     <Route path="subscriptions/:id" component={RoasterSubscriptionDetailsContainer}/>
                     <Route path="account" component={RoasterAccount}/>
                 </Route>
-                <Route path="subscriptions" component={SubscriptionContainer}/>
+                <Route path="subscriptions" component={SubscriptionListContainer}/>
                 <Route path="subscribe/:id" component={SubscribeContainer}/>
                 <Route path="settings" component={AccountSettings}/>
             </Route>

@@ -42,7 +42,7 @@ class SidebarContent extends Component {
                      <Link to={'/'} className={bottomLinkClass + ' ph2'} style={{paddingTop: '1.25rem'}}><div className={bottomTextClass}><FaHome className="pl2 pb1 white f3" /> Home</div></Link>
                      <Link to={d + 'settings'} className={bottomLinkClass + ' ph3'}><div className={bottomTextClass}>
                          {
-                             this.props.profileImage ? <div className="ph2 pb1"><img src={this.props.profileImage} className="br4 ba bw2 w2 h2 dib" alt="Account" /></div>
+                             this.props.profileImage ? <div className="ph2 pt1 pb1"><img src={this.props.profileImage} className="br2 ba bw1 h2 w2 center dib" alt="Account"/></div>
                             : <TiUserOutline className="pl3 pb1 white f3" style={{paddingTop: '1.25rem'}} />
                          }
                           Account

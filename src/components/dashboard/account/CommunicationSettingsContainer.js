@@ -35,7 +35,6 @@ class CommunicationSettingsContainer extends Component {
 
         let pref = this.props.preference;
         pref.email = this.state.status;
-        console.log(pref);
 
         dispatch(modifyPreference(this.props.user.id, pref));
     }
