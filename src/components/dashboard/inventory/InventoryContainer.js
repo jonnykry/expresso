@@ -95,6 +95,7 @@ class InventoryContainer extends Component {
         }
 
         this.props.dispatch(getRoasterItems(this.props.roaster.id, 0, 100));
+        console.log("successful inventories 2");
     }
 
     handleAddBeans(e) {
@@ -266,26 +267,29 @@ class InventoryContainer extends Component {
         if(!this.state.itemsReceived) {
             return <Loading fetching={true} />
         }
-        return (
-            <div>
-                <Inventory
-                    onAddBeans={this.handleAddBeansBind}
-                    ids={this.props.ids}
-                    items={this.props.items}
-                    input={this.inputHandlers}
-                    edit={this.editHandlers}
-                    modify={this.props.modify}
-                    onRowClick={this.handleRowClickBind}
-                    selected={this.state.selected}
-                    image={this.state.image}
-                    eimage={this.state.eimage}
-                    tags={this.state.tags}
-                    etags={this.state.selectedTags}
-                    type={this.state.type}
-                    etype={this.state.etype}
-                    />
-            </div>
-        );
+        else {
+            console.log(this.props);
+            return (
+                <div>
+                    <Inventory
+                        onAddBeans={this.handleAddBeansBind}
+                        ids={this.props.ids}
+                        items={this.props.items}
+                        input={this.inputHandlers}
+                        edit={this.editHandlers}
+                        modify={this.props.modify}
+                        onRowClick={this.handleRowClickBind}
+                        selected={this.state.selected}
+                        image={this.state.image}
+                        eimage={this.state.eimage}
+                        tags={this.state.tags}
+                        etags={this.state.selectedTags}
+                        type={this.state.type}
+                        etype={this.state.etype}
+                        />
+                </div>
+            );
+        }
     }
 }
 

@@ -4,6 +4,7 @@ import {getRoaster} from './roasterActions';
 
 const WAREHOUSE_URL = 'https://warehouse.expresso.store/api';
 const ITEMS_URL = WAREHOUSE_URL + '/item';
+const ORDERS_URL = WAREHOUSE_URL + '/order';
 
 function receiveItem(payload) {
     return {
@@ -46,6 +47,10 @@ export function getItem(id) {
 
 export function updateItem(data) {
     return ActionUtil.handleRequest(ITEMS_URL + '/' + data.id, 'PUT', data);
+}
+
+export function updateOrder(data) {
+    return ActionUtil.handleRequest(ORDERS_URL + '/' + data.id, 'PUT', data);
 }
 
 export function uploadImage(file, itemId) {

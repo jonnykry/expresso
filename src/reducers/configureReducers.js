@@ -2,7 +2,7 @@ import {combineReducers} from 'redux';
 
 import ActionTypes from '../actions/actionTypes';
 import {beans, bean} from './warehouseReducer';
-import {roaster, roasterItems} from './roasterReducer';
+import {roaster, roasterItems, roasterOrders} from './roasterReducer';
 import {userReducer} from './userReducer';
 import {subscriptions, subscription} from './covenantReducer';
 import {triggers, contents, receipts, preference} from './bloodlinesReducer';
@@ -11,6 +11,7 @@ import ReducerUtil from './reducerUtil';
 const rootReducer = combineReducers({
     roaster,
     roasterItems,
+    roasterOrders,
     userReducer,
     beans,
     bean,
