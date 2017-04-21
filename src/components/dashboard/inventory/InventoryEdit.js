@@ -2,7 +2,6 @@ import React, {Component, PropTypes} from 'react';
 import Select from 'react-select';
 
 import FileSelector from '../../FileSelector';
-import SuccessMessage from '../../SuccessMessage';
 import Checkbox from '../../Checkbox';
 import BeanItemImage from '../browse/BeanItemImage';
 
@@ -35,15 +34,11 @@ class InventoryEdit extends Component {
         const inputClass = 'input-reset ba b--black-20 pa2 mt1 mb2 w-100';
         const combinedClass = 'f6 pa1 w-100 w-50-m w-third-l dib';
 
-        let item = {};
-        if (this.props.id) {
-            item = this.props.items[this.props.id];
-        }
+        let item = this.props.item || {};
 
         return (
             <div>
-                <SuccessMessage success={this.props.success} message={this.props.id ? 'Successfully edited ' + item.name + '.' : 'Successfully added beans.'}/>
-                <form key={this.props.id} onSubmit={this.props.onAddBeans} className="pa2 black-80">
+                <form key={this.props.id} onSubmit={this.props.onAddBeans} className="pa1 black-80">
                     <fieldset disabled={this.state.edit || this.props.fetching} className="bw0">
                         <div className="center w-100">
                             <div className={combinedClass}>
@@ -121,7 +116,6 @@ class InventoryEdit extends Component {
 InventoryEdit.propTypes = {
     id: PropTypes.string,
     fetching: PropTypes.bool.isRequired,
-    success: PropTypes.bool.isRequired,
     onAddBeans: PropTypes.func.isRequired,
     name: PropTypes.func.isRequired,
     bags: PropTypes.func.isRequired,
@@ -136,7 +130,7 @@ InventoryEdit.propTypes = {
     onAddTag: PropTypes.func.isRequired,
     onAddType: PropTypes.func.isRequired,
     type: PropTypes.object,
-    items: PropTypes.object
+    item: PropTypes.object
 };
 
 export default InventoryEdit;
