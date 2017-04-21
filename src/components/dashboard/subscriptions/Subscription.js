@@ -24,7 +24,6 @@ class Subscription extends Component {
         const date = new Date(item.createdAt).toDateString();
         const next = new Date(item.nextOrder).toDateString();
 
-
         const bagTag = bean && item.quantity > 1 ? 'bags' : 'bag';
 
         return (

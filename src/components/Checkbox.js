@@ -13,11 +13,6 @@ class Checkbox extends Component {
         this.sendValue(checked);
     }
 
-    componentWillReceiveProps(next) {
-        this.sendValue(next.value);
-        this.setState({checked: next.value});
-    }
-
     handleClick() {
         let checked = !this.state.checked;
 
