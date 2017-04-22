@@ -69,13 +69,16 @@ class InventoryContainer extends Component {
         this.size.value = '';
         this.setState({type: {}, image: '', tags: []});
 
-        this.props.dispatch(getRoasterItems(this.props.roaster.id, 0, 100));
+        this.props.dispatch(getRoasterItems(this.props.roaster.id, 0, 100)).then(() => {
+            this.setState({itemsReceived: true});
+        });
     }
 
     handleEditSuccess() {
         this.setState({selected: ''});
 
         this.props.dispatch(getRoasterItems(this.props.roaster.id, 0, 100));
+        console.log("successful inventories 2");
     }
 
     handleAddBeans(e) {
