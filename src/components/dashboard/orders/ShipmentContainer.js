@@ -11,7 +11,7 @@ class ShipmentContainer extends Component {
     }
 
     componentDidMount() {
-        console.log('/dashboard/orders/' + this.props.params.id + '/shipment');
+        console.log('/dashboard/orders/shipment/' + this.props.params.id);
         this.update(this.props.params.id);
     }
 

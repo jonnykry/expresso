@@ -142,11 +142,6 @@ class OrderContainer extends Component {
         this.setState({estatus: {value: status, label: status}});
     }
 
-    handleShipmentLabelClick(item) {
-        console.log('Clickerino!');
-        
-    }
-
     getNumber(s) {
         const trimmed = s.trim().replace(/[^\d.-]/g, '');
         const parsed = parseFloat(trimmed);
@@ -176,7 +171,6 @@ class OrderContainer extends Component {
                         edit={this.editHandlers}
                         modify={this.props.modify}
                         onRowClick={this.handleRowClickBind}
-                        onShipmentLabelClick={this.handleShipmentLabelClick}
                         selected={this.state.selected}
                         image={this.state.image}
                         eimage={this.state.eimage}

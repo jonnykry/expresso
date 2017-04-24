@@ -29,6 +29,9 @@ class OrderEdit extends Component {
             item = this.props.items[this.props.id];
         }
 
+        const shipmentUrl = '/dashboard/roaster/orders/' + item.id + '/shipment';
+        console.log(shipmentUrl);
+
         return (
             <div>
                 <SuccessMessage success={this.props.success} message={this.props.id ? 'Successfully edited ' + item.name + '.' : 'Successfully added beans.'}/>
@@ -49,7 +52,7 @@ class OrderEdit extends Component {
                                 <br />
                                 {   
                                     !item.labelUrl &&
-                                    <Link to={'/dashboard/orders/' + item.id + '/shipment'} className={linkClass + ' mr2'}>
+                                    <Link to={shipmentUrl} className={linkClass + ' mr2'}>
                                         <div className={btnClass + ' mt3'}>
                                             Get Shipment Label
                                         </div>
