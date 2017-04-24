@@ -1,21 +1,15 @@
 import React, {Component, PropTypes} from 'react';
 import ReactDataGrid from 'react-data-grid';
-// import {update} from 'react-addons-update';
-// import {Editors, Formatters} from 'react-data-grid-addons';
 
 import OrderEdit from './OrderEdit';
-import BooleanFormatter from './BooleanFormatter';
-import ArrayFormatter from './ArrayFormatter';
+import BooleanFormatter from '../inventory/BooleanFormatter';
+import ArrayFormatter from '../inventory/ArrayFormatter';
 
 class Order extends Component {
     constructor(props) {
         super(props);
 
        this._columns = [{
-            key: 'id',
-            name: 'Order ID'
-        },
-        {
             key: 'name',
             name: 'Coffee Name'
         },
@@ -36,7 +30,7 @@ class Order extends Component {
         },
         {
             key: 'quantity',
-            name: 'Number of Bags',
+            name: '# of Bags',
             width: 90
         },
         {
@@ -71,7 +65,7 @@ class Order extends Component {
             ozInBag: "TBD oz",
             isDecaf: true,
             quantity: order.quantity,//order.quantity,
-            status: order.Status,//order.tags,
+            status: order.status,//order.tags,
             labelUrl: "labelurl",//erord.description,
             requestDate: new Date(order.requestDate).toLocaleDateString(),
             shipDate: new Date(order.shipDate).toLocaleDateString()
@@ -97,10 +91,6 @@ class Order extends Component {
                         fetching={this.props.modify.fetching}
                         id={this.props.selected}
                         items={this.props.items}
-                        image={this.props.eimage}
-                        tags={this.props.etags}
-                        status={this.props.estatus}
-                        {...this.props.edit}
                         />}
             </div>
         );
@@ -110,17 +100,9 @@ class Order extends Component {
 Order.propTypes = {
     ids: PropTypes.array.isRequired,    
     items: PropTypes.object.isRequired,
-    // input: PropTypes.object.isRequired,
-    edit: PropTypes.object.isRequired,
     selected: PropTypes.string.isRequired,
     modify: PropTypes.object.isRequired,
-    onRowClick: PropTypes.func.isRequired,
-    image: PropTypes.string,
-    eimage: PropTypes.string,
-    tags: PropTypes.array.isRequired,
-    etags: PropTypes.array.isRequired,
-    status: PropTypes.object.isRequired,
-    estatus: PropTypes.object.isRequired
+    onRowClick: PropTypes.func.isRequired
 };
 
 export default Order;
