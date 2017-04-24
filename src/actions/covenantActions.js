@@ -46,7 +46,7 @@ export function getSubscriptionsByRoaster(id, offset, limit) {
         return fetch(ROASTER_SUBSCRIPTIONS_URL + '/' + id + '?offset' + offset + '&limit=' + limit, ActionUtil.auth({
             method: 'GET'
         })).then(response => {
-            if(response.staus == 401) {
+            if(response.staus === 401) {
                 dispatch(ActionUtil.error(401, 'Forbidden'));
             }
 
