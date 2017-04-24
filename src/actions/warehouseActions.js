@@ -38,6 +38,11 @@ export function updateItem(data) {
     return ActionUtil.handleRequest(ITEMS_URL + '/' + data.id, 'PUT', data);
 }
 
+export function getOrder(data) {
+    console.log(ORDERS_URL + '/' + data.id);
+    return ActionUtil.handleRequest(ORDERS_URL + '/' + data.id, 'GET');
+}
+
 export function updateOrder(data) {
     return ActionUtil.handleRequest(ORDERS_URL + '/' + data.id, 'PUT', data);
 }

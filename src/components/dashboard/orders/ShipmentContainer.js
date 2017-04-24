@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
-
+import {connect} from 'react-redux';
+import {getOrder} from '../../../actions/warehouseActions';
 import Shipment from './Shipment';
 
 class ShipmentContainer extends Component {
@@ -11,14 +12,28 @@ class ShipmentContainer extends Component {
     }
 
     componentDidMount() {
-        console.log('/dashboard/orders/shipment/' + this.props.params.id);
         this.update(this.props.params.id);
     }
 
+    update(id) {
+        const {dispatch} = this.props;
+        if (this.order()) {
+            return;
+        }
+
+        dispatch(getOrder(id));
+    }
+
+    order() {
+        return this.props.orders[this.props.params.id];
+    }
+
     render() {
+        const order = this.props.orders && this.order();
+
         return (
             <div>
-                <Shipment />
+                <Shipment order={order} />
             </div>
         );
     }
@@ -28,4 +43,13 @@ ShipmentContainer.propTypes = {
 
 };
 
-export default ShipmentContainer;
+function mapStateToProps(state) {
+    return {
+        orders: state.roasterOrders.items,
+        fetching: state.beans.fetching,
+        user: state.userReducer.user
+    };
+}
+
+
+export default connect(mapStateToProps)(ShipmentContainer);

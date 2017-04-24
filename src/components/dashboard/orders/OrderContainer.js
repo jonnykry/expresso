@@ -13,7 +13,6 @@ class OrderContainer extends Component {
         super(props);
 
         this.handleRowClickBind = this.handleRowClick.bind(this);
-        this.handleShipmentLabelClick = this.handleShipmentLabelClick.bind(this);
 
         this.state = {
             tags: [],

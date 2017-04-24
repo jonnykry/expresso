@@ -8,3 +8,11 @@ export function beans(state = ReducerUtil.getPagedState(), action) {
 
     return ReducerUtil.handlePagedAction(action, state);
 }
+
+export function order(state = ReducerUtil.getPagedState(), action) {
+    if (action.itemType !== ActionTypes.WAREHOUSE_ORDER) {
+        return state;
+    }
+
+    return ReducerUtil.handlePagedAction(action, state);
+}
