@@ -1,15 +1,20 @@
 import React, {Component, PropTypes} from 'react';
 import RoasterSubscription from './RoasterSubscription';
 import BeanItemImage from '../../browse/BeanItemImage';
+import Loading from '../../../Loading';
 
 class RoasterItem extends Component {
     render() {
         const subs = this.props.subscriptions;
 
+        if(!subs) {
+            return (<Loading fetching={true} />);
+        }
+
         return (
             <div className="center ba pa4 w-100 overflow-y-auto">
                 <div className="flex">
-                    <div className="pl3 flex-column w-40" style={{maxWidth: '75'}}>
+                    <div className="pl3 flex-column w-40" style={{maxWidth: '75px'}}>
                         <BeanItemImage src={this.props.bean.pictureURL} alt={this.props.bean.name}/>
                     </div>
                     <div className="pl3 flex flex-column justify-between w-60">
@@ -24,8 +29,8 @@ class RoasterItem extends Component {
                 <div className="pl3 w-100">
                     <center><h3>Subscriptions to this bean:</h3></center>
                     {
-                        Object.keys(subs).map((key, index) => {
-                            return <RoasterSubscription item={subs[key]} />
+                        Object.keys(subs).map(key => {
+                            return <RoasterSubscription item={subs[key]} key={key} />
                         })
                     }
                 </div>
