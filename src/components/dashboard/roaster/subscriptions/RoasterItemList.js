@@ -3,7 +3,7 @@ import React, {Component, PropTypes} from 'react';
 import RoasterItem from './RoasterItem';
 import Loading from './../../../Loading';
 
-class RoasterSubscriptionList extends Component {
+class RoasterItemList extends Component {
     render() {
         return (
             <div className="w-75 pa4-ns">
@@ -23,11 +23,11 @@ class RoasterSubscriptionList extends Component {
 }
 
 // Prop validation
-RoasterSubscriptionList.propTypes = {
+RoasterItemList.propTypes = {
     ids: PropTypes.array.isRequired,
     subscriptions: PropTypes.object,
     items: PropTypes.object,
     fetching: PropTypes.bool,
 };
 
-export default RoasterSubscriptionList;
+export default RoasterItemList;
