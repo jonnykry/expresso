@@ -1,8 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import Select from 'react-select';
-import FileSelector from '../../FileSelector';
+import {Link} from 'react-router';
 import SuccessMessage from '../../SuccessMessage';
-import BeanItemImage from '../browse/BeanItemImage';
 
 class OrderEdit extends Component {
     constructor(props) {
@@ -21,7 +20,8 @@ class OrderEdit extends Component {
 
     render() {
         const labelClass = 'b dib mb1 w-100';
-        const inputClass = 'input-reset ba b--black-20 pa2 mt1 mb2 w-100';
+        const btnClass = 'self-center b ph3 pv2 input-reset ba b--white white bg-green grow pointer f6 dib';
+        const linkClass = 'no-underline black w-50';
         const combinedClass = 'f6 pa1 w-100 w-50-m w-third-l dib';
 
         let item = {};
@@ -43,22 +43,18 @@ class OrderEdit extends Component {
                                     onChange={this.props.onAddType}
                                     />
                             </div>
-                            <div className="w-50-l w-100 f6 pa2 fr">
-                                <div className="w-50 pa1 center">
-                                    <label className={labelClass}>Package Label Image:</label>
-                                    <div className="ma1 ph5  ba">
-                                        <BeanItemImage src={this.props.image || item.pictureURL || "https://www.nsoftware.com\/kb\/articles\/img\/UPSShippingLabel.gif"}/>
-                                    </div>
-                                </div>
-                                <div className="w-50 pa1 center">
-                                    <FileSelector
-                                        fileSelected={this.props.photo}
-                                        buttonText={'Upload Image'}
-                                        />
-                                </div>
-                            </div>
-                            <div className="pa3 pa3-ns w-100">
-                                <input className="self-center b ph3 pv2 input-reset ba b--white white bg-green grow pointer f6 dib" type="submit" value={this.props.id ? 'Edit Bean': 'Add Bean'}/>
+                            
+                            <div className="pa1 pa1-ns w-100">
+                                <input className={btnClass} type="submit" value={this.props.id ? 'Edit Bean': 'Add Bean'}/>
+                                <br />
+                                {   
+                                    !item.labelUrl &&
+                                    <Link to={'/dashboard/orders/' + item.id + '/shipment'} className={linkClass + ' mr2'}>
+                                        <div className={btnClass + ' mt3'}>
+                                            Get Shipment Label
+                                        </div>
+                                    </Link>
+                                }
                             </div>
                         </div>
                     </fieldset>
@@ -77,6 +73,7 @@ OrderEdit.propTypes = {
     photo: PropTypes.func.isRequired,
     image: PropTypes.string,
     onAddType: PropTypes.func.isRequired,
+    onShipmentLabelClick: PropTypes.func.isRequired,
     status: PropTypes.object,
     items: PropTypes.object
 };

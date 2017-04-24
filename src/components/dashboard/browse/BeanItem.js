@@ -9,7 +9,7 @@ class BeanItem extends Component {
     render() {
         const btnClass = 'pointer dim br1 ba bw1 tc ph2 pv2 black';
         const tagClass = 'br1 bg-gold pa2 ma1 dib';
-        let linkClass = 'no-underline black w-50';
+        const linkClass = 'no-underline black w-50';
 
         return (
             <div className="bean-item-card w-40 center ma1 mb3 pa4 ba flex">

@@ -13,6 +13,7 @@ class OrderContainer extends Component {
         super(props);
 
         this.handleRowClickBind = this.handleRowClick.bind(this);
+        this.handleShipmentLabelClick = this.handleShipmentLabelClick.bind(this);
 
         this.state = {
             tags: [],
@@ -141,6 +142,11 @@ class OrderContainer extends Component {
         this.setState({estatus: {value: status, label: status}});
     }
 
+    handleShipmentLabelClick(item) {
+        console.log('Clickerino!');
+        
+    }
+
     getNumber(s) {
         const trimmed = s.trim().replace(/[^\d.-]/g, '');
         const parsed = parseFloat(trimmed);
@@ -164,21 +170,20 @@ class OrderContainer extends Component {
         else {
             return (
                 <div>
-                    <Order
-                        ids={this.props.ids}
+                    <Order ids={this.props.ids}
                         items={this.props.items}
                         input={this.inputHandlers}
                         edit={this.editHandlers}
                         modify={this.props.modify}
                         onRowClick={this.handleRowClickBind}
+                        onShipmentLabelClick={this.handleShipmentLabelClick}
                         selected={this.state.selected}
                         image={this.state.image}
                         eimage={this.state.eimage}
                         tags={this.state.tags}
                         etags={this.state.selectedTags}
                         status={this.state.status}
-                        estatus={this.state.estatus}
-                        />
+                        estatus={this.state.estatus} />
                 </div>
             );
         }

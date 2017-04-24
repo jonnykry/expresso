@@ -17,6 +17,7 @@ import Home from './components/Home';
 import BrowseBeansContainer from './components/dashboard/browse/BrowseBeansContainer';
 import InventoryContainer from './components/dashboard/inventory/InventoryContainer';
 import OrderContainer from './components/dashboard/orders/OrderContainer';
+import ShipmentContainer from './components/dashboard/orders/ShipmentContainer';
 import Roaster from './components/dashboard/roaster/Roaster';
 import BeanItemDetailsContainer from './components/dashboard/browse/BeanItemDetailsContainer';
 import Bloodlines from './components/dashboard/bloodlines/Bloodlines';
@@ -147,6 +148,7 @@ ReactDOM.render(
                     <IndexRedirect to="subscriptions"/>
                     <Route path="inventory" component={InventoryContainer}/>
                     <Route path="orders" component={OrderContainer}/>
+                    <Route path="orders/:id/shipment" component={ShipmentContainer}/>
                     <Route path="subscriptions" component={RoasterSubscriptionContainer}/>
                     <Route path="subscriptions/:id" component={RoasterSubscriptionDetailsContainer}/>
                     <Route path="account" component={RoasterAccount}/>

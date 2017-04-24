@@ -93,6 +93,7 @@ class Order extends Component {
                     />
                 {this.props.selected &&
                     <OrderEdit
+                        onShipmentLabelClick={this.props.onShipmentLabelClick}
                         success={this.props.modify.success}
                         fetching={this.props.modify.fetching}
                         id={this.props.selected}
@@ -100,8 +101,7 @@ class Order extends Component {
                         image={this.props.eimage}
                         tags={this.props.etags}
                         status={this.props.estatus}
-                        {...this.props.edit}
-                        />}
+                        {...this.props.edit} />}
             </div>
         );
     }
@@ -115,6 +115,7 @@ Order.propTypes = {
     selected: PropTypes.string.isRequired,
     modify: PropTypes.object.isRequired,
     onRowClick: PropTypes.func.isRequired,
+    onShipmentLabelClick: PropTypes.func.isRequired,
     image: PropTypes.string,
     eimage: PropTypes.string,
     tags: PropTypes.array.isRequired,
