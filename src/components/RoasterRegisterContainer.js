@@ -21,14 +21,6 @@ class RoasterRegisterContainer extends Component {
         this.onHandleSubmitBind = this.onHandleSubmit.bind(this);
     }
 
-    componentWillReceiveProps() {
-        if (!this.props.roaster.success) {
-            return;
-        }
-
-        this.props.router.replace('/dashboard/roaster/account');
-    }
-
     onHandleSubmit(e) {
         e.preventDefault();
         const {dispatch} = this.props;
@@ -54,7 +46,7 @@ class RoasterRegisterContainer extends Component {
                 dispatch(uploadProfilePicture(this.profileImage.file, this.props.roaster.id));
             }
             
-            this.props.router.replace('/dashboard');
+            this.props.router.replace('/dashboard/roaster/inventory');
         });
     }
 
