@@ -40,28 +40,24 @@ class ShipmentContainer extends Component {
     }
 
     handleLengthChange(e) {
-        console.log(e.target.value);
         this.setState({
             length: e.target.value
         });
     }
 
     handleWidthChange(e) {
-        console.log(e.target.value);
         this.setState({
             width: e.target.value
         });
     }
 
     handleHeightChange(e) {
-        console.log(e.target.value);
         this.setState({
             height: e.target.value
         });
     }
 
     handleDistanceChange(val) {
-        console.log(val);
         this.setState({
             distanceUnit: val
         });
@@ -75,8 +71,6 @@ class ShipmentContainer extends Component {
             width: parseInt(this.state.width, 10),
             distanceUnit: this.state.distanceUnit
         };
-
-        console.log(data);
 
         this.props.dispatch(setOrderLabelById(order.id, data));
     }
