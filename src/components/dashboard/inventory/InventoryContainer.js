@@ -76,6 +76,7 @@ class InventoryContainer extends Component {
         this.setState({selected: ''});
 
         this.props.dispatch(getRoasterItems(this.props.roaster.id, 0, 100));
+        console.log("successful inventories 2");
     }
 
     handleAddBeans(e) {
