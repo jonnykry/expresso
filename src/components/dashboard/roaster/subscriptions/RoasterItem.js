@@ -12,27 +12,27 @@ class RoasterItem extends Component {
         }
 
         return (
-            <div className="center ba pa4 w-100 overflow-y-auto">
-                <div className="flex">
-                    <div className="pl3 flex-column w-40" style={{maxWidth: '75px'}}>
+            <div className="bl br bt bb mb2 w-100 center">
+                <div className="dt w-100 mw7 center">
+                    <div className="dtc w-third-l w-50-m w-100 v-mid">
                         <BeanItemImage src={this.props.bean.pictureURL} alt={this.props.bean.name}/>
                     </div>
-                    <div className="pl3 flex flex-column justify-between w-60">
+                    <div className="pl2 dtc w-two-third-l w-50-m w-100 v-mid pl2">
                         <div className="f1 b">{this.props.bean.name}</div>
-                    </div>
-                    <div className="pl3 flex-column w-50">
                         <div className="f3">{this.props.bean.inStockBags} bags in stock</div>
                         <span className="f3">${parseFloat(this.props.bean.consumerPrice).toFixed(2)}</span>
                         <span className="f5 fw1 black-60 ttu">&nbsp;per {this.props.bean.ozInBag} oz bag</span>
                     </div>
                 </div>
-                <div className="pl3 w-100">
+                <div className="w-100">
                     <center><h3>Subscriptions to this bean:</h3></center>
-                    {
-                        Object.keys(subs).map(key => {
-                            return <RoasterSubscription item={subs[key]} key={key} />
-                        })
-                    }
+                    <div className="dt dt--fixed">
+                        {
+                            Object.keys(subs).map(key => {
+                                return <RoasterSubscription item={subs[key]} key={key} />
+                            })
+                        }
+                    </div>
                 </div>
             </div>
         );

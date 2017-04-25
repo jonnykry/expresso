@@ -6,7 +6,7 @@ import Loading from './../../../Loading';
 class RoasterItemList extends Component {
     render() {
         return (
-            <div className="w-75 pa4-ns">
+            <div className="w-100 pa4-ns">
                 {
                     Object.keys(this.props.items).length === 0 && !this.props.fetching ?                 
                     <div className="tc f4 mt2"><strong>Oops!</strong>  Looks like you have no items to subscribe to.  Check back later!</div> : 
