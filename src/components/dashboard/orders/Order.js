@@ -1,10 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import ReactDataGrid from 'react-data-grid';
-import {getAllItems2} from '../../../actions/warehouseActions';
-import {getSubscription} from '../../../actions/covenantActions';
 import OrderEdit from './OrderEdit';
 import BooleanFormatter from '../inventory/BooleanFormatter';
-import ArrayFormatter from '../inventory/ArrayFormatter';
 
 class Order extends Component {
     constructor(props) {
@@ -68,14 +65,13 @@ class Order extends Component {
         const key = this.props.ids[i];
         const order = this.props.items[key];
         const row = {
-            id: order.id,//order.name,
             name: itemName,
             coffeeType: itemType,
             ozInBag: itemOzInBag,
             isDecaf: true,
-            quantity: order.quantity,//order.quantity,
-            status: order.status,//order.tags,
-            labelUrl: "labelurl",//erord.description,
+            quantity: order.quantity,
+            status: order.status,
+            labelUrl: "labelurl",
             requestDate: new Date(order.requestDate).toLocaleDateString(),
             shipDate: new Date(order.shipDate).toLocaleDateString()
         };
@@ -83,8 +79,6 @@ class Order extends Component {
     }
 
     render() {
-        const toggleClass = 'pv2 f5 b pl2 pointer tracked';
-
         return (
             <div>
                 <ReactDataGrid

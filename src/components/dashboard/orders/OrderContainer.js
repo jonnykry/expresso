@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
-import {getAllItems2} from '../../../actions/warehouseActions';
+import {getAllItems} from '../../../actions/warehouseActions';
 import {getRoasterOrders} from '../../../actions/roasterActions';
 import {getAllSubscriptions} from '../../../actions/covenantActions';
 import Order from './Order';
@@ -20,11 +20,9 @@ class OrderContainer extends Component {
 
     componentDidMount() {
         this.props.dispatch(getRoasterOrders(this.props.roaster.id, 0, 100)).then(() => {
-            this.props.dispatch(getAllItems2(0, 100)).then(() => {
+            this.props.dispatch(getAllItems(0, 100)).then(() => {
                 this.props.dispatch(getAllSubscriptions(0, 100)).then(() => {
                     this.setState({ordersReceived: true});
-                    // console.log("got the items?");
-                    console.log(this.props);
                 });
             });
         });
@@ -36,7 +34,7 @@ class OrderContainer extends Component {
         }
 
         this.props.dispatch(getRoasterOrders(this.props.roaster.id, 0, 100)).then(() => {
-            this.props.dispatch(getAllItems2(0, 100)).then(() => {
+            this.props.dispatch(getAllItems(0, 100)).then(() => {
                 this.props.dispatch(getAllSubscriptions(0, 100)).then(() => {
                     this.setState({ordersReceived: true});
                 });
