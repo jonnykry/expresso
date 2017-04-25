@@ -4,8 +4,9 @@ import {connect} from 'react-redux';
 import {getRoasterItems} from '../../../actions/roasterActions';
 import {addItem, uploadImage, updateItem} from '../../../actions/warehouseActions';
 import ActionUtil from '../../../actions/actionUtil';
-import Inventory from './Inventory';
 import Loading from '../../Loading';
+import SuccessMessage from '../../SuccessMessage';
+import Inventory from './Inventory';
 
 class InventoryContainer extends Component {
     constructor(props) {
@@ -21,7 +22,6 @@ class InventoryContainer extends Component {
             selectedTags: [],
             eimage: '',
             etype: {},
-            send: false,
             showItems: false
         };
 
@@ -59,41 +59,21 @@ class InventoryContainer extends Component {
         });
     }
 
-    componentWillReceiveProps(next) {
-        if (next.modify.success && (this.state.send || this.state.esend)) {
-            this.handleSuccess();
-            return;
-        }
+    handleSuccess() {
+        this.name.value = '';
+        this.bags.value = '';
+        this.price.value = '';
+        this.isDecaf.value = false;
+        this.isActive.value = false;
+        this.description.value = '';
+        this.size.value = '';
+        this.setState({type: {}, image: '', tags: []});
 
-        if (!this.props.roaster.id) {
-            return;
-        }
-
-        this.props.dispatch(getRoasterItems(this.props.roaster.id, 0, 100)).then(() => {
-            this.setState({itemsReceived: true});
-        });
+        this.props.dispatch(getRoasterItems(this.props.roaster.id, 0, 100));
     }
 
-    handleSuccess() {
-        if (this.state.send) {
-            this.name.value = '';
-            this.bags.value = '';
-            this.price.value = '';
-            this.isDecaf.value = false;
-            this.isActive.value = false;
-            this.description.value = '';
-            this.size.value = '';
-            this.setState({send: false, type: {}, image: '', tags: []});
-        }
-
-        if (this.state.esend) {
-            this.ename.value = '';
-            this.ebags.value = '';
-            this.eisDecaf.value = false;
-            this.eisActive.value = false;
-            this.edescription.value = '';
-            this.setState({selected: '', esend: false, etype: {}, eimage: '', etags: []});
-        }
+    handleEditSuccess() {
+        this.setState({selected: ''});
 
         this.props.dispatch(getRoasterItems(this.props.roaster.id, 0, 100));
         console.log("successful inventories 2");
@@ -139,19 +119,19 @@ class InventoryContainer extends Component {
 
         dispatch(addItem(bean)).then(() => {
             if (!this.photo) {
-                this.setState({send: true});
+                this.handleSuccess();
                 return;
             }
             const data = this.props.modify.data;
 
             if (!data.id) {
-                dispatch(ActionUtil.error(400, 'Unable to upload image.'));
-                this.setState({send: true});
+                dispatch(ActionUtil.error(400, 'Unable to upload image. Select the bean and try again'));
+                this.handleSuccess();
                 return;
             }
 
             dispatch(uploadImage(this.photo, data.id)).then(() => {
-                this.setState({send: true});
+                this.handleSuccess();
             });
         });
     }
@@ -187,19 +167,18 @@ class InventoryContainer extends Component {
 
         dispatch(updateItem(bean)).then(() => {
             if (!this.ephoto) {
-                this.setState({esend: true});
+                this.handleEditSuccess();
                 return;
             }
 
             const data = this.props.modify.data;
             if (!data.id) {
-                dispatch(ActionUtil.error(400, 'Unable to upload image.'));
-                this.setState({esend: true});
+                dispatch(ActionUtil.error(400, 'Unable to upload image. Select the bean and try again'));
                 return;
             }
 
+            this.handleEditSuccess();
             dispatch(uploadImage(this.ephoto, data.id)).then(() => {
-                this.setState({esend: true});
             });
         });
     }
@@ -216,7 +195,10 @@ class InventoryContainer extends Component {
         return (type => {
             let obj = {};
             obj[key] = type;
+            console.log(obj);
+            console.log(this.isActive);
             this.setState(obj);
+            console.log(this.isActive);
         });
     }
 
@@ -280,22 +262,25 @@ class InventoryContainer extends Component {
         return (
             <div>
                 {this.state.showItems &&
-                <Inventory
-                    onAddBeans={this.handleAddBeansBind}
-                    ids={this.props.ids}
-                    items={this.props.items}
-                    input={this.inputHandlers}
-                    edit={this.editHandlers}
-                    modify={this.props.modify}
-                    onRowClick={this.handleRowClickBind}
-                    selected={this.state.selected}
-                    image={this.state.image}
-                    eimage={this.state.eimage}
-                    tags={this.state.tags}
-                    etags={this.state.selectedTags}
-                    type={this.state.type}
-                    etype={this.state.etype}
-                    />
+                <div>
+                    <SuccessMessage success={this.props.modify.success} message={'Success'}/>
+                    <Inventory
+                        onAddBeans={this.handleAddBeansBind}
+                        ids={this.props.ids}
+                        items={this.props.items}
+                        input={this.inputHandlers}
+                        edit={this.editHandlers}
+                        modify={this.props.modify}
+                        onRowClick={this.handleRowClickBind}
+                        selected={this.state.selected}
+                        image={this.state.image}
+                        eimage={this.state.eimage}
+                        tags={this.state.tags}
+                        etags={this.state.selectedTags}
+                        type={this.state.type}
+                        etype={this.state.etype}
+                        />
+                </div>
                 }
             </div>
         );

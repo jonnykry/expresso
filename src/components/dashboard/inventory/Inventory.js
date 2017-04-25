@@ -6,18 +6,26 @@ import ReactDataGrid from 'react-data-grid';
 import InventoryEdit from './InventoryEdit';
 import BooleanFormatter from './BooleanFormatter';
 import ArrayFormatter from './ArrayFormatter';
+import LinkFormatter from './LinkFormatter';
 
 class Inventory extends Component {
     constructor(props) {
         super(props);
 
         this._columns = [{
+            key: 'id',
+            name: 'Page',
+            formatter: LinkFormatter,
+            width: 110
+        },
+        {
             key: 'name',
             name: 'Name'
         },
         {
             key: 'coffeeType',
-            name: 'Coffee Type'
+            name: 'Coffee Type',
+            width: 120
         },
         {
             key: 'inStockBags',
@@ -78,6 +86,7 @@ class Inventory extends Component {
         const key = this.props.ids[i];
         const item = this.props.items[key];
         const row = {
+            id: item.id,
             name: item.name,
             coffeeType: item.coffeeType,
             inStockBags: item.inStockBags,
@@ -103,6 +112,7 @@ class Inventory extends Component {
     render() {
         const toggleClass = 'pv2 f5 b pl2 pointer tracked';
 
+        console.log(this.props.selected);
         return (
             <div>
                 {
@@ -137,7 +147,7 @@ class Inventory extends Component {
                         success={this.props.modify.success}
                         fetching={this.props.modify.fetching}
                         id={this.props.selected}
-                        items={this.props.items}
+                        item={this.props.items[this.props.selected]}
                         image={this.props.eimage}
                         tags={this.props.etags}
                         type={this.props.etype}
