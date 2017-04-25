@@ -52,14 +52,27 @@ export function getRoasterItems(id, offset, limit) {
     return ActionUtil.handlePagedRequest(ActionTypes.ROASTER_ITEMS, url, 'GET', offset, limit);
 }
 
-export function getOrders(id, offset, limit) {
-    const url = ORDERS_URL;
-    return ActionUtil.handlePagedRequest(ActionTypes.ROASTER_ORDERS, url, 'GET', offset, limit);
-}
-
 export function getRoasterOrders(id, offset, limit) {
     const url = ROASTER_ORDERS_URL + '/' + id;
     return ActionUtil.handlePagedRequest(ActionTypes.ROASTER_ORDERS, url, 'GET', offset, limit);
+}
+
+export function getOrderById(id) {
+    return dispatch => {
+        return fetch(ORDERS_URL + '/' + id, ActionUtil.auth({
+            method: 'GET'
+        })).then(res => {
+            return res.json();
+        }).then(payload => {
+            if (payload.error || !payload.success) {
+                dispatch(ActionUtil.error('', payload.message));
+                return;
+            }
+            dispatch(ActionUtil.single(ActionTypes.ROASTER_ORDERS, payload));
+        }).catch(err => {
+            dispatch(ActionUtil.error('', err));
+        });
+    };
 }
 
 export function getRoaster(id) {

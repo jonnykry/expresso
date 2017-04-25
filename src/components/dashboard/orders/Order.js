@@ -1,9 +1,8 @@
 import React, {Component, PropTypes} from 'react';
 import ReactDataGrid from 'react-data-grid';
 
-import OrderEdit from './OrderEdit';
 import BooleanFormatter from '../inventory/BooleanFormatter';
-import ArrayFormatter from '../inventory/ArrayFormatter';
+import LabelFormatter from './LabelFormatter';
 
 class Order extends Component {
     constructor(props) {
@@ -36,12 +35,13 @@ class Order extends Component {
         {
             key: 'status',
             name: 'Status',
-            width: 90
+            width: 110
         },
         {
-        key: 'labelUrl',
-            name: 'Label Url',
-            width: 90
+            key: 'labelUrl',
+            name: 'Label Link',
+            formatter: LabelFormatter,
+            width: 180
         },
         {
             key: 'requestDate',
@@ -59,14 +59,17 @@ class Order extends Component {
         const key = this.props.ids[i];
         const order = this.props.items[key];
         const row = {
-            id: order.id,//order.name,
+            id: order.id,
             name: "TBD name",
             coffeeType: "TBD type",
             ozInBag: "TBD oz",
             isDecaf: true,
-            quantity: order.quantity,//order.quantity,
-            status: order.status,//order.tags,
-            labelUrl: "labelurl",//erord.description,
+            quantity: order.quantity,
+            status: order.status,
+            labelUrl: {
+                url: order.labelUrl, 
+                id: order.id
+            },
             requestDate: new Date(order.requestDate).toLocaleDateString(),
             shipDate: new Date(order.shipDate).toLocaleDateString()
         };
@@ -74,8 +77,6 @@ class Order extends Component {
     }
 
     render() {
-        const toggleClass = 'pv2 f5 b pl2 pointer tracked';
-
         return (
             <div>
                 <ReactDataGrid
@@ -83,15 +84,7 @@ class Order extends Component {
                     rowGetter={this.rowGetterBind}
                     rowsCount={this.props.ids.length}
                     minHeight={400}
-                    onRowClick={this.props.onRowClick}
-                    />
-                {this.props.selected &&
-                    <OrderEdit
-                        success={this.props.modify.success}
-                        fetching={this.props.modify.fetching}
-                        id={this.props.selected}
-                        items={this.props.items}
-                        {...this.props.edit} />}
+                    onRowClick={this.props.onRowClick} />
             </div>
         );
     }

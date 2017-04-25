@@ -13,7 +13,7 @@ class OrderContainer extends Component {
 
         this.state = {
             selected: '',
-            ordersReceived: false
+            showItems: false
         };
     }
 
@@ -21,20 +21,6 @@ class OrderContainer extends Component {
         this.props.dispatch(getRoasterOrders(this.props.roaster.id, 0, 100)).then(() => {
             this.setState({showItems: true});
         });
-    }
-
-    componentWillReceiveProps(next) {
-        if (!this.props.roaster.id || !this.props.next) {
-            return;
-        }
-
-        this.props.dispatch(getRoasterOrders(this.props.roaster.id, 0, 100)).then(() => {
-            this.setState({ordersReceived: true});
-        });
-    }
-
-    handleSuccess() {
-        this.props.dispatch(getRoasterOrders(this.props.roaster.id, 0, 100));
     }
 
     handleRowClick(i) {
@@ -49,7 +35,7 @@ class OrderContainer extends Component {
     }
 
     render() {
-        if(!this.state.ordersReceived) {
+        if(!this.state.showItems) {
             return <Loading fetching={true} />
         }
         else {
