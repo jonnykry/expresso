@@ -4,7 +4,8 @@ import {browserHistory} from 'react-router';
 
 class Shipment extends Component {
     render() {
-        const inputClass = '';
+        const labelClass = 'f4 pa2 b dib';
+        const inputClass = 'dib w2 pa2';
         const distOptions = [
             {value: 'cm', label: 'Centimeters'},
             {value: 'mm', label: 'Millimeters'},
@@ -15,22 +16,28 @@ class Shipment extends Component {
         ];
 
         return (
-            <div className="mw7 h-100 min-h-100">
+            <div className="center tc mw7 h-100 min-h-100">
             {
                 this.props.order ?
-                <form className="center tc mw7">
-                    <div>Please fill out the shipment information for Order ID {this.props.order && this.props.order.id}</div>
-                    <div>The shipment information is a collection of dimensions for the box you will use to ship.</div>
+                <form className="mt3">
+                    <div className="f3 pv2">Please fill out the shipment information for:<br /> <strong>OrderID:</strong> {this.props.order && this.props.order.id}</div>
+                    <div className="f5 pv2">The shipment information is a collection of dimensions for the box you will use to ship.</div>
                     <div className="flex w-100">
-                        <div className="w-25"><p className="pv2 b">Length: </p><input className={inputClass + ' w2'} onChange={this.props.onLengthChange} defaultValue={0}/></div>
-                        <div className="w-25"><p className="pv2 b">Width: </p><input className={inputClass + ' w2'} onChange={this.props.onWidthChange} defaultValue={0}/></div>
-                        <div className="w-25"><p className="pv2 b">Height: </p><input className={inputClass + ' w2'} onChange={this.props.onHeightChange} defaultValue={0}/></div>
-                        <Select className="w-25" options={distOptions}
-                            simpleValue
-                            clearable={false}
-                            value={this.props.distance}
-                            placeholder="Distance Unit"
-                            onChange={this.props.onDistanceChange} />
+                        <div className="w-25"><p className={labelClass}>Length: </p><input className={inputClass} onChange={this.props.onLengthChange} defaultValue={0}/></div>
+                        <div className="w-25"><p className={labelClass}>Width: </p><input className={inputClass} onChange={this.props.onWidthChange} defaultValue={0}/></div>
+                        <div className="w-25"><p className={labelClass}>Height: </p><input className={inputClass} onChange={this.props.onHeightChange} defaultValue={0}/></div>
+                        <div className="w-25 flex">
+                            <p className={labelClass}>Units: </p>
+                            <div className="w-100">
+                            <Select className="mt3 pt1"
+                                options={distOptions}
+                                searchable={false}
+                                clearable={false}
+                                value={this.props.distance}
+                                placeholder="Distance Unit"
+                                onChange={this.props.onDistanceChange} />
+                            </div>
+                        </div>
                     </div>
                     <div className="center flex">
                         <div className="mv4 w-50">
