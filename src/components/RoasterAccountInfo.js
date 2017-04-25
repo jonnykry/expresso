@@ -1,27 +1,28 @@
 import React, {Component, PropTypes} from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import FileSelector from './FileSelector';
+
 import moment from 'moment';
 
+import FileSelector from './FileSelector';
 import Title from './Title';
 
 class RoasterAccountInfo extends Component {
     constructor(props) {
         super(props);
 
-        if(this.props.user != null) {
-            this.props.profileImage.src = this.props.user.profileUrl;
+        if (this.props.roaster) {
+            this.props.profileImage.src = this.props.roaster.profileUrl;
         }
 
         const birthdayString = this.props.birthday;
         this.state = {
             date: birthdayString ? new moment(birthdayString) : null
-        }
+        };
 
         this.profileImageSelectedBind = this.profileImageSelected.bind(this);
         this.onDateChangeBind = this.onDateChange.bind(this);
-	}
+    }
 
     onDateChange(dateString) {
         this.setState({
@@ -48,9 +49,9 @@ class RoasterAccountInfo extends Component {
         });
     }
 
-	render() {
-		const inputClass = 'input-reset ba b--silver pa3 mv2 db br3 mh3';
-		const formRowClass = 'mt3 flex flex-row';
+    render() {
+        const inputClass = 'input-reset ba b--silver pa3 mv2 db br3 mh3';
+        const formRowClass = 'mt3 flex flex-row';
 
         const roaster = this.props.roaster;
         const exists = this.props.roaster;
@@ -144,7 +145,7 @@ class RoasterAccountInfo extends Component {
                             <option value="WI">Wisconsin</option>
                             <option value="WY">Wyoming</option>
                         </select>
-                         <select className={inputClass + ' w-50 pointer'} ref={this.props.country} defaultValue={exists ? roaster.addressCountry : ''} required>
+                        <select className={inputClass + ' w-50 pointer'} ref={this.props.country} defaultValue={exists ? roaster.addressCountry : ''} required>
                             <option value="US">United States</option>
                             <option value="AF">Afghanistan</option>
                             <option value="AL">Albania</option>
@@ -249,7 +250,7 @@ class RoasterAccountInfo extends Component {
                             <option value="IS">Iceland</option>
                             <option value="IN">India</option>
                             <option value="ID">Indonesia</option>
-                            <option value="IR">"Iran, Islamic Republic of"</option>
+                            <option value="IR">Iran, Islamic Republic of</option>
                             <option value="IQ">Iraq</option>
                             <option value="IE">Ireland</option>
                             <option value="IM">Isle of Man</option>
@@ -262,8 +263,8 @@ class RoasterAccountInfo extends Component {
                             <option value="KZ">Kazakhstan</option>
                             <option value="KE">Kenya</option>
                             <option value="KI">Kiribati</option>
-                            <option value="KP">"Korea, Democratic People's Republic of"</option>
-                            <option value="KR">"Korea, Republic of"</option>
+                            <option value="KP">Korea, Democratic People's Republic of</option>
+                            <option value="KR">Korea, Republic of</option>
                             <option value="KW">Kuwait</option>
                             <option value="KG">Kyrgyzstan</option>
                             <option value="LA">Lao People's Democratic Republic</option>
@@ -276,7 +277,7 @@ class RoasterAccountInfo extends Component {
                             <option value="LT">Lithuania</option>
                             <option value="LU">Luxembourg</option>
                             <option value="MO">Macao</option>
-                            <option value="MK">"Macedonia, the Former Yugoslav Republic of"</option>
+                            <option value="MK">Macedonia, the Former Yugoslav Republic of</option>
                             <option value="MG">Madagascar</option>
                             <option value="MW">Malawi</option>
                             <option value="MY">Malaysia</option>
@@ -289,8 +290,8 @@ class RoasterAccountInfo extends Component {
                             <option value="MU">Mauritius</option>
                             <option value="YT">Mayotte</option>
                             <option value="MX">Mexico</option>
-                            <option value="FM">"Micronesia, Federated States of"</option>
-                            <option value="MD">"Moldova, Republic of"</option>
+                            <option value="FM">Micronesia, Federated States of</option>
+                            <option value="MD">Moldova, Republic of</option>
                             <option value="MC">Monaco</option>
                             <option value="MN">Mongolia</option>
                             <option value="ME">Montenegro</option>
@@ -314,7 +315,7 @@ class RoasterAccountInfo extends Component {
                             <option value="OM">Oman</option>
                             <option value="PK">Pakistan</option>
                             <option value="PW">Palau</option>
-                            <option value="PS">"Palestine, State of"</option>
+                            <option value="PS">Palestine, State of</option>
                             <option value="PA">Panama</option>
                             <option value="PG">Papua New Guinea</option>
                             <option value="PY">Paraguay</option>
@@ -362,7 +363,7 @@ class RoasterAccountInfo extends Component {
                             <option value="SE">Sweden</option>
                             <option value="CH">Switzerland</option>
                             <option value="SY">Syrian Arab Republic</option>
-                            <option value="TW">"Taiwan, Province of China"</option>
+                            <option value="TW">Taiwan, Province of China</option>
                             <option value="TJ">Tajikistan</option>
                             <option value="TZ">United Republic of Tanzania</option>
                             <option value="TH">Thailand</option>
@@ -399,10 +400,11 @@ class RoasterAccountInfo extends Component {
                     <div className="mt3">
                         <FileSelector
                             buttonText="Upload Profile Picture (Optional)"
-                            fileSelected={this.profileImageSelectedBind} />
+                            fileSelected={this.profileImageSelectedBind}
+                            />
                     </div>
-                    <div className="mt3 center">
-                        <img  className="w-50" height="auto" alt="" ref={this._addRef('profile')} src={this.props.profileImage.src} />
+                    <div className="mt3 w-50 center">
+                        <img height="auto" alt="" ref={this._addRef('profile')} src={this.props.profileImage.src}/>
                     </div>
                     <div className="mt3">
                         <button className="f4 w-100 link pointer dim br1 ba bw1 pv3 mb2 white bg-green" type="submit">{submitText}</button>
