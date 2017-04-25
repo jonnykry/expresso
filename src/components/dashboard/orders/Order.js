@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import ReactDataGrid from 'react-data-grid';
-
+import {getAllItems2} from '../../../actions/warehouseActions';
+import {getSubscription} from '../../../actions/covenantActions';
 import OrderEdit from './OrderEdit';
 import BooleanFormatter from '../inventory/BooleanFormatter';
 import ArrayFormatter from '../inventory/ArrayFormatter';
@@ -52,17 +53,25 @@ class Order extends Component {
             name: 'Ship Date',
         }];
 
+        this.beenRendered = false;
         this.rowGetterBind = this.rowGetter.bind(this);
     }
 
     rowGetter(i) {
+        const orderID = this.props.ids[i];
+        const subscriptionID = this.props.items[orderID].subscriptionId;
+        const itemID = this.props.subItems[subscriptionID].itemId;
+        const itemName = this.props.itemItems[itemID].name;
+        const itemType = this.props.itemItems[itemID].coffeeType;
+        const itemOzInBag = this.props.itemItems[itemID].ozInBag;
+
         const key = this.props.ids[i];
         const order = this.props.items[key];
         const row = {
             id: order.id,//order.name,
-            name: "TBD name",
-            coffeeType: "TBD type",
-            ozInBag: "TBD oz",
+            name: itemName,
+            coffeeType: itemType,
+            ozInBag: itemOzInBag,
             isDecaf: true,
             quantity: order.quantity,//order.quantity,
             status: order.status,//order.tags,
@@ -98,11 +107,16 @@ class Order extends Component {
 }
 
 Order.propTypes = {
-    ids: PropTypes.array.isRequired,    
+    ids: PropTypes.array.isRequired, 
     items: PropTypes.object.isRequired,
+    beans: PropTypes.object.isRequired,
+    dispatch: PropTypes.func.isRequired,
     selected: PropTypes.string.isRequired,
     modify: PropTypes.object.isRequired,
-    onRowClick: PropTypes.func.isRequired
+    onRowClick: PropTypes.func.isRequired,
+    subItems: PropTypes.object.isRequired,
+    itemItems: PropTypes.object.isRequired,
+    roaster: PropTypes.object.isRequired
 };
 
 export default Order;

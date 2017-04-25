@@ -34,6 +34,11 @@ export function getItem(id) {
     };
 }
 
+export function getAllItems2(offset, limit) {
+    const url = ITEMS_URL;
+    return ActionUtil.handlePagedRequest(ActionTypes.WAREHOUSE_ITEMS, url, 'GET', offset, limit);
+}
+
 export function updateItem(data) {
     return ActionUtil.handleRequest(ITEMS_URL + '/' + data.id, 'PUT', data);
 }
