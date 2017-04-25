@@ -1,7 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import ReactDataGrid from 'react-data-grid';
 
-import BooleanFormatter from '../inventory/BooleanFormatter';
 import LabelFormatter from './LabelFormatter';
 
 class Order extends Component {
