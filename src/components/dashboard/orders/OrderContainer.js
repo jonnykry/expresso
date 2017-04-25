@@ -2,6 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 
 import {getRoasterOrders} from '../../../actions/roasterActions';
+import {getItem} from '../../../actions/warehouseActions';
 import Order from './Order';
 import Loading from '../../Loading';
 
@@ -18,8 +19,19 @@ class OrderContainer extends Component {
     }
 
     componentDidMount() {
-        this.props.dispatch(getRoasterOrders(this.props.roaster.id, 0, 100)).then(() => {
+        const {dispatch} = this.props;
+        dispatch(getRoasterOrders(this.props.roaster.id, 0, 100)).then(() => {
             this.setState({showItems: true});
+
+            for (let i = 0; i < this.props.ids.length; i++) {
+                const id = this.props.ids[i];
+                const {itemId} = this.props.items[id];
+                if (this.props.beans[itemId]) {
+                    continue;
+                }
+
+                dispatch(getItem(itemId));
+            }
         });
     }
 
@@ -35,20 +47,22 @@ class OrderContainer extends Component {
     }
 
     render() {
-        if(!this.state.showItems) {
-            return <Loading fetching={true} />
+        if (!this.state.showItems) {
+            return <Loading fetching/>;
         }
-        else {
-            return (
-                <div>
-                    <Order ids={this.props.ids}
-                        items={this.props.items}
-                        modify={this.props.modify}
-                        onRowClick={this.handleRowClickBind}
-                        selected={this.state.selected} />
-                </div>
-            );
-        }
+
+        return (
+            <div>
+                <Order
+                    beans={this.props.beans}
+                    ids={this.props.ids}
+                    items={this.props.items}
+                    modify={this.props.modify}
+                    onRowClick={this.handleRowClickBind}
+                    selected={this.state.selected}
+                    />
+            </div>
+        );
     }
 }
 
@@ -57,13 +71,15 @@ OrderContainer.propTypes = {
     ids: PropTypes.array.isRequired,
     items: PropTypes.object.isRequired,
     modify: PropTypes.object.isRequired,
-    roaster: PropTypes.object.isRequired
+    roaster: PropTypes.object.isRequired,
+    beans: PropTypes.object.isRequired
 };
 
 function mapStateToProps(state) {
     return {
         ids: state.roasterOrders.ids,
         items: state.roasterOrders.items,
+        beans: state.beans.items,
         next: state.roasterOrders.next,
         modify: state.modify
     };

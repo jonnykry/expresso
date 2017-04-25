@@ -1,7 +1,7 @@
 import {combineReducers} from 'redux';
 
 import ActionTypes from '../actions/actionTypes';
-import {beans, bean} from './warehouseReducer';
+import {beans} from './warehouseReducer';
 import {roaster, roasterItems, roasterOrders} from './roasterReducer';
 import {userReducer} from './userReducer';
 import {subscriptions, subscription} from './covenantReducer';
