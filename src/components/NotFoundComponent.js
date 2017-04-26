@@ -6,7 +6,7 @@ class NotFoundComponent extends Component {
         return (
             <div>
                 <article className="pa4 center black-80">
-                    <div className="f2 tc">Woops!</div>
+                    <div className="f2 tc mt7">Woops!</div>
                     <p className="tc">
                         Looks like we cannot find this page! We will look into this right after our next cup of coffee.
                     </p>
