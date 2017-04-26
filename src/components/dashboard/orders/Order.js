@@ -1,6 +1,5 @@
 import React, {Component, PropTypes} from 'react';
 import ReactDataGrid from 'react-data-grid';
-
 import LabelFormatter from './LabelFormatter';
 import UrlFormatter from '../inventory/UrlFormatter';
 
@@ -43,6 +42,7 @@ class Order extends Component {
             formatter: UrlFormatter
         }];
 
+        this.beenRendered = false;
         this.rowGetterBind = this.rowGetter.bind(this);
     }
 
@@ -54,7 +54,6 @@ class Order extends Component {
         const dateString = shipDate.getFullYear() < 1970 ? 'N/A' : shipDate.toLocaleDateString();
 
         const row = {
-            id: order.id,
             name: item.name,
             coffeeType: item.coffeeType,
             ozInBag: item.ozInBag,
