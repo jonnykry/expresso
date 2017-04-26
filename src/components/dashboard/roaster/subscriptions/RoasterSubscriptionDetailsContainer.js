@@ -66,7 +66,6 @@ class RoasterSubscriptionDetailsContainer extends Component {
     render() {
         return (
             <div>
-                <BackButton/>
                 <SuccessMessage success={this.props.modify.success} message={'Message sent'}/>
                 <RoasterSubscriptionDetails
                     subscription={this.props.subscription}
