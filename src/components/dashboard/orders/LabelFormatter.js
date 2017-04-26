@@ -4,7 +4,7 @@ import {Link} from 'react-router';
 class LabelFormatter extends Component {
     render() {
         const linkClass= "no-underline white bg-blue br2 ph2 pv2 dim";
-        const label = this.props.value.url ? 'View Shipment URL' : 'Get Shipment URL';
+        const label = this.props.value.url ? 'View Shipping Label' : 'Get Shipping Label';
         return (
             <div>
             {
