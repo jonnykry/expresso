@@ -8,7 +8,7 @@ class RoasterItem extends Component {
         const subs = this.props.subscriptions;
 
         if(!subs) {
-            return (<Loading fetching={true} />);
+            return <div></div>;
         }
 
         return (
