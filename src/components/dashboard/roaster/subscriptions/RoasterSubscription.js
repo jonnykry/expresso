@@ -3,7 +3,7 @@ import {Link} from 'react-router';
 
 class RoasterSubscription extends Component {
     render() {
-        const btnClass = 'pointer dim br1 ba bw1 tc pa2 black no-underline';
+        const btnClass = 'pointer dim tc pa2 black no-underline';
         const labelClass = 'f5 pa1 pr4 w-third-l';
         const rowClass = 'pa2';
 
@@ -12,7 +12,8 @@ class RoasterSubscription extends Component {
         const frequency = item.frequency.charAt(0).toUpperCase() + item.frequency.slice(1).toLowerCase();
 
         return (
-            <div className="bl br bt bb pa2">
+            <Link to={'/dashboard/roaster/subscriptions/' + item.id} className={btnClass}>
+            <div className="bl br bt bb pa2 dim">
                 <div className={rowClass}>
                     <span className={labelClass}><strong>Number of bags:</strong> {item.quantity}</span>
                 </div>
@@ -22,12 +23,8 @@ class RoasterSubscription extends Component {
                 <div className={rowClass}>
                     <span className={labelClass}><strong>Next order:</strong> {date.toLocaleDateString()}</span>
                 </div>
-                <div className={rowClass}>
-                    <Link to={'/dashboard/roaster/subscriptions/' + item.id} className={btnClass}>
-                        View this subscription
-                    </Link>
-                </div>
             </div>
+            </Link>
         );
     }
 }
