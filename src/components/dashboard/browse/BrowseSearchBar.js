@@ -12,9 +12,9 @@ class BeanSearchBar extends Component {
             { value: 3, label: 'Cost (low -> high)' },
             { value: 4, label: 'Cost (high -> low)' }
         ];
-        
+        // <span onClick={this.props.onClear} className="pointer silver pl3">X</span>
         return (
-            <div className="bean-item-card w-40 center ph1 flex flex-row">
+            <div className="w-50-l w-70-m w-100 center pv1 ph1 flex flex-row">
                 <span className="w-100 ba border-box br2 b--light-silver">
                     <DebounceInput
                         ref={(input) => { this.searchInput = input; }}
@@ -25,7 +25,7 @@ class BeanSearchBar extends Component {
                         debounceTimeout={400}
                         onChange={this.props.onSearchChange} />
                 </span>
-                <div className="pl2 w-50">
+                <div className="pl2 w-50 z-999">
                     <Select options={options}
                             simpleValue
                             value={this.props.selected}

@@ -34,3 +34,11 @@ export function roasterItems(state = ReducerUtil.getPagedState(), action) {
 
     return ReducerUtil.handlePagedAction(action, state);
 }
+
+export function roasterOrders(state = ReducerUtil.getPagedState(), action) {
+    if (action.itemType !== ActionTypes.ROASTER_ORDERS) {
+        return state;
+    }
+
+    return ReducerUtil.handlePagedAction(action, state);
+}
