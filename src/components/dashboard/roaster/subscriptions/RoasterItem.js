@@ -1,14 +1,13 @@
 import React, {Component, PropTypes} from 'react';
 import RoasterSubscription from './RoasterSubscription';
 import BeanItemImage from '../../browse/BeanItemImage';
-import Loading from '../../../Loading';
 
 class RoasterItem extends Component {
     render() {
         const subs = this.props.subscriptions;
 
-        if(!subs) {
-            return <div></div>;
+        if (!subs) {
+            return <div/>;
         }
 
         return (
@@ -29,7 +28,7 @@ class RoasterItem extends Component {
                     <div className="dt dt--fixed">
                         {
                             Object.keys(subs).map(key => {
-                                return <div className="dit-l w-100-m w-third-l pa2" key={key}><RoasterSubscription item={subs[key]} key={key} /></div>
+                                return <div className="dit-l w-100-m w-third-l pa2" key={key}><RoasterSubscription item={subs[key]} key={key}/></div>;
                             })
                         }
                     </div>
@@ -42,6 +41,6 @@ class RoasterItem extends Component {
 RoasterItem.propTypes = {
     bean: PropTypes.object.isRequired,
     subscriptions: PropTypes.object
-}
+};
 
 export default RoasterItem;

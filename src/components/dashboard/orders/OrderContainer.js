@@ -2,8 +2,8 @@ import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {getAllItems, getItem} from '../../../actions/warehouseActions';
 import {getRoasterOrders} from '../../../actions/roasterActions';
-import Order from './Order';
 import Loading from '../../Loading';
+import Order from './Order';
 
 class OrderContainer extends Component {
     constructor(props) {
@@ -33,30 +33,6 @@ class OrderContainer extends Component {
             }
         });
     }
-//     componentDidMount() {
-//         const {dispatch} = this.props;
-//         dispatch(getRoasterOrders(this.props.roaster.id, 0, 100)).then(() => {
-//             this.setState({showItems: true});
-
-//             for (let i = 0; i < this.props.ids.length; i++) {
-//                 const id = this.props.ids[i];
-//                 const {itemId} = this.props.items[id];
-//                 if (this.props.beans[itemId]) {
-//                     continue;
-//                 }
-
-// <<<<<<< HEAD
-//         this.props.dispatch(getRoasterOrders(this.props.roaster.id, 0, 100)).then(() => {
-//             this.props.dispatch(getAllItems(0, 100)).then(() => {
-//                 this.setState({ordersReceived: true});
-//             });
-// =======
-//                 dispatch(getItem(itemId));
-//             }
-// >>>>>>> packaging-info
-//         });
-
-//     }
 
     handleRowClick(i) {
         const id = this.props.ids[i];
