@@ -29,7 +29,7 @@ class RoasterItem extends Component {
                     <div className="dt dt--fixed">
                         {
                             Object.keys(subs).map(key => {
-                                return <RoasterSubscription item={subs[key]} key={key} />
+                                return <div className="dit-l w-100-m w-third-l pa2" key={key}><RoasterSubscription item={subs[key]} key={key} /></div>
                             })
                         }
                     </div>

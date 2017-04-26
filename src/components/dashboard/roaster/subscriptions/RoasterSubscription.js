@@ -12,7 +12,7 @@ class RoasterSubscription extends Component {
         const frequency = item.frequency.charAt(0).toUpperCase() + item.frequency.slice(1).toLowerCase();
 
         return (
-            <div className="w-100-m dtc-l bl br bt bb pa2">
+            <div className="bl br bt bb pa2">
                 <div className={rowClass}>
                     <span className={labelClass}><strong>Number of bags:</strong> {item.quantity}</span>
                 </div>
