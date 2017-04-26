@@ -20,15 +20,17 @@ class BeanItemDetails extends Component {
             <div>
                 <BackButton/>
                 <div className="mw7 center pa4 w-100">
-                    <div className="dt-m dib">
-                        <div className="dib w-third-l w-50-m w-100 dtc-m v-top">
-                            <h1 className="tc">{this.props.bean.name}</h1>
-                            <div className="mr2 center">
+                    <div className="w-100">
+                        <h1 className="tc">{this.props.bean.name}</h1>
+                    </div>
+                    <div className="dt-m w-100">
+                        <div className="dib w-third-l w-50-m w-100 dtc-m v-top tc">
+                            <div className="mr2">
                                 <BeanItemImage src={this.props.bean.pictureURL} alt={this.props.bean.name}/>
                             </div>
                         </div>
-                        <div className="pa1 pl2 dib w-two-thirds-l w-50-m w-100 mt5 pl4 dtc-m v-top">
-                            <div className="mt3 mb2">
+                        <div className="pa1 dib w-two-thirds-l w-50-m w-100 pl4 dtc-m v-top">
+                            <div className="mb2">
                                 <span className="f2">${parseFloat(this.props.bean.consumerPrice).toFixed(2)}</span>
                                 <span className="f5 fw1 black-60 ttu">&nbsp;per {this.props.bean.ozInBag} oz bag</span>
                             </div>
