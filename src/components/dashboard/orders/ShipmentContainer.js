@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {getOrderById} from '../../../actions/roasterActions';
 import {setOrderLabelById} from '../../../actions/warehouseActions';
@@ -19,7 +19,7 @@ class ShipmentContainer extends Component {
         this.handleWidthChange = this.handleWidthChange.bind(this);
         this.handleHeightChange = this.handleHeightChange.bind(this);
         this.handleDistanceChange = this.handleDistanceChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);     
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     componentDidMount() {
@@ -80,20 +80,24 @@ class ShipmentContainer extends Component {
 
         return (
             <div>
-                <Shipment order={order}
+                <Shipment
+                    order={order}
                     onLengthChange={this.handleLengthChange}
                     onWidthChange={this.handleWidthChange}
                     onHeightChange={this.handleHeightChange}
                     onDistanceChange={this.handleDistanceChange}
                     onSubmit={this.handleSubmit}
-                    distance={this.state.distanceUnit} />
+                    distance={this.state.distanceUnit}
+                    />
             </div>
         );
     }
 }
 
 ShipmentContainer.propTypes = {
-
+    dispatch: PropTypes.func.isRequired,
+    orders: PropTypes.object,
+    params: PropTypes.object
 };
 
 function mapStateToProps(state) {
@@ -103,6 +107,5 @@ function mapStateToProps(state) {
         user: state.userReducer.user
     };
 }
-
 
 export default connect(mapStateToProps)(ShipmentContainer);
