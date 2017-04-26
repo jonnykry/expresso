@@ -1,8 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
-import {getAllItems} from '../../../actions/warehouseActions';
+import {getAllItems, getItem} from '../../../actions/warehouseActions';
 import {getRoasterOrders} from '../../../actions/roasterActions';
-import {getAllSubscriptions} from '../../../actions/covenantActions';
 import Order from './Order';
 import Loading from '../../Loading';
 
@@ -19,12 +18,19 @@ class OrderContainer extends Component {
     }
 
     componentDidMount() {
-        this.props.dispatch(getRoasterOrders(this.props.roaster.id, 0, 100)).then(() => {
-            this.props.dispatch(getAllItems(0, 100)).then(() => {
-                this.props.dispatch(getAllSubscriptions(0, 100)).then(() => {
-                    this.setState({ordersReceived: true});
-                });
-            });
+        const {dispatch} = this.props;
+        dispatch(getRoasterOrders(this.props.roaster.id, 0, 100)).then(() => {
+            this.setState({showItems: true});
+
+            for (let i = 0; i < this.props.ids.length; i++) {
+                const id = this.props.ids[i];
+                const {itemId} = this.props.items[id];
+                if (this.props.beans[itemId]) {
+                    continue;
+                }
+
+                dispatch(getItem(itemId));
+            }
         });
     }
 
@@ -35,9 +41,7 @@ class OrderContainer extends Component {
 
         this.props.dispatch(getRoasterOrders(this.props.roaster.id, 0, 100)).then(() => {
             this.props.dispatch(getAllItems(0, 100)).then(() => {
-                this.props.dispatch(getAllSubscriptions(0, 100)).then(() => {
-                    this.setState({ordersReceived: true});
-                });
+                this.setState({ordersReceived: true});
             });
         });
 
@@ -66,16 +70,12 @@ class OrderContainer extends Component {
             return (
                 <div>
                     <Order
-                        ids={this.props.ids}
                         beans={this.props.beans}
+                        ids={this.props.ids}
                         items={this.props.items}
-                        dispatch={this.props.dispatch}
                         modify={this.props.modify}
                         onRowClick={this.handleRowClickBind}
                         selected={this.state.selected}
-                        itemItems={this.props.itemItems}
-                        subItems={this.props.subItems}
-                        roaster={this.props.roaster}
                         />
                 </div>
             );
@@ -84,24 +84,20 @@ class OrderContainer extends Component {
 }
 
 OrderContainer.propTypes = {
-    beans: PropTypes.object.isRequired,
     dispatch: PropTypes.func.isRequired,
     ids: PropTypes.array.isRequired,
     items: PropTypes.object.isRequired,
     modify: PropTypes.object.isRequired,
-    itemItems: PropTypes.object.isRequired,
-    subItems: PropTypes.object.isRequired,
-    roaster: PropTypes.object.isRequired
+    roaster: PropTypes.object.isRequired,
+    beans: PropTypes.object.isRequired
 };
 
 function mapStateToProps(state) {
     return {
-        beans: state.beans.items,
         ids: state.roasterOrders.ids,
         items: state.roasterOrders.items,
+        beans: state.beans.items,
         next: state.roasterOrders.next,
-        itemItems: state.beans.items,
-        subItems: state.subscriptions.items,
         modify: state.modify
     };
 }

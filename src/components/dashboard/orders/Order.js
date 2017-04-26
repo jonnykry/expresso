@@ -21,12 +21,6 @@ class Order extends Component {
             width: 50
         },
         {
-            key: 'isDecaf',
-            name: 'Decaf',
-            width: 55,
-            formatter: BooleanFormatter
-        },
-        {
             key: 'quantity',
             name: '# of Bags',
             width: 90
@@ -55,20 +49,13 @@ class Order extends Component {
     }
 
     rowGetter(i) {
-        const orderID = this.props.ids[i];
-        const subscriptionID = this.props.items[orderID].subscriptionId;
-        const itemID = this.props.subItems[subscriptionID].itemId;
-        const itemName = this.props.itemItems[itemID].name;
-        const itemType = this.props.itemItems[itemID].coffeeType;
-        const itemOzInBag = this.props.itemItems[itemID].ozInBag;
-
         const key = this.props.ids[i];
         const order = this.props.items[key];
+        const item = this.props.beans[order.itemId] || {};
         const row = {
-            name: itemName,
-            coffeeType: itemType,
-            ozInBag: itemOzInBag,
-            isDecaf: true,
+            name: item.name,
+            coffeeType: item.coffeeType,
+            ozInBag: item.ozInBag,
             quantity: order.quantity,
             status: order.status,
             labelUrl: "labelurl",
@@ -88,29 +75,16 @@ class Order extends Component {
                     minHeight={400}
                     onRowClick={this.props.onRowClick}
                     />
-                {this.props.selected &&
-                    <OrderEdit
-                        success={this.props.modify.success}
-                        fetching={this.props.modify.fetching}
-                        id={this.props.selected}
-                        items={this.props.items}
-                        />}
             </div>
         );
     }
 }
 
 Order.propTypes = {
-    ids: PropTypes.array.isRequired, 
+    ids: PropTypes.array.isRequired,
     items: PropTypes.object.isRequired,
     beans: PropTypes.object.isRequired,
-    dispatch: PropTypes.func.isRequired,
-    selected: PropTypes.string.isRequired,
-    modify: PropTypes.object.isRequired,
-    onRowClick: PropTypes.func.isRequired,
-    subItems: PropTypes.object.isRequired,
-    itemItems: PropTypes.object.isRequired,
-    roaster: PropTypes.object.isRequired
+    onRowClick: PropTypes.func.isRequired
 };
 
 export default Order;
