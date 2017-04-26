@@ -9,7 +9,7 @@ class LabelFormatter extends Component {
             <div>
                 {
                     this.props.value.url ?
-                    <a href={this.props.value.url} rel="noopener noreferrer" target="_blank" className={linkClass}>{label}</a> :
+                    <a href={this.props.value.url} target="_blank" rel="noopener noreferrer" target="_blank" className={linkClass}>{label}</a> :
                     <Link to={'/dashboard/roaster/orders/' + this.props.value.id + '/shipment'} className={linkClass}>
                         {label}
                     </Link>
