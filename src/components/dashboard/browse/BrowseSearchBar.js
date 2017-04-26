@@ -19,12 +19,11 @@ class BeanSearchBar extends Component {
                     <DebounceInput
                         ref={(input) => { this.searchInput = input; }}
                         placeholder="Search by Name or Roast Type" 
-                        className="pv1 ph3 input-reset bn w-90 h-100"
+                        className="pv1 ph3 input-reset bn w-100 h-100"
                         value={this.props.value}
                         minLength={2}
                         debounceTimeout={400}
                         onChange={this.props.onSearchChange} />
-                        <span onClick={this.props.onClear} className="pointer silver pl3">X</span>
                 </span>
                 <div className="pl2 w-50">
                     <Select options={options}
