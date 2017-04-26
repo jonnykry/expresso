@@ -28,7 +28,7 @@ export function getSubscription(id) {
                 return;
             }
             
-            dispatch(receiveSubscription(json));
+            dispatch(receiveSubscription(json, ActionTypes.COVENANT_SUBSCRIPTION));
             dispatch(getSecondaryUserInfo(json.data.userId));
             dispatch(getItem(json.data.itemId));
         }).catch(err => {
@@ -42,7 +42,26 @@ export function getSubscriptionsByUser(id, offset, limit) {
 }
 
 export function getSubscriptionsByRoaster(id, offset, limit) {
-	return ActionUtil.handlePagedRequest(ActionTypes.COVENANT_SUBSCRIPTIONS, ROASTER_SUBSCRIPTIONS_URL + "/" + id, "GET", offset, limit);
+    return dispatch => {
+        return fetch(ROASTER_SUBSCRIPTIONS_URL + '/' + id + '?offset' + offset + '&limit=' + limit, ActionUtil.auth({
+            method: 'GET'
+        })).then(response => {
+            if(response.staus === 401) {
+                dispatch(ActionUtil.error(401, 'Forbidden'));
+            }
+
+            return response.json();
+        }).then(json => {
+            if(!json.success) {
+                dispatch(ActionUtil.error(500, json.message));
+                return;
+            }
+
+            dispatch(receiveSubscription(json, ActionTypes.COVENANT_ROASTER_SUBSCRIPTIONS));
+        }).catch(err => {
+            dispatch(ActionUtil.error(500, err.message));
+        });
+    }
 }
 
 export function getAllSubscriptions(offset, limit) {
@@ -57,9 +76,9 @@ export function deleteSubscription(id) {
 	return ActionUtil.handleRequest(SUBSCRIPTION_URL + "/" + id, "DELETE");
 }
 
-function receiveSubscription(payload) {
+function receiveSubscription(payload, actionType) {
     return {
-        type: ActionTypes.COVENANT_SUBSCRIPTION,
+        type: actionType,
         payload
     };
 }
