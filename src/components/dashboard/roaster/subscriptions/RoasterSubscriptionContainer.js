@@ -1,10 +1,11 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 
+import {getRoasterItems} from '../../../../actions/roasterActions.js';
 import {getSubscriptionsByRoaster} from '../../../../actions/covenantActions';
 import InfiniteList from '../../InfiniteList';
 import SuccessMessage from '../../../SuccessMessage';
-import RoasterSubscriptionList from './RoasterSubscriptionList';
+import RoasterItemList from './RoasterItemList';
 
 class RoasterSubscriptionContainer extends Component {
     constructor(props) {
@@ -13,12 +14,16 @@ class RoasterSubscriptionContainer extends Component {
         this.updateBind = this.update.bind(this);
     }
 
+    componentDidMount() {
+        this.props.dispatch(getSubscriptionsByRoaster(this.props.user.roasterId, 0, 100000));
+    }
+
     update(page, reset) {
         const {dispatch} = this.props;
 
         const limit = 10;
         let offset = (page - 1) * limit;
-        dispatch(getSubscriptionsByRoaster(this.props.roaster.id, reset ? 0 : offset, limit));
+        dispatch(getRoasterItems(this.props.roaster.id, reset ? 0 : offset, limit));
     }
 
     render() {
@@ -29,7 +34,7 @@ class RoasterSubscriptionContainer extends Component {
                 </h1>
                 <InfiniteList ready={this.props.roaster.id !== ''} update={this.updateBind} {...this.props.items}>
                     <SuccessMessage success={this.props.modify.success} message={'Success'}/>
-                    <RoasterSubscriptionList {...this.props.items}/>
+                    <RoasterItemList {...this.props.items} subscriptions={this.props.subscriptions}/>
                 </InfiniteList>
             </div>
         );
@@ -40,13 +45,16 @@ RoasterSubscriptionContainer.propTypes = {
     dispatch: PropTypes.func.isRequired,
     items: PropTypes.object.isRequired,
     modify: PropTypes.object,
-    roaster: PropTypes.object.isRequired
+    user: PropTypes.object.isRequired,
+    subscriptions: PropTypes.object
 };
 
 function mapStateToProps(state) {
     return {
-        items: state.subscriptions,
-        modify: state.modify
+        items: state.roasterItems,
+        modify: state.modify,
+        user: state.userReducer.user,
+        subscriptions: state.roasterSubscriptions
     };
 }
 

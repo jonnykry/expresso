@@ -14,7 +14,7 @@ class LinkFormatter extends Component {
 }
 
 LinkFormatter.propTypes = {
-    value: PropTypes.bool
+    value: PropTypes.string
 };
 
 export default LinkFormatter;

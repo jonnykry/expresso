@@ -34,6 +34,10 @@ export function getItem(id) {
     };
 }
 
+export function setOrderLabelById(id, data) {
+    return ActionUtil.handleRequest(ORDERS_URL + '/' + id + '/shipment', 'POST', data);
+}
+
 export function updateItem(data) {
     return ActionUtil.handleRequest(ITEMS_URL + '/' + data.id, 'PUT', data);
 }

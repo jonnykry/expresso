@@ -1,47 +1,45 @@
 import React, {Component, PropTypes} from 'react';
 import ReactDataGrid from 'react-data-grid';
-import OrderEdit from './OrderEdit';
-import BooleanFormatter from '../inventory/BooleanFormatter';
+import LabelFormatter from './LabelFormatter';
+import UrlFormatter from '../inventory/UrlFormatter';
 
 class Order extends Component {
     constructor(props) {
         super(props);
 
-       this._columns = [{
+        this._columns = [{
             key: 'name',
             name: 'Coffee Name'
-        },
-        {
+        }, {
             key: 'coffeeType',
             name: 'Coffee Type'
-        },
-        {
+        }, {
             key: 'ozInBag',
             name: 'oz',
             width: 50
-        },
-        {
+        }, {
             key: 'quantity',
             name: '# of Bags',
             width: 90
-        },
-        {
+        }, {
             key: 'status',
             name: 'Status',
-            width: 90
-        },
-        {
-        key: 'labelUrl',
-            name: 'Label Url',
-            width: 90
-        },
-        {
+            width: 110
+        }, {
+            key: 'labelUrl',
+            name: 'Label Link',
+            formatter: LabelFormatter,
+            width: 180
+        }, {
             key: 'requestDate',
             name: 'Request Date'
-        },
-        {
+        }, {
             key: 'shipDate',
-            name: 'Ship Date',
+            name: 'Ship Date'
+        }, {
+            key: 'trackingUrl',
+            name: 'Tracking',
+            formatter: UrlFormatter
         }];
 
         this.beenRendered = false;
@@ -52,15 +50,22 @@ class Order extends Component {
         const key = this.props.ids[i];
         const order = this.props.items[key];
         const item = this.props.beans[order.itemId] || {};
+        const shipDate = new Date(order.shipDate);
+        const dateString = shipDate.getFullYear() < 1970 ? 'N/A' : shipDate.toLocaleDateString();
+
         const row = {
             name: item.name,
             coffeeType: item.coffeeType,
             ozInBag: item.ozInBag,
             quantity: order.quantity,
             status: order.status,
-            labelUrl: "labelurl",
+            labelUrl: {
+                url: order.labelUrl,
+                id: order.id
+            },
             requestDate: new Date(order.requestDate).toLocaleDateString(),
-            shipDate: new Date(order.shipDate).toLocaleDateString()
+            shipDate: dateString,
+            trackingUrl: order.trackingUrl
         };
         return row;
     }

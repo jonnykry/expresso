@@ -13,7 +13,7 @@ class OrderContainer extends Component {
 
         this.state = {
             selected: '',
-            ordersReceived: false
+            showItems: false
         };
     }
 
@@ -33,23 +33,30 @@ class OrderContainer extends Component {
             }
         });
     }
+//     componentDidMount() {
+//         const {dispatch} = this.props;
+//         dispatch(getRoasterOrders(this.props.roaster.id, 0, 100)).then(() => {
+//             this.setState({showItems: true});
 
-    componentWillReceiveProps(next) {
-        if (!this.props.roaster.id || !this.props.next) {
-            return;
-        }
+//             for (let i = 0; i < this.props.ids.length; i++) {
+//                 const id = this.props.ids[i];
+//                 const {itemId} = this.props.items[id];
+//                 if (this.props.beans[itemId]) {
+//                     continue;
+//                 }
 
-        this.props.dispatch(getRoasterOrders(this.props.roaster.id, 0, 100)).then(() => {
-            this.props.dispatch(getAllItems(0, 100)).then(() => {
-                this.setState({ordersReceived: true});
-            });
-        });
+// <<<<<<< HEAD
+//         this.props.dispatch(getRoasterOrders(this.props.roaster.id, 0, 100)).then(() => {
+//             this.props.dispatch(getAllItems(0, 100)).then(() => {
+//                 this.setState({ordersReceived: true});
+//             });
+// =======
+//                 dispatch(getItem(itemId));
+//             }
+// >>>>>>> packaging-info
+//         });
 
-    }
-
-    handleSuccess() {
-        this.props.dispatch(getRoasterOrders(this.props.roaster.id, 0, 100));
-    }
+//     }
 
     handleRowClick(i) {
         const id = this.props.ids[i];
@@ -63,23 +70,22 @@ class OrderContainer extends Component {
     }
 
     render() {
-        if(!this.state.ordersReceived) {
-            return <Loading fetching={true} />
+        if (!this.state.showItems) {
+            return <Loading fetching/>;
         }
-        else {
-            return (
-                <div>
-                    <Order
-                        beans={this.props.beans}
-                        ids={this.props.ids}
-                        items={this.props.items}
-                        modify={this.props.modify}
-                        onRowClick={this.handleRowClickBind}
-                        selected={this.state.selected}
-                        />
-                </div>
-            );
-        }
+
+        return (
+            <div>
+                <Order
+                    beans={this.props.beans}
+                    ids={this.props.ids}
+                    items={this.props.items}
+                    modify={this.props.modify}
+                    onRowClick={this.handleRowClickBind}
+                    selected={this.state.selected}
+                    />
+            </div>
+        );
     }
 }
 
