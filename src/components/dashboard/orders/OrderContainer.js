@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
-import {getAllItems, getItem} from '../../../actions/warehouseActions';
+import {getItem} from '../../../actions/warehouseActions';
 import {getRoasterOrders} from '../../../actions/roasterActions';
 import Loading from '../../Loading';
 import Order from './Order';
