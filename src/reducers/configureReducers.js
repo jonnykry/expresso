@@ -2,11 +2,7 @@ import {combineReducers} from 'redux';
 
 import ActionTypes from '../actions/actionTypes';
 import {beans} from './warehouseReducer';
-<<<<<<< HEAD
 import {roaster, roasterItems, roasterOrders} from './roasterReducer';
-=======
-import {roaster, roasterItems} from './roasterReducer';
->>>>>>> master
 import {userReducer} from './userReducer';
 import {subscriptions, subscription, roasterSubscriptions} from './covenantReducer';
 import {triggers, contents, receipts, preference} from './bloodlinesReducer';
