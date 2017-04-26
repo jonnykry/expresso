@@ -111,8 +111,6 @@ class Inventory extends Component {
 
     render() {
         const toggleClass = 'pv2 f5 b pl2 pointer tracked';
-
-        console.log(this.props.selected);
         return (
             <div>
                 {

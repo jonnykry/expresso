@@ -52,6 +52,7 @@ class Order extends Component {
         const item = this.props.beans[order.itemId] || {};
         const shipDate = new Date(order.shipDate);
         const dateString = shipDate.getFullYear() < 1970 ? 'N/A' : shipDate.toLocaleDateString();
+
         const row = {
             id: order.id,
             name: item.name,
