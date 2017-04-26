@@ -11,7 +11,7 @@ class Title extends Component {
         }
 
         return (
-            <Link to="/" className="pointer tc f1 b i white no-underline">
+            <Link to="/" className=" pt2 pointer tc f1 b i white no-underline">
                 <img alt="expresso header" src={location} className="w-100" />
             </Link>
         );

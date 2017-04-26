@@ -59,7 +59,7 @@ class ShipmentContainer extends Component {
 
     handleDistanceChange(val) {
         this.setState({
-            distanceUnit: val
+            distanceUnit: val.value
         });
     }
 
