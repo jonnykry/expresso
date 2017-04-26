@@ -19,7 +19,7 @@ class Subscription extends Component {
         const {item, bean} = this.props;
 
         const btnClass = 'pointer dim br2 ba bw1 tc pa2 white';
-        const isActive = item.status === 'ACTIVE'
+        const isActive = item.status === 'ACTIVE' || item.status === 'PENDING'
         const statusClass = isActive ? btnClass + ' bg-red w4 center' : btnClass + ' bg-green w4 center';
         const statusLabel = isActive ? 'Pause' : 'Activate';
 
