@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import {Link} from 'react-router';
+import {Link, browserHistory} from 'react-router';
 import Loading from '../../../Loading';
 import moment from 'moment';
 
@@ -40,10 +40,19 @@ class RoasterSubscriptionDetails extends Component {
                     </div>
                     <div className={rowClass}>
                         <form className="mw7 center w-100 h-100" onSubmit={this.props.handleSubmit}>
-                            <input className={inputClass + ' w-100'} ref={this.props.message} placeholder="Message" required/>
-                            <button type="submit" className="f4 center w-100 link pointer dim br1 ba bw1 pv3 mb2 white bg-green">
-                                Contact {name}
-                            </button>
+                            <div className="center flex flex-column">
+                                <div className="mv2 w-100">
+                                    <input className={inputClass + ' w-90'} ref={this.props.message} placeholder="Message" required/>
+                                    <div className="flex">
+                                        <button type="submit" className="f4 center w-50 link pointer dim br1 ba bw1 pv3 white bg-green">
+                                            Contact {name}
+                                        </button>
+                                        <div className="tc f4 w-50 center link pointer dim br1 ba bw1 pv3 white bg-gray"  onClick={browserHistory.goBack}>
+                                            Go Back
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </form>
                     </div>
                 </div>
