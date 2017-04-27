@@ -1,5 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
+import {browserHistory} from 'react-router';
+
 import {getOrderById} from '../../../actions/roasterActions';
 import {setOrderLabelById} from '../../../actions/warehouseActions';
 import Shipment from './Shipment';
@@ -12,7 +14,8 @@ class ShipmentContainer extends Component {
             length: 0,
             width: 0,
             height: 0,
-            distanceUnit: 'ft'
+            distanceUnit: 'in',
+            fetching: false
         };
 
         this.handleLengthChange = this.handleLengthChange.bind(this);
@@ -72,7 +75,15 @@ class ShipmentContainer extends Component {
             distanceUnit: this.state.distanceUnit
         };
 
-        this.props.dispatch(setOrderLabelById(order.id, data));
+        this.setState({fetching: true});
+        this.props.dispatch(setOrderLabelById(order.id, data)).then(() => {
+            this.setState({fetching: false});
+            if (!this.props.success) {
+                return;
+            }
+
+            browserHistory.goBack();
+        });
     }
 
     render() {
@@ -82,6 +93,7 @@ class ShipmentContainer extends Component {
             <div>
                 <Shipment
                     order={order}
+                    fetching={this.state.fetching}
                     onLengthChange={this.handleLengthChange}
                     onWidthChange={this.handleWidthChange}
                     onHeightChange={this.handleHeightChange}
@@ -97,13 +109,14 @@ class ShipmentContainer extends Component {
 ShipmentContainer.propTypes = {
     dispatch: PropTypes.func.isRequired,
     orders: PropTypes.object,
-    params: PropTypes.object
+    params: PropTypes.object,
+    success: PropTypes.bool
 };
 
 function mapStateToProps(state) {
     return {
         orders: state.roasterOrders.items,
-        fetching: state.beans.fetching,
+        success: state.modify.success,
         user: state.userReducer.user
     };
 }

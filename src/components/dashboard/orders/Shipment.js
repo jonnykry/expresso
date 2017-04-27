@@ -46,9 +46,14 @@ class Shipment extends Component {
                             </div>
                         </div>
                         <div className="mv4 w-50">
-                            <div className="tc f4 w-75 center link pointer dim br1 ba bw1 pv3 mb2 white bg-green" onClick={this.props.onSubmit}>
-                                Submit
-                            </div>
+                            {this.props.fetching ?
+                                <div className="tc f4 w-75 center link br1 ba bw1 pv3 mb2 white bg-gray">
+                                    Loading
+                                </div> :
+                                    <div className="tc f4 w-75 center link pointer dim br1 ba bw1 pv3 mb2 white bg-green" onClick={this.props.onSubmit}>
+                                        Submit
+                                    </div>
+                            }
                         </div>
                     </div>
                 </form> :
@@ -65,7 +70,8 @@ Shipment.propTypes = {
     onHeightChange: PropTypes.func.isRequired,
     onDistanceChange: PropTypes.func.isRequired,
     order: PropTypes.object,
-    distance: PropTypes.string
+    distance: PropTypes.string,
+    fetching: PropTypes.bool
 };
 
 export default Shipment;
