@@ -19,12 +19,13 @@ class Subscription extends Component {
         const {item, bean} = this.props;
 
         const btnClass = 'pointer dim br2 ba bw1 tc pa2 white';
-        const isActive = item.status === 'ACTIVE' || item.status === 'PENDING'
+        const isPending = item.status === 'PENDING';
+        const isActive = item.status === 'ACTIVE' || item.status === 'PENDING';
         const statusClass = isActive ? btnClass + ' bg-red w4 center' : btnClass + ' bg-green w4 center';
         const statusLabel = isActive ? 'Pause' : 'Activate';
 
         const date = new Date(item.createdAt).toDateString();
-        const next = new Date(item.nextOrder).toDateString();
+        const next = isPending ? 'PENDING' : new Date(item.nextOrder).toDateString();
 
         const bagTag = bean && item.quantity > 1 ? 'bags' : 'bag';
 
