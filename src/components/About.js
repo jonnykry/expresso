@@ -13,7 +13,7 @@ class About extends Component {
                     <p className={pclass}>
                         At Expresso, we care about delicious, fresh coffee beans, and we think everyone should be able
                         to enjoy the highest quality beans without sacrificing convenience. This means working with
-                        the best roasters around to delivery their beans quickly to you at an affordable price point.
+                        the best roasters around to deliver their beans quickly to you at an affordable price point.
                         <img className="mt3" src="https://cdn.shutterstock.com/shutterstock/videos/7861294/thumb/1.jpg" alt="mission"/>
                     </p>
                     <p className={pclass}>
@@ -27,9 +27,9 @@ class About extends Component {
                     <div className={hclass}>The Best Roasters</div>
                     <p className={pclass}>
                         None of our delicious coffee would be possible without the hundreds of hours our roasters put in
-                        to refine each and every delivery. As a result we pass on every possible bit of your subscription
+                        to refine each and every delivery. As a result, we pass on every possible bit of your subscription
                         directly to them. It's our goal to help support local roasters everywhere so they can continue
-                        honing their craft, and making the delicious coffee we all know an love.
+                        honing their craft, and making the delicious coffee we all know and love.
                         <img className="mt3" src="https://towncenter-profile.s3.amazonaws.com/247a0ba0-1c91-11e7-938e-0242ac13000a-IMG_20160530_103917.jpg" alt="roasters"/>
                     </p>
                 </article>
@@ -37,7 +37,7 @@ class About extends Component {
                     <div className={hclass}>Careful Practices</div>
                     <p className={pclass}>
                         Coffee plays an important role in the livelihoods of farmers around the world. From Kenya to Chile to
-                        Hawai'i, farmers rely on fair trade practices to support themselves and their communities. At Expresso
+                        Hawai'i, farmers rely on fair trade practices to support themselves and their communities. At Expresso,
                         we work with each of our roasters and each bean they sell though the platform to ensure they pay
                         fair trade prices for each and every pound of beans.
                         <img className="mt3" src="https://img0.etsystatic.com/000/0/6775923/il_fullxfull.350544943.jpg" alt="beans"/>
