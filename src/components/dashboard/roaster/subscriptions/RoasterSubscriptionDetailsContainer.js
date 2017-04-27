@@ -4,7 +4,6 @@ import {getSubscription} from '../../../../actions/covenantActions';
 import {activateTrigger} from '../../../../actions/bloodlinesActions';
 import {getItem} from '../../../../actions/warehouseActions';
 
-import BackButton from '../../BackButton';
 import SuccessMessage from '../../../SuccessMessage';
 import RoasterSubscriptionDetails from './RoasterSubscriptionDetails';
 
